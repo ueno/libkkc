@@ -1,0 +1,36 @@
+libkkc - Japanese kana-kanji conversion library
+
+NOTE: still under development
+
+1. compile and install marisa-trie 0.2.0
+
+ https://code.google.com/p/marisa-trie/
+
+2. compile and install
+
+ $ CFLAGS="-g -O0 -Wall"  VALAFLAGS="-g" ./autogen.sh
+ $ make
+ $ make install
+
+3. run kkc program
+
+ $ kkc
+ Type kana sentence in the following form:
+ SENTENCE [N-BEST [SEGMENT-BOUNDARY...]]
+
+ >> わたしのなまえはなかのです
+ 0: <わたし/わたし><の/の><名前/なまえ><は/は><中野/なかの><で/で><す/す>
+
+ # get 3 matches instead of 1
+ >> わたしのなまえはなかのです 3
+ 0: <わたし/わたし><の/の><名前/なまえ><は/は><中野/なかの><で/で><す/す>
+ 1: <私/わたし><の/の><名前/なまえ><は/は><中野/なかの><で/で><す/す>
+ 2: <わたし/わたし><の/の><名前/なまえ><は/は><中野/なかの><デス/です>
+
+ # enlarge the second segment (の -> のな)
+ >> わたしのなまえはなかのです 1 3 5
+ 0: <わたし/わたし><のな/のな><前/まえ><は/は><中野/なかの><で/で><す/す>
+
+ # shrink the fourth segment (なかの -> なか)
+ >> わたしのなまえはなかのです 1 3 4 7 8 10
+ 0: <わたし/わたし><の/の><名前/なまえ><は/は><中/なか><の/の><で/で><す/す>

@@ -1,0 +1,5 @@
+Marisa cheader_filename="marisa-glib/marisa-glib.h"
+
+Key.get_string.length out nullable default=null
+Key.set_string.str type="uint8[]" array_length_idx=1
+Agent.set_query.str type="uint8[]" array_length_idx=1
