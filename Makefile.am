@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = marisa-glib libkkc tools tests po
+SUBDIRS = marisa-glib libkkc rules tools tests po
 DISTCHECK_CONFIGURE_FLAGS = --enable-docs
 ACLOCAL_AMFLAGS = -I m4
 

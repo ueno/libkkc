@@ -18,10 +18,13 @@
 using Gee;
 
 static string opt_dict = null;
+static bool opt_im = false;
 
 static const OptionEntry[] options = {
     { "dict", 'd', 0, OptionArg.STRING, ref opt_dict,
       N_("Dictionary name"), null },
+    { "im", '\0', 0, OptionArg.NONE, ref opt_im,
+      N_("Run in input method testing mode"), null },
     { null }
 };
 
@@ -43,16 +46,58 @@ static int main (string[] args) {
 
     Kkc.init ();
 
-    Kkc.Dict dict = Kkc.Dict.load (opt_dict == null ? "sorted3" : opt_dict);
-    Kkc.Decoder decoder = Kkc.Decoder.new_for_dict (dict);
+	Kkc.Dict dict;
+	try {
+		dict = Kkc.Dict.load (opt_dict == null ? "sorted3" : opt_dict);
+	} catch (Kkc.DictError e) {
+		stderr.printf ("%s\n", e.message);
+		return 1;
+	}
 
-    var repl = new Repl (decoder);
+	Repl repl;
+	if (opt_im) {
+		var context = new Kkc.Context (dict);
+		repl = new RomKanaRepl (context);
+	} else {
+		var decoder = Kkc.Decoder.new_for_dict (dict);
+		repl = new DecoderRepl (decoder);
+	}
     if (!repl.run ())
         return 1;
     return 0;
 }
 
-class Repl : Object {
+interface Repl : Object {
+    public abstract bool run ();	
+}
+
+class RomKanaRepl : Object, Repl {
+    Kkc.Context context;
+    public bool run () {
+        string? line;
+        while ((line = stdin.read_line ()) != null) {
+            context.process_key_events (line);
+            var output = context.poll_output ();
+            var preedit = context.preedit;
+            stdout.printf (
+                "{ \"input\": \"%s\", " +
+                "\"output\": \"%s\", " +
+                "\"preedit\": \"%s\" }\n",
+                line.replace ("\"", "\\\""),
+                output.replace ("\"", "\\\""),
+                preedit.replace ("\"", "\\\""));
+            context.reset ();
+            context.clear_output ();
+        }
+        return true;
+    }
+
+    public RomKanaRepl (Kkc.Context context) {
+        this.context = context;
+    }
+}
+
+class DecoderRepl : Object, Repl {
     Kkc.Decoder decoder;
 
     public bool run () {
@@ -88,8 +133,8 @@ class Repl : Object {
         }
         return true;
     }
-
-    public Repl (Kkc.Decoder decoder) {
+    public DecoderRepl (Kkc.Decoder decoder) {
         this.decoder = decoder;
     }
 }
+

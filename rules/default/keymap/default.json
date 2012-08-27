@@ -1,0 +1,17 @@
+{
+    "define": {
+        "keymap": {
+            "C-g": "abort",
+            "\n": "commit",
+            "C-m": "commit",
+            "\b": "delete",
+            "C-h": "delete",
+            " ": "next-candidate",
+            "C-x": "previous-candidate",
+            "Right": "next-segment",
+            "Left": "previous-segment",
+            "C-Right": "expand-segment",
+            "C-Left": "shrink-segment"
+        }
+    }
+}

@@ -23,15 +23,13 @@ namespace Kkc {
                                           int nbest,
                                           int[] constraints);
 
-        public static Decoder? new_for_dict (Dict dict) throws Error {
+        public static Decoder? new_for_dict (Dict dict) {
             if (dict is TrigramDict) {
                 return new TrigramDecoder (dict as TrigramDict);
             } else if (dict is BigramDict) {
                 return new BigramDecoder (dict as BigramDict);
             } else {
-                throw new Error.UNSUPPORTED_DICT (
-                    "Unsupported dictionary type: %s",
-                    dict.get_type ().name ());
+				assert_not_reached ();
             }
         }
     }

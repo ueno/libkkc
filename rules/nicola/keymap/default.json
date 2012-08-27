@@ -1,0 +1,19 @@
+{
+    "define": {
+        "keymap": {
+            "C-g": "abort",
+            "\n": "commit-unhandled",
+            "C-m": "commit-unhandled",
+            "\b": "delete",
+            "C-h": "delete",
+            "[gh]": "abbrev",
+            "C": "kuten",
+            " ": "next-candidate",
+            "\t": "complete",
+            "C-i": "complete",
+            ">": "special-midasi",
+            "C-p": "previous-candidate",
+            "X": "purge-candidate"
+        }
+    }
+}

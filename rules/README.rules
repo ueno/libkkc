@@ -1,0 +1,166 @@
+* Rules overview
+
+libskk supports various typing rules such as AZIK, ACT, TUT-Code,
+which define keyboard shortcuts and romaji-to-kana conversion table.
+Rules are normally read from ~/.config/libskk/rules and
+/usr/share/libskk/rules.
+
+* Rule directory structure
+
+A rule consists of the following directory structure:
+
+<root>
+  metadata.json
+  keymap/
+    <map-file>
+    ...
+  rom-kana/
+    <map-file>
+    ...
+
+* Rule metadata
+
+Each rule must have metadata.json in the top level directory, with the
+following content:
+
+{
+  "name": <name of the rule>,
+  "description": <description of the rule>,
+  "filter": <name of the optional keyboard filter (mainly used by NICOLA)>
+}
+
+
+* Format of map files
+
+Each file under keymaps/ and rom-kana/ directories is used to define
+some key-value mappings.  They are in the following format:
+
+{
+  "include": [
+    <parent>,
+    ...
+  ],
+  "define": {
+    <map>: {
+      <key>: <value>,
+      ...
+    },
+    ...
+  }
+}
+
+The value associated with "include" is an array of parent map files,
+which will be included before evaluating the map file itself.  The
+value associated with "define" is an object which binds some variables
+to values.
+
+** Path name resolution
+
+Each element in "include" may be either a relative or absolute path.
+
+A relative path does not include "/" while absolute one does.
+
+If path is relative, the map file is located under the same directory
+of the current map file.  Otherwise, libskk looks for the map file
+outside of the diretory where the current map file is located.
+
+Example:
+
+If the current map file is <root>/foo/rom-kana/foo.json and it contains:
+
+  "include": [ "default" ]
+
+it looks for <root>/foo/rom-kana/default.json.
+
+If the current map file is <root>/foo/rom-kana/bar.json and it contains:
+
+  "include": [ "default/default" ]
+
+it looks for <root>/default/rom-kana/default.json.
+
+** Format of keymap rule files
+
+The map name "keymap" is used to associate a key event to a command name.
+
+Example:
+
+{
+  "include": [
+    "default"
+  ],
+  "define": {
+    "keymap": {
+      "Q": null,
+      "C-@": "start-preedit"
+    }
+  }
+}
+
+This map file includes "default" map file first, replace mapping of
+"start-preedit" from "Q" to "C-@" (control + "@").
+
+The current available commands are:
+
+abort
+commit
+commit-unhandled
+complete
+delete
+insert-kana-<kana>
+next-candidate
+previous-candidate
+next-segment
+previous-segment
+expand-segment
+shrink-segment
+set-input-mode-<mode>
+upper-<lower>
+
+** Format of rom-kana map files
+
+The map name "rom-kana" is used to define romaji-to-kana conversion
+tables.  The value is an object which maps a string to either an array
+or null.
+
+If the value is an array, a new mapping is defined.  In that case each
+array can contain 2 to 4 elements.  The first two elements are
+<carryover> and <hiragana>.  <carryover> is a string which will be
+added to preedit after the transition (for example, when "bb" is
+typed, "b" is <carryover> which will be added to the next preedit).
+<hiragana> is an output in hiragana.  The rest of those elements are
+<katakana> and <hankaku-katakana>, which are optional output strings
+in katakana and hankaku-katakana input mode (automatically derived
+from <hiragana> if they are omitted).
+
+If the value is null, existing mapping of the corresponding key is
+removed from the parent map file.
+
+Example:
+
+{
+  "include": [
+    "default"
+  ],
+  "define": {
+    "rom-kana": {
+      "xka": [ "", "か", "ヵ", "ｶ" ],
+      "b.": [ "", "ぶ" ],
+      "dha": null
+    }
+  }
+}
+
+This map file includes "default" map file first, defines new mappings
+for "xka" and "b.", and removes a mapping "dha" from the current map
+file.
+
+Copyright (C) 2011-2012 Daiki Ueno <ueno@unixuser.org>
+Copyright (C) 2011-2012 Red Hat, Inc.
+
+This file is free software; as a special exception the author gives
+unlimited permission to copy and/or distribute it, with or without
+modifications, as long as this notice is preserved.
+
+This file is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

@@ -168,6 +168,7 @@ AC_CONFIG_FILES([Makefile
 marisa-glib/Makefile
 libkkc/Makefile
 libkkc/libkkc.pc
+rules/Makefile
 tools/Makefile
 tests/Makefile
 docs/Makefile

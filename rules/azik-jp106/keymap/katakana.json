@@ -1,0 +1,11 @@
+{
+    "include": [
+        "default/default"
+    ],
+    "define": {
+        "keymap": {
+            "[": null,
+            "@": "set-input-mode-hiragana"
+        }
+    }
+}

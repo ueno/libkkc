@@ -56,6 +56,20 @@ libkkc_la_LDFLAGS =							\
 libkkcincludedir = $(includedir)/libkkc
 libkkcinclude_HEADERS = libkkc.h
 
+rom_kana_sources =				\
+	candidate-list.vala			\
+	candidate.vala				\
+	key-event-filter.vala			\
+	key-event.vala				\
+	keymap.vala				\
+	keysyms.vala				\
+	map-file.vala				\
+	nicola.vala				\
+	rom-kana-util.vala			\
+	rom-kana.vala				\
+	rule.vala				\
+	$(NULL)
+
 libkkc_la_SOURCES =				\
 	trellis-node.vala			\
 	dict.vala				\
@@ -66,9 +80,13 @@ libkkc_la_SOURCES =				\
 	decoder.vala				\
 	bigram-decoder.vala			\
 	trigram-decoder.vala			\
+	segment-list.vala			\
 	segment.vala				\
-	kkc.vala				\
+	$(rom_kana_sources)			\
+	context.vala				\
+	state.vala				\
 	util.vala				\
+	kkc.vala				\
 	$(NULL)
 
 if HAVE_INTROSPECTION

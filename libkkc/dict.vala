@@ -79,7 +79,7 @@ namespace Kkc {
                     }
                 }
             }
-            return null;
+			throw new DictError.NOT_READABLE ("can't find suitable dict");
         }
 
         static DictMetadata load_metadata (string filename) throws DictError

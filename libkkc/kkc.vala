@@ -25,10 +25,49 @@ namespace Kkc {
     /**
      * Initialize libkkc.
      *
-     * Must be called before using any functions in libskk.
+     * Must be called before using any functions in libkkc.
      */
     public static void init () {
         // needed to use static methods defined in some classes
         typeof (Dict).class_ref ();
+		typeof (Rule).class_ref ();
+		typeof (RomKanaUtil).class_ref ();
+    }
+
+    /**
+     * Type to specify input modes.
+     */
+    public enum InputMode {
+        /**
+         * Hiragana like "あいう...".
+         */
+        HIRAGANA = KanaMode.HIRAGANA,
+
+        /**
+         * Katakana like "アイウ...".
+         */
+        KATAKANA = KanaMode.KATAKANA,
+
+        /**
+         * Half-width katakana like "ｱｲｳ...".
+         */
+        HANKAKU_KATAKANA = KanaMode.HANKAKU_KATAKANA,
+
+        /**
+         * Half-width latin like "abc...".
+         */
+        LATIN,
+
+        /**
+         * Full-width latin like "ａｂｃ...".
+         */
+        WIDE_LATIN,
+
+        LAST,
+
+        /**
+         * The default.
+         */
+        DEFAULT = HIRAGANA,
     }
 }

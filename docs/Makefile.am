@@ -60,12 +60,14 @@ libkkc_doc_deps = \
 	gee-1.0 \
 	posix \
 	json-glib-1.0 \
+	marisa-glib \
 	$(NULL)
 valadoc_flags_libkkc = \
 	$(valadoc_flags) \
 	-X $(top_srcdir)/libkkc/libkkc.h \
 	$(addprefix --pkg=,$(libkkc_doc_deps)) \
 	--vapidir=$(top_srcdir)/libkkc \
+	--vapidir=$(top_srcdir)/marisa-glib \
 	$(libkkc_doc_files) \
 	$(NULL)
 
