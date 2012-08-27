@@ -98,7 +98,7 @@ namespace Kkc {
             return 0;
         }
 
-        protected void parse_lm (string input) {
+        protected void parse_lm (string input) throws GLib.Error {
             var lm_file = File.new_for_path (input);
             var lm_data = new DataInputStream (lm_file.read ());
 
@@ -172,12 +172,17 @@ namespace Kkc {
             }
         }
 
-        public void parse (string prefix) {
+        public void parse (string prefix) throws GLib.Error {
             parse_lm (prefix + ".arpa");
         }
 
         construct {
-            parse (Path.build_filename (metadata.base_dir, "data"));
+			var prefix = Path.build_filename (metadata.base_dir, "data");
+			try {
+				parse (prefix);
+			} catch (GLib.Error e) {
+				error ("can't parse %s: %s", prefix, e.message);
+			}
         }
     }
 }

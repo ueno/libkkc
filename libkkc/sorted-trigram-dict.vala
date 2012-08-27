@@ -67,7 +67,12 @@ namespace Kkc {
         construct {
             var prefix = Path.build_filename (metadata.base_dir, "data");
             var trigram_file = File.new_for_path (prefix + ".3gram");
-            trigram_mmap = new MemoryMappedFile (trigram_file);
+			try {
+				trigram_mmap = new MemoryMappedFile (trigram_file);
+			} catch (Kkc.DictError e) {
+				error ("can't load %s: %s",
+					   trigram_file.get_path (), e.message);
+			}
         }
     }
 }

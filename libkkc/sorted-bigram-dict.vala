@@ -158,14 +158,35 @@ namespace Kkc {
         construct {
             var prefix = Path.build_filename (metadata.base_dir, "data");
 
-            input_trie.mmap (prefix + ".input");
+			var input_trie_filename = prefix + ".input";
+			try {
+				input_trie.mmap (input_trie_filename);
+			} catch (GLib.Error e) {
+				error ("can't load %s: %s", input_trie_filename, e.message);
+			}
 
-            unigram_trie.mmap (prefix + ".1gram.index");
+			var unigram_trie_filename = prefix + ".1gram.index";
+			try {
+				unigram_trie.mmap (unigram_trie_filename);
+			} catch (GLib.Error e) {
+				error ("can't load %s: %s", unigram_trie_filename, e.message);
+			}
+
             var unigram_file = File.new_for_path (prefix + ".1gram");
-            unigram_mmap = new MemoryMappedFile (unigram_file);
+			try {
+				unigram_mmap = new MemoryMappedFile (unigram_file);
+			} catch (Kkc.DictError e) {
+				error ("can't load %s: %s",
+					   unigram_file.get_path (), e.message);
+			}
 
             var bigram_file = File.new_for_path (prefix + ".2gram");
-            bigram_mmap = new MemoryMappedFile (bigram_file);
+			try {
+				bigram_mmap = new MemoryMappedFile (bigram_file);
+			} catch (Kkc.DictError e) {
+				error ("can't load %s: %s",
+					   bigram_file.get_path (), e.message);
+			}
 
             _bos = get (" ", "<s>");
             _eos = get (" ", "</s>");

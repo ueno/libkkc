@@ -92,7 +92,7 @@ namespace Kkc {
 
         File file;
 
-        public MemoryMappedFile (File file) {
+        public MemoryMappedFile (File file) throws DictError {
             this.file = file;
             remap ();
         }
