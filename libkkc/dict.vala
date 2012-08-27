@@ -115,7 +115,6 @@ namespace Kkc {
                 member = object.get_member ("description");
                 var description = member.get_string ();
 
-                string? filter;
                 if (!object.has_member ("type")) {
                     throw new DictError.MALFORMED_INPUT (
                         "type is not defined in metadata");

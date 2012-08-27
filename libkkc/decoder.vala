@@ -33,8 +33,6 @@ namespace Kkc {
                     "Unsupported dictionary type: %s",
                     dict.get_type ().name ());
             }
-
-            return null;
         }
     }
 }
