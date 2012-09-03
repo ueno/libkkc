@@ -192,7 +192,7 @@ namespace Kkc {
          *
          * This function is rarely used in programs but in unit tests.
          *
-         * @param keyseq a string representing key events, seperated by " "
+         * @param keyseq a string representing key events, separated by " "
          *
          * @return `true` if any of key events are handled, `false` otherwise
          */

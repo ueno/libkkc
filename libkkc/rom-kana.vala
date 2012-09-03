@@ -261,7 +261,7 @@ namespace Kkc {
                     // there may be "NN" output
                     return retval;
                 } else {
-                    // abondon current preedit and restart lookup from
+                    // abandon current preedit and restart lookup from
                     // the root with uc
                     _preedit.erase ();
                     current_node = rule.root_node;
