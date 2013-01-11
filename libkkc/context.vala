@@ -108,7 +108,7 @@ namespace Kkc {
          *
          * @return a new Context
          */
-        public Context (Dict dict) {
+        public Context (LanguageModel dict) {
             handlers.set (typeof (NoneStateHandler),
                           new NoneStateHandler ());
             handlers.set (typeof (StartStateHandler),

@@ -18,23 +18,23 @@
 using Gee;
 
 namespace Kkc {
-    public class TextBigramDict : Dict, UnigramDict, BigramDict {
-        DictEntry _bos;
-        public override DictEntry bos {
+    public class TextBigramLanguageModel : LanguageModel, UnigramLanguageModel, BigramLanguageModel {
+        LanguageModelEntry _bos;
+        public override LanguageModelEntry bos {
             get {
                 return _bos;
             }
         }
 
-        DictEntry _eos;
-        public override DictEntry eos {
+        LanguageModelEntry _eos;
+        public override LanguageModelEntry eos {
             get {
                 return _eos;
             }
         }
 
-        protected Gee.Map<string,ArrayList<DictEntry?>> input_map =
-            new HashMap<string,ArrayList<DictEntry?>> ();
+        protected Gee.Map<string,ArrayList<LanguageModelEntry?>> input_map =
+            new HashMap<string,ArrayList<LanguageModelEntry?>> ();
         protected Gee.Map<string,double?> cost_map =
             new HashMap<string,double?> ();
         protected Gee.Map<string,double?> backoff_map =
@@ -42,18 +42,18 @@ namespace Kkc {
         protected Gee.Map<string,uint> id_map =
             new HashMap<string,uint> ();
 
-        public override Collection<DictEntry?> entries (string input) {
-            var entries = new ArrayList<DictEntry?> ();
+        public override Collection<LanguageModelEntry?> entries (string input) {
+            var entries = new ArrayList<LanguageModelEntry?> ();
             for (var i = 1; i < input.char_count () + 1; i++) {
                 long byte_offset = input.index_of_nth_char (i);
                 var str = input.substring (0, byte_offset);
                 if (input_map.has_key (str))
                     entries.add_all (input_map.get (str));
             }
-            return (Collection<DictEntry?>) entries;
+            return (Collection<LanguageModelEntry?>) entries;
         }
 
-        public override DictEntry? @get (string input, string output) {
+        public override LanguageModelEntry? @get (string input, string output) {
             return null;
         }
 
@@ -65,33 +65,33 @@ namespace Kkc {
             return builder.str;
         }
 
-        public bool has_bigram (DictEntry pentry, DictEntry entry) {
+        public bool has_bigram (LanguageModelEntry pentry, LanguageModelEntry entry) {
             var key = get_key (new uint[] { pentry.id, entry.id });
             return cost_map.has_key ((string) key);
         }
 
-        public double unigram_cost (DictEntry entry) {
+        public double unigram_cost (LanguageModelEntry entry) {
             var key = get_key (new uint[] { entry.id });
             if (cost_map.has_key (key))
                 return cost_map.get (key);
             return 0;
         }
 
-        public double unigram_backoff (DictEntry entry) {
+        public double unigram_backoff (LanguageModelEntry entry) {
             var key = get_key (new uint[] { entry.id });
             if (backoff_map.has_key (key))
                 return backoff_map.get (key);
             return 0;
         }
 
-        public double bigram_cost (DictEntry pentry, DictEntry entry) {
+        public double bigram_cost (LanguageModelEntry pentry, LanguageModelEntry entry) {
             var key = get_key (new uint[] { pentry.id, entry.id });
             if (cost_map.has_key (key))
                 return cost_map.get (key);
             return 0;
         }
 
-        public double bigram_backoff (DictEntry pentry, DictEntry entry) {
+        public double bigram_backoff (LanguageModelEntry pentry, LanguageModelEntry entry) {
             var key = get_key (new uint[] { pentry.id, entry.id });
             if (backoff_map.has_key (key))
                 return backoff_map.get (key);
@@ -137,7 +137,7 @@ namespace Kkc {
                         input_output = strv[1].split("/");
                     }
 
-                    DictEntry entry = {
+                    LanguageModelEntry entry = {
                         input_output[0],
                         input_output[1],
                         id++
@@ -151,7 +151,7 @@ namespace Kkc {
 
                     if (!input_map.has_key (input_output[0]))
                         input_map.set (input_output[0],
-                                       new ArrayList<DictEntry?> ());
+                                       new ArrayList<LanguageModelEntry?> ());
                     input_map.get (input_output[0]).add (entry);
                 }
 

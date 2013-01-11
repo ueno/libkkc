@@ -18,16 +18,16 @@
 using Gee;
 
 namespace Kkc {
-    public class SortedBigramDict : Dict, UnigramDict, BigramDict {
-        DictEntry _bos;
-        public override DictEntry bos {
+    public class SortedBigramLanguageModel : LanguageModel, UnigramLanguageModel, BigramLanguageModel {
+        LanguageModelEntry _bos;
+        public override LanguageModelEntry bos {
             get {
                 return _bos;
             }
         }
 
-        DictEntry _eos;
-        public override DictEntry eos {
+        LanguageModelEntry _eos;
+        public override LanguageModelEntry eos {
             get {
                 return _eos;
             }
@@ -38,8 +38,8 @@ namespace Kkc {
         MemoryMappedFile unigram_mmap;
         MemoryMappedFile bigram_mmap;
 
-        Collection<DictEntry?> unigram_entries_with_prefix (string prefix) {
-            var entries = new ArrayList<DictEntry?> ();
+        Collection<LanguageModelEntry?> unigram_entries_with_prefix (string prefix) {
+            var entries = new ArrayList<LanguageModelEntry?> ();
             var agent = new Marisa.Agent ();
             var query = prefix + "/";
             agent.set_query (query.data);
@@ -47,7 +47,7 @@ namespace Kkc {
                 var key = agent.get_key ();
                 var input_output = key.get_string ().split ("/");
                 var id = (uint) key.get_id ();
-                DictEntry entry = {
+                LanguageModelEntry entry = {
                     input_output[0],
                     input_output[1],
                     id
@@ -57,8 +57,8 @@ namespace Kkc {
             return entries;
         }
 
-        public override Collection<DictEntry?> entries (string input) {
-            var entries = new ArrayList<DictEntry?> ();
+        public override Collection<LanguageModelEntry?> entries (string input) {
+            var entries = new ArrayList<LanguageModelEntry?> ();
             var agent = new Marisa.Agent ();
             agent.set_query (input.data);
             while (input_trie.common_prefix_search (agent)) {
@@ -68,7 +68,7 @@ namespace Kkc {
             return entries;
         }
 
-        public override DictEntry? @get (string input, string output) {
+        public override LanguageModelEntry? @get (string input, string output) {
             var agent = new Marisa.Agent ();
             string query;
             if (input != " ")
@@ -78,7 +78,7 @@ namespace Kkc {
             agent.set_query (query.data);
             if (unigram_trie.lookup (agent)) {
                 var id = agent.get_key ().get_id ();
-                DictEntry entry = {
+                LanguageModelEntry entry = {
                     input,
                     output,
                     (uint) id
@@ -88,7 +88,7 @@ namespace Kkc {
             return null;
         }
 
-        protected long bigram_offset (DictEntry pentry, DictEntry entry) {
+        protected long bigram_offset (LanguageModelEntry pentry, LanguageModelEntry entry) {
             uint8[] buffer = new uint8[8];
             uint8 *p = buffer;
             var value = ((uint32) entry.id).to_little_endian ();
@@ -107,7 +107,7 @@ namespace Kkc {
             return offset;
         }
 
-        public double unigram_cost (DictEntry entry) {
+        public double unigram_cost (LanguageModelEntry entry) {
             if (entry.id >= unigram_mmap.length)
                 return 0;
 
@@ -116,7 +116,7 @@ namespace Kkc {
             return Util.decode_cost (cost, min_cost);
         }
 
-        public double unigram_backoff (DictEntry entry) {
+        public double unigram_backoff (LanguageModelEntry entry) {
             if (entry.id >= unigram_mmap.length)
                 return 0;
 
@@ -125,11 +125,11 @@ namespace Kkc {
             return Util.decode_cost (backoff, min_cost);
         }
 
-        public bool has_bigram (DictEntry pentry, DictEntry entry) {
+        public bool has_bigram (LanguageModelEntry pentry, LanguageModelEntry entry) {
             return bigram_offset (pentry, entry) >= 0;
         }
 
-        public double bigram_cost (DictEntry pentry, DictEntry entry) {
+        public double bigram_cost (LanguageModelEntry pentry, LanguageModelEntry entry) {
             var offset = bigram_offset (pentry, entry);
             if (offset < 0)
                 return 0;
@@ -139,7 +139,7 @@ namespace Kkc {
             return Util.decode_cost (cost, min_cost);
         }
 
-        public double bigram_backoff (DictEntry pentry, DictEntry entry) {
+        public double bigram_backoff (LanguageModelEntry pentry, LanguageModelEntry entry) {
             var offset = bigram_offset (pentry, entry);
             if (offset < 0)
                 return 0;
@@ -175,7 +175,7 @@ namespace Kkc {
             var unigram_file = File.new_for_path (prefix + ".1gram");
 			try {
 				unigram_mmap = new MemoryMappedFile (unigram_file);
-			} catch (Kkc.DictError e) {
+			} catch (Kkc.LanguageModelError e) {
 				error ("can't load %s: %s",
 					   unigram_file.get_path (), e.message);
 			}
@@ -183,7 +183,7 @@ namespace Kkc {
             var bigram_file = File.new_for_path (prefix + ".2gram");
 			try {
 				bigram_mmap = new MemoryMappedFile (bigram_file);
-			} catch (Kkc.DictError e) {
+			} catch (Kkc.LanguageModelError e) {
 				error ("can't load %s: %s",
 					   bigram_file.get_path (), e.message);
 			}

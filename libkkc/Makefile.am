@@ -72,11 +72,11 @@ rom_kana_sources =				\
 
 libkkc_la_SOURCES =				\
 	trellis-node.vala			\
-	dict.vala				\
-	text-bigram-dict.vala			\
-	text-trigram-dict.vala			\
-	sorted-bigram-dict.vala			\
-	sorted-trigram-dict.vala		\
+	language-model.vala			\
+	text-bigram-language-model.vala		\
+	text-trigram-language-model.vala	\
+	sorted-bigram-language-model.vala	\
+	sorted-trigram-language-model.vala	\
 	decoder.vala				\
 	bigram-decoder.vala			\
 	trigram-decoder.vala			\

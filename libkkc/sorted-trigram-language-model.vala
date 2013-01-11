@@ -18,12 +18,12 @@
 using Gee;
 
 namespace Kkc {
-    public class SortedTrigramDict : SortedBigramDict, TrigramDict {
+    public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
         MemoryMappedFile trigram_mmap;
 
-        long trigram_offset (DictEntry ppentry,
-                             DictEntry pentry,
-                             DictEntry entry)
+        long trigram_offset (LanguageModelEntry ppentry,
+                             LanguageModelEntry pentry,
+                             LanguageModelEntry entry)
         {
             var c = bigram_offset (ppentry, pentry);
             uint8[] buffer = new uint8[8];
@@ -44,16 +44,16 @@ namespace Kkc {
             return offset;
         }
 
-        public bool has_trigram (DictEntry ppentry,
-                                 DictEntry pentry,
-                                 DictEntry entry)
+        public bool has_trigram (LanguageModelEntry ppentry,
+                                 LanguageModelEntry pentry,
+                                 LanguageModelEntry entry)
         {
             return trigram_offset (ppentry, pentry, entry) >= 0;
         }
 
-        public double trigram_cost (DictEntry ppentry,
-                                    DictEntry pentry,
-                                    DictEntry entry)
+        public double trigram_cost (LanguageModelEntry ppentry,
+                                    LanguageModelEntry pentry,
+                                    LanguageModelEntry entry)
         {
             var offset = trigram_offset (ppentry, pentry, entry);
             if (offset < 0)
@@ -69,7 +69,7 @@ namespace Kkc {
             var trigram_file = File.new_for_path (prefix + ".3gram");
 			try {
 				trigram_mmap = new MemoryMappedFile (trigram_file);
-			} catch (Kkc.DictError e) {
+			} catch (Kkc.LanguageModelError e) {
 				error ("can't load %s: %s",
 					   trigram_file.get_path (), e.message);
 			}

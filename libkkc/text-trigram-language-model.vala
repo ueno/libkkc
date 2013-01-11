@@ -18,10 +18,10 @@
 using Gee;
 
 namespace Kkc {
-    public class TextTrigramDict : TextBigramDict, TrigramDict {
-        public bool has_trigram (DictEntry ppentry,
-                                 DictEntry pentry,
-                                 DictEntry entry)
+    public class TextTrigramLanguageModel : TextBigramLanguageModel, TrigramLanguageModel {
+        public bool has_trigram (LanguageModelEntry ppentry,
+                                 LanguageModelEntry pentry,
+                                 LanguageModelEntry entry)
         {
             string key = get_key (new uint[] { ppentry.id,
                                                pentry.id,
@@ -29,9 +29,9 @@ namespace Kkc {
             return cost_map.has_key (key);
         }
 
-        public double trigram_cost (DictEntry ppentry,
-                                    DictEntry pentry,
-                                    DictEntry entry)
+        public double trigram_cost (LanguageModelEntry ppentry,
+                                    LanguageModelEntry pentry,
+                                    LanguageModelEntry entry)
         {
             string key = get_key (new uint[] { ppentry.id,
                                                pentry.id,

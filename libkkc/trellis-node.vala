@@ -28,12 +28,12 @@ namespace Kkc {
         public double cumulative_cost;
 
         public abstract string to_string ();
-        public abstract DictEntry[] entries { get; }
+        public abstract LanguageModelEntry[] entries { get; }
     }
 
     public class UnigramTrellisNode : TrellisNode {
-        DictEntry _entry;
-        public DictEntry entry {
+        LanguageModelEntry _entry;
+        public LanguageModelEntry entry {
             get {
                 return _entry;
             }
@@ -64,18 +64,18 @@ namespace Kkc {
             }
         }
 
-        public UnigramTrellisNode (DictEntry entry, uint endpos) {
+        public UnigramTrellisNode (LanguageModelEntry entry, uint endpos) {
             _entry = entry;
             _endpos = endpos;
-            _entries = new DictEntry[] { _entry };
+            _entries = new LanguageModelEntry[] { _entry };
         }
 
         public override string to_string () {
             return "<%s/%s>".printf (_entry.input, _entry.output);
         }
 
-        DictEntry[] _entries;
-        public override DictEntry[] entries {
+        LanguageModelEntry[] _entries;
+        public override LanguageModelEntry[] entries {
             get {
                 return _entries;
             }
@@ -133,7 +133,7 @@ namespace Kkc {
             _left_node = left_node;
             _right_node = right_node;
             _endpos = endpos;
-            _entries = new DictEntry[] { left_node.entry, right_node.entry };
+            _entries = new LanguageModelEntry[] { left_node.entry, right_node.entry };
         }
 
         public override string to_string () {
@@ -143,8 +143,8 @@ namespace Kkc {
                                             _right_node.entry.output);
         }
 
-        DictEntry[] _entries;
-        public override DictEntry[] entries {
+        LanguageModelEntry[] _entries;
+        public override LanguageModelEntry[] entries {
             get {
                 return _entries;
             }

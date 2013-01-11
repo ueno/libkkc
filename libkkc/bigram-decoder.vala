@@ -53,7 +53,7 @@ namespace Kkc {
                     long offset = input.index_of_nth_char (i - 1);
                     long length = input.index_of_nth_char (j) - offset;
                     var _input = input.substring (offset, length);
-                    DictEntry entry = {
+                    LanguageModelEntry entry = {
                         _input,
                         _input,
                         2
@@ -257,14 +257,14 @@ namespace Kkc {
             return builder.str;
         }
 
-        BigramDict _dict;
-        public BigramDict dict {
+        BigramLanguageModel _dict;
+        public BigramLanguageModel dict {
             get {
                 return _dict;
             }
         }
 
-        public BigramDecoder (BigramDict dict) {
+        public BigramDecoder (BigramLanguageModel dict) {
             _dict = dict;
         }
     }

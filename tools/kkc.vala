@@ -46,10 +46,10 @@ static int main (string[] args) {
 
     Kkc.init ();
 
-	Kkc.Dict dict;
+	Kkc.LanguageModel dict;
 	try {
-		dict = Kkc.Dict.load (opt_dict == null ? "sorted3" : opt_dict);
-	} catch (Kkc.DictError e) {
+		dict = Kkc.LanguageModel.load (opt_dict == null ? "sorted3" : opt_dict);
+	} catch (Kkc.LanguageModelError e) {
 		stderr.printf ("%s\n", e.message);
 		return 1;
 	}
