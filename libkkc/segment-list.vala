@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    public class SegmentList : Object {
+    internal class SegmentList : Object {
         Gee.List<Segment> segments = new ArrayList<Segment> ();
 
         public void add_segments (Segment segment) {
