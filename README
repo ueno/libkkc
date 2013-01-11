@@ -1,8 +1,8 @@
-libkkc - Japanese kana-kanji conversion library
+libkkc - Japanese Kana-Kanji conversion library
 
 NOTE: still under development
 
-1. compile and install marisa-trie 0.2.0
+1. compile and install marisa-trie 0.2.1
 
  https://code.google.com/p/marisa-trie/
 
