@@ -162,12 +162,13 @@ namespace Kkc {
             surrounding_end = 0;
         }
 
-        internal void lookup_sentence (string midasi) {
-            int[] constraints = new int[0];
-            var _segments = decoder.decode (midasi, 1, constraints);
+        internal void convert_sentence (string input,
+                                        int[] constraints = new int[0])
+        {
+            var _segments = decoder.decode (input, 1, constraints);
             segments.add_segments (_segments[0]);
             candidates.clear ();
-            var candidate = new Candidate (midasi, segments.to_string ());
+            var candidate = new Candidate (input, segments.to_string ());
             candidates.add_candidates (new Candidate[] { candidate });
             candidates.add_candidates_end ();
         }
@@ -385,9 +386,9 @@ namespace Kkc {
 
             if (command == "next-candidate") {
                 if (state.segments.size == 0) {
-                    string midasi = RomKanaUtil.get_hiragana (
+                    string input = RomKanaUtil.get_hiragana (
                         state.preedit.str);
-                    state.lookup_sentence (midasi);
+                    state.convert_sentence (input);
                     return true;
                 }
                 state.handler_type = typeof (SelectStateHandler);
