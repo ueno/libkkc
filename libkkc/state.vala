@@ -56,6 +56,7 @@ namespace Kkc {
 
         internal Decoder decoder;
         internal SegmentList segments;
+        internal int segment_index = -1;
         internal CandidateList candidates;
 
         internal RomKanaConverter rom_kana_converter;
@@ -155,6 +156,7 @@ namespace Kkc {
             rom_kana_converter.reset ();
             _typing_rule.get_filter ().reset ();
             segments.clear ();
+            segment_index = -1;
             candidates.clear ();
             preedit.erase ();
             auto_start_henkan_keyword = null;
@@ -166,11 +168,36 @@ namespace Kkc {
                                         int[] constraints = new int[0])
         {
             var _segments = decoder.decode (input, 1, constraints);
+            segments.clear ();
             segments.add_segments (_segments[0]);
             candidates.clear ();
             var candidate = new Candidate (input, segments.to_string ());
             candidates.add_candidates (new Candidate[] { candidate });
             candidates.add_candidates_end ();
+        }
+
+        internal void move_segment (int amount) {
+            if (segment_index == -1)
+                return;
+            segment_index += amount;
+            segment_index = segment_index.clamp (0, segments.size - 1);
+        }
+
+        internal void resize_segment (int amount) {
+            if (segment_index >= 0 && segment_index < segments.size) {
+                int[] constraints = {};
+                int offset = 0;
+                for (var i = 0; i < segments.size; i++) {
+                    int segment_size = segments[i].input.char_count ();
+                    if (i == segment_index)
+                        segment_size += amount;
+                    offset += segment_size;
+                    constraints += offset;
+                    if (i == segment_index)
+                        break;
+                }
+                convert_sentence (segments.to_string (), constraints);
+            }
         }
 
         internal void lookup_words (Segment segment) {
