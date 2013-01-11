@@ -31,7 +31,7 @@ namespace Kkc {
         // needed to use static methods defined in some classes
         typeof (LanguageModel).class_ref ();
 		typeof (Rule).class_ref ();
-		typeof (RomKanaUtil).class_ref ();
+		typeof (RomKanaUtils).class_ref ();
     }
 
     /**

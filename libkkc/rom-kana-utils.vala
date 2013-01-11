@@ -33,7 +33,7 @@ namespace Kkc {
         SHOGI
     }
 
-    class RomKanaUtil : Object {
+    class RomKanaUtils : Object {
         struct KanaTableEntry {
             unichar katakana;
             string? hiragana;

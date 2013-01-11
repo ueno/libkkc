@@ -47,7 +47,7 @@ namespace Kkc {
 		new HashMap<string,Type?> ();
 
         static construct {
-            dict_path = Util.build_data_path ("dict");
+            dict_path = Utils.build_data_path ("dict");
             dict_types.set ("text2", typeof (TextBigramLanguageModel));
             dict_types.set ("text3", typeof (TextTrigramLanguageModel));
             dict_types.set ("sorted2", typeof (SortedBigramLanguageModel));

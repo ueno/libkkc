@@ -65,7 +65,7 @@ rom_kana_sources =				\
 	keysyms.vala				\
 	map-file.vala				\
 	nicola.vala				\
-	rom-kana-util.vala			\
+	rom-kana-utils.vala			\
 	rom-kana.vala				\
 	rule.vala				\
 	$(NULL)
@@ -77,6 +77,7 @@ libkkc_la_SOURCES =				\
 	text-trigram-language-model.vala	\
 	sorted-bigram-language-model.vala	\
 	sorted-trigram-language-model.vala	\
+	language-model-utils.vala		\
 	decoder.vala				\
 	bigram-decoder.vala			\
 	trigram-decoder.vala			\
@@ -85,7 +86,7 @@ libkkc_la_SOURCES =				\
 	$(rom_kana_sources)			\
 	context.vala				\
 	state.vala				\
-	util.vala				\
+	utils.vala				\
 	kkc.vala				\
 	$(NULL)
 

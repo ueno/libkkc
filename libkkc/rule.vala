@@ -53,10 +53,10 @@ namespace Kkc {
                         var hiragana = components.get_string_element (1);
                         var katakana = length >= 3 ?
                             components.get_string_element (2) :
-                            RomKanaUtil.get_katakana (hiragana);
+                            RomKanaUtils.get_katakana (hiragana);
                         var hankaku_katakana = length == 4 ?
                             components.get_string_element (3) :
-                            RomKanaUtil.get_hankaku_katakana (katakana);
+                            RomKanaUtils.get_hankaku_katakana (katakana);
 
                         RomKanaEntry entry = {
                             key,
@@ -168,7 +168,7 @@ namespace Kkc {
             new HashMap<string,Type?> ();
 
         static construct {
-            rules_path = RomKanaUtil.build_data_path ("rules");
+            rules_path = RomKanaUtils.build_data_path ("rules");
             filter_types.set ("simple", typeof (SimpleKeyEventFilter));
             filter_types.set ("nicola", typeof (NicolaKeyEventFilter));
         }

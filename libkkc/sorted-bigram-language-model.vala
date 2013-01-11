@@ -98,7 +98,7 @@ namespace Kkc {
             Memory.copy (p, &pvalue, sizeof(uint32));
 
             var record_size = 12;
-            var offset = Util.bsearch_ngram (
+            var offset = LanguageModelUtils.bsearch_ngram (
                 bigram_mmap.memory,
                 0,
                 (long) bigram_mmap.length / record_size,
@@ -113,7 +113,7 @@ namespace Kkc {
 
             uint8 *p = (uint8 *) unigram_mmap.memory + entry.id * 6;
             var cost = uint16.from_little_endian (*((uint16 *) p));
-            return Util.decode_cost (cost, min_cost);
+            return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 
         public double unigram_backoff (LanguageModelEntry entry) {
@@ -122,7 +122,7 @@ namespace Kkc {
 
             uint8 *p = (uint8 *) unigram_mmap.memory + entry.id * 6 + 2;
             var backoff = uint16.from_little_endian (*((uint16 *) p));
-            return Util.decode_cost (backoff, min_cost);
+            return LanguageModelUtils.decode_cost (backoff, min_cost);
         }
 
         public bool has_bigram (LanguageModelEntry pentry, LanguageModelEntry entry) {
@@ -136,7 +136,7 @@ namespace Kkc {
 
             uint8 *p = (uint8 *) bigram_mmap.memory + offset * 12 + 8;
             var cost = uint16.from_little_endian (*((uint16 *) p));
-            return Util.decode_cost (cost, min_cost);
+            return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 
         public double bigram_backoff (LanguageModelEntry pentry, LanguageModelEntry entry) {
@@ -146,7 +146,7 @@ namespace Kkc {
 
             uint8 *p = (uint8 *) bigram_mmap.memory + offset * 12 + 10;
             var backoff = uint16.from_little_endian (*((uint16 *) p));
-            return Util.decode_cost (backoff, min_cost);
+            return LanguageModelUtils.decode_cost (backoff, min_cost);
         }
 
         public double min_cost {

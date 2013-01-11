@@ -306,7 +306,7 @@ namespace Kkc {
                     return false;
                 }
                 if (command != null && command.has_prefix ("insert-kana-")) {
-                    var kana = RomKanaUtil.convert_by_input_mode (
+                    var kana = RomKanaUtils.convert_by_input_mode (
                         command["insert-kana-".length:command.length],
                         state.input_mode);
                     state.preedit.append (kana);
@@ -345,7 +345,7 @@ namespace Kkc {
                 if (key.modifiers == 0 &&
                     0x20 <= key.code && key.code <= 0x7F) {
                     state.preedit.append_unichar (
-                        RomKanaUtil.get_wide_latin_char ((char) key.code));
+                        RomKanaUtils.get_wide_latin_char ((char) key.code));
                     return true;
                 }
                 break;
@@ -399,7 +399,7 @@ namespace Kkc {
                 if (entry.key == command) {
                     state.rom_kana_converter.output_nn_if_any ();
                     state.output.assign (
-                        RomKanaUtil.convert_by_input_mode (
+                        RomKanaUtils.convert_by_input_mode (
                             state.rom_kana_converter.output,
                             entry.value));
                     if (state.surrounding_text != null) {
@@ -413,7 +413,7 @@ namespace Kkc {
 
             if (command == "next-candidate") {
                 if (state.segments.size == 0) {
-                    string input = RomKanaUtil.get_hiragana (
+                    string input = RomKanaUtils.get_hiragana (
                         state.preedit.str);
                     state.convert_sentence (input);
                     return true;
@@ -426,7 +426,7 @@ namespace Kkc {
                 return true;
             }
             else if (command != null && command.has_prefix ("insert-kana-")) {
-                var kana = RomKanaUtil.convert_by_input_mode (
+                var kana = RomKanaUtils.convert_by_input_mode (
                     command["insert-kana-".length:command.length],
                     state.input_mode);
                 state.rom_kana_converter.output = kana;
@@ -504,7 +504,7 @@ namespace Kkc {
             else if (command == "next-candidate") {
                 if (state.candidates.cursor_pos < 0) {
                     state.rom_kana_converter.output_nn_if_any ();
-                    // string midasi = RomKanaUtil.get_hiragana (
+                    // string midasi = RomKanaUtils.get_hiragana (
                     //     state.rom_kana_converter.output);
                     // state.lookup_words (midasi);
                     if (state.candidates.size > 0) {

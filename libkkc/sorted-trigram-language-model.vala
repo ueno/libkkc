@@ -35,7 +35,7 @@ namespace Kkc {
             Memory.copy (p, &pvalue, sizeof(uint32));
 
             var record_size = 10;
-            var offset = Util.bsearch_ngram (
+            var offset = LanguageModelUtils.bsearch_ngram (
                 trigram_mmap.memory,
                 0,
                 (long) trigram_mmap.length / record_size,
@@ -61,7 +61,7 @@ namespace Kkc {
 
             uint8 *p = (uint8 *) trigram_mmap.memory + offset * 10 + 8;
             var cost = uint16.from_little_endian (*((uint16 *) p));
-            return Util.decode_cost (cost, min_cost);
+            return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 
         construct {

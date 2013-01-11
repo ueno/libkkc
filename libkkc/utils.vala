@@ -18,43 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    namespace Util {
-        internal static double decode_cost (uint16 cost, double min_cost) {
-            return cost * min_cost / 65535;
-        }
-
-        internal static uint8[] pack_uint32_array (uint32[] ids) {
-            uint8[] buffer = new uint8[ids.length * sizeof(uint32)];
-            uint8 *p = buffer;
-            foreach (var id in ids) {
-                var value = id.to_little_endian ();
-                Memory.copy (p, &value, sizeof(uint32));
-                p += sizeof(uint32);
-            }
-            return buffer;
-        }
-
-        internal static long bsearch_ngram (void *memory,
-                                            long start_offset,
-                                            long end_offset,
-                                            long record_size,
-                                            uint8[] needle)
-        {
-            var offset = start_offset + (end_offset - start_offset) / 2;
-            while (start_offset <= end_offset) {
-                uint8 *p = (uint8 *) memory + offset * record_size;
-                var r = Memory.cmp (p, needle, needle.length);
-                if (r == 0)
-                    return offset;
-                if (r > 0)
-                    end_offset = offset - 1;
-                else
-                    start_offset = offset + 1;
-                offset = start_offset + (end_offset - start_offset) / 2;
-            }
-            return -1;
-        }
-
+    namespace Utils {
         internal static string[] build_data_path (string subdir) {
             ArrayList<string> dirs = new ArrayList<string> ();
             string? path = Environment.get_variable (
@@ -131,4 +95,3 @@ namespace Kkc {
         }
     }
 }
-
