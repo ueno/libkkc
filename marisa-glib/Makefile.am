@@ -30,8 +30,9 @@ INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir)
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
-CLEANFILES =
 EXTRA_DIST =
+CLEANFILES =
+DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 
 if HAVE_INTROSPECTION
@@ -47,17 +48,22 @@ INTROSPECTION_GIRS += Marisa.gir
 CLEANFILES += $(gir_DATA) $(typelib_DATA)
 endif
 
+if ENABLE_VAPIGEN
+-include $(VAPIGEN_MAKEFILE)
+
+marisa-glib.vapi: Marisa.gir Marisa-custom.vala marisa-glib.deps
+
+VAPIGEN_VAPIS = marisa-glib.vapi
+
+marisa_glib_vapi_DEPS: gio-2.0
+marisa_glib_vapi_METADATADIRS = $(srcdir)
+marisa_glib_vapi_FILES = Marisa.gir $(srcdir)/Marisa-custom.vala
+
 vapidir = $(datadir)/vala/vapi
-dist_vapi_DATA = marisa-glib.vapi marisa-glib.deps
+vapi_DATA = $(VAPIGEN_VAPIS) $(VAPIGEN_VAPIS:.vapi=.deps)
 
-marisa-glib.vapi: Marisa.metadata Marisa-custom.vala | Marisa.gir
-	$(VAPIGEN) --pkg=gio-2.0 --library=marisa-glib --metadatadir=$(srcdir) Marisa.gir $(srcdir)/Marisa-custom.vala
-
-BUILT_SOURCES = marisa-glib.vapi
-MAINTAINERCLEANFILES += $(BUILT_SOURCES)
-EXTRA_DIST +=					\
-	Marisa.metadata	\
-	Marisa-custom.vala	\
-	$(NULL)
+DISTCLEANFILES += $(VAPIGEN_VAPIS)
+EXTRA_DIST += Marisa.metadata Marisa-custom.vala marisa-glib.deps
+endif
 
 -include $(top_srcdir)/git.mk
