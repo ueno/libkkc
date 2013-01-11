@@ -1,6 +1,13 @@
-libkkc - Japanese Kana-Kanji conversion library
+libkkc - Japanese Kana Kanji conversion library
 
-NOTE: still under development
+* What's this?
+
+libkkc provides a converter from Kana-string to
+Kana-Kanji-mixed-string.  libkkc was named after kkc.el in GNU Emacs,
+a very simple Kana Kanji converter, while libkkc tries to convert
+sentences in a more complex way.
+
+* Install
 
 1. compile and install marisa-trie 0.2.1
 
