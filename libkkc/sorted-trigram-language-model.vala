@@ -69,7 +69,7 @@ namespace Kkc {
             var trigram_file = File.new_for_path (prefix + ".3gram");
 			try {
 				trigram_mmap = new MemoryMappedFile (trigram_file);
-			} catch (Kkc.LanguageModelError e) {
+			} catch (IOError e) {
 				error ("can't load %s: %s",
 					   trigram_file.get_path (), e.message);
 			}

@@ -175,7 +175,7 @@ namespace Kkc {
             var unigram_file = File.new_for_path (prefix + ".1gram");
 			try {
 				unigram_mmap = new MemoryMappedFile (unigram_file);
-			} catch (Kkc.LanguageModelError e) {
+			} catch (IOError e) {
 				error ("can't load %s: %s",
 					   unigram_file.get_path (), e.message);
 			}
@@ -183,7 +183,7 @@ namespace Kkc {
             var bigram_file = File.new_for_path (prefix + ".2gram");
 			try {
 				bigram_mmap = new MemoryMappedFile (bigram_file);
-			} catch (Kkc.LanguageModelError e) {
+			} catch (IOError e) {
 				error ("can't load %s: %s",
 					   bigram_file.get_path (), e.message);
 			}

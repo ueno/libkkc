@@ -56,12 +56,12 @@ namespace Kkc {
 
         File file;
 
-        public MemoryMappedFile (File file) throws LanguageModelError {
+        public MemoryMappedFile (File file) throws IOError {
             this.file = file;
             remap ();
         }
 
-        public void remap () throws LanguageModelError {
+        public void remap () throws IOError {
             if (_memory != null) {
                 Posix.munmap (_memory, _length);
                 _memory = null;
@@ -69,17 +69,19 @@ namespace Kkc {
             map ();
         }
 
-        void map () throws LanguageModelError {
+        void map () throws IOError {
             int fd = Posix.open (file.get_path (), Posix.O_RDONLY, 0);
             if (fd < 0) {
-                throw new LanguageModelError.NOT_READABLE ("can't open %s",
-                                                     file.get_path ());
+                throw new IOError.FAILED ("can't open %s: %s",
+                                          file.get_path (),
+                                          Posix.strerror (Posix.errno));
             }
 
             Posix.Stat stat;
             int retval = Posix.fstat (fd, out stat);
             if (retval < 0) {
-                throw new LanguageModelError.NOT_READABLE ("can't stat fd");
+                throw new IOError.FAILED ("can't stat fd: %s",
+                                          Posix.strerror (Posix.errno));
             }
 
             _memory = Posix.mmap (null,
@@ -89,7 +91,8 @@ namespace Kkc {
                                   fd,
                                   0);
             if (_memory == Posix.MAP_FAILED) {
-                throw new LanguageModelError.NOT_READABLE ("mmap failed");
+                throw new IOError.FAILED ("mmap failed: %s",
+                                          Posix.strerror (Posix.errno));
             }
             _length = stat.st_size;
         }
