@@ -3,9 +3,9 @@ libkkc - Japanese Kana Kanji conversion library -*- coding: utf-8 -*-
 * What's this?
 
 libkkc provides a converter from Kana-string to
-Kana-Kanji-mixed-string.  libkkc was named after kkc.el in GNU Emacs,
-a very simple Kana Kanji converter, while libkkc tries to convert
-sentences in a more complex way.
+Kana-Kanji-mixed-string.  It was named after kkc.el in GNU Emacs, a
+simple Kana Kanji converter, while libkkc tries to convert sentences
+in a bit more complex way using N-gram language models.
 
 * Install
 
@@ -15,7 +15,7 @@ sentences in a more complex way.
 
 2. compile and install
 
- $ CFLAGS="-g -O0 -Wall"  VALAFLAGS="-g" ./autogen.sh
+ $ ./autogen.sh
  $ make
  $ make install
 
