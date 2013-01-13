@@ -37,21 +37,21 @@ namespace Kkc {
     }
 
     public abstract class LanguageModel : Object {
-        static string[] dict_path;
+        static string[] model_path;
 
         public LanguageModelMetadata metadata { get; construct; }
 
         // Make the value type boxed to avoid unwanted ulong -> uint cast:
         // https://bugzilla.gnome.org/show_bug.cgi?id=660621
-        static Map<string,Type?> dict_types = 
+        static Map<string,Type?> model_types = 
 		new HashMap<string,Type?> ();
 
         static construct {
-            dict_path = Utils.build_data_path ("dict");
-            dict_types.set ("text2", typeof (TextBigramLanguageModel));
-            dict_types.set ("text3", typeof (TextTrigramLanguageModel));
-            dict_types.set ("sorted2", typeof (SortedBigramLanguageModel));
-            dict_types.set ("sorted3", typeof (SortedTrigramLanguageModel));
+            model_path = Utils.build_data_path ("model");
+            model_types.set ("text2", typeof (TextBigramLanguageModel));
+            model_types.set ("text3", typeof (TextTrigramLanguageModel));
+            model_types.set ("sorted2", typeof (SortedBigramLanguageModel));
+            model_types.set ("sorted3", typeof (SortedTrigramLanguageModel));
         }
 
         public abstract LanguageModelEntry bos { get; }
@@ -62,14 +62,14 @@ namespace Kkc {
 
         public static LanguageModel? load (string name) throws LanguageModelError
 		{
-            foreach (var dir in dict_path) {
+            foreach (var dir in model_path) {
                 var metadata_filename = Path.build_filename (
                     dir, name,
                     "metadata.json");
                 if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
                     try {
                         var metadata = load_metadata (metadata_filename);
-                        var type = dict_types.get (metadata.type);
+                        var type = model_types.get (metadata.type);
                         return (LanguageModel) Object.new (type,
 														   "metadata", metadata,
 														   null);
@@ -81,7 +81,7 @@ namespace Kkc {
                     }
                 }
             }
-			throw new LanguageModelError.NOT_READABLE ("can't find suitable dict");
+			throw new LanguageModelError.NOT_READABLE ("can't find suitable model");
         }
 
         static LanguageModelMetadata load_metadata (string filename) throws LanguageModelError
@@ -124,9 +124,9 @@ namespace Kkc {
                     
                 member = object.get_member ("type");
                 var type = member.get_string ();
-                if (!dict_types.has_key (type)) {
+                if (!model_types.has_key (type)) {
                     throw new LanguageModelError.MALFORMED_INPUT (
-                        "unknown dictionary type %s",
+                        "unknown language model type %s",
                         type);
                 }
 

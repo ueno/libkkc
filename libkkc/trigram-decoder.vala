@@ -19,13 +19,13 @@ using Gee;
 
 namespace Kkc {
     abstract class PathCostFunc {
-        public abstract double path_cost (TrigramLanguageModel dict,
+        public abstract double path_cost (TrigramLanguageModel model,
                                           TrellisNode pnode,
                                           TrellisNode node);
     }
 
     class UnigramToUnigramPathCostFunc : PathCostFunc {
-        public override double path_cost (TrigramLanguageModel dict,
+        public override double path_cost (TrigramLanguageModel model,
                                           TrellisNode pnode,
                                           TrellisNode node)
         {
@@ -36,16 +36,16 @@ namespace Kkc {
             UnigramTrellisNode unode = (UnigramTrellisNode) node;
 
             double cost = 0.0;
-            if (upnode.entry == dict.bos) {
-                cost = dict.bigram_backoff_cost (upnode.entry, unode.entry);
+            if (upnode.entry == model.bos) {
+                cost = model.bigram_backoff_cost (upnode.entry, unode.entry);
             } else if (upnode.previous != null) {
                 if (upnode.previous is UnigramTrellisNode) {
-                    cost = dict.trigram_backoff_cost (
+                    cost = model.trigram_backoff_cost (
                         ((UnigramTrellisNode) upnode.previous).entry,
                         upnode.entry,
                         unode.entry);
                 } else {
-                    cost = dict.trigram_backoff_cost (
+                    cost = model.trigram_backoff_cost (
                         ((BigramTrellisNode) upnode.previous).right_node.entry,
                         upnode.entry,
                         unode.entry);
@@ -57,7 +57,7 @@ namespace Kkc {
     }
 
     class UnigramToBigramPathCostFunc : PathCostFunc {
-        public override double path_cost (TrigramLanguageModel dict,
+        public override double path_cost (TrigramLanguageModel model,
                                           TrellisNode pnode,
                                           TrellisNode node)
         {
@@ -68,25 +68,25 @@ namespace Kkc {
             BigramTrellisNode bnode = (BigramTrellisNode) node;
 
             double cost = 0.0;
-            if (upnode.entry == dict.bos) {
-                cost += dict.bigram_backoff_cost (
+            if (upnode.entry == model.bos) {
+                cost += model.bigram_backoff_cost (
                     upnode.entry,
                     bnode.left_node.entry);
             }
 
-            cost += dict.trigram_backoff_cost (
+            cost += model.trigram_backoff_cost (
                 upnode.entry,
                 bnode.left_node.entry,
                 bnode.right_node.entry);
 
             if (upnode.previous != null) {
                 if (upnode.previous is UnigramTrellisNode) {
-                    cost += dict.trigram_backoff_cost (
+                    cost += model.trigram_backoff_cost (
                         ((UnigramTrellisNode) upnode.previous).entry,
                         upnode.entry,
                         bnode.left_node.entry);
                 } else {
-                    cost += dict.trigram_backoff_cost (
+                    cost += model.trigram_backoff_cost (
                         ((BigramTrellisNode) upnode.previous).right_node.entry,
                         upnode.entry,
                         bnode.left_node.entry);
@@ -98,7 +98,7 @@ namespace Kkc {
     }
 
     class BigramToUnigramPathCostFunc : PathCostFunc {
-        public override double path_cost (TrigramLanguageModel dict,
+        public override double path_cost (TrigramLanguageModel model,
                                           TrellisNode pnode,
                                           TrellisNode node)
         {
@@ -109,13 +109,13 @@ namespace Kkc {
             UnigramTrellisNode unode = (UnigramTrellisNode) node;
 
             double cost = 0.0;
-            if (bpnode.left_node.entry == dict.bos) {
-                cost += dict.bigram_backoff_cost (
+            if (bpnode.left_node.entry == model.bos) {
+                cost += model.bigram_backoff_cost (
                     bpnode.left_node.entry,
                     bpnode.right_node.entry);
             }
 
-            cost += dict.trigram_backoff_cost (
+            cost += model.trigram_backoff_cost (
                 bpnode.left_node.entry,
                 bpnode.right_node.entry,
                 unode.entry);
@@ -125,7 +125,7 @@ namespace Kkc {
     }
 
     class BigramToBigramPathCostFunc : PathCostFunc {
-        public override double path_cost (TrigramLanguageModel dict,
+        public override double path_cost (TrigramLanguageModel model,
                                           TrellisNode pnode,
                                           TrellisNode node)
         {
@@ -136,18 +136,18 @@ namespace Kkc {
             BigramTrellisNode bnode = (BigramTrellisNode) node;
 
             double cost = 0.0;
-            if (bpnode.left_node.entry == dict.bos) {
-                cost += dict.bigram_backoff_cost (
+            if (bpnode.left_node.entry == model.bos) {
+                cost += model.bigram_backoff_cost (
                     bpnode.left_node.entry,
                     bpnode.right_node.entry);
             }
 
-            cost += dict.trigram_backoff_cost (
+            cost += model.trigram_backoff_cost (
                 bpnode.left_node.entry,
                 bpnode.right_node.entry,
                 bnode.left_node.entry);
 
-            cost += dict.trigram_backoff_cost (
+            cost += model.trigram_backoff_cost (
                 bpnode.right_node.entry,
                 bnode.left_node.entry,
                 bnode.right_node.entry);
@@ -187,7 +187,7 @@ namespace Kkc {
                     int j = i - (int) node.length;
                     foreach (var pnode in trellis[j]) {
                         var upnode = pnode as UnigramTrellisNode;
-                        if (!dict.has_bigram (upnode.entry, unode.entry))
+                        if (!model.has_bigram (upnode.entry, unode.entry))
                             continue;
 
                         int k = j - (int) pnode.length;
@@ -197,7 +197,7 @@ namespace Kkc {
                             var uppnode = ppnode as UnigramTrellisNode;
 
                             if (!overlapped_nodes[k].contains (uppnode) &&
-                                ((TrigramLanguageModel)dict).has_trigram (uppnode.entry,
+                                ((TrigramLanguageModel)model).has_trigram (uppnode.entry,
                                                                  upnode.entry,
                                                                  unode.entry)) {
                                 var bigram_node = new BigramTrellisNode (
@@ -229,13 +229,13 @@ namespace Kkc {
                                              int endpos)
         {
             var index = path_to_func_index (pnode, node);
-            return path_cost_funcs[index].path_cost ((TrigramLanguageModel) dict,
+            return path_cost_funcs[index].path_cost ((TrigramLanguageModel) model,
                                                      pnode,
                                                      node);
         }
 
-        public TrigramDecoder (TrigramLanguageModel dict) {
-            base (dict);
+        public TrigramDecoder (TrigramLanguageModel model) {
+            base (model);
 
             path_cost_funcs[0] = new UnigramToUnigramPathCostFunc ();
             path_cost_funcs[1] = new UnigramToBigramPathCostFunc ();

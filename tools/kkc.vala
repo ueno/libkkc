@@ -17,12 +17,12 @@
  */
 using Gee;
 
-static string opt_dict = null;
+static string opt_model = null;
 static bool opt_im = false;
 
 static const OptionEntry[] options = {
-    { "dict", 'd', 0, OptionArg.STRING, ref opt_dict,
-      N_("Dictionary name"), null },
+    { "model", 'd', 0, OptionArg.STRING, ref opt_model,
+      N_("Language model"), null },
     { "im", '\0', 0, OptionArg.NONE, ref opt_im,
       N_("Run in input method testing mode"), null },
     { null }
@@ -46,9 +46,9 @@ static int main (string[] args) {
 
     Kkc.init ();
 
-	Kkc.LanguageModel dict;
+	Kkc.LanguageModel model;
 	try {
-		dict = Kkc.LanguageModel.load (opt_dict == null ? "sorted3" : opt_dict);
+		model = Kkc.LanguageModel.load (opt_model == null ? "sorted3" : opt_model);
 	} catch (Kkc.LanguageModelError e) {
 		stderr.printf ("%s\n", e.message);
 		return 1;
@@ -56,10 +56,10 @@ static int main (string[] args) {
 
 	Repl repl;
 	if (opt_im) {
-		var context = new Kkc.Context (dict);
+		var context = new Kkc.Context (model);
 		repl = new RomKanaRepl (context);
 	} else {
-		var decoder = Kkc.Decoder.create (dict);
+		var decoder = Kkc.Decoder.create (model);
 		repl = new DecoderRepl (decoder);
 	}
     if (!repl.run ())

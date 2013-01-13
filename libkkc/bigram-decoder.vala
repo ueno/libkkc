@@ -73,16 +73,16 @@ namespace Kkc {
                 trellis[i] = new ArrayList<TrellisNode> ();
             }
 
-            var bos_node = new UnigramTrellisNode (dict.bos, 1);
+            var bos_node = new UnigramTrellisNode (model.bos, 1);
             trellis[0].add (bos_node);
 
-            var eos_node = new UnigramTrellisNode (dict.eos, length + 1);
+            var eos_node = new UnigramTrellisNode (model.eos, length + 1);
             trellis[length + 1].add (eos_node);
 
             for (var i = 0; i < length; i++) {
                 long byte_offset = input.index_of_nth_char (i);
                 var _input = input.substring (byte_offset);
-                var entries = dict.entries (_input);
+                var entries = model.entries (_input);
                 foreach (var entry in entries) {
                     var j = i + entry.input.char_count ();
                     if (!check_constraints (constraints, i, j))
@@ -148,7 +148,7 @@ namespace Kkc {
             var upnode = pnode as UnigramTrellisNode;
             var unode = node as UnigramTrellisNode;
             assert (upnode != null && unode != null);
-            return dict.bigram_backoff_cost (upnode.entry, unode.entry);
+            return model.bigram_backoff_cost (upnode.entry, unode.entry);
         }
 
         Segment nbest_node_to_segment (NbestNode nbest_node) {
@@ -183,7 +183,7 @@ namespace Kkc {
                 {
                     for (var i = node.entries.length - 1; i >= 0; i--) {
                         var entry = node.entries[i];
-                        if (entry == dict.bos)
+                        if (entry == model.bos)
                             break;
                         segment = new Segment (entry.input, entry.output);
                         segment.next = next_segment;
@@ -257,15 +257,15 @@ namespace Kkc {
             return builder.str;
         }
 
-        BigramLanguageModel _dict;
-        public BigramLanguageModel dict {
+        BigramLanguageModel _model;
+        public BigramLanguageModel model {
             get {
-                return _dict;
+                return _model;
             }
         }
 
-        public BigramDecoder (BigramLanguageModel dict) {
-            _dict = dict;
+        public BigramDecoder (BigramLanguageModel model) {
+            _model = model;
         }
     }
 }

@@ -108,14 +108,14 @@ namespace Kkc {
          *
          * @return a new Context
          */
-        public Context (LanguageModel dict) {
+        public Context (LanguageModel model) {
             handlers.set (typeof (NoneStateHandler),
                           new NoneStateHandler ());
             handlers.set (typeof (StartStateHandler),
                           new StartStateHandler ());
             handlers.set (typeof (SelectStateHandler),
                           new SelectStateHandler ());
-			var decoder = Kkc.Decoder.create (dict);
+			var decoder = Kkc.Decoder.create (model);
             state = new State (decoder);
             connect_state_signals (state);
         }

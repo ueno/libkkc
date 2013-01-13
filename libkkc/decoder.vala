@@ -23,11 +23,11 @@ namespace Kkc {
                                           int nbest,
                                           int[] constraints);
 
-        public static Decoder? create (LanguageModel dict) {
-            if (dict is TrigramLanguageModel) {
-                return new TrigramDecoder (dict as TrigramLanguageModel);
-            } else if (dict is BigramLanguageModel) {
-                return new BigramDecoder (dict as BigramLanguageModel);
+        public static Decoder? create (LanguageModel model) {
+            if (model is TrigramLanguageModel) {
+                return new TrigramDecoder (model as TrigramLanguageModel);
+            } else if (model is BigramLanguageModel) {
+                return new BigramDecoder (model as BigramLanguageModel);
             } else {
 				assert_not_reached ();
             }
