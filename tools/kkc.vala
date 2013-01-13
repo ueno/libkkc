@@ -59,7 +59,7 @@ static int main (string[] args) {
 		var context = new Kkc.Context (dict);
 		repl = new RomKanaRepl (context);
 	} else {
-		var decoder = Kkc.Decoder.new_for_dict (dict);
+		var decoder = Kkc.Decoder.create (dict);
 		repl = new DecoderRepl (decoder);
 	}
     if (!repl.run ())

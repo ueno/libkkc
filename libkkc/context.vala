@@ -115,7 +115,7 @@ namespace Kkc {
                           new StartStateHandler ());
             handlers.set (typeof (SelectStateHandler),
                           new SelectStateHandler ());
-			var decoder = Kkc.Decoder.new_for_dict (dict);
+			var decoder = Kkc.Decoder.create (dict);
             state = new State (decoder);
             connect_state_signals (state);
         }

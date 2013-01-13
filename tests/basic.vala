@@ -6,7 +6,7 @@ class BasicTests : Kkc.TestCase {
 
 		try {
 			Kkc.LanguageModel dict = Kkc.LanguageModel.load ("sorted3");
-			decoder = Kkc.Decoder.new_for_dict (dict);
+			decoder = Kkc.Decoder.create (dict);
 		} catch (Kkc.LanguageModelError e) {
 			stderr.printf ("%s\n", e.message);
 		}
