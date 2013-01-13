@@ -14,23 +14,44 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-INCLUDES = -I$(top_srcdir) $(LIBKKC_CFLAGS)
+SUBDIRS = lib .
 
 TESTS_ENVIRONMENT =					\
 	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly	\
 	G_SLICE=${G_SLICE},always-malloc		\
-	LIBKKC_DATA_PATH=$(top_srcdir)			\
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
 TESTS = basic
-# noinst_PROGRAMS = $(TESTS)
+noinst_PROGRAMS = $(TESTS)
 noinst_HEADERS =
 
-AM_CPPFLAGS =								\
-	-DLIBKKC_BICLASS_DICT=\"$(top_srcdir)/data/dict/biclass\"	\
+AM_CPPFLAGS =					\
+	-DDATADIR=\"$(datadir)\"		\
+	-DPKGDATADIR=\"$(pkgdatadir)\"		\
+	-I$(top_srcdir) $(LIBKKC_CFLAGS)	\
+	-I$(top_srcdir)/tests/lib		\
+	-I$(top_builddir)/tests/lib		\
 	$(NULL)
 
-basic_SOURCES = basic.c
-basic_LDADD = $(top_builddir)/libkkc/libkkc.la $(LIBKKC_LIBS)
+LDADD = $(top_builddir)/libkkc/libkkc.la	\
+	$(LIBKKC_LIBS)				\
+	$(builddir)/lib/libkkc-test.la		\
+	$(NULL)
+
+AM_VALAFLAGS =					\
+	--disable-warnings			\
+	--vapidir=.				\
+	--vapidir=$(top_srcdir)/libkkc		\
+	--vapidir=$(top_srcdir)/tests/lib	\
+	--pkg gobject-2.0			\
+	--pkg gio-2.0				\
+	--pkg gee-1.0				\
+	--pkg config				\
+	--pkg kkc-1.0				\
+	--pkg kkc-test				\
+	-g					\
+	$(NULL)
+
+basic_SOURCES = basic.vala
 
 CLEANFILES = valgrind.log.*
 

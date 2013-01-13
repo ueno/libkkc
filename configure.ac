@@ -171,6 +171,7 @@ libkkc/libkkc.pc
 rules/Makefile
 tools/Makefile
 tests/Makefile
+tests/lib/Makefile
 docs/Makefile
 po/Makefile.in])
 AC_OUTPUT
