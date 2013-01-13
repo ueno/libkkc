@@ -1,4 +1,4 @@
-# Copyright (C) 2012 Daiki Ueno <ueno@unixuser.org>
+# Copyright (C) 2012 Daiki Ueno <ueno@gnu.org>
 # Copyright (C) 2012 Red Hat, Inc.
 
 # This program is free software: you can redistribute it and/or modify

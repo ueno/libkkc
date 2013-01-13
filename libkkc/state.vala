@@ -1,6 +1,6 @@
 // -*- coding: utf-8 -*-
 /*
- * Copyright (C) 2011-2013 Daiki Ueno <ueno@unixuser.org>
+ * Copyright (C) 2011-2013 Daiki Ueno <ueno@gnu.org>
  * Copyright (C) 2011-2013 Red Hat, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
