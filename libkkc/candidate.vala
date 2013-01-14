@@ -28,6 +28,12 @@ namespace Kkc {
         public string midasi { get; private set; }
 
         /**
+         * Flag to indicate whether this candidate is generated as a
+         * result of okuri-ari conversion.
+         */
+        public bool okuri { get; private set; }
+
+        /**
          * Base string value of the candidate.
          */
         public string text { get; set; }
@@ -61,6 +67,7 @@ namespace Kkc {
          * Create a new Candidate.
          *
          * @param midasi midasi (index) word which generate the candidate
+         * @param okuri whether the candidate is a result of okuri-ari conversion
          * @param text base string value of the candidate
          * @param annotation optional annotation text to the candidate
          * @param output optional output text used instead of text
@@ -68,11 +75,13 @@ namespace Kkc {
          * @return a new KkcCandidate
          */
         public Candidate (string midasi,
+                          bool okuri,
                           string text,
                           string? annotation = null,
                           string? output = null)
         {
             this.midasi = midasi;
+            this.okuri = okuri;
             this.text = text;
             this.annotation = annotation;
             this.output = output == null ? text : output;

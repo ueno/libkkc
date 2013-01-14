@@ -171,7 +171,7 @@ namespace Kkc {
             segments.clear ();
             segments.add_segments (_segments[0]);
             candidates.clear ();
-            var candidate = new Candidate (input, segments.to_string ());
+            var candidate = new Candidate (input, false, segments.to_string ());
             candidates.add_candidates (new Candidate[] { candidate });
             candidates.add_candidates_end ();
         }

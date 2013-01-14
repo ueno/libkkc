@@ -56,7 +56,7 @@ libkkc_la_LDFLAGS =							\
 libkkcincludedir = $(includedir)/libkkc
 libkkcinclude_HEADERS = libkkc.h
 
-rom_kana_sources =				\
+libkkc_shell_sources =				\
 	candidate-list.vala			\
 	candidate.vala				\
 	key-event-filter.vala			\
@@ -68,6 +68,12 @@ rom_kana_sources =				\
 	rom-kana-utils.vala			\
 	rom-kana.vala				\
 	rule.vala				\
+	context.vala				\
+	state.vala				\
+	dict.vala				\
+	file-dict.vala				\
+	user-dict.vala				\
+	encoding.vala				\
 	$(NULL)
 
 libkkc_la_SOURCES =				\
@@ -83,9 +89,7 @@ libkkc_la_SOURCES =				\
 	trigram-decoder.vala			\
 	segment-list.vala			\
 	segment.vala				\
-	$(rom_kana_sources)			\
-	context.vala				\
-	state.vala				\
+	$(libkkc_shell_sources)			\
 	utils.vala				\
 	kkc.vala				\
 	$(NULL)
