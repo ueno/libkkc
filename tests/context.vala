@@ -4,21 +4,21 @@ class ContextTests : Kkc.TestCase {
     public ContextTests () {
         base ("Context");
 
-		try {
-			Kkc.LanguageModel model = Kkc.LanguageModel.load ("sorted3");
+        try {
+            Kkc.LanguageModel model = Kkc.LanguageModel.load ("sorted3");
             context = new Kkc.Context (model);
-		} catch (Kkc.LanguageModelError e) {
-			stderr.printf ("%s\n", e.message);
-		}
+        } catch (Kkc.LanguageModelError e) {
+            stderr.printf ("%s\n", e.message);
+        }
 
         try {
             var dict = new Kkc.FileDict ("file-dict.dat");
             context.add_dictionary (dict);
         } catch (Error e) {
-			stderr.printf ("%s\n", e.message);
+            stderr.printf ("%s\n", e.message);
         }
 
-		add_test ("conversion", this.test_conversion);
+        add_test ("conversion", this.test_conversion);
     }
 
     struct Conversion {
