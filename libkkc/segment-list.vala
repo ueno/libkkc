@@ -21,11 +21,36 @@ namespace Kkc {
     internal class SegmentList : Object {
         Gee.List<Segment> segments = new ArrayList<Segment> ();
 
+        int _index = -1;
+        public int index {
+            get {
+                return _index;
+            }
+            set {
+                _index = value.clamp (0, size);
+            }
+        }
+
         public void add_segments (Segment segment) {
             while (segment != null) {
                 segments.add (segment);
                 segment = segment.next;
             }
+            index = 0;
+        }
+
+        public void next_segment () {
+            if (index == -1)
+                return;
+            index += 1;
+            index = index.clamp (0, size - 1);
+        }
+
+        public void previous_segment () {
+            if (index == -1)
+                return;
+            index += -1;
+            index = index.clamp (0, size - 1);
         }
 
         public int size {
@@ -36,6 +61,7 @@ namespace Kkc {
 
         public void clear () {
             segments.clear ();
+            index = -1;
         }
 
         public new Segment @get (int index) {
@@ -50,6 +76,14 @@ namespace Kkc {
             var builder = new StringBuilder ();
             foreach (var segment in segments) {
                 builder.append (segment.output);
+            }
+            return builder.str;
+        }
+
+        public string get_input () {
+            var builder = new StringBuilder ();
+            foreach (var segment in segments) {
+                builder.append (segment.input);
             }
             return builder.str;
         }

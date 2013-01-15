@@ -20,7 +20,7 @@ TESTS_ENVIRONMENT =					\
 	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly	\
 	G_SLICE=${G_SLICE},always-malloc		\
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
-TESTS = basic
+TESTS = basic context
 noinst_PROGRAMS = $(TESTS)
 noinst_HEADERS =
 
@@ -52,6 +52,8 @@ AM_VALAFLAGS =					\
 	$(NULL)
 
 basic_SOURCES = basic.vala
+
+context_SOURCES = context.vala
 
 CLEANFILES = valgrind.log.*
 

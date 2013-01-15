@@ -56,7 +56,6 @@ namespace Kkc {
 
         internal Decoder decoder;
         internal SegmentList segments;
-        internal int segment_index = -1;
         internal CandidateList candidates;
 
         internal RomKanaConverter rom_kana_converter;
@@ -156,7 +155,6 @@ namespace Kkc {
             rom_kana_converter.reset ();
             _typing_rule.get_filter ().reset ();
             segments.clear ();
-            segment_index = -1;
             candidates.clear ();
             preedit.erase ();
             auto_start_henkan_keyword = null;
@@ -176,27 +174,22 @@ namespace Kkc {
             candidates.add_candidates_end ();
         }
 
-        internal void move_segment (int amount) {
-            if (segment_index == -1)
-                return;
-            segment_index += amount;
-            segment_index = segment_index.clamp (0, segments.size - 1);
-        }
-
         internal void resize_segment (int amount) {
-            if (segment_index >= 0 && segment_index < segments.size) {
+            if (segments.index >= 0 && segments.index < segments.size) {
                 int[] constraints = {};
                 int offset = 0;
                 for (var i = 0; i < segments.size; i++) {
                     int segment_size = segments[i].input.char_count ();
-                    if (i == segment_index)
+                    if (i == segments.index)
                         segment_size += amount;
                     offset += segment_size;
                     constraints += offset;
-                    if (i == segment_index)
+                    if (i == segments.index)
                         break;
                 }
-                convert_sentence (segments.to_string (), constraints);
+                int index = segments.index;
+                convert_sentence (segments.get_input (), constraints);
+                segments.index = index;
             }
         }
 
@@ -361,7 +354,7 @@ namespace Kkc {
             builder.append (state.preedit.str);
             builder.append (state.rom_kana_converter.preedit);
             underline_offset = 0;
-            underline_nchars = (uint) builder.len;
+            underline_nchars = 0;
             return builder.str;
         }
 
@@ -432,30 +425,21 @@ namespace Kkc {
                 state.rom_kana_converter.output = kana;
                 return true;
             }
-            else if (command == "expand-preedit") {
-                if (state.surrounding_text != null &&
-                    state.surrounding_end < state.surrounding_text.length) {
-                    state.surrounding_end++;
-                    state.rom_kana_converter.output =
-                        state.surrounding_text.substring (
-                            0, state.surrounding_end);
-                    return true;
-                }
+            else if (command == "expand-segment") {
+                state.resize_segment (1);
+                return true;
             }
-            else if (command == "shrink-preedit") {
-                if (state.surrounding_text != null &&
-                    state.surrounding_end > 0) {
-                    state.surrounding_end--;
-                    state.rom_kana_converter.output =
-                        state.surrounding_text.substring (
-                            0, state.surrounding_end);
-                    return true;
-                }
+            else if (command == "shrink-segment") {
+                state.resize_segment (-1);
+                return true;
             }
-            else if (command == "next-candidate") {
-                state.handler_type = typeof (SelectStateHandler);
-                key = state.where_is ("next-candidate");
-                return false;
+            else if (command == "next-segment") {
+                state.segments.next_segment ();
+                return true;
+            }
+            else if (command == "previous-segment") {
+                state.segments.previous_segment ();
+                return true;
             }
             else {
                 uint underline_offset, underline_nchars;
@@ -469,16 +453,21 @@ namespace Kkc {
                 state.reset ();
                 return true;
             }
-            // mark any other key events are consumed here
-            return true;
         }
 
         internal override string get_preedit (State state,
                                               out uint underline_offset,
                                               out uint underline_nchars) {
             var preedit = state.segments.to_string ();
-            underline_offset = 0;
-            underline_nchars = preedit.char_count ();
+            Segment segment;
+            uint offset = 0;
+            for (var i = 0; i < state.segments.index; i++) {
+                segment = state.segments[i];
+                offset += segment.output.char_count ();
+            }
+            segment = state.segments[state.segments.index];
+            underline_offset = offset;
+            underline_nchars = segment.output.char_count ();
             return preedit;
         }
     }
