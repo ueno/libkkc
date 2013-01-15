@@ -22,9 +22,29 @@ namespace Kkc {
      * Main entry point of libkkc.
      */
     public class Context : Object {
-		State state;
-        Gee.Map<Type, StateHandler> handlers =
-            new HashMap<Type, StateHandler> ();
+        Gee.List<Dict> dictionaries = new ArrayList<Dict> ();
+
+        /**
+         * Register dictionary.
+         *
+         * @param dict a dictionary
+         */
+        public void add_dictionary (Dict dict) {
+            dictionaries.add (dict);
+        }
+
+        /**
+         * Unregister dictionary.
+         *
+         * @param dict a dictionary
+         */
+        public void remove_dictionary (Dict dict) {
+            dictionaries.remove (dict);
+        }
+
+        public void clear_dictionaries () {
+            dictionaries.clear ();
+        }
 
         /**
          * Current candidates.
@@ -34,6 +54,10 @@ namespace Kkc {
                 return state.candidates;
             }
         }
+
+		State state;
+        Gee.Map<Type, StateHandler> handlers =
+            new HashMap<Type, StateHandler> ();
 
         /**
          * Current input mode.
@@ -116,12 +140,13 @@ namespace Kkc {
             handlers.set (typeof (SelectStateHandler),
                           new SelectStateHandler ());
 			var decoder = Kkc.Decoder.create (model);
-            state = new State (decoder);
+            state = new State (decoder, dictionaries);
             connect_state_signals (state);
         }
 
         ~Context () {
             disconnect_state_signals (state);
+            dictionaries.clear ();
         }
 
         void notify_input_mode_cb (Object s, ParamSpec? p) {
@@ -399,6 +424,17 @@ namespace Kkc {
         public void get_preedit_underline (out uint offset, out uint nchars) {
             offset = preedit_underline_offset;
             nchars = preedit_underline_nchars;
+        }
+
+        /**
+         * Save dictionaries on to disk.
+         */
+        public void save_dictionaries () throws GLib.Error {
+            foreach (var dict in dictionaries) {
+                if (!dict.read_only) {
+                    dict.save ();
+                }
+            }
         }
     }
 }

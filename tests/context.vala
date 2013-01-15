@@ -11,6 +11,13 @@ class ContextTests : Kkc.TestCase {
 			stderr.printf ("%s\n", e.message);
 		}
 
+        try {
+            var dict = new Kkc.FileDict ("file-dict.dat");
+            context.add_dictionary (dict);
+        } catch (Error e) {
+			stderr.printf ("%s\n", e.message);
+        }
+
 		add_test ("conversion", this.test_conversion);
     }
 
@@ -54,6 +61,11 @@ class ContextTests : Kkc.TestCase {
         { "SPC Right Right C-Left",
           "わたしの生絵は中野です",
           4,
+          1,
+          "" },
+        { "SPC SPC",
+          "私の名前は中野です",
+          0,
           1,
           "" },
     };

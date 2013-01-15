@@ -19,25 +19,14 @@ using Gee;
 
 namespace Kkc {
     public class Segment : Object {
-        string _input;
-        public string input {
-            get {
-                return _input;
-            }
-        }
-
-        string _output;
-        public string output {
-            get {
-                return _output;
-            }
-        }
+        public string input { get; private set; }
+        public string output { get; set; }
 
         public Segment? next;
 
         public Segment (string input, string output) {
-            _input = input;
-            _output = output;
+            this.input = input;
+            this.output = output;
         }
     }
 }
