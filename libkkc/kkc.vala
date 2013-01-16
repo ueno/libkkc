@@ -18,10 +18,6 @@
 using Gee;
 
 namespace Kkc {
-    public errordomain Error {
-        UNSUPPORTED_DICT
-    }
-
     /**
      * Initialize libkkc.
      *

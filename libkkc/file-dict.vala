@@ -84,7 +84,12 @@ namespace Kkc {
         }
 
         void load () throws DictError {
-            mmap.remap ();
+            try {
+                mmap.remap ();
+            } catch (IOError e) {
+                throw new DictError.NOT_READABLE (
+                    "can't load: %s", e.message);
+            }
 
             long offset = 0;
             var line = read_line (ref offset);
@@ -101,7 +106,7 @@ namespace Kkc {
                     if (_converter != null) {
                         converter = _converter;
                     }
-                } catch (Error e) {
+                } catch (GLib.Error e) {
                     warning ("can't create converter from coding system %s: %s",
                              coding, e.message);
                 }

@@ -47,7 +47,7 @@ namespace Kkc {
                     if (_converter != null) {
                         converter = _converter;
                     }
-                } catch (Error e) {
+                } catch (GLib.Error e) {
                     warning ("can't create converter from coding system %s: %s",
                              coding, e.message);
                 }
