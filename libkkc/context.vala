@@ -153,16 +153,6 @@ namespace Kkc {
             notify_property ("input-mode");
         }
 
-        bool retrieve_surrounding_text_cb (out string text,
-                                           out uint cursor_pos)
-        {
-            return retrieve_surrounding_text (out text, out cursor_pos);
-        }
-
-        bool delete_surrounding_text_cb (int offset, uint nchars) {
-            return delete_surrounding_text (offset, nchars);
-        }
-
         void notify_cursor_pos_cb (Object s, ParamSpec? p) {
             if (((CandidateList) candidates).cursor_pos >= 0) {
                 update_preedit ();
@@ -171,46 +161,15 @@ namespace Kkc {
 
         void connect_state_signals (State state) {
             state.notify["input-mode"].connect (notify_input_mode_cb);
-            state.retrieve_surrounding_text.connect (
-                retrieve_surrounding_text_cb);
-            state.delete_surrounding_text.connect (
-                delete_surrounding_text_cb);
             state.candidates.notify["cursor-pos"].connect (
                 notify_cursor_pos_cb);
         }
 
         void disconnect_state_signals (State state) {
             state.notify["input-mode"].disconnect (notify_input_mode_cb);
-            state.retrieve_surrounding_text.disconnect (
-                retrieve_surrounding_text_cb);
-            state.delete_surrounding_text.disconnect (
-                delete_surrounding_text_cb);
             state.candidates.notify["cursor-pos"].disconnect (
                 notify_cursor_pos_cb);
         }
-
-        /**
-         * Signal emitted when the context requires surrounding-text.
-         *
-         * @param text surrounding text
-         * @param cursor_pos cursor position in text
-         *
-         * @return `true` on success, `false` on failure
-         */
-        public signal bool retrieve_surrounding_text (out string text,
-                                                      out uint cursor_pos);
-
-        /**
-         * Signal emitted when the context requests deletion of
-         * surrounding-text.
-         *
-         * @param offset character offset from the cursor position.
-         * @param nchars number of characters to delete.
-         *
-         * @return `true` on success, `false` on failure
-         */
-        public signal bool delete_surrounding_text (int offset,
-                                                    uint nchars);
 
         /**
          * Pass key events (separated by spaces) to the context.

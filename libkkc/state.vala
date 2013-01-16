@@ -160,12 +160,6 @@ namespace Kkc {
             _input_mode = _mode;
         }
 
-        internal void output_surrounding_text () {
-            if (surrounding_text != null) {
-                output.append (surrounding_text.substring (0));
-            }
-        }
-
         internal void reset () {
             // output and input_mode won't change
             handler_type = typeof (NoneStateHandler);
@@ -175,8 +169,6 @@ namespace Kkc {
             candidates.clear ();
             preedit.erase ();
             auto_start_henkan_keyword = null;
-            surrounding_text = null;
-            surrounding_end = 0;
         }
 
         string extract_numerics (string midasi, out int[] numerics) {
@@ -338,14 +330,6 @@ namespace Kkc {
 
         internal void purge_candidate (Candidate candidate) {
         }
-
-        internal UnicodeString? surrounding_text;
-        internal uint surrounding_end;
-
-        internal signal bool retrieve_surrounding_text (out string text,
-                                                        out uint cursor_pos);
-        internal signal bool delete_surrounding_text (int offset,
-                                                      uint nchars);
     }
 
     delegate bool CommandHandler (State state);
@@ -533,10 +517,6 @@ namespace Kkc {
                         RomKanaUtils.convert_by_input_mode (
                             state.rom_kana_converter.output,
                             entry.value));
-                    if (state.surrounding_text != null) {
-                        state.output.append (state.surrounding_text.substring (
-                                                 state.surrounding_end));
-                    }
                     state.rom_kana_converter.reset ();
                     return true;
                 }
@@ -584,10 +564,6 @@ namespace Kkc {
                 state.output.append (get_preedit (state,
                                                   out underline_offset,
                                                   out underline_nchars));
-                if (state.surrounding_text != null) {
-                    state.output.append (state.surrounding_text.substring (
-                                             state.surrounding_end));
-                }
                 state.reset ();
                 return true;
             }
@@ -644,15 +620,9 @@ namespace Kkc {
                 return true;
             }
             else {
-                string surrounding_after = "";
-                if (state.surrounding_text != null) {
-                    surrounding_after = state.surrounding_text.substring (
-                        state.surrounding_end);
-                }
                 state.candidates.select ();
                 var candidate = state.candidates.get ();
                 state.segments[state.segments.index].output = candidate.output;
-                state.output.append (surrounding_after);
                 state.reset ();
                 if ((key.modifiers == 0 &&
                      0x20 <= key.code && key.code <= 0x7E) ||
