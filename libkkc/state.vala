@@ -19,13 +19,6 @@
 using Gee;
 
 namespace Kkc {
-    static const string[] AUTO_START_HENKAN_KEYWORDS = {
-        "を", "、", "。", "．", "，", "？", "」",
-        "！", "；", "：", ")", ";", ":", "）",
-        "”", "】", "』", "》", "〉", "｝", "］",
-        "〕", "}", "]", "?", ".", ",", "!"
-    };
-
     class State : Object {
         internal Type handler_type;
         InputMode _input_mode;
@@ -63,9 +56,6 @@ namespace Kkc {
 
         internal StringBuilder output = new StringBuilder ();
         internal StringBuilder preedit = new StringBuilder ();
-
-        internal string[] auto_start_henkan_keywords;
-        internal string? auto_start_henkan_keyword = null;
 
         internal PeriodStyle period_style {
             get {
@@ -120,7 +110,6 @@ namespace Kkc {
             this.candidates.selected.connect (candidate_selected);
 
             rom_kana_converter = new RomKanaConverter ();
-            auto_start_henkan_keywords = AUTO_START_HENKAN_KEYWORDS;
 
             try {
                 _typing_rule = new Rule ("default");
@@ -136,13 +125,9 @@ namespace Kkc {
         }
 
         void candidate_selected (Candidate c) {
-            output.append (c.output);
-            if (auto_start_henkan_keyword != null) {
-                output.append (auto_start_henkan_keyword);
-            }
-            var _mode = input_mode;
-            reset ();
-            _input_mode = _mode;
+            if (segments.cursor_pos >= 0)
+                segments[segments.cursor_pos].output = c.text;
+            candidates.clear ();
         }
 
         internal void reset () {
@@ -153,13 +138,18 @@ namespace Kkc {
             segments.clear ();
             candidates.clear ();
             preedit.erase ();
-            auto_start_henkan_keyword = null;
         }
 
         internal void lookup (string midasi, bool okuri = false) {
             candidates.clear ();
             lookup_internal (new SimpleTemplate (midasi), okuri);
             lookup_internal (new NumericTemplate (midasi), okuri);
+
+            var hiragana = new Candidate (midasi, okuri, midasi);
+            candidates.add_candidates (new Candidate[] { hiragana });
+            var katakana = new Candidate (midasi, okuri,
+                                          RomKanaUtils.get_katakana (midasi));
+            candidates.add_candidates (new Candidate[] { katakana });
             candidates.add_candidates_end ();
         }
 
@@ -185,30 +175,27 @@ namespace Kkc {
                                         int[] constraints = new int[0])
         {
             var _segments = decoder.decode (input, 1, constraints);
-            segments.clear ();
-            segments.add_segments (_segments[0]);
+            segments.set_segments (_segments[0]);
         }
 
         internal void resize_segment (int amount) {
-            if (segments.index >= 0 && segments.index < segments.size) {
+            if (segments.cursor_pos >= 0
+                && segments.cursor_pos < segments.size) {
                 int[] constraints = {};
                 int offset = 0;
                 for (var i = 0; i < segments.size; i++) {
                     int segment_size = segments[i].input.char_count ();
-                    if (i == segments.index)
+                    if (i == segments.cursor_pos)
                         segment_size += amount;
                     offset += segment_size;
                     constraints += offset;
-                    if (i == segments.index)
+                    if (i == segments.cursor_pos)
                         break;
                 }
-                int index = segments.index;
+                int cursor_pos = segments.cursor_pos;
                 convert_sentence (segments.get_input (), constraints);
-                segments.index = index;
+                segments.cursor_pos = cursor_pos;
             }
-        }
-
-        internal void purge_candidate (Candidate candidate) {
         }
     }
 
@@ -258,6 +245,15 @@ namespace Kkc {
                 state.output.append (state.rom_kana_converter.output);
                 state.reset ();
                 return retval;
+            }
+            else if (command == "next-candidate") {
+                if (state.segments.size == 0) {
+                    string input = RomKanaUtils.get_hiragana (
+                        state.preedit.str);
+                    state.convert_sentence (input);
+                    state.handler_type = typeof (StartStateHandler);
+                    return true;
+                }
             }
             // check mode switch events
             if (command != null && command.has_prefix ("set-input-mode-") &&
@@ -323,9 +319,6 @@ namespace Kkc {
                         state.rom_kana_converter.output = "";
                         retval = false;
                     }
-                    if (retval) {
-                        return check_auto_conversion (state, ref key);
-                    }
                     return retval;
                 }
                 break;
@@ -359,19 +352,6 @@ namespace Kkc {
             underline_nchars = 0;
             return builder.str;
         }
-
-        bool check_auto_conversion (State state, ref KeyEvent key) {
-            foreach (var keyword in state.auto_start_henkan_keywords) {
-                if (state.preedit.len > keyword.length &&
-                    state.preedit.str.has_suffix (keyword)) {
-                    state.auto_start_henkan_keyword = keyword;
-                    state.handler_type = typeof (StartStateHandler);
-                    key = state.where_is ("next-candidate");
-                    return false;
-                }
-            }
-            return true;
-        }
     }
 
     class StartStateHandler : StateHandler {
@@ -403,16 +383,12 @@ namespace Kkc {
             }
 
             if (command == "next-candidate") {
-                if (state.segments.size == 0) {
-                    string input = RomKanaUtils.get_hiragana (
-                        state.preedit.str);
-                    state.convert_sentence (input);
-                    return true;
-                }
+                string midasi = state.segments[state.segments.cursor_pos].input;
+                state.lookup (midasi);
                 state.handler_type = typeof (SelectStateHandler);
-                return false;
+                return true;
             }
-            else if (command == "delete") {
+            if (command == "delete") {
                 state.reset ();
                 return true;
             }
@@ -445,21 +421,24 @@ namespace Kkc {
                                                   out underline_offset,
                                                   out underline_nchars));
                 state.reset ();
-                return true;
+                // to notify preedit change through context
+                return command == "commit";
             }
         }
 
         internal override string get_preedit (State state,
                                               out uint underline_offset,
                                               out uint underline_nchars) {
+            assert (state.segments.cursor_pos >= 0);
+            assert (state.segments.cursor_pos < state.segments.size);
+
             var preedit = state.segments.to_string ();
-            Segment segment;
             uint offset = 0;
-            for (var i = 0; i < state.segments.index; i++) {
-                segment = state.segments[i];
+            for (var i = 0; i < state.segments.cursor_pos; i++) {
+                var segment = state.segments[i];
                 offset += segment.output.char_count ();
             }
-            segment = state.segments[state.segments.index];
+            var segment = state.segments[state.segments.cursor_pos];
             underline_offset = offset;
             underline_nchars = segment.output.char_count ();
             return preedit;
@@ -478,20 +457,8 @@ namespace Kkc {
                 }
                 return true;
             }
-            else if (command == "purge-candidate") {
-                var candidate = state.candidates.get ();
-                state.purge_candidate (candidate);
-                state.reset ();
-                return true;
-            }
             else if (command == "next-candidate") {
-                if (state.candidates.cursor_pos < 0) {
-                    string midasi = state.segments[state.segments.index].input;
-                    state.lookup (midasi);
-                    if (state.candidates.size > 0) {
-                        return true;
-                    }
-                }
+                state.candidates.next ();
                 return true;
             }
             else if (command == "abort") {
@@ -499,20 +466,20 @@ namespace Kkc {
                 state.handler_type = typeof (StartStateHandler);
                 return true;
             }
+            else if (command == "next-segment") {
+                state.candidates.select ();
+                state.handler_type = typeof (StartStateHandler);
+                return false;
+            }
+            else if (command == "previous-segment") {
+                state.candidates.select ();
+                state.handler_type = typeof (StartStateHandler);
+                return false;
+            }
             else {
                 state.candidates.select ();
-                var candidate = state.candidates.get ();
-                state.segments[state.segments.index].output = candidate.output;
-                state.reset ();
-                if ((key.modifiers == 0 &&
-                     0x20 <= key.code && key.code <= 0x7E) ||
-                    command == "delete") {
-                    return false;
-                }
-                else {
-                    // mark any other key events are consumed here
-                    return true;
-                }
+                state.handler_type = typeof (StartStateHandler);
+                return false;
             }
         }
 
@@ -523,7 +490,7 @@ namespace Kkc {
             underline_offset = 0;
             underline_nchars = 0;
             for (var i = 0; i < state.segments.size; i++) {
-                if (i == state.segments.index) {
+                if (i == state.segments.cursor_pos) {
                     var text = state.candidates.get ().text;
                     underline_offset = builder.str.char_count ();
                     underline_nchars = text.char_count ();

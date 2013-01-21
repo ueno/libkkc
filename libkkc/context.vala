@@ -55,6 +55,15 @@ namespace Kkc {
             }
         }
 
+        /**
+         * Current segments.
+         */
+        public SegmentList segments {
+            get {
+                return state.segments;
+            }
+        }
+
 		State state;
         Gee.Map<Type, StateHandler> handlers =
             new HashMap<Type, StateHandler> ();
@@ -68,18 +77,6 @@ namespace Kkc {
             }
             set {
                 state.input_mode = value;
-            }
-        }
-
-        /**
-         * Array of strings which triggers automatic conversion.
-         */
-        public string[] auto_start_henkan_keywords {
-            get {
-                return state.auto_start_henkan_keywords;
-            }
-            set {
-                state.auto_start_henkan_keywords = value;
             }
         }
 
@@ -153,8 +150,14 @@ namespace Kkc {
             notify_property ("input-mode");
         }
 
-        void notify_cursor_pos_cb (Object s, ParamSpec? p) {
-            if (((CandidateList) candidates).cursor_pos >= 0) {
+        void notify_candidates_cursor_pos_cb (Object s, ParamSpec? p) {
+            if (candidates.cursor_pos >= 0) {
+                update_preedit ();
+            }
+        }
+
+        void notify_segments_cursor_pos_cb (Object s, ParamSpec? p) {
+            if (segments.cursor_pos >= 0) {
                 update_preedit ();
             }
         }
@@ -162,13 +165,17 @@ namespace Kkc {
         void connect_state_signals (State state) {
             state.notify["input-mode"].connect (notify_input_mode_cb);
             state.candidates.notify["cursor-pos"].connect (
-                notify_cursor_pos_cb);
+                notify_candidates_cursor_pos_cb);
+            state.segments.notify["cursor-pos"].connect (
+                notify_segments_cursor_pos_cb);
         }
 
         void disconnect_state_signals (State state) {
             state.notify["input-mode"].disconnect (notify_input_mode_cb);
             state.candidates.notify["cursor-pos"].disconnect (
-                notify_cursor_pos_cb);
+                notify_candidates_cursor_pos_cb);
+            state.segments.notify["cursor-pos"].disconnect (
+                notify_segments_cursor_pos_cb);
         }
 
         /**
@@ -299,7 +306,7 @@ namespace Kkc {
          * Reset the context.
          */
         public void reset () {
-            // will clear state.candidates but not state.output
+            // will clear state.candidates, state.segments, but not state.output
             state.reset ();
 
             // clear output and preedit

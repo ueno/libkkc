@@ -18,39 +18,17 @@
 using Gee;
 
 namespace Kkc {
-    internal class SegmentList : Object {
+    public class SegmentList : Object {
         Gee.List<Segment> segments = new ArrayList<Segment> ();
 
-        int _index = -1;
-        public int index {
+        int _cursor_pos = -1;
+        public int cursor_pos {
             get {
-                return _index;
+                return _cursor_pos;
             }
             set {
-                _index = value.clamp (0, size);
+                _cursor_pos = value.clamp (0, size - 1);
             }
-        }
-
-        public void add_segments (Segment segment) {
-            while (segment != null) {
-                segments.add (segment);
-                segment = segment.next;
-            }
-            index = 0;
-        }
-
-        public void next_segment () {
-            if (index == -1)
-                return;
-            index += 1;
-            index = index.clamp (0, size - 1);
-        }
-
-        public void previous_segment () {
-            if (index == -1)
-                return;
-            index += -1;
-            index = index.clamp (0, size - 1);
         }
 
         public int size {
@@ -61,15 +39,34 @@ namespace Kkc {
 
         public void clear () {
             segments.clear ();
-            index = -1;
+            cursor_pos = -1;
         }
 
         public new Segment @get (int index) {
             return segments.get (index);
         }
 
-        public Iterator iterator () {
-            return segments.iterator ();
+        public void set_segments (Segment segment) {
+            segments.clear ();
+            while (segment != null) {
+                segments.add (segment);
+                segment = segment.next;
+            }
+            cursor_pos = 0;
+        }
+
+        public void next_segment () {
+            if (cursor_pos == -1)
+                return;
+            _cursor_pos += 1;
+            _cursor_pos = _cursor_pos.clamp (0, size - 1);
+        }
+
+        public void previous_segment () {
+            if (cursor_pos == -1)
+                return;
+            _cursor_pos += -1;
+            _cursor_pos = _cursor_pos.clamp (0, size - 1);
         }
 
         public string to_string () {

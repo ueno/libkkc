@@ -166,7 +166,7 @@ namespace Kkc {
         }
     }
 
-    errordomain DictError {
+    public errordomain DictError {
         NOT_READABLE,
         MALFORMED_INPUT
     }

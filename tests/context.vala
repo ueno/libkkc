@@ -18,6 +18,13 @@ class ContextTests : Kkc.TestCase {
             stderr.printf ("%s\n", e.message);
         }
 
+        try {
+            var dict = new Kkc.UserDict ("user-dict.dat");
+            context.add_dictionary (dict);
+        } catch (Error e) {
+            stderr.printf ("%s\n", e.message);
+        }
+
         add_test ("conversion", this.test_conversion);
     }
 
@@ -68,6 +75,21 @@ class ContextTests : Kkc.TestCase {
           0,
           1,
           "" },
+        { "SPC SPC Right",
+          "私の名前は中野です",
+          1,
+          1,
+          "" },
+        { "SPC SPC Right SPC",
+          "私埜名前は中野です",
+          1,
+          1,
+          "" },
+        { "SPC SPC Right SPC SPC",
+          "私之名前は中野です",
+          1,
+          1,
+          "" },
     };
 
     public void test_conversion () {
@@ -83,6 +105,7 @@ class ContextTests : Kkc.TestCase {
             assert (nchars == conversion.preedit_underline_nchars);
             context.reset ();
             context.clear_output ();
+            context.save_dictionaries ();
         }
     }
 }
