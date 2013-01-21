@@ -47,7 +47,7 @@ namespace Kkc {
 		new HashMap<string,Type?> ();
 
         static construct {
-            model_path = Utils.build_data_path ("model");
+            model_path = Utils.build_data_path ("models");
             model_types.set ("text2", typeof (TextBigramLanguageModel));
             model_types.set ("text3", typeof (TextTrigramLanguageModel));
             model_types.set ("sorted2", typeof (SortedBigramLanguageModel));
