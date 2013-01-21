@@ -74,7 +74,9 @@ libkkc_shell_sources =				\
 	file-dict.vala				\
 	user-dict.vala				\
 	encoding.vala				\
-	expr.vala				\
+	template.vala				\
+	numeric-template.vala			\
+	expression.vala				\
 	$(NULL)
 
 libkkc_la_SOURCES =				\

@@ -18,23 +18,23 @@
 using Gee;
 
 namespace Kkc {
-    enum ExprNodeType {
+    enum ExpressionNodeType {
         ARRAY,
         SYMBOL,
         STRING
     }
 
-    struct ExprNode {
-        public ExprNodeType type;
-        public LinkedList<ExprNode?> nodes;
+    struct ExpressionNode {
+        public ExpressionNodeType type;
+        public LinkedList<ExpressionNode?> nodes;
         public string data;
-        public ExprNode (ExprNodeType type) {
+        public ExpressionNode (ExpressionNodeType type) {
             this.type = type;
         }
     }
 
-    class ExprReader : Object {
-        public ExprNode read_symbol (string expr, ref int index) {
+    class ExpressionReader : Object {
+        public ExpressionNode read_symbol (string expr, ref int index) {
             var builder = new StringBuilder ();
             bool stop = false;
             unichar uc = '\0';
@@ -53,12 +53,12 @@ namespace Kkc {
                     break;
                 }
             }
-            var node = ExprNode (ExprNodeType.SYMBOL);
+            var node = ExpressionNode (ExpressionNodeType.SYMBOL);
             node.data = builder.str;
             return node;
         }
 
-        public ExprNode? read_string (string expr, ref int index) {
+        public ExpressionNode? read_string (string expr, ref int index) {
             return_val_if_fail (index < expr.length && expr[index] == '"',
                                 null);
             var builder = new StringBuilder ();
@@ -116,15 +116,15 @@ namespace Kkc {
                     break;
                 }
             }
-            var node = ExprNode (ExprNodeType.STRING);
+            var node = ExpressionNode (ExpressionNodeType.STRING);
             node.data = builder.str;
             return node;
         }
 
-        public ExprNode? read_expr (string expr, ref int index) {
+        public ExpressionNode? read (string expr, ref int index) {
             return_val_if_fail (index < expr.length && expr[index] == '(',
                                 null);
-            var nodes = new LinkedList<ExprNode?> ();
+            var nodes = new LinkedList<ExpressionNode?> ();
             bool stop = false;
             index++;
             unichar uc = '\0';
@@ -138,7 +138,7 @@ namespace Kkc {
                     break;
                 case '(':
                     index--;
-                    nodes.add (read_expr (expr, ref index));
+                    nodes.add (read (expr, ref index));
                     break;
                 case '"':
                     index--;
@@ -150,25 +150,25 @@ namespace Kkc {
                     break;
                 }
             }
-            var node = ExprNode (ExprNodeType.ARRAY);
+            var node = ExpressionNode (ExpressionNodeType.ARRAY);
             node.nodes = nodes;
             return node;
         }
     }
 
-    class ExprEvaluator : Object {
-        public string? eval (ExprNode node) {
-            if (node.type == ExprNodeType.ARRAY) {
+    class ExpressionEvaluator : Object {
+        public string? eval (ExpressionNode node) {
+            if (node.type == ExpressionNodeType.ARRAY) {
                 var iter = node.nodes.list_iterator ();
                 if (iter.first ()) {
                     var funcall = iter.get ();
-                    if (funcall.type == ExprNodeType.SYMBOL) {
+                    if (funcall.type == ExpressionNodeType.SYMBOL) {
                         // FIXME support other functions in more extensible way
                         if (funcall.data == "concat") {
                             var builder = new StringBuilder ();
                             while (iter.next ()) {
                                 var arg = iter.get ();
-                                if (arg.type == ExprNodeType.STRING) {
+                                if (arg.type == ExpressionNodeType.STRING) {
                                     builder.append (arg.data);
                                 }
                             }
@@ -189,6 +189,21 @@ namespace Kkc {
                 }
             }
             return null;
+        }
+    }
+
+    class Expression : Object {
+        public static string eval (string text) {
+            if (text.has_prefix ("(")) {
+                var reader = new ExpressionReader ();
+                int index = 0;
+                var node = reader.read (text, ref index);
+                var evaluator = new ExpressionEvaluator ();
+                var result = evaluator.eval (node);
+                if (result != null)
+                    return result;
+            }
+            return text;
         }
     }
 }

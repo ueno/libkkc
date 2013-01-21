@@ -112,9 +112,6 @@ namespace Kkc {
             return false;
         }
 
-        Regex numeric_regex;
-        Regex numeric_ref_regex;
-
         internal State (Decoder decoder, Gee.List<Dict> dictionaries) {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
@@ -128,18 +125,6 @@ namespace Kkc {
             try {
                 _typing_rule = new Rule ("default");
             } catch (RuleParseError e) {
-                assert_not_reached ();
-            }
-
-            try {
-                numeric_regex = new Regex ("[0-9]+");
-            } catch (GLib.RegexError e) {
-                assert_not_reached ();
-            }
-
-            try {
-                numeric_ref_regex = new Regex ("#([0-9])");
-            } catch (GLib.RegexError e) {
                 assert_not_reached ();
             }
 
@@ -171,129 +156,24 @@ namespace Kkc {
             auto_start_henkan_keyword = null;
         }
 
-        string extract_numerics (string midasi, out int[] numerics) {
-            MatchInfo info = null;
-            int start_pos = 0;
-            var numeric_list = new ArrayList<int> ();
-            var builder = new StringBuilder ();
-            while (true) {
-                try {
-                    if (!numeric_regex.match_full (midasi,
-                                                   -1,
-                                                   start_pos,
-                                                   0,
-                                                   out info)) {
-                        break;
-                    }
-                } catch (GLib.RegexError e) {
-                    return_val_if_reached (midasi);
-                }
-
-                string numeric = info.fetch (0);
-                int match_start_pos, match_end_pos;
-                info.fetch_pos (0,
-                                out match_start_pos,
-                                out match_end_pos);
-                numeric_list.add (int.parse (numeric));
-                builder.append (midasi[start_pos:match_start_pos]);
-                builder.append ("#");
-                start_pos = match_end_pos;
-            }
-            numerics = numeric_list.to_array ();
-            builder.append (midasi[start_pos:midasi.length]);
-            return builder.str;
-        }
-
-        string expand_expr (string text) {
-            if (text.has_prefix ("(")) {
-                var reader = new ExprReader ();
-                int index = 0;
-                var node = reader.read_expr (text, ref index);
-                var evaluator = new ExprEvaluator ();
-                var _text = evaluator.eval (node);
-                if (_text != null) {
-                    return _text;
-                }
-            }
-            return text;
-        }
-
-        string expand_numeric_references (string text, int[] numerics) {
-            var builder = new StringBuilder ();
-            MatchInfo info = null;
-            int start_pos = 0;
-            for (int numeric_index = 0;
-                 numeric_index < numerics.length;
-                 numeric_index++)
-            {
-                try {
-                    if (!numeric_ref_regex.match_full (text,
-                                                       -1,
-                                                       start_pos,
-                                                       0,
-                                                       out info)) {
-                        break;
-                    }
-                } catch (GLib.RegexError e) {
-                    return_val_if_reached (text);
-                }
-                            
-                int match_start_pos, match_end_pos;
-                info.fetch_pos (0,
-                                out match_start_pos,
-                                out match_end_pos);
-                builder.append (text[start_pos:match_start_pos]);
-
-                string type = info.fetch (1);
-                switch (type[0]) {
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '5':
-                    builder.append (
-                        RomKanaUtils.get_numeric (
-                            numerics[numeric_index],
-                            (NumericConversionType) (type[0] - '0')));
-                    break;
-                case '4':
-                case '9':
-                    // not supported yet
-                    break;
-                default:
-                    warning ("unknown numeric conversion type: %s",
-                             type);
-                    break;
-                }
-                start_pos = match_end_pos;
-            }
-            builder.append (text[start_pos:text.length]);
-            return builder.str;
-        }
-
         internal void lookup (string midasi, bool okuri = false) {
             candidates.clear ();
-            int[] numerics = new int[0];
-            lookup_internal (midasi, numerics, okuri);
-            var numeric_midasi = extract_numerics (midasi, out numerics);
-            lookup_internal (numeric_midasi, numerics, okuri);
+            lookup_internal (new SimpleTemplate (midasi), okuri);
+            lookup_internal (new NumericTemplate (midasi), okuri);
             candidates.add_candidates_end ();
         }
 
-        void lookup_internal (string midasi,
-                              int[] numerics,
-                              bool okuri = false)
-        {
+        void lookup_internal (Template template, bool okuri = false) {
             foreach (var dict in dictionaries) {
-                var _candidates = dict.lookup (midasi, okuri);
+                var _candidates = dict.lookup (template.source, okuri);
                 foreach (var candidate in _candidates) {
-                    var text = candidate.text;
-                    text = expand_expr (text);
-                    text = expand_numeric_references (text, numerics);
+                    string text;
+                    text = Expression.eval (candidate.text);
+                    text = template.expand (text);
                     candidate.output = text;
                     // annotation may be an expression
                     if (candidate.annotation != null) {
-                        candidate.annotation = expand_expr (
+                        candidate.annotation = Expression.eval (
                             candidate.annotation);
                     }
                 }
