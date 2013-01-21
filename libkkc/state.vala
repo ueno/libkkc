@@ -247,6 +247,8 @@ namespace Kkc {
                 return retval;
             }
             else if (command == "next-candidate") {
+                if (state.preedit.len == 0)
+                    return false;
                 if (state.segments.size == 0) {
                     string input = RomKanaUtils.get_hiragana (
                         state.preedit.str);
