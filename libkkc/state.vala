@@ -154,7 +154,7 @@ namespace Kkc {
 
         internal void reset () {
             // output and input_mode won't change
-            handler_type = typeof (NoneStateHandler);
+            handler_type = typeof (InitialStateHandler);
             rom_kana_converter.reset ();
             _typing_rule.get_filter ().reset ();
             segments.clear ();
@@ -251,7 +251,7 @@ namespace Kkc {
         InputMode value;
     }
 
-    class NoneStateHandler : StateHandler {
+    class InitialStateHandler : StateHandler {
         static const InputModeCommandEntry[] input_mode_commands = {
             { "set-input-mode-hiragana", InputMode.HIRAGANA },
             { "set-input-mode-katakana", InputMode.KATAKANA },
@@ -287,7 +287,7 @@ namespace Kkc {
                         state.input_buffer.str);
                     state.convert_sentence (input);
                     state.segments.first_segment ();
-                    state.handler_type = typeof (StartStateHandler);
+                    state.handler_type = typeof (ConvertSentenceStateHandler);
                     return true;
                 }
             }
@@ -329,7 +329,7 @@ namespace Kkc {
                     state.rom_kana_converter.output_nn_if_any ();
                     state.input_buffer.append (state.rom_kana_converter.output);
                     state.rom_kana_converter.output = "";
-                    state.handler_type = typeof (StartStateHandler);
+                    state.handler_type = typeof (ConvertSentenceStateHandler);
                     return false;
                 }
                 if (command != null && command.has_prefix ("insert-kana-")) {
@@ -379,7 +379,7 @@ namespace Kkc {
         }
     }
 
-    class StartStateHandler : StateHandler {
+    class ConvertSentenceStateHandler : StateHandler {
         static const InputModeCommandEntry[] end_preedit_commands = {
             { "set-input-mode-hiragana", InputMode.HIRAGANA },
             { "set-input-mode-katakana", InputMode.KATAKANA },
@@ -409,7 +409,7 @@ namespace Kkc {
 
             if (command == "next-candidate"
                 || command == "previous-candidate") {
-                state.handler_type = typeof (SelectStateHandler);
+                state.handler_type = typeof (ConvertSegmentStateHandler);
                 state.candidates.first ();
                 return true;
             }
@@ -449,7 +449,7 @@ namespace Kkc {
         }
     }
 
-    class SelectStateHandler : StateHandler {
+    class ConvertSegmentStateHandler : StateHandler {
         internal override bool process_key_event (State state,
                                                   ref KeyEvent key)
         {
@@ -464,25 +464,25 @@ namespace Kkc {
             }
             else if (command == "abort") {
                 state.candidates.clear ();
-                state.handler_type = typeof (StartStateHandler);
+                state.handler_type = typeof (ConvertSentenceStateHandler);
                 return true;
             }
             else if (command == "next-segment") {
                 if (state.candidates.cursor_pos >= 0)
                     state.candidates.select ();
-                state.handler_type = typeof (StartStateHandler);
+                state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
             else if (command == "previous-segment") {
                 if (state.candidates.cursor_pos >= 0)
                     state.candidates.select ();
-                state.handler_type = typeof (StartStateHandler);
+                state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
             else {
                 if (state.candidates.cursor_pos >= 0)
                     state.candidates.select ();
-                state.handler_type = typeof (StartStateHandler);
+                state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
         }

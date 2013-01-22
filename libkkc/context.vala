@@ -139,12 +139,12 @@ namespace Kkc {
          * @return a new Context
          */
         public Context (LanguageModel model) {
-            handlers.set (typeof (NoneStateHandler),
-                          new NoneStateHandler ());
-            handlers.set (typeof (StartStateHandler),
-                          new StartStateHandler ());
-            handlers.set (typeof (SelectStateHandler),
-                          new SelectStateHandler ());
+            handlers.set (typeof (InitialStateHandler),
+                          new InitialStateHandler ());
+            handlers.set (typeof (ConvertSentenceStateHandler),
+                          new ConvertSentenceStateHandler ());
+            handlers.set (typeof (ConvertSegmentStateHandler),
+                          new ConvertSegmentStateHandler ());
 			var decoder = Kkc.Decoder.create (model);
             state = new State (decoder, dictionaries);
             connect_state_signals (state);
