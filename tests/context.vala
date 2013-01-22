@@ -101,6 +101,12 @@ class ContextTests : Kkc.TestCase {
           7,
           1,
           "" },
+        { "SPC Right Right C-Left SPC RET",
+          "",
+          "",
+          0,
+          -1,
+          "わたしの生絵は中野です" },
     };
 
     public void test_conversion () {

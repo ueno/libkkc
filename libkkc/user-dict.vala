@@ -91,15 +91,15 @@ namespace Kkc {
                     throw new DictError.MALFORMED_INPUT (
                         "can't decode line %s: %s", line, e.message);
                 }
-                int index = line.index_of (" ");
+                int index = line.index_of ("/");
                 if (index < 1) {
                     throw new DictError.MALFORMED_INPUT (
                         "can't extract midasi from line %s",
                         line);
                 }
 
-                string midasi = line[0:index];
-                string candidates_str = line[index + 1:line.length];
+                string midasi = line[0:index].strip ();
+                string candidates_str = line[index:line.length];
                 if (!candidates_str.has_prefix ("/") ||
                     !candidates_str.has_suffix ("/")) {
                     throw new DictError.MALFORMED_INPUT (

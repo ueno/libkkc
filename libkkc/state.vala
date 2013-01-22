@@ -49,6 +49,7 @@ namespace Kkc {
 
         internal Decoder decoder;
         internal SegmentList segments;
+        internal SegmentList sentence;
         internal CandidateList candidates;
         internal Gee.List<Dict> dictionaries;
 
@@ -110,6 +111,7 @@ namespace Kkc {
         internal State (Decoder decoder, Gee.List<Dict> dictionaries) {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
+            this.sentence = new SegmentList ();
             this.segments = new SegmentList ();
             this.segments.notify["cursor-pos"].connect (
                 segments_cursor_pos_changed);
@@ -149,7 +151,74 @@ namespace Kkc {
         }
 
         void candidates_selected (Candidate candidate) {
+            if (segments.cursor_pos >= 0 && candidates.cursor_pos >= 0) {
+                Candidate[] _candidates = {};
+
+                _candidates += candidates.get (candidates.cursor_pos);
+
+                int segments_offset = 0;
+                int[] segments_offsets = {};
+                foreach (var segment in segments) {
+                    segments_offset += segment.output.char_count ();
+                    segments_offsets += segments_offset;
+                }
+
+                int sentence_offset = 0;
+                int[] sentence_offsets = {};
+                foreach (var segment in sentence) {
+                    sentence_offset += segment.output.char_count ();
+                    sentence_offsets += sentence_offset;
+                }
+
+                var start = 0;
+                for (var i = segments.cursor_pos; i >= 0; i--) {
+                    for (var j = 0; j < sentence_offsets.length; j++) {
+                        if (segments_offsets[i] == sentence_offsets[j]) {
+                            start = i + 1;
+                            break;
+                        }
+                    }
+                    if (start > 0)
+                        break;
+                }
+
+                var end = segments.size - 1;
+                for (var i = segments.cursor_pos; i < segments.size; i++) {
+                    for (var j = 0; j < sentence_offsets.length; j++) {
+                        if (segments_offsets[i] == sentence_offsets[j]) {
+                            end = i;
+                            break;
+                        }
+                    }
+                    if (end < segments.size - 1)
+                        break;
+                }
+
+                if (end > start) {
+                    string[] input = {};
+                    string[] output = {};
+                    for (; start <= end; start++) {
+                        input += segments[start].input;
+                        output += segments[start].output;
+                    }
+                    _candidates += new Candidate (string.joinv (" ", input),
+                                                  false,
+                                                  string.joinv (" ", output));
+                }
+                save_candidates (_candidates);
+            }
             candidates.clear ();
+        }
+
+        void save_candidates (Candidate[] _candidates) {
+            foreach (var dict in dictionaries) {
+                if (!dict.read_only) {
+                    foreach (var candidate in _candidates) {
+                        dict.select_candidate (candidate);
+                    }
+                    dict.save ();
+                }
+            }
         }
 
         internal void reset () {
@@ -158,6 +227,7 @@ namespace Kkc {
             rom_kana_converter.reset ();
             _typing_rule.get_filter ().reset ();
             segments.clear ();
+            sentence.clear ();
             candidates.clear ();
             input_buffer.erase ();
         }
@@ -286,6 +356,7 @@ namespace Kkc {
                     string input = RomKanaUtils.get_hiragana (
                         state.input_buffer.str);
                     state.convert_sentence (input);
+                    state.sentence.set_segments (state.segments[0]);
                     state.segments.first_segment ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
                     return true;
