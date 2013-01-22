@@ -54,8 +54,8 @@ namespace Kkc {
 
         internal RomKanaConverter rom_kana_converter;
 
+        internal StringBuilder input = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
-        internal StringBuilder preedit = new StringBuilder ();
 
         internal PeriodStyle period_style {
             get {
@@ -107,7 +107,10 @@ namespace Kkc {
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
             this.candidates = new SimpleCandidateList ();
-            this.candidates.selected.connect (candidate_selected);
+            this.candidates.notify["cursor-pos"].connect (
+                candidates_cursor_pos_changed);
+            this.candidates.selected.connect (
+                candidates_selected);
 
             rom_kana_converter = new RomKanaConverter ();
 
@@ -124,9 +127,14 @@ namespace Kkc {
             reset ();
         }
 
-        void candidate_selected (Candidate c) {
-            if (segments.cursor_pos >= 0)
-                segments[segments.cursor_pos].output = c.text;
+        void candidates_cursor_pos_changed (Object s, ParamSpec? p) {
+            if (segments.cursor_pos >= 0 && candidates.cursor_pos >= 0) {
+                var candidate = candidates.get (candidates.cursor_pos);
+                segments[segments.cursor_pos].output = candidate.text;
+            }
+        }
+
+        void candidates_selected (Candidate candidate) {
             candidates.clear ();
         }
 
@@ -137,7 +145,7 @@ namespace Kkc {
             _typing_rule.get_filter ().reset ();
             segments.clear ();
             candidates.clear ();
-            preedit.erase ();
+            input.erase ();
         }
 
         internal void lookup (string midasi, bool okuri = false) {
@@ -203,9 +211,6 @@ namespace Kkc {
 
     abstract class StateHandler : Object {
         internal abstract bool process_key_event (State state, ref KeyEvent key);
-        internal abstract string get_preedit (State state,
-                                              out uint underline_offset,
-                                              out uint underline_nchars);
         internal virtual string get_output (State state) {
             return state.output.str;
         }
@@ -233,26 +238,27 @@ namespace Kkc {
             var command = state.lookup_key (key);
             // check abort and commit event
             if (command == "abort") {
-                bool retval = state.preedit.len > 0 ||
+                bool retval = state.input.len > 0 ||
                     state.rom_kana_converter.preedit.length > 0;
                 state.reset ();
                 return retval;
             } else if (command == "commit") {
-                bool retval = state.preedit.len > 0 ||
+                bool retval = state.input.len > 0 ||
                     state.rom_kana_converter.preedit.length > 0;
                 state.rom_kana_converter.output_nn_if_any ();
-                state.output.append (state.preedit.str);
+                state.output.append (state.input.str);
                 state.output.append (state.rom_kana_converter.output);
                 state.reset ();
                 return retval;
             }
             else if (command == "next-candidate") {
-                if (state.preedit.len == 0)
+                if (state.input.len == 0)
                     return false;
                 if (state.segments.size == 0) {
                     string input = RomKanaUtils.get_hiragana (
-                        state.preedit.str);
+                        state.input.str);
                     state.convert_sentence (input);
+                    state.segments.first_segment ();
                     state.handler_type = typeof (StartStateHandler);
                     return true;
                 }
@@ -278,10 +284,10 @@ namespace Kkc {
                 if (state.rom_kana_converter.delete ()) {
                     return true;
                 }
-                if (state.preedit.len > 0) {
-                    state.preedit.truncate (
-                        state.preedit.str.index_of_nth_char (
-                            state.preedit.str.char_count () - 1));
+                if (state.input.len > 0) {
+                    state.input.truncate (
+                        state.input.str.index_of_nth_char (
+                            state.input.str.char_count () - 1));
                     return true;
                 }
                 return false;
@@ -293,7 +299,7 @@ namespace Kkc {
             case InputMode.HANKAKU_KATAKANA:
                 if (command == "next-candidate") {
                     state.rom_kana_converter.output_nn_if_any ();
-                    state.preedit.append (state.rom_kana_converter.output);
+                    state.input.append (state.rom_kana_converter.output);
                     state.rom_kana_converter.output = "";
                     state.handler_type = typeof (StartStateHandler);
                     return false;
@@ -302,18 +308,18 @@ namespace Kkc {
                     var kana = RomKanaUtils.convert_by_input_mode (
                         command["insert-kana-".length:command.length],
                         state.input_mode);
-                    state.preedit.append (kana);
+                    state.input.append (kana);
                     return true;
                 }
                 if (key.modifiers == 0) {
                     bool retval = false;
                     if (state.rom_kana_converter.append (key.code)) {
-                        state.preedit.append (state.rom_kana_converter.output);
+                        state.input.append (state.rom_kana_converter.output);
                         state.rom_kana_converter.output = "";
                         retval = true;
                     }
                     else if (0x20 <= key.code && key.code <= 0x7F) {
-                        state.preedit.append_c ((char) key.code);
+                        state.input.append_c ((char) key.code);
                         state.rom_kana_converter.output = "";
                         retval = true;
                     }
@@ -327,32 +333,20 @@ namespace Kkc {
             case InputMode.LATIN:
                 if (key.modifiers == 0 &&
                     0x20 <= key.code && key.code <= 0x7F) {
-                    state.preedit.append_c ((char) key.code);
+                    state.input.append_c ((char) key.code);
                     return true;
                 }
                 break;
             case InputMode.WIDE_LATIN:
                 if (key.modifiers == 0 &&
                     0x20 <= key.code && key.code <= 0x7F) {
-                    state.preedit.append_unichar (
+                    state.input.append_unichar (
                         RomKanaUtils.get_wide_latin_char ((char) key.code));
                     return true;
                 }
                 break;
             }
             return false;
-        }
-
-        internal override string get_preedit (State state,
-                                              out uint underline_offset,
-                                              out uint underline_nchars)
-        {
-            var builder = new StringBuilder ();
-            builder.append (state.preedit.str);
-            builder.append (state.rom_kana_converter.preedit);
-            underline_offset = 0;
-            underline_nchars = 0;
-            return builder.str;
         }
     }
 
@@ -418,32 +412,11 @@ namespace Kkc {
                 return true;
             }
             else {
-                uint underline_offset, underline_nchars;
-                state.output.append (get_preedit (state,
-                                                  out underline_offset,
-                                                  out underline_nchars));
+                state.output.append (state.segments.to_string ());
                 state.reset ();
                 // to notify preedit change through context
                 return command == "commit";
             }
-        }
-
-        internal override string get_preedit (State state,
-                                              out uint underline_offset,
-                                              out uint underline_nchars) {
-            assert (state.segments.cursor_pos >= 0);
-            assert (state.segments.cursor_pos < state.segments.size);
-
-            var preedit = state.segments.to_string ();
-            uint offset = 0;
-            for (var i = 0; i < state.segments.cursor_pos; i++) {
-                var segment = state.segments[i];
-                offset += segment.output.char_count ();
-            }
-            var segment = state.segments[state.segments.cursor_pos];
-            underline_offset = offset;
-            underline_nchars = segment.output.char_count ();
-            return preedit;
         }
     }
 
@@ -483,24 +456,6 @@ namespace Kkc {
                 state.handler_type = typeof (StartStateHandler);
                 return false;
             }
-        }
-
-        internal override string get_preedit (State state,
-                                              out uint underline_offset,
-                                              out uint underline_nchars) {
-            StringBuilder builder = new StringBuilder ();
-            underline_offset = 0;
-            underline_nchars = 0;
-            for (var i = 0; i < state.segments.size; i++) {
-                if (i == state.segments.cursor_pos) {
-                    var text = state.candidates.get ().text;
-                    underline_offset = builder.str.char_count ();
-                    underline_nchars = text.char_count ();
-                    builder.append (text);
-                } else
-                    builder.append (state.segments[i].output);
-            }
-            return builder.str;
         }
     }
 }

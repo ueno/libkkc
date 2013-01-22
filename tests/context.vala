@@ -29,80 +29,89 @@ class ContextTests : Kkc.TestCase {
     }
 
     struct Conversion {
+        string keys;
         string input;
-        string preedit;
-        uint preedit_underline_offset;
-        uint preedit_underline_nchars;
+        string segments;
+        int segments_size;
+        int segments_cursor_pos;
         string output;
     }
 
-    static const string INPUT_PREFIX =
+    static const string PREFIX_KEYS =
       "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
 
     static const Conversion[] conversions = {
         { "",
           "わたしのなまえはなかのです",
+          "",
           0,
-          0,
+          -1,
           "" },
         { "SPC",
+          "わたしのなまえはなかのです",
           "わたしの名前は中野です",
+          7,
           0,
-          3,
           "" },
         { "SPC Left",
+          "わたしのなまえはなかのです",
           "わたしの名前は中野です",
+          7,
           0,
-          3,
           "" },
         { "SPC Right",
+          "わたしのなまえはなかのです",
           "わたしの名前は中野です",
-          3,
+          7,
           1,
           "" },
         { "SPC Right C-Right",
+          "わたしのなまえはなかのです",
           "わたしのな前は中野です",
-          3,
-          2,
+          7,
+          1,
           "" },
         { "SPC Right Right C-Left",
+          "わたしのなまえはなかのです",
           "わたしの生絵は中野です",
-          4,
-          1,
+          8,
+          2,
           "" },
         { "SPC SPC",
+          "わたしのなまえはなかのです",
           "私の名前は中野です",
+          7,
           0,
-          1,
           "" },
         { "SPC SPC Right",
+          "わたしのなまえはなかのです",
           "私の名前は中野です",
-          1,
+          7,
           1,
           "" },
         { "SPC SPC Right SPC",
+          "わたしのなまえはなかのです",
           "私埜名前は中野です",
-          1,
+          7,
           1,
           "" },
         { "SPC SPC Right SPC SPC",
+          "わたしのなまえはなかのです",
           "私之名前は中野です",
-          1,
+          7,
           1,
           "" },
     };
 
     public void test_conversion () {
         foreach (var conversion in conversions) {
-            context.process_key_events (INPUT_PREFIX + conversion.input);
+            context.process_key_events (PREFIX_KEYS + conversion.keys);
             var output = context.poll_output ();
-            var preedit = context.preedit;
-            uint offset, nchars;
-            context.get_preedit_underline (out offset, out nchars);
             assert (output == conversion.output);
-            assert (preedit == conversion.preedit);
-            assert (offset == conversion.preedit_underline_offset);
-            assert (nchars == conversion.preedit_underline_nchars);
+            assert (context.input == conversion.input);
+            assert (context.segments.to_string () == conversion.segments);
+            assert (context.segments.size == conversion.segments_size);
+            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
             context.reset ();
             context.clear_output ();
             context.save_dictionaries ();

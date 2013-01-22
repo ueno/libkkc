@@ -64,6 +64,15 @@ namespace Kkc {
             }
         }
 
+        /**
+         * Current input string.
+         */
+        public string input {
+            get {
+                return state.input.str;
+            }
+        }
+
 		State state;
         Gee.Map<Type, StateHandler> handlers =
             new HashMap<Type, StateHandler> ();
@@ -150,32 +159,12 @@ namespace Kkc {
             notify_property ("input-mode");
         }
 
-        void notify_candidates_cursor_pos_cb (Object s, ParamSpec? p) {
-            if (candidates.cursor_pos >= 0) {
-                update_preedit ();
-            }
-        }
-
-        void notify_segments_cursor_pos_cb (Object s, ParamSpec? p) {
-            if (segments.cursor_pos >= 0) {
-                update_preedit ();
-            }
-        }
-
         void connect_state_signals (State state) {
             state.notify["input-mode"].connect (notify_input_mode_cb);
-            state.candidates.notify["cursor-pos"].connect (
-                notify_candidates_cursor_pos_cb);
-            state.segments.notify["cursor-pos"].connect (
-                notify_segments_cursor_pos_cb);
         }
 
         void disconnect_state_signals (State state) {
             state.notify["input-mode"].disconnect (notify_input_mode_cb);
-            state.candidates.notify["cursor-pos"].disconnect (
-                notify_candidates_cursor_pos_cb);
-            state.segments.notify["cursor-pos"].disconnect (
-                notify_segments_cursor_pos_cb);
         }
 
         /**
@@ -289,8 +278,6 @@ namespace Kkc {
                 var handler_type = state.handler_type;
                 var handler = handlers.get (handler_type);
                 if (handler.process_key_event (state, ref _key)) {
-                    // FIXME should do this only when preedit is really changed
-                    update_preedit ();
                     return true;
                 }
                 // state.handler_type may change if handler cannot
@@ -308,10 +295,7 @@ namespace Kkc {
         public void reset () {
             // will clear state.candidates, state.segments, but not state.output
             state.reset ();
-
-            // clear output and preedit
             clear_output ();
-            preedit = "";
         }
 
         string retrieve_output (bool clear) {
@@ -346,50 +330,6 @@ namespace Kkc {
          */
         public void clear_output () {
             state.output.erase ();
-        }
-
-        /**
-         * Current preedit string.
-         */
-        [CCode(notify = false)]
-        public string preedit { get; private set; default = ""; }
-
-        void update_preedit () {
-            var builder = new StringBuilder ();
-            var handler = handlers.get (state.handler_type);
-            uint offset, nchars;
-            builder.append (handler.get_preedit (state,
-                                                 out offset,
-                                                 out nchars));
-
-            bool changed = false;
-            if (preedit != builder.str) {
-                preedit = builder.str;
-                changed = true;
-            }
-            if (preedit_underline_offset != offset ||
-                preedit_underline_nchars != nchars) {
-                preedit_underline_offset = offset;
-                preedit_underline_nchars = nchars;
-                changed = true;
-            }
-            if (changed) {
-                notify_property ("preedit");
-            }
-        }
-
-        uint preedit_underline_offset = 0;
-        uint preedit_underline_nchars = 0;
-
-        /**
-         * Get underlined range of preedit.
-         *
-         * @param offset starting offset (in chars) of underline
-         * @param nchars number of characters to be underlined
-         */
-        public void get_preedit_underline (out uint offset, out uint nchars) {
-            offset = preedit_underline_offset;
-            nchars = preedit_underline_nchars;
         }
 
         /**

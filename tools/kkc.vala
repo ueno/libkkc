@@ -77,15 +77,13 @@ class RomKanaRepl : Object, Repl {
         string? line;
         while ((line = stdin.read_line ()) != null) {
             context.process_key_events (line);
+            var input = context.input;
             var output = context.poll_output ();
-            var preedit = context.preedit;
             stdout.printf (
                 "{ \"input\": \"%s\", " +
-                "\"output\": \"%s\", " +
-                "\"preedit\": \"%s\" }\n",
-                line.replace ("\"", "\\\""),
-                output.replace ("\"", "\\\""),
-                preedit.replace ("\"", "\\\""));
+                "\"output\": \"%s\" }\n",
+                input.replace ("\"", "\\\""),
+                output.replace ("\"", "\\\""));
             context.reset ();
             context.clear_output ();
         }

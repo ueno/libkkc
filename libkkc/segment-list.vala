@@ -27,7 +27,7 @@ namespace Kkc {
                 return _cursor_pos;
             }
             set {
-                _cursor_pos = value.clamp (0, size - 1);
+                _cursor_pos = value;
             }
         }
 
@@ -52,7 +52,14 @@ namespace Kkc {
                 segments.add (segment);
                 segment = segment.next;
             }
-            cursor_pos = 0;
+        }
+
+        public bool first_segment () {
+            if (segments.size > 0) {
+                cursor_pos = 0;
+                return true;
+            }
+            return false;
         }
 
         public void next_segment () {
