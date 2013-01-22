@@ -112,6 +112,11 @@ namespace Kkc {
         public abstract uint page_size { get; set; }
 
         /**
+         * Flag to indicate whether to loop over the candidates.
+         */
+        public abstract bool round { get; set; }
+
+        /**
          * Flag to indicate whether page (lookup table) is visible.
          */
         public abstract bool page_visible { get; }
@@ -234,50 +239,86 @@ namespace Kkc {
             selected (candidate);
         }
 
-        public SimpleCandidateList (uint page_start = 4, uint page_size = 7) {
+        public SimpleCandidateList (uint page_start = 4,
+                                    uint page_size = 7,
+                                    bool round = false)
+        {
             _page_start = (int) page_start;
             _page_size = (int) page_size;
+            _round = round;
         }
 
         public override bool cursor_up () {
-            assert (_cursor_pos >= 0);
-            if (_cursor_pos > 0) {
-                _cursor_pos--;
+            if (_round) {
+                _cursor_pos = (_cursor_pos - 1) % _candidates.size;
+                if (_cursor_pos < 0)
+                    _cursor_pos += _candidates.size;
                 notify_property ("cursor-pos");
                 return true;
+            } else {
+                assert (_cursor_pos >= 0);
+                if (_cursor_pos > 0) {
+                    _cursor_pos--;
+                    notify_property ("cursor-pos");
+                    return true;
+                }
             }
             return false;
         }
 
         public override bool cursor_down () {
-            assert (_cursor_pos >= 0);
-            if (_cursor_pos < _candidates.size - 1) {
-                _cursor_pos++;
+            if (_round) {
+                _cursor_pos = (_cursor_pos + 1) % _candidates.size;
+                if (_cursor_pos < 0)
+                    _cursor_pos += _candidates.size;
                 notify_property ("cursor-pos");
                 return true;
+            } else {
+                assert (_cursor_pos >= 0);
+                if (_cursor_pos < _candidates.size - 1) {
+                    _cursor_pos++;
+                    notify_property ("cursor-pos");
+                    return true;
+                }
             }
             return false;
         }
 
         public override bool page_up () {
-            assert (_cursor_pos >= 0);
-            if (_cursor_pos >= _page_start + _page_size) {
-                _cursor_pos -= _page_size;
+            if (_round) {
+                _cursor_pos = (_cursor_pos - _page_size) % _candidates.size;
+                if (_cursor_pos < 0)
+                    _cursor_pos += _candidates.size;
                 _cursor_pos = (int) get_page_start_cursor_pos ();
-                notify_property ("cursor-pos");
                 return true;
+            } else {
+                assert (_cursor_pos >= 0);
+                if (_cursor_pos >= _page_start + _page_size) {
+                    _cursor_pos -= _page_size;
+                    _cursor_pos = (int) get_page_start_cursor_pos ();
+                    notify_property ("cursor-pos");
+                    return true;
+                }
             }
             return false;
         }
 
         public override bool page_down () {
-            assert (_cursor_pos >= 0);
-            if (_cursor_pos >= _page_start &&
-                _cursor_pos < _candidates.size - _page_size) {
-                _cursor_pos += _page_size;
+            if (_round) {
+                _cursor_pos = (_cursor_pos + _page_size) % _candidates.size;
+                if (_cursor_pos < 0)
+                    _cursor_pos += _candidates.size;
                 _cursor_pos = (int) get_page_start_cursor_pos ();
-                notify_property ("cursor-pos");
                 return true;
+            } else {
+                assert (_cursor_pos >= 0);
+                if (_cursor_pos >= _page_start &&
+                    _cursor_pos < _candidates.size - _page_size) {
+                    _cursor_pos += _page_size;
+                    _cursor_pos = (int) get_page_start_cursor_pos ();
+                    notify_property ("cursor-pos");
+                    return true;
+                }
             }
             return false;
         }
@@ -299,6 +340,16 @@ namespace Kkc {
             }
             set {
                 _page_size = (int) value;
+            }
+        }
+
+        bool _round;
+        public override bool round {
+            get {
+                return _round;
+            }
+            set {
+                _round = value;
             }
         }
 
