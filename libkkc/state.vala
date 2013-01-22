@@ -53,8 +53,13 @@ namespace Kkc {
         internal Gee.List<Dict> dictionaries;
 
         internal RomKanaConverter rom_kana_converter;
+        internal StringBuilder input_buffer = new StringBuilder ();
+        internal string input {
+            owned get {
+                return input_buffer.str + rom_kana_converter.preedit;
+            }
+        }
 
-        internal StringBuilder input = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
 
         internal PeriodStyle period_style {
@@ -107,6 +112,7 @@ namespace Kkc {
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
             this.candidates = new SimpleCandidateList ();
+            this.candidates.round = true;
             this.candidates.notify["cursor-pos"].connect (
                 candidates_cursor_pos_changed);
             this.candidates.selected.connect (
@@ -145,7 +151,7 @@ namespace Kkc {
             _typing_rule.get_filter ().reset ();
             segments.clear ();
             candidates.clear ();
-            input.erase ();
+            input_buffer.erase ();
         }
 
         internal void lookup (string midasi, bool okuri = false) {
@@ -238,25 +244,25 @@ namespace Kkc {
             var command = state.lookup_key (key);
             // check abort and commit event
             if (command == "abort") {
-                bool retval = state.input.len > 0 ||
+                bool retval = state.input_buffer.len > 0 ||
                     state.rom_kana_converter.preedit.length > 0;
                 state.reset ();
                 return retval;
             } else if (command == "commit") {
-                bool retval = state.input.len > 0 ||
+                bool retval = state.input_buffer.len > 0 ||
                     state.rom_kana_converter.preedit.length > 0;
                 state.rom_kana_converter.output_nn_if_any ();
-                state.output.append (state.input.str);
+                state.output.append (state.input_buffer.str);
                 state.output.append (state.rom_kana_converter.output);
                 state.reset ();
                 return retval;
             }
             else if (command == "next-candidate") {
-                if (state.input.len == 0)
+                if (state.input_buffer.len == 0)
                     return false;
                 if (state.segments.size == 0) {
                     string input = RomKanaUtils.get_hiragana (
-                        state.input.str);
+                        state.input_buffer.str);
                     state.convert_sentence (input);
                     state.segments.first_segment ();
                     state.handler_type = typeof (StartStateHandler);
@@ -284,10 +290,10 @@ namespace Kkc {
                 if (state.rom_kana_converter.delete ()) {
                     return true;
                 }
-                if (state.input.len > 0) {
-                    state.input.truncate (
-                        state.input.str.index_of_nth_char (
-                            state.input.str.char_count () - 1));
+                if (state.input_buffer.len > 0) {
+                    state.input_buffer.truncate (
+                        state.input_buffer.str.index_of_nth_char (
+                            state.input_buffer.str.char_count () - 1));
                     return true;
                 }
                 return false;
@@ -299,7 +305,7 @@ namespace Kkc {
             case InputMode.HANKAKU_KATAKANA:
                 if (command == "next-candidate") {
                     state.rom_kana_converter.output_nn_if_any ();
-                    state.input.append (state.rom_kana_converter.output);
+                    state.input_buffer.append (state.rom_kana_converter.output);
                     state.rom_kana_converter.output = "";
                     state.handler_type = typeof (StartStateHandler);
                     return false;
@@ -308,18 +314,19 @@ namespace Kkc {
                     var kana = RomKanaUtils.convert_by_input_mode (
                         command["insert-kana-".length:command.length],
                         state.input_mode);
-                    state.input.append (kana);
+                    state.input_buffer.append (kana);
                     return true;
                 }
                 if (key.modifiers == 0) {
                     bool retval = false;
                     if (state.rom_kana_converter.append (key.code)) {
-                        state.input.append (state.rom_kana_converter.output);
+                        state.input_buffer.append (
+                            state.rom_kana_converter.output);
                         state.rom_kana_converter.output = "";
                         retval = true;
                     }
                     else if (0x20 <= key.code && key.code <= 0x7F) {
-                        state.input.append_c ((char) key.code);
+                        state.input_buffer.append_c ((char) key.code);
                         state.rom_kana_converter.output = "";
                         retval = true;
                     }
@@ -333,14 +340,14 @@ namespace Kkc {
             case InputMode.LATIN:
                 if (key.modifiers == 0 &&
                     0x20 <= key.code && key.code <= 0x7F) {
-                    state.input.append_c ((char) key.code);
+                    state.input_buffer.append_c ((char) key.code);
                     return true;
                 }
                 break;
             case InputMode.WIDE_LATIN:
                 if (key.modifiers == 0 &&
                     0x20 <= key.code && key.code <= 0x7F) {
-                    state.input.append_unichar (
+                    state.input_buffer.append_unichar (
                         RomKanaUtils.get_wide_latin_char ((char) key.code));
                     return true;
                 }

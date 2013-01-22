@@ -68,8 +68,8 @@ namespace Kkc {
          * Current input string.
          */
         public string input {
-            get {
-                return state.input.str;
+            owned get {
+                return state.input;
             }
         }
 
@@ -278,6 +278,7 @@ namespace Kkc {
                 var handler_type = state.handler_type;
                 var handler = handlers.get (handler_type);
                 if (handler.process_key_event (state, ref _key)) {
+                    notify_property ("input");
                     return true;
                 }
                 // state.handler_type may change if handler cannot

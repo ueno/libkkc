@@ -65,15 +65,13 @@ namespace Kkc {
         public void next_segment () {
             if (cursor_pos == -1)
                 return;
-            _cursor_pos += 1;
-            _cursor_pos = _cursor_pos.clamp (0, size - 1);
+            cursor_pos = (cursor_pos + 1).clamp (0, size - 1);
         }
 
         public void previous_segment () {
             if (cursor_pos == -1)
                 return;
-            _cursor_pos += -1;
-            _cursor_pos = _cursor_pos.clamp (0, size - 1);
+            cursor_pos = (cursor_pos - 1).clamp (0, size - 1);
         }
 
         public string to_string () {
