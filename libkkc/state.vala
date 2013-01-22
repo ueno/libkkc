@@ -111,6 +111,8 @@ namespace Kkc {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
+            this.segments.notify["cursor-pos"].connect (
+                segments_cursor_pos_changed);
             this.candidates = new SimpleCandidateList ();
             this.candidates.round = true;
             this.candidates.notify["cursor-pos"].connect (
@@ -131,6 +133,12 @@ namespace Kkc {
 
         ~State () {
             reset ();
+        }
+
+        void segments_cursor_pos_changed (Object s, ParamSpec? p) {
+            if (segments.cursor_pos >= 0) {
+                lookup (segments[segments.cursor_pos]);
+            }
         }
 
         void candidates_cursor_pos_changed (Object s, ParamSpec? p) {
@@ -154,16 +162,30 @@ namespace Kkc {
             input_buffer.erase ();
         }
 
-        internal void lookup (string midasi, bool okuri = false) {
+        internal void lookup (Segment segment, bool okuri = false) {
             candidates.clear ();
-            lookup_internal (new SimpleTemplate (midasi), okuri);
-            lookup_internal (new NumericTemplate (midasi), okuri);
 
-            var hiragana = new Candidate (midasi, okuri, midasi);
+            lookup_internal (new SimpleTemplate (segment.input), okuri);
+            lookup_internal (new NumericTemplate (segment.input), okuri);
+
+            var hiragana = new Candidate (
+                segment.input,
+                okuri,
+                segment.input);
             candidates.add_candidates (new Candidate[] { hiragana });
-            var katakana = new Candidate (midasi, okuri,
-                                          RomKanaUtils.get_katakana (midasi));
+
+            var katakana = new Candidate (
+                segment.input,
+                okuri,
+                RomKanaUtils.get_katakana (segment.input));
             candidates.add_candidates (new Candidate[] { katakana });
+
+            var original = new Candidate (
+                segment.input,
+                okuri,
+                segment.output);
+            candidates.add_candidates (new Candidate[] { original });
+
             candidates.add_candidates_end ();
         }
 
@@ -385,10 +407,10 @@ namespace Kkc {
                 }
             }
 
-            if (command == "next-candidate") {
-                string midasi = state.segments[state.segments.cursor_pos].input;
-                state.lookup (midasi);
+            if (command == "next-candidate"
+                || command == "previous-candidate") {
                 state.handler_type = typeof (SelectStateHandler);
+                state.candidates.first ();
                 return true;
             }
             if (command == "delete") {
@@ -433,10 +455,7 @@ namespace Kkc {
         {
             var command = state.lookup_key (key);
             if (command == "previous-candidate") {
-                if (!state.candidates.previous ()) {
-                    state.candidates.clear ();
-                    state.handler_type = typeof (StartStateHandler);
-                }
+                state.candidates.previous ();
                 return true;
             }
             else if (command == "next-candidate") {
@@ -449,17 +468,20 @@ namespace Kkc {
                 return true;
             }
             else if (command == "next-segment") {
-                state.candidates.select ();
+                if (state.candidates.cursor_pos >= 0)
+                    state.candidates.select ();
                 state.handler_type = typeof (StartStateHandler);
                 return false;
             }
             else if (command == "previous-segment") {
-                state.candidates.select ();
+                if (state.candidates.cursor_pos >= 0)
+                    state.candidates.select ();
                 state.handler_type = typeof (StartStateHandler);
                 return false;
             }
             else {
-                state.candidates.select ();
+                if (state.candidates.cursor_pos >= 0)
+                    state.candidates.select ();
                 state.handler_type = typeof (StartStateHandler);
                 return false;
             }

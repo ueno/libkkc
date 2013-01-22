@@ -76,6 +76,13 @@ namespace Kkc {
         public abstract bool page_down ();
 
         /**
+         * Select the first candidate.
+         *
+         * @return `true` if cursor position has changed, `false` otherwise
+         */
+        public abstract bool first ();
+
+        /**
          * Move cursor forward.
          *
          * @return `true` if cursor position has changed, `false` otherwise
@@ -215,11 +222,7 @@ namespace Kkc {
         }
 
         internal override void add_candidates_end () {
-            if (_candidates.size > 0) {
-                _cursor_pos = 0;
-            }
             populated ();
-            notify_property ("cursor-pos");
         }
 
         public override bool select_at (uint index_in_page) {
@@ -246,6 +249,15 @@ namespace Kkc {
             _page_start = (int) page_start;
             _page_size = (int) page_size;
             _round = round;
+        }
+
+        public override bool first () {
+            if (_candidates.size > 0) {
+                _cursor_pos = 0;
+                notify_property ("cursor-pos");
+                return true;
+            }
+            return false;
         }
 
         public override bool cursor_up () {
