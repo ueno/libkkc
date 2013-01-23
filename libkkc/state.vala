@@ -164,9 +164,9 @@ namespace Kkc {
                     output[i] = phrase[i].output;
                 }
                 _candidates += new Candidate (
-                    string.joinv (" ", input),
+                    string.joinv ("", input),
                     false,
-                    string.joinv (" ", output));
+                    string.joinv ("", output));
                 save_candidates (_candidates);
             }
             candidates.clear ();
@@ -178,7 +178,12 @@ namespace Kkc {
                     foreach (var candidate in _candidates) {
                         dict.select_candidate (candidate);
                     }
-                    dict.save ();
+                    try {
+                        dict.save ();
+                    } catch (Error e) {
+                        warning ("couldn't save the dictionary: %s",
+                                 e.message);
+                    }
                 }
             }
         }
@@ -244,6 +249,29 @@ namespace Kkc {
         {
             var _segments = decoder.decode (input, 1, constraints);
             segments.set_segments (_segments[0]);
+            for (var i = 0; i < segments.size; i++) {
+                for (var j = segments.size - 1; j >= i; j--) {
+                    var stop = segments.get_input_offset (j) + segments[j].input.char_count ();
+                    var size = stop - segments.get_input_offset (i);
+                    if (size >= 3) {
+                        var builder = new StringBuilder ();
+                        for (var k = i; k <= j; k++) {
+                            builder.append (segments.get (k).input);
+                        }
+                        string _input = builder.str;
+                        string _output = null;
+                        Posix.printf ("%s\n", _input);
+                        foreach (var dict in dictionaries) {
+                            var _candidates = dict.lookup (_input,
+                                                           false);
+                            if (_candidates.length > 0) {
+                                _output = _candidates[0].text;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         internal void resize_segment (int amount) {
