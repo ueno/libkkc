@@ -37,8 +37,11 @@ namespace Kkc {
             }
         }
 
+        ArrayList<int> input_offsets = new ArrayList<int> ();
+
         public void clear () {
             segments.clear ();
+            input_offsets.clear ();
             cursor_pos = -1;
         }
 
@@ -48,10 +51,22 @@ namespace Kkc {
 
         public void set_segments (Segment segment) {
             segments.clear ();
+            input_offsets.clear ();
+            int offset = 0;
+            input_offsets.add (0);
             while (segment != null) {
                 segments.add (segment);
+                offset += segment.input.char_count ();
+                if (segment.next != null)
+                    input_offsets.add (offset);
                 segment = segment.next;
             }
+        }
+
+        public int get_input_offset (int index) {
+            if (index >= 0 && index < input_offsets.size)
+                return input_offsets[index];
+            return -1;
         }
 
         public bool first_segment () {
@@ -74,7 +89,7 @@ namespace Kkc {
             cursor_pos = (cursor_pos - 1).clamp (0, size - 1);
         }
 
-        public string to_string () {
+        public string get_output () {
             var builder = new StringBuilder ();
             foreach (var segment in segments) {
                 builder.append (segment.output);
@@ -88,6 +103,50 @@ namespace Kkc {
                 builder.append (segment.input);
             }
             return builder.str;
+        }
+
+        // Extract phrase at other.cursor_pos.
+        internal Gee.List<Segment> extract_phrase (SegmentList other)
+        {
+            assert (other.cursor_pos >= 0);
+
+            var cursor_offset = other.get_input_offset (
+                other.cursor_pos);
+            var cursor_length = other.get (
+                other.cursor_pos).output.char_count ();
+            var cursor_end_offset = cursor_offset + cursor_length;
+
+            var start = -1;
+            for (var i = other.cursor_pos; i >= 0; i--) {
+                for (var j = 0; j <= cursor_end_offset; j++) {
+                    if (other.get_input_offset (i)
+                        == this.get_input_offset (j)) {
+                        start = i;
+                        break;
+                    }
+                }
+                if (start >= 0)
+                    break;
+            }
+            if (start < 0)
+                start = 0;
+
+            var stop = -1;
+            for (var i = other.cursor_pos + 1; i < other.size; i++) {
+                for (var j = 0; j < this.size; j++) {
+                    if (other.get_input_offset (i)
+                        == this.get_input_offset (j)) {
+                        stop = i;
+                        break;
+                    }
+                }
+                if (stop >= 0)
+                    break;
+            }
+            if (stop < 0)
+                stop = this.size;
+
+            return other.segments.slice (start, stop);
         }
     }
 }

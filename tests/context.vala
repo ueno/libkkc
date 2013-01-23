@@ -115,7 +115,7 @@ class ContextTests : Kkc.TestCase {
             var output = context.poll_output ();
             assert (output == conversion.output);
             assert (context.input == conversion.input);
-            assert (context.segments.to_string () == conversion.segments);
+            assert (context.segments.get_output () == conversion.segments);
             assert (context.segments.size == conversion.segments_size);
             assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
             context.reset ();
