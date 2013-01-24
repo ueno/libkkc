@@ -223,7 +223,7 @@ namespace Kkc {
             { Keysyms.Muhenkan, "lshift" },
             { Keysyms.Henkan, "rshift" },
             { Keysyms.Hiragana_Katakana, "Hiragana_Katakana" },
-            { Keysyms.Eisu_toggle, "Eisu_toggle" },
+            { Keysyms.Eisu_toggle, "Eisu_toggle" }
         };
 
         /**

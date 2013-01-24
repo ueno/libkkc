@@ -106,7 +106,7 @@ class ContextTests : Kkc.TestCase {
           "",
           0,
           -1,
-          "わたしの生絵は中のです" },
+          "わたしの生絵は中のです" }
     };
 
     public void test_conversion () {
