@@ -22,6 +22,7 @@ namespace Kkc {
         ArrayList<int> numerics = new ArrayList<int> ();
 
         public string source { get; construct set; }
+        public bool okuri { get; construct set; }
 
         Regex regex;
         Regex ref_regex;
@@ -39,6 +40,7 @@ namespace Kkc {
                 assert_not_reached ();
             }
 
+            okuri = false;
             extract_numerics (source);
         }
 

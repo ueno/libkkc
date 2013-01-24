@@ -18,17 +18,49 @@
 namespace Kkc {
     internal interface Template : Object {
         public abstract string source { get; construct set; }
+        public abstract bool okuri { get; construct set; }
         public abstract string expand (string text);
     }
 
     class SimpleTemplate : Object, Template {
         public string source { get; construct set; }
+        public bool okuri { get; construct set; }
 
         public SimpleTemplate (string source) {
             this.source = source;
+            this.okuri = false;
         }
 
         public string expand (string text) {
+            return text;
+        }
+    }
+
+    class OkuriganaTemplate : Object, Template {
+        public string source { get; construct set; }
+        public bool okuri { get; construct set; }
+
+        string? okurigana = null;
+
+        public OkuriganaTemplate (string source) {
+            var count = source.char_count ();
+            if (count > 1) {
+                var last_char_index = source.index_of_nth_char (count - 1);
+                this.okurigana = source[last_char_index:source.length];
+                string? prefix = RomKanaUtils.get_okurigana_prefix (
+                    this.okurigana);
+                this.source = source[0:last_char_index] + prefix;
+                this.okuri = true;
+            } else {
+                this.source = source;
+                this.okuri = false;
+            }
+        }
+
+        public string expand (string text) {
+            if (okuri) {
+                return text + okurigana;
+            }
             return text;
         }
     }

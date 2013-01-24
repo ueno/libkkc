@@ -187,39 +187,41 @@ namespace Kkc {
             input_buffer.erase ();
         }
 
-        internal void lookup (Segment segment, bool okuri = false) {
+        internal void lookup (Segment segment) {
             candidates.clear ();
 
-            lookup_internal (new SimpleTemplate (segment.input), okuri);
-            lookup_internal (new NumericTemplate (segment.input), okuri);
+            lookup_internal (new SimpleTemplate (segment.input));
+            lookup_internal (new OkuriganaTemplate (segment.input));
+            lookup_internal (new NumericTemplate (segment.input));
 
             var hiragana = new Candidate (
                 segment.input,
-                okuri,
+                false,
                 segment.input);
             candidates.add_candidates (new Candidate[] { hiragana });
 
             var katakana = new Candidate (
                 segment.input,
-                okuri,
+                false,
                 RomKanaUtils.get_katakana (segment.input));
             candidates.add_candidates (new Candidate[] { katakana });
 
             var original = new Candidate (
                 segment.input,
-                okuri,
+                false,
                 segment.output);
             candidates.add_candidates (new Candidate[] { original });
 
             candidates.add_candidates_end ();
         }
 
-        void lookup_internal (Template template, bool okuri = false) {
+        void lookup_internal (Template template) {
             foreach (var dict in dictionaries) {
                 var _dict = dict as SegmentDictionary;
                 if (_dict == null)
                     continue;
-                var _candidates = _dict.lookup (template.source, okuri);
+                var _candidates = _dict.lookup (template.source,
+                                                template.okuri);
                 foreach (var candidate in _candidates) {
                     string text;
                     text = Expression.eval (candidate.text);
