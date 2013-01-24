@@ -21,7 +21,7 @@ namespace Kkc {
     /**
      * Read-only file based implementation of Dictionary.
      */
-    public class FileDictionary : Dictionary {
+    public class FileDictionary : Dictionary, Object {
         // Read a line near offset and move offset to the beginning of
         // the line.
         string read_line (ref long offset) {
@@ -129,7 +129,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override void reload () throws GLib.Error {
+        public void reload () throws GLib.Error {
 #if VALA_0_16
             string attributes = FileAttribute.ETAG_VALUE;
 #else
@@ -188,7 +188,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override Candidate[] lookup (string midasi, bool okuri = false) {
+        public Candidate[] lookup (string midasi, bool okuri = false) {
             if (mmap.memory == null)
                 return new Candidate[0];
 
@@ -227,7 +227,9 @@ namespace Kkc {
                                  line, e.message);
                         return new Candidate[0];
                     }
-                    return split_candidates (midasi, okuri, _line);
+                    return DictionaryUtils.split_candidates (midasi,
+                                                             okuri,
+                                                             _line);
                 }
             }
             return new Candidate[0];
@@ -242,7 +244,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override string[] complete (string midasi) {
+        public string[] complete (string midasi) {
             if (mmap.memory == null)
                 return new string[0];
 
@@ -324,7 +326,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override bool read_only {
+        public bool read_only {
             get {
                 return true;
             }

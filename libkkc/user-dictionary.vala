@@ -21,7 +21,7 @@ namespace Kkc {
     /**
      * File based implementation of Dictionary with write access.
      */
-    public class UserDictionary : Dictionary {
+    public class UserDictionary : Dictionary, Object {
         void load () throws DictionaryError, GLib.IOError {
             uint8[] contents;
             try {
@@ -107,9 +107,10 @@ namespace Kkc {
                         candidates_str);
                 }
 
-                var candidates = split_candidates (midasi,
-                                                   okuri,
-                                                   candidates_str);
+                var candidates = DictionaryUtils.split_candidates (
+                    midasi,
+                    okuri,
+                    candidates_str);
                 var list = new ArrayList<Candidate> ();
                 foreach (var c in candidates) {
                     list.add (c);
@@ -121,7 +122,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override void reload () throws GLib.Error {
+        public void reload () throws GLib.Error {
 #if VALA_0_16
             string attributes = FileAttribute.ETAG_VALUE;
 #else
@@ -164,7 +165,7 @@ namespace Kkc {
                 var entry = iter.get ();
                 var line = "%s %s\n".printf (
                     entry.key,
-                    join_candidates (entry.value.to_array ()));
+                    DictionaryUtils.join_candidates (entry.value.to_array ()));
                 builder.append (line);
             }
         }
@@ -172,7 +173,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override void save () throws GLib.Error {
+        public void save () throws GLib.Error {
             var builder = new StringBuilder ();
             var coding = converter.get_coding_system ();
             if (coding != null) {
@@ -222,7 +223,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override Candidate[] lookup (string midasi, bool okuri = false) {
+        public Candidate[] lookup (string midasi, bool okuri = false) {
             var entries = get_entries (okuri);
             if (entries.has_key (midasi)) {
                 return entries.get (midasi).to_array ();
@@ -234,7 +235,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override string[] complete (string midasi) {
+        public string[] complete (string midasi) {
             Gee.List<string> completion = new ArrayList<string> ();
             Gee.List<string> keys = new ArrayList<string> ();
             keys.add_all (okuri_nasi_entries.keys);
@@ -268,7 +269,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override bool select_candidate (Candidate candidate) {
+        public bool select_candidate (Candidate candidate) {
             int index;
 
             // update midasi history
@@ -318,8 +319,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override bool purge_candidate (Candidate candidate)
-        {
+        public bool purge_candidate (Candidate candidate) {
             bool modified = false;
             var entries = get_entries (candidate.okuri);
             if (entries.has_key (candidate.midasi)) {
@@ -344,7 +344,7 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public override bool read_only {
+        public bool read_only {
             get {
                 return false;
             }

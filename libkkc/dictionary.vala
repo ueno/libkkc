@@ -16,19 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 namespace Kkc {
-    /**
-     * Base abstract class of dictionaries.
-     */
-    public abstract class Dictionary : Object {
+    class DictionaryUtils : Object {
         /**
          * Parse a line consisting of candidates separated by "/".
          *
          * @param line a line consisting of candidates
          * @return an array of Candidates
          */
-        protected Candidate[] split_candidates (string midasi,
-                                                bool okuri,
-                                                string line)
+        public static Candidate[] split_candidates (string midasi,
+                                                    bool okuri,
+                                                    string line)
         {
             var strv = line.strip ().slice (1, -1).split ("/");
             Candidate[] candidates = new Candidate[strv.length];
@@ -56,14 +53,19 @@ namespace Kkc {
          * @param candidates an array of Candidate
          * @return a string
          */
-        protected string join_candidates (Candidate[] candidates) {
+        public static string join_candidates (Candidate[] candidates) {
             var strv = new string[candidates.length];
             for (int i = 0; i < candidates.length; i++) {
                 strv[i] = candidates[i].to_string ();
             }
             return "/" + string.joinv ("/", strv) + "/";
         }
+    }
 
+    /**
+     * Base abstract class of dictionaries.
+     */
+    public interface Dictionary : Object {
         /**
          * Reload the dictionary.
          *
@@ -135,31 +137,31 @@ namespace Kkc {
     /**
      * Null implementation of Dictionary.
      */
-    public class EmptyDictionary : Dictionary {
+    public class EmptyDictionary : Dictionary, Object {
         /**
          * {@inheritDoc}
          */
-        public override void reload () throws GLib.Error {
+        public void reload () throws GLib.Error {
         }
 
         /**
          * {@inheritDoc}
          */
-        public override Candidate[] lookup (string midasi, bool okuri = false) {
+        public Candidate[] lookup (string midasi, bool okuri = false) {
             return new Candidate[0];
         }
 
         /**
          * {@inheritDoc}
          */
-        public override string[] complete (string midasi) {
+        public string[] complete (string midasi) {
             return new string[0];
         }
 
         /**
          * {@inheritDoc}
          */
-        public override bool read_only {
+        public bool read_only {
             get {
                 return true;
             }
