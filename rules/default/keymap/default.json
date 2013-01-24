@@ -9,9 +9,14 @@
             " ": "next-candidate",
             "C-x": "previous-candidate",
             "Right": "next-segment",
+            "C-f": "next-segment",
             "Left": "previous-segment",
             "C-Right": "expand-segment",
-            "C-Left": "shrink-segment"
+            "C-Left": "shrink-segment",
+            "S-Right": "expand-segment",
+            "S-Left": "shrink-segment",
+            "C-o": "expand-segment",
+            "C-i": "shrink-segment"
         }
     }
 }
