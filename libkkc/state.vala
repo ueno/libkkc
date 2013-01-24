@@ -49,7 +49,6 @@ namespace Kkc {
 
         internal Decoder decoder;
         internal SegmentList segments;
-        internal SegmentList best_segments;
         internal CandidateList candidates;
         internal Gee.List<Dictionary> dictionaries;
 
@@ -112,7 +111,6 @@ namespace Kkc {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
-            this.best_segments = new SegmentList ();
             this.segments.notify["cursor-pos"].connect (
                 segments_cursor_pos_changed);
             this.candidates = new SimpleCandidateList ();
@@ -146,7 +144,7 @@ namespace Kkc {
         void candidates_cursor_pos_changed (Object s, ParamSpec? p) {
             if (segments.cursor_pos >= 0 && candidates.cursor_pos >= 0) {
                 var candidate = candidates.get (candidates.cursor_pos);
-                segments[segments.cursor_pos].output = candidate.text;
+                segments[segments.cursor_pos].output = candidate.output;
             }
         }
 
@@ -155,18 +153,6 @@ namespace Kkc {
                 Candidate[] _candidates = {};
 
                 _candidates += candidates.get (candidates.cursor_pos);
-
-                var phrase = best_segments.extract_phrase (segments);
-                string[] input = new string[phrase.size];
-                string[] output = new string[phrase.size];
-                for (var i = 0; i < phrase.size; i++) {
-                    input[i] = phrase[i].input;
-                    output[i] = phrase[i].output;
-                }
-                _candidates += new Candidate (
-                    string.joinv ("", input),
-                    false,
-                    string.joinv ("", output));
                 save_candidates (_candidates);
             }
             candidates.clear ();
@@ -174,12 +160,15 @@ namespace Kkc {
 
         void save_candidates (Candidate[] _candidates) {
             foreach (var dict in dictionaries) {
-                if (!dict.read_only) {
+                var _dict = dict as SegmentDictionary;
+                if (_dict == null)
+                    continue;
+                if (!_dict.read_only) {
                     foreach (var candidate in _candidates) {
-                        dict.select_candidate (candidate);
+                        _dict.select_candidate (candidate);
                     }
                     try {
-                        dict.save ();
+                        _dict.save ();
                     } catch (Error e) {
                         warning ("couldn't save the dictionary: %s",
                                  e.message);
@@ -194,7 +183,6 @@ namespace Kkc {
             rom_kana_converter.reset ();
             _typing_rule.get_filter ().reset ();
             segments.clear ();
-            best_segments.clear ();
             candidates.clear ();
             input_buffer.erase ();
         }
@@ -228,7 +216,10 @@ namespace Kkc {
 
         void lookup_internal (Template template, bool okuri = false) {
             foreach (var dict in dictionaries) {
-                var _candidates = dict.lookup (template.source, okuri);
+                var _dict = dict as SegmentDictionary;
+                if (_dict == null)
+                    continue;
+                var _candidates = _dict.lookup (template.source, okuri);
                 foreach (var candidate in _candidates) {
                     string text;
                     text = Expression.eval (candidate.text);
@@ -249,29 +240,6 @@ namespace Kkc {
         {
             var _segments = decoder.decode (input, 1, constraints);
             segments.set_segments (_segments[0]);
-            for (var i = 0; i < segments.size; i++) {
-                for (var j = segments.size - 1; j >= i; j--) {
-                    var stop = segments.get_input_offset (j) + segments[j].input.char_count ();
-                    var size = stop - segments.get_input_offset (i);
-                    if (size >= 3) {
-                        var builder = new StringBuilder ();
-                        for (var k = i; k <= j; k++) {
-                            builder.append (segments.get (k).input);
-                        }
-                        string _input = builder.str;
-                        string _output = null;
-                        Posix.printf ("%s\n", _input);
-                        foreach (var dict in dictionaries) {
-                            var _candidates = dict.lookup (_input,
-                                                           false);
-                            if (_candidates.length > 0) {
-                                _output = _candidates[0].text;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         internal void resize_segment (int amount) {
@@ -346,8 +314,6 @@ namespace Kkc {
                     string input = RomKanaUtils.get_hiragana (
                         state.input_buffer.str);
                     state.convert_sentence (input);
-                    state.best_segments.set_segments (
-                        state.segments[0]);
                     state.segments.first_segment ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
                     return true;

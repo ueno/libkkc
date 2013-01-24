@@ -21,7 +21,7 @@ namespace Kkc {
     /**
      * Read-only file based implementation of Dictionary.
      */
-    public class FileDictionary : Dictionary, Object {
+    public class FileDictionary : Object, Dictionary, SegmentDictionary {
         // Read a line near offset and move offset to the beginning of
         // the line.
         string read_line (ref long offset) {

@@ -73,6 +73,7 @@ libkkc_shell_sources =				\
 	dictionary.vala				\
 	file-dictionary.vala			\
 	user-dictionary.vala			\
+	sentence-dictionary.vala		\
 	encoding.vala				\
 	template.vala				\
 	numeric-template.vala			\

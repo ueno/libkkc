@@ -63,9 +63,14 @@ namespace Kkc {
     }
 
     /**
-     * Base abstract class of dictionaries.
+     * Base interface of dictionaries.
      */
     public interface Dictionary : Object {
+        /**
+         * Flag to indicate whether the dictionary is read only.
+         */
+        public abstract bool read_only { get; }
+
         /**
          * Reload the dictionary.
          *
@@ -73,6 +78,20 @@ namespace Kkc {
          */
         public abstract void reload () throws GLib.Error;
 
+        /**
+         * Save the dictionary on disk.
+         *
+         * @throws GLib.Error if the dictionary cannot be saved.
+         */
+        public virtual void save () throws GLib.Error {
+            // FIXME: throw an error when the dictionary is read only
+        }
+    }
+
+    /**
+     * Base interface of segment dictionaries.
+     */
+    public interface SegmentDictionary : Object, Dictionary {
         /**
          * Lookup candidates in the dictionary.
          *
@@ -94,19 +113,13 @@ namespace Kkc {
         public abstract string[] complete (string midasi);
 
         /**
-         * Flag to indicate whether the dictionary is read only.
-         */
-        public abstract bool read_only { get; }
-
-        /**
          * Select a candidate in the dictionary.
          *
          * @param candidate an Candidate
          *
          * @return `true` if the dictionary is modified, `false` otherwise.
          */
-        public virtual bool select_candidate (Candidate candidate)
-        {
+        public virtual bool select_candidate (Candidate candidate) {
             // FIXME: throw an error when the dictionary is read only
             return false;
         }
@@ -118,26 +131,16 @@ namespace Kkc {
          *
          * @return `true` if the dictionary is modified, `false` otherwise.
          */
-        public virtual bool purge_candidate (Candidate candidate)
-        {
+        public virtual bool purge_candidate (Candidate candidate) {
             // FIXME: throw an error when the dictionary is read only
             return false;
-        }
-
-        /**
-         * Save the dictionary on disk.
-         *
-         * @throws GLib.Error if the dictionary cannot be saved.
-         */
-        public virtual void save () throws GLib.Error {
-            // FIXME: throw an error when the dictionary is read only
         }
     }
 
     /**
      * Null implementation of Dictionary.
      */
-    public class EmptyDictionary : Dictionary, Object {
+    public class EmptyDictionary : Object, Dictionary, SegmentDictionary {
         /**
          * {@inheritDoc}
          */

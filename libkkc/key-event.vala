@@ -221,7 +221,9 @@ namespace Kkc {
             { Keysyms.Page_Down, "Page_Down" },
             { Keysyms.KP_Page_Down, "Page_Down" },
             { Keysyms.Muhenkan, "lshift" },
-            { Keysyms.Henkan, "rshift" }
+            { Keysyms.Henkan, "rshift" },
+            { Keysyms.Hiragana_Katakana, "Hiragana_Katakana" },
+            { Keysyms.Eisu_toggle, "Eisu_toggle" },
         };
 
         /**

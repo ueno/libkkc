@@ -21,7 +21,7 @@ namespace Kkc {
     /**
      * File based implementation of Dictionary with write access.
      */
-    public class UserDictionary : Dictionary, Object {
+    public class UserDictionary : Object, Dictionary, SegmentDictionary {
         void load () throws DictionaryError, GLib.IOError {
             uint8[] contents;
             try {
