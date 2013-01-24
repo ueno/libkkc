@@ -441,11 +441,7 @@ namespace Kkc {
                 state.candidates.first ();
                 return true;
             }
-            if (command == "delete") {
-                state.reset ();
-                return true;
-            }
-            else if (command != null && command.has_prefix ("insert-kana-")) {
+            if (command != null && command.has_prefix ("insert-kana-")) {
                 var kana = RomKanaUtils.convert_by_input_mode (
                     command["insert-kana-".length:command.length],
                     state.input_mode);
@@ -466,6 +462,11 @@ namespace Kkc {
             }
             else if (command == "previous-segment") {
                 state.segments.previous_segment ();
+                return true;
+            }
+            else if (command == "delete") {
+                state.segments.clear ();
+                state.handler_type = typeof (InitialStateHandler);
                 return true;
             }
             else {
@@ -504,6 +505,11 @@ namespace Kkc {
             else if (command == "previous-segment") {
                 if (state.candidates.cursor_pos >= 0)
                     state.candidates.select ();
+                state.handler_type = typeof (ConvertSentenceStateHandler);
+                return false;
+            }
+            else if (command == "delete") {
+                state.candidates.clear ();
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
