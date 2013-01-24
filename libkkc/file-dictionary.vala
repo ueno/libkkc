@@ -19,9 +19,9 @@ using Gee;
 
 namespace Kkc {
     /**
-     * Read-only file based implementation of Dict.
+     * Read-only file based implementation of Dictionary.
      */
-    public class FileDict : Dict {
+    public class FileDictionary : Dictionary {
         // Read a line near offset and move offset to the beginning of
         // the line.
         string read_line (ref long offset) {
@@ -83,18 +83,18 @@ namespace Kkc {
             return false;
         }
 
-        void load () throws DictError {
+        void load () throws DictionaryError {
             try {
                 mmap.remap ();
             } catch (IOError e) {
-                throw new DictError.NOT_READABLE (
+                throw new DictionaryError.NOT_READABLE (
                     "can't load: %s", e.message);
             }
 
             long offset = 0;
             var line = read_line (ref offset);
             if (line == null) {
-                throw new DictError.MALFORMED_INPUT (
+                throw new DictionaryError.MALFORMED_INPUT (
                     "can't read the first line");
             }
 
@@ -114,13 +114,13 @@ namespace Kkc {
 
             offset = 0;
             if (!read_until (ref offset, ";; okuri-ari entries.\n")) {
-                throw new DictError.MALFORMED_INPUT (
+                throw new DictionaryError.MALFORMED_INPUT (
                     "no okuri-ari boundary");
             }
             okuri_ari_offset = offset;
             
             if (!read_until (ref offset, ";; okuri-nasi entries.\n")) {
-                throw new DictError.MALFORMED_INPUT (
+                throw new DictionaryError.MALFORMED_INPUT (
                     "no okuri-nasi boundary");
             }
             okuri_nasi_offset = offset;
@@ -141,7 +141,7 @@ namespace Kkc {
                 try {
                     load ();
                     etag = info.get_etag ();
-                } catch (DictError e) {
+                } catch (DictionaryError e) {
                     warning ("error loading file dictionary %s %s",
                              file.get_path (), e.message);
                 }
@@ -338,16 +338,16 @@ namespace Kkc {
         long okuri_nasi_offset;
 
         /**
-         * Create a new FileDict.
+         * Create a new FileDictionary.
          *
          * @param path a path to the file
          * @param encoding encoding of the file (default EUC-JP)
          *
-         * @return a new FileDict
+         * @return a new FileDictionary
          * @throws GLib.Error if opening the file is failed
          */
-        public FileDict (string path,
-                         string encoding = "EUC-JP") throws GLib.Error
+        public FileDictionary (string path,
+                               string encoding = "EUC-JP") throws GLib.Error
         {
             this.file = File.new_for_path (path);
             this.mmap = new MemoryMappedFile (file);

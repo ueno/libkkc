@@ -19,15 +19,15 @@ using Gee;
 
 namespace Kkc {
     /**
-     * File based implementation of Dict with write access.
+     * File based implementation of Dictionary with write access.
      */
-    public class UserDict : Dict {
-        void load () throws DictError, GLib.IOError {
+    public class UserDictionary : Dictionary {
+        void load () throws DictionaryError, GLib.IOError {
             uint8[] contents;
             try {
                 file.load_contents (null, out contents, out etag);
             } catch (GLib.Error e) {
-                throw new DictError.NOT_READABLE ("can't load contents");
+                throw new DictionaryError.NOT_READABLE ("can't load contents");
             }
             var memory = new MemoryInputStream.from_data (contents, g_free);
             var data = new DataInputStream (memory);
@@ -70,7 +70,7 @@ namespace Kkc {
                 }
             }
             if (entries == null) {
-                throw new DictError.MALFORMED_INPUT (
+                throw new DictionaryError.MALFORMED_INPUT (
                     "no okuri-ari boundary");
             }
 
@@ -88,12 +88,12 @@ namespace Kkc {
                 try {
                     line = converter.decode (line);
                 } catch (GLib.Error e) {
-                    throw new DictError.MALFORMED_INPUT (
+                    throw new DictionaryError.MALFORMED_INPUT (
                         "can't decode line %s: %s", line, e.message);
                 }
                 int index = line.index_of ("/");
                 if (index < 1) {
-                    throw new DictError.MALFORMED_INPUT (
+                    throw new DictionaryError.MALFORMED_INPUT (
                         "can't extract midasi from line %s",
                         line);
                 }
@@ -102,7 +102,7 @@ namespace Kkc {
                 string candidates_str = line[index:line.length];
                 if (!candidates_str.has_prefix ("/") ||
                     !candidates_str.has_suffix ("/")) {
-                    throw new DictError.MALFORMED_INPUT (
+                    throw new DictionaryError.MALFORMED_INPUT (
                         "can't parse candidates list %s",
                         candidates_str);
                 }
@@ -134,7 +134,7 @@ namespace Kkc {
                 this.okuri_nasi_entries.clear ();
                 try {
                     load ();
-                } catch (DictError e) {
+                } catch (DictionaryError e) {
                     warning ("error parsing user dictionary %s: %s",
                              file.get_path (), e.message);
                 } catch (GLib.IOError e) {
@@ -360,15 +360,15 @@ namespace Kkc {
         string midasi_history[128];
 
         /**
-         * Create a new UserDict.
+         * Create a new UserDictionary.
          *
          * @param path a path to the file
          * @param encoding encoding of the file (default UTF-8)
          *
-         * @return a new UserDict
+         * @return a new UserDictionary
          * @throws GLib.Error if opening the file is failed
          */
-        public UserDict (string path,
+        public UserDictionary (string path,
                          string encoding = "UTF-8") throws GLib.Error
         {
             this.file = File.new_for_path (path);
@@ -380,7 +380,7 @@ namespace Kkc {
             }
         }
 
-        ~UserDict () {
+        ~UserDictionary () {
             var okuri_ari_iter = okuri_ari_entries.map_iterator ();
             while (okuri_ari_iter.next ()) {
                 okuri_ari_iter.get_value ().clear ();

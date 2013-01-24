@@ -12,14 +12,14 @@ class ContextTests : Kkc.TestCase {
         }
 
         try {
-            var dict = new Kkc.FileDict ("file-dict.dat");
+            var dict = new Kkc.FileDictionary ("file-dict.dat");
             context.add_dictionary (dict);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
         }
 
         try {
-            var dict = new Kkc.UserDict ("user-dict.dat");
+            var dict = new Kkc.UserDictionary ("user-dict.dat");
             context.add_dictionary (dict);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);

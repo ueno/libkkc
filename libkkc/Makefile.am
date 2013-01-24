@@ -70,9 +70,9 @@ libkkc_shell_sources =				\
 	rule.vala				\
 	context.vala				\
 	state.vala				\
-	dict.vala				\
-	file-dict.vala				\
-	user-dict.vala				\
+	dictionary.vala				\
+	file-dictionary.vala			\
+	user-dictionary.vala			\
 	encoding.vala				\
 	template.vala				\
 	numeric-template.vala			\

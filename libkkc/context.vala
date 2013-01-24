@@ -22,14 +22,14 @@ namespace Kkc {
      * Main entry point of libkkc.
      */
     public class Context : Object {
-        Gee.List<Dict> dictionaries = new ArrayList<Dict> ();
+        Gee.List<Dictionary> dictionaries = new ArrayList<Dictionary> ();
 
         /**
          * Register dictionary.
          *
          * @param dict a dictionary
          */
-        public void add_dictionary (Dict dict) {
+        public void add_dictionary (Dictionary dict) {
             dictionaries.add (dict);
         }
 
@@ -38,7 +38,7 @@ namespace Kkc {
          *
          * @param dict a dictionary
          */
-        public void remove_dictionary (Dict dict) {
+        public void remove_dictionary (Dictionary dict) {
             dictionaries.remove (dict);
         }
 

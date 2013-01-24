@@ -19,7 +19,7 @@ namespace Kkc {
     /**
      * Base abstract class of dictionaries.
      */
-    public abstract class Dict : Object {
+    public abstract class Dictionary : Object {
         /**
          * Parse a line consisting of candidates separated by "/".
          *
@@ -133,9 +133,9 @@ namespace Kkc {
     }
 
     /**
-     * Null implementation of Dict.
+     * Null implementation of Dictionary.
      */
-    public class EmptyDict : Dict {
+    public class EmptyDictionary : Dictionary {
         /**
          * {@inheritDoc}
          */
@@ -166,7 +166,7 @@ namespace Kkc {
         }
     }
 
-    public errordomain DictError {
+    public errordomain DictionaryError {
         NOT_READABLE,
         MALFORMED_INPUT
     }

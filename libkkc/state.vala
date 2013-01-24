@@ -51,7 +51,7 @@ namespace Kkc {
         internal SegmentList segments;
         internal SegmentList best_segments;
         internal CandidateList candidates;
-        internal Gee.List<Dict> dictionaries;
+        internal Gee.List<Dictionary> dictionaries;
 
         internal RomKanaConverter rom_kana_converter;
         internal StringBuilder input_buffer = new StringBuilder ();
@@ -108,7 +108,7 @@ namespace Kkc {
             return false;
         }
 
-        internal State (Decoder decoder, Gee.List<Dict> dictionaries) {
+        internal State (Decoder decoder, Gee.List<Dictionary> dictionaries) {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
