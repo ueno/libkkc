@@ -289,6 +289,23 @@ namespace Kkc {
             return phrase_entries.get (midasi).to_array ();
         }
  
+        public bool select_segments (Segment[] segments) {
+            int offset = 0;
+            var builder = new StringBuilder ();
+            ArrayList<int> constraints = new ArrayList<int> ();
+            ArrayList<string> phrase = new ArrayList<string> ();
+            foreach (var segment in segments) {
+                var count = segment.input.char_count ();
+                offset += count;
+                constraints.add (offset);
+                phrase.add (segment.output);
+                builder.append (segment.input);
+            }
+            constraint_entries.set (builder.str, constraints);
+            phrase_entries.set (builder.str, phrase);
+            return true;
+        }
+
         /**
          * {@inheritDoc}
          */
