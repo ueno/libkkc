@@ -160,7 +160,7 @@ namespace Kkc {
 
                 switch (state) {
                 case UserSentenceState.CONSTRAINT:
-                    ArrayList<int> numbers = new ArrayList<int> ();
+                    var numbers = new ArrayList<int> ();
                     var strv = candidates_str.slice (1, -1).split (",");
                     foreach (var str in strv) {
                         numbers.add (int.parse (str));
@@ -168,12 +168,12 @@ namespace Kkc {
                     constraint_entries.set (midasi, numbers);
                     break;
                 case UserSentenceState.PHRASE:
+                    var segments = new ArrayList<string> ();
                     var strv = candidates_str.slice (1, -1).split ("/");
-                    var list = new ArrayList<string> ();
                     foreach (var str in strv) {
-                        list.add (str);
+                        segments.add (str);
                     }
-                    phrase_entries.set (midasi, list);
+                    phrase_entries.set (midasi, segments);
                     break;
                 }
             }
@@ -231,7 +231,7 @@ namespace Kkc {
             _constraint_entries.sort ((CompareFunc) compare_constraint_entry);
             write_constraint_entries (builder, _constraint_entries);
 
-            builder.append (";; entries.\n");
+            builder.append (";; phrase entries.\n");
             var _phrase_entries = new ArrayList<Map.Entry<string,Gee.List<string>>> ();
             _phrase_entries.add_all (phrase_entries.entries);
             _phrase_entries.sort ((CompareFunc) compare_phrase_entry);
@@ -281,11 +281,12 @@ namespace Kkc {
         }
 
         public int[] lookup_constraints (string input) {
-            return new int[0];
+            return constraint_entries.get (input).to_array ();
         }
 
         public string[] lookup_sequence (string[] sequence) {
-            return new string[0];
+            var midasi = string.joinv (" ", sequence);
+            return phrase_entries.get (midasi).to_array ();
         }
  
         /**
