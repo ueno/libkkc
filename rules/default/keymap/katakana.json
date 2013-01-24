@@ -4,12 +4,8 @@
     ],
     "define": {
         "keymap": {
-            "q": "set-input-mode-hiragana",
-            "Q": "start-preedit",
-            "l": "set-input-mode-latin",
-            "L": "set-input-mode-wide-latin",
-            "C-q": "set-input-mode-hankaku-katakana",
-	    "C-j": "commit"
+            "Hiragana_Katakana": "set-input-mode-hiragana",
+            "Eisu_toggle": "set-input-mode-latin"
         }
     }
 }

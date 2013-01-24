@@ -4,7 +4,7 @@
     ],
     "define": {
         "keymap": {
-            "C-j": "set-input-mode-hiragana"
+            "Hiragana_Katakana": "set-input-mode-hiragana"
         }
     }
 }
