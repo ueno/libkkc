@@ -163,7 +163,7 @@ namespace Kkc {
         {
             var trellis = build_trellis (input, constraints);
             add_trigram_nodes (trellis);
-            add_unknown_nodes (trellis, input);
+            add_unknown_nodes (trellis, input, constraints);
 
             forward_search (trellis, input);
             return backward_search (trellis, nbest);

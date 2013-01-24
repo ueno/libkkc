@@ -37,19 +37,22 @@ namespace Kkc {
                                           int[] constraints)
         {
             var trellis = build_trellis (input, constraints);
-            add_unknown_nodes (trellis, input);
+            add_unknown_nodes (trellis, input, constraints);
             forward_search (trellis, input);
             return backward_search (trellis, nbest);
         }
 
         protected void add_unknown_nodes (ArrayList<TrellisNode>[] trellis,
-                                          string input)
+                                          string input,
+                                          int[] constraints)
         {
             for (var i = 1; i < trellis.length; i++) {
                 for (var j = i;
                      j < trellis.length && trellis[j].is_empty;
                      j++)
                 {
+                    if (!check_overlaps (constraints, i, j))
+                        continue;
                     long offset = input.index_of_nth_char (i - 1);
                     long length = input.index_of_nth_char (j) - offset;
                     var _input = input.substring (offset, length);
@@ -100,6 +103,16 @@ namespace Kkc {
                 if (i == last_c && j == c) {
                     return true;
                 }
+                last_c = c;
+            }
+            return i >= last_c;
+        }
+
+        bool check_overlaps (int[] constraints, int i, int j) {
+            int last_c = 0;
+            foreach (var c in constraints) {
+                if ((last_c <= i && i <= c) && (last_c <= j && j <= c))
+                    return true;
                 last_c = c;
             }
             return i >= last_c;
