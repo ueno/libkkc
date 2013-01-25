@@ -21,7 +21,7 @@ static string opt_model = null;
 static bool opt_im = false;
 
 static const OptionEntry[] options = {
-    { "model", 'd', 0, OptionArg.STRING, ref opt_model,
+    { "model", 'm', 0, OptionArg.STRING, ref opt_model,
       N_("Language model"), null },
     { "im", '\0', 0, OptionArg.NONE, ref opt_im,
       N_("Run in input method testing mode"), null },
