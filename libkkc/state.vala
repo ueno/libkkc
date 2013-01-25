@@ -496,7 +496,7 @@ namespace Kkc {
                     }
                     else {
                         state.rom_kana_converter.output = "";
-                        retval = false;
+                        retval = state.input_buffer.len > 0;
                     }
                     return retval;
                 }
@@ -519,7 +519,7 @@ namespace Kkc {
                 }
                 break;
             }
-            return false;
+            return state.input_buffer.len > 0;
         }
     }
 
