@@ -300,12 +300,17 @@ namespace Kkc {
         }
 
         string retrieve_output (bool clear) {
-            var handler = handlers.get (state.handler_type);
-            var output = handler.get_output (state);
+            var output = "";
+            if (state.output.len > 0)
+                output = state.output.str;
             if (clear) {
                 state.output.erase ();
             }
             return output;
+        }
+
+        public bool has_output () {
+            return state.output.len > 0;
         }
 
         /**

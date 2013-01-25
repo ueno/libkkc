@@ -383,9 +383,6 @@ namespace Kkc {
 
     abstract class StateHandler : Object {
         internal abstract bool process_key_event (State state, ref KeyEvent key);
-        internal virtual string get_output (State state) {
-            return state.output.str;
-        }
     }
 
     // We can't use Entry<*,InputMode> here because of Vala bug:
