@@ -167,6 +167,7 @@ namespace Kkc {
                 foreach (var candidate in _candidates) {
                     _dict.select_candidate (candidate);
                 }
+
                 try {
                     _dict.save ();
                 } catch (Error e) {
@@ -482,7 +483,8 @@ namespace Kkc {
                     state.input_buffer.append (kana);
                     return true;
                 }
-                if (key.modifiers == 0) {
+                if (key.modifiers == 0 ||
+                    key.modifiers == Kkc.ModifierType.SHIFT_MASK) {
                     bool retval = false;
                     if (state.rom_kana_converter.append (key.code)) {
                         state.input_buffer.append (
@@ -504,6 +506,7 @@ namespace Kkc {
                 break;
             case InputMode.LATIN:
                 if (key.modifiers == 0 &&
+                    key.modifiers == Kkc.ModifierType.SHIFT_MASK &&
                     0x20 <= key.code && key.code <= 0x7F) {
                     state.input_buffer.append_c ((char) key.code);
                     return true;
@@ -511,6 +514,7 @@ namespace Kkc {
                 break;
             case InputMode.WIDE_LATIN:
                 if (key.modifiers == 0 &&
+                    key.modifiers == Kkc.ModifierType.SHIFT_MASK &&
                     0x20 <= key.code && key.code <= 0x7F) {
                     state.input_buffer.append_unichar (
                         RomKanaUtils.get_wide_latin_char ((char) key.code));
@@ -583,7 +587,7 @@ namespace Kkc {
                 state.output.append (state.segments.get_output ());
                 state.select_sentence ();
                 state.reset ();
-                return true;
+                return command != null;
             }
         }
     }
