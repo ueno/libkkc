@@ -533,11 +533,6 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
-            if (command == "abort") {
-                state.reset ();
-                return true;
-            }
-
             foreach (var entry in end_preedit_commands) {
                 if (entry.key == command) {
                     state.rom_kana_converter.output_nn_if_any ();
@@ -579,7 +574,7 @@ namespace Kkc {
                 state.segments.previous_segment ();
                 return true;
             }
-            else if (command == "delete") {
+            else if (command == "abort" || command == "delete") {
                 state.segments.clear ();
                 state.handler_type = typeof (InitialStateHandler);
                 return true;
@@ -588,8 +583,7 @@ namespace Kkc {
                 state.output.append (state.segments.get_output ());
                 state.select_sentence ();
                 state.reset ();
-                // to notify preedit change through context
-                return command == "commit";
+                return true;
             }
         }
     }
