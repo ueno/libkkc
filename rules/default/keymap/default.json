@@ -9,6 +9,7 @@
             "C-h": "delete",
             " ": "next-candidate",
             "C-x": "previous-candidate",
+            "S-space": "previous-candidate",
             "Right": "next-segment",
             "Left": "previous-segment",
             "C-f": "next-segment",
