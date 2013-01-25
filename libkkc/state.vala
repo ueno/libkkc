@@ -598,11 +598,11 @@ namespace Kkc {
         {
             var command = state.lookup_key (key);
             if (command == "previous-candidate") {
-                state.candidates.previous ();
+                state.candidates.cursor_up ();
                 return true;
             }
             else if (command == "next-candidate") {
-                state.candidates.next ();
+                state.candidates.cursor_down ();
                 return true;
             }
             else if (command == "abort") {
