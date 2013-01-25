@@ -88,25 +88,6 @@ namespace Kkc {
             return keymap.lookup_key (key);
         }
 
-        internal KeyEvent? where_is (string command) {
-            var keymap = _typing_rule.keymaps[input_mode].keymap;
-            return_val_if_fail (keymap != null, null);
-            return keymap.where_is (command);
-        }
-
-        internal bool isupper (KeyEvent key, out unichar lower_code) {
-            var command = lookup_key (key);
-            if (command != null && command.has_prefix ("upper-")) {
-                lower_code = (unichar) command[6];
-                return true;
-            } else if (key.code.isupper()) {
-                lower_code = key.code.tolower();
-                return true;
-            }
-            lower_code = key.code;
-            return false;
-        }
-
         internal State (Decoder decoder, Gee.List<Dictionary> dictionaries) {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
@@ -378,8 +359,6 @@ namespace Kkc {
             }
         }
     }
-
-    delegate bool CommandHandler (State state);
 
     abstract class StateHandler : Object {
         internal abstract bool process_key_event (State state, ref KeyEvent key);
