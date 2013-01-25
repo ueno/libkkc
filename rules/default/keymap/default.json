@@ -2,6 +2,7 @@
     "define": {
         "keymap": {
             "C-g": "abort",
+            "C-c": "abort",
             "\n": "commit",
             "C-m": "commit",
             "\b": "delete",
