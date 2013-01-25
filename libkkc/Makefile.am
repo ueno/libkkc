@@ -44,6 +44,7 @@ libkkc_la_CFLAGS =				\
 	$(CODE_COVERAGE_CFLAGS)			\
 	$(LIBKKC_CFLAGS)			\
 	-DPKGDATADIR=\"$(pkgdatadir)\"		\
+	-I $(top_srcdir)			\
 	$(NULL)
 libkkc_la_LIBADD = $(LIBKKC_LIBS) $(top_builddir)/marisa-glib/libmarisa-glib.la
 libkkc_la_LDFLAGS =							\

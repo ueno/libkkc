@@ -67,7 +67,9 @@ valadoc_flags_libkkc = \
 	-X $(top_srcdir)/libkkc/libkkc.h \
 	$(addprefix --pkg=,$(libkkc_doc_deps)) \
 	--vapidir=$(top_srcdir)/libkkc \
+	--vapidir=$(top_builddir)/libkkc \
 	--vapidir=$(top_srcdir)/marisa-glib \
+	--vapidir=$(top_builddir)/marisa-glib \
 	$(libkkc_doc_files) \
 	$(NULL)
 

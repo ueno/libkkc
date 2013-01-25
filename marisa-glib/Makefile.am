@@ -55,7 +55,7 @@ marisa-glib.vapi: Marisa.gir Marisa-custom.vala marisa-glib.deps
 
 VAPIGEN_VAPIS = marisa-glib.vapi
 
-marisa_glib_vapi_DEPS: gio-2.0
+marisa_glib_vapi_DEPS = gio-2.0
 marisa_glib_vapi_METADATADIRS = $(srcdir)
 marisa_glib_vapi_FILES = Marisa.gir $(srcdir)/Marisa-custom.vala
 
