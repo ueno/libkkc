@@ -109,7 +109,9 @@ namespace Kkc {
                 var strv = key[1:-1].split (" ");
                 int index = 0;
                 for (; index < strv.length - 1; index++) {
-                    if (strv[index] == "control") {
+                    if (strv[index] == "shift") {
+                        modifiers |= ModifierType.SHIFT_MASK;
+                    } else if (strv[index] == "control") {
                         modifiers |= ModifierType.CONTROL_MASK;
                     } else if (strv[index] == "meta") {
                         modifiers |= ModifierType.META_MASK;
@@ -141,7 +143,9 @@ namespace Kkc {
                     // support only limited modifiers in this form
                     string[] mods = key.substring (0, index).split ("-");
                     foreach (var mod in mods) {
-                        if (mod == "C") {
+                        if (mod == "S") {
+                            modifiers |= ModifierType.SHIFT_MASK;
+                        } else if (mod == "C") {
                             modifiers |= ModifierType.CONTROL_MASK;
                         } else if (mod == "A") {
                             modifiers |= ModifierType.MOD1_MASK;
@@ -170,6 +174,10 @@ namespace Kkc {
             string _base = name != null ? name : code.to_string ();
             if (modifiers != 0) {
                 ArrayList<string?> elements = new ArrayList<string?> ();
+                if (name != null
+                    && (modifiers & ModifierType.SHIFT_MASK) != 0) {
+                    elements.add ("shift");
+                }
                 if ((modifiers & ModifierType.CONTROL_MASK) != 0) {
                     elements.add ("control");
                 }

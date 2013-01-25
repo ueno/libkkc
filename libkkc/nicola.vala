@@ -265,8 +265,6 @@ namespace Kkc {
          * {@inheritDoc}
          */
         public override KeyEvent? filter_key_event (KeyEvent key) {
-            // clear shift mask
-            key.modifiers &= ~ModifierType.SHIFT_MASK;
             KeyEvent? output = null;
             int64 time;
             if ((key.modifiers & ModifierType.USLEEP_MASK) != 0) {
