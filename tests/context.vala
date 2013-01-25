@@ -28,6 +28,10 @@ class ContextTests : Kkc.TestCase {
         add_test ("conversion", this.test_conversion);
     }
 
+    public void tearDown () {
+        DirUtils.remove ("user-dict");
+    }
+
     struct Conversion {
         string keys;
         string input;
