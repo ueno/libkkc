@@ -49,6 +49,7 @@ namespace Kkc {
 
         internal Decoder decoder;
         internal SegmentList segments;
+        bool segments_changed = false;
         internal CandidateList candidates;
         internal Gee.List<Dictionary> dictionaries;
 
@@ -126,6 +127,7 @@ namespace Kkc {
             if (segments.cursor_pos >= 0 && candidates.cursor_pos >= 0) {
                 var candidate = candidates.get (candidates.cursor_pos);
                 segments[segments.cursor_pos].output = candidate.output;
+                segments_changed = true;
             }
         }
 
@@ -159,6 +161,9 @@ namespace Kkc {
         }
 
         internal void select_sentence () {
+            if (!segments_changed)
+                return;
+
             string[] sequence = new string[segments.size];
             for (var i = 0; i < sequence.length; i++) {
                 sequence[i] = segments[i].input;
@@ -195,6 +200,7 @@ namespace Kkc {
             rom_kana_converter.reset ();
             _typing_rule.get_filter ().reset ();
             segments.clear ();
+            segments_changed = false;
             candidates.clear ();
             input_buffer.erase ();
         }
@@ -356,6 +362,7 @@ namespace Kkc {
                 convert_sentence (segments.get_input (), constraints);
                 segments.cursor_pos = cursor_pos;
                 apply_phrase ();
+                segments_changed = true;
             }
         }
     }
