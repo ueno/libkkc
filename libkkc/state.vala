@@ -161,18 +161,48 @@ namespace Kkc {
         void save_candidates (Candidate[] _candidates) {
             foreach (var dict in dictionaries) {
                 var _dict = dict as SegmentDictionary;
-                if (_dict == null)
+                if (_dict == null || _dict.read_only)
                     continue;
-                if (!_dict.read_only) {
-                    foreach (var candidate in _candidates) {
-                        _dict.select_candidate (candidate);
-                    }
-                    try {
-                        _dict.save ();
-                    } catch (Error e) {
-                        warning ("couldn't save the dictionary: %s",
-                                 e.message);
-                    }
+
+                foreach (var candidate in _candidates) {
+                    _dict.select_candidate (candidate);
+                }
+                try {
+                    _dict.save ();
+                } catch (Error e) {
+                    warning ("couldn't save candidate into dictionary: %s",
+                             e.message);
+                }
+            }
+        }
+
+        internal void select_sentence () {
+            string[] sequence = new string[segments.size];
+            for (var i = 0; i < sequence.length; i++) {
+                sequence[i] = segments[i].input;
+            }
+            var prefixes = SequenceUtils.enumerate_prefixes (
+                sequence,
+                4,
+                5);
+
+            foreach (var dict in dictionaries) {
+                var _dict = dict as SentenceDictionary;
+                if (_dict == null || _dict.read_only)
+                    continue;
+
+                foreach (var prefix in prefixes) {
+                    var _segments = segments.to_array ();
+                    var stop = prefix.offset + prefix.sequence.length;
+                    _segments = _segments[prefix.offset:stop];
+                    _dict.select_segments (_segments);
+                }
+
+                try {
+                    _dict.save ();
+                } catch (Error e) {
+                    warning ("couldn't save sentence into dictionary: %s",
+                             e.message);
                 }
             }
         }
@@ -238,10 +268,91 @@ namespace Kkc {
         }
 
         internal void convert_sentence (string input,
-                                        int[] constraints = new int[0])
+                                        int[]? constraints = null)
         {
-            var _segments = decoder.decode (input, 1, constraints);
+            var _segments = decoder.decode (input,
+                                            1,
+                                            constraints ?? new int[0]);
             segments.set_segments (_segments[0]);
+
+            if (constraints == null) {
+                apply_constraints ();
+            }
+
+            apply_phrase ();
+        }
+
+        SentenceDictionary? find_setence_dictionary (bool writable) {
+            foreach (var dict in dictionaries) {
+                var sentence_dict = dict as SentenceDictionary;
+                if (sentence_dict != null
+                    && (!writable || !sentence_dict.read_only))
+                    return sentence_dict;
+            }
+            return null;
+        }
+
+        void apply_constraints () {
+            var sentence_dict = find_setence_dictionary (false);
+            var sequence = Utils.split_utf8 (input);
+            var prefixes = SequenceUtils.enumerate_prefixes (
+                sequence,
+                4,
+                sequence.length);
+            var offset = 0;
+            var constraints = new ArrayList<int> ();
+            foreach (var prefix in prefixes) {
+                if (prefix.offset < offset)
+                    continue;
+                int[] _constraints;
+                var input = string.joinv ("", prefix.sequence);
+                if (sentence_dict.lookup_constraints (input,
+                                                      out _constraints)) {
+                    assert (_constraints.length > 0);
+                    var _offset = 0;
+                    for (var i = 0; i < segments.size; i++) {
+                        _offset += segments[i].input.char_count ();
+                        if (offset < _offset
+                            && _offset < _constraints[0] + prefix.offset) {
+                            constraints.add (_offset);
+                        }
+                    }
+
+                    for (var i = 0; i < _constraints.length; i++) {
+                        constraints.add (_constraints[i] + prefix.offset);
+                    }
+                    offset = constraints.get (constraints.size - 1);
+                }
+            }
+            var _segments = decoder.decode (input,
+                                            1,
+                                            constraints.to_array ());
+            segments.set_segments (_segments[0]);
+        }
+
+        void apply_phrase () {
+            var sentence_dict = find_setence_dictionary (false);
+            string[] sequence = new string[segments.size];
+            for (var i = 0; i < segments.size; i++) {
+                sequence[i] = segments[i].input;
+            }
+            var prefixes = SequenceUtils.enumerate_prefixes (
+                sequence,
+                4,
+                5);
+            var offset = 0;
+            foreach (var prefix in prefixes) {
+                if (prefix.offset < offset)
+                    continue;
+                string[] _value;
+                if (sentence_dict.lookup_phrase (prefix.sequence,
+                                         out _value)) {
+                    for (var i = 0; i < _value.length; i++) {
+                        segments[prefix.offset + i].output = _value[i];
+                    }
+                    offset += _value.length;
+                }
+            }
         }
 
         internal void resize_segment (int amount) {
@@ -258,9 +369,11 @@ namespace Kkc {
                     if (i == segments.cursor_pos)
                         break;
                 }
+                select_sentence ();
                 int cursor_pos = segments.cursor_pos;
                 convert_sentence (segments.get_input (), constraints);
                 segments.cursor_pos = cursor_pos;
+                apply_phrase ();
             }
         }
     }
@@ -473,6 +586,7 @@ namespace Kkc {
             }
             else {
                 state.output.append (state.segments.get_output ());
+                state.select_sentence ();
                 state.reset ();
                 // to notify preedit change through context
                 return command == "commit";

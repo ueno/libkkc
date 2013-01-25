@@ -37,6 +37,43 @@ namespace Kkc {
             }
             return dirs.to_array ();
         }
+
+        internal static string[] split_utf8 (string str) {
+            var result = new ArrayList<string> ();
+            int index = 0;
+            unichar uc;
+            while (str.get_next_char (ref index, out uc)) {
+                result.add (uc.to_string ());
+            }
+            return result.to_array ();
+        }
+    }
+
+    struct PrefixEntry {
+        public int offset;
+        public string[] sequence;
+        public PrefixEntry (int offset, string[] sequence) {
+            this.offset = offset;
+            this.sequence = sequence;
+        }
+    }
+
+    class SequenceUtils : Object {
+        public static Gee.List<PrefixEntry?> enumerate_prefixes (
+            string[] sequence, int min, int max)
+        {
+            var result = new ArrayList<PrefixEntry?> ();
+            for (var i = 0; i < sequence.length; i++) {
+                for (var j = sequence.length; j > i; j--) {
+                    if (j - i < min)
+                        break;
+                    if (j - i > max)
+                        continue;
+                    result.add (PrefixEntry (i, sequence[i:j]));
+                }
+            }
+            return result;
+        }
     }
 
     class MemoryMappedFile : Object {

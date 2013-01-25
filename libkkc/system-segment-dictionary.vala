@@ -21,7 +21,7 @@ namespace Kkc {
     /**
      * Read-only file based implementation of Dictionary.
      */
-    public class FileDictionary : Object, Dictionary, SegmentDictionary {
+    public class SystemSegmentDictionary : Object, Dictionary, SegmentDictionary {
         // Read a line near offset and move offset to the beginning of
         // the line.
         string read_line (ref long offset) {
@@ -340,7 +340,7 @@ namespace Kkc {
         long okuri_nasi_offset;
 
         /**
-         * Create a new FileDictionary.
+         * Create a new SystemSegmentDictionary.
          *
          * @param path a path to the file
          * @param encoding encoding of the file (default EUC-JP)
@@ -348,8 +348,8 @@ namespace Kkc {
          * @return a new FileDictionary
          * @throws GLib.Error if opening the file is failed
          */
-        public FileDictionary (string path,
-                               string encoding = "EUC-JP") throws GLib.Error
+        public SystemSegmentDictionary (string path,
+                                        string encoding = "EUC-JP") throws GLib.Error
         {
             this.file = File.new_for_path (path);
             this.mmap = new MemoryMappedFile (file);

@@ -89,5 +89,9 @@ namespace Kkc {
             }
             return builder.str;
         }
+
+        public Segment[] to_array () {
+            return segments.to_array ();
+        }
     }
 }
