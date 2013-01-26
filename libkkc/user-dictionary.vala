@@ -75,9 +75,9 @@ namespace Kkc {
             return segment_dict.purge_candidate (candidate);
         }
 
-        public bool lookup_constraints (string input,
-                                        out int[] constraints) {
-            return sentence_dict.lookup_constraints (input, out constraints);
+        public bool lookup_constraint (string input,
+                                        out int[] constraint) {
+            return sentence_dict.lookup_constraint (input, out constraint);
         }
 
         public bool lookup_phrase (string[] input,

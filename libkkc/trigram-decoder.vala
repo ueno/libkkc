@@ -159,11 +159,11 @@ namespace Kkc {
     public class TrigramDecoder : BigramDecoder {
         public override Segment[] decode (string input,
                                           int nbest,
-                                          int[] constraints)
+                                          int[] constraint)
         {
-            var trellis = build_trellis (input, constraints);
+            var trellis = build_trellis (input, constraint);
             add_trigram_nodes (trellis);
-            add_unknown_nodes (trellis, input, constraints);
+            add_unknown_nodes (trellis, input, constraint);
 
             forward_search (trellis, input);
             return backward_search (trellis, nbest);

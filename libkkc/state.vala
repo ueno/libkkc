@@ -261,15 +261,15 @@ namespace Kkc {
         }
 
         internal void convert_sentence (string input,
-                                        int[]? constraints = null)
+                                        int[]? constraint = null)
         {
             var _segments = decoder.decode (input,
                                             1,
-                                            constraints ?? new int[0]);
+                                            constraint ?? new int[0]);
             segments.set_segments (_segments[0]);
 
-            if (constraints == null) {
-                apply_constraints ();
+            if (constraint == null) {
+                apply_constraint ();
             }
 
             apply_phrase ();
@@ -285,7 +285,7 @@ namespace Kkc {
             return null;
         }
 
-        void apply_constraints () {
+        void apply_constraint () {
             var sentence_dict = find_setence_dictionary (false);
             var sequence = Utils.split_utf8 (input);
             var prefixes = SequenceUtils.enumerate_prefixes (
@@ -293,33 +293,33 @@ namespace Kkc {
                 4,
                 sequence.length);
             var offset = 0;
-            var constraints = new ArrayList<int> ();
+            var constraint = new ArrayList<int> ();
             foreach (var prefix in prefixes) {
                 if (prefix.offset < offset)
                     continue;
-                int[] _constraints;
+                int[] _constraint;
                 var input = string.joinv ("", prefix.sequence);
-                if (sentence_dict.lookup_constraints (input,
-                                                      out _constraints)) {
-                    assert (_constraints.length > 0);
+                if (sentence_dict.lookup_constraint (input,
+                                                      out _constraint)) {
+                    assert (_constraint.length > 0);
                     var _offset = 0;
                     for (var i = 0; i < segments.size; i++) {
                         _offset += segments[i].input.char_count ();
                         if (offset < _offset
-                            && _offset < _constraints[0] + prefix.offset) {
-                            constraints.add (_offset);
+                            && _offset < _constraint[0] + prefix.offset) {
+                            constraint.add (_offset);
                         }
                     }
 
-                    for (var i = 0; i < _constraints.length; i++) {
-                        constraints.add (_constraints[i] + prefix.offset);
+                    for (var i = 0; i < _constraint.length; i++) {
+                        constraint.add (_constraint[i] + prefix.offset);
                     }
-                    offset = constraints.get (constraints.size - 1);
+                    offset = constraint.get (constraint.size - 1);
                 }
             }
             var _segments = decoder.decode (input,
                                             1,
-                                            constraints.to_array ());
+                                            constraint.to_array ());
             segments.set_segments (_segments[0]);
         }
 
@@ -351,20 +351,20 @@ namespace Kkc {
         internal void resize_segment (int amount) {
             if (segments.cursor_pos >= 0
                 && segments.cursor_pos < segments.size) {
-                int[] constraints = {};
+                int[] constraint = {};
                 int offset = 0;
                 for (var i = 0; i < segments.size; i++) {
                     int segment_size = segments[i].input.char_count ();
                     if (i == segments.cursor_pos)
                         segment_size += amount;
                     offset += segment_size;
-                    constraints += offset;
+                    constraint += offset;
                     if (i == segments.cursor_pos)
                         break;
                 }
                 select_sentence ();
                 int cursor_pos = segments.cursor_pos;
-                convert_sentence (segments.get_input (), constraints);
+                convert_sentence (segments.get_input (), constraint);
                 segments.cursor_pos = cursor_pos;
                 apply_phrase ();
                 segments_changed = true;

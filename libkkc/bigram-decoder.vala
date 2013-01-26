@@ -34,24 +34,24 @@ namespace Kkc {
     public class BigramDecoder : Decoder {
         public override Segment[] decode (string input,
                                           int nbest,
-                                          int[] constraints)
+                                          int[] constraint)
         {
-            var trellis = build_trellis (input, constraints);
-            add_unknown_nodes (trellis, input, constraints);
+            var trellis = build_trellis (input, constraint);
+            add_unknown_nodes (trellis, input, constraint);
             forward_search (trellis, input);
             return backward_search (trellis, nbest);
         }
 
         protected void add_unknown_nodes (ArrayList<TrellisNode>[] trellis,
                                           string input,
-                                          int[] constraints)
+                                          int[] constraint)
         {
             for (var i = 1; i < trellis.length; i++) {
                 for (var j = i;
                      j < trellis.length && trellis[j].is_empty;
                      j++)
                 {
-                    if (!check_overlaps (constraints, i, j))
+                    if (!check_overlaps (constraint, i, j))
                         continue;
                     long offset = input.index_of_nth_char (i - 1);
                     long length = input.index_of_nth_char (j) - offset;
@@ -68,7 +68,7 @@ namespace Kkc {
         }
 
         protected ArrayList<TrellisNode>[] build_trellis (string input,
-                                                          int[] constraints)
+                                                          int[] constraint)
         {
             var length = input.char_count ();
             var trellis = new ArrayList<TrellisNode>[length + 2];
@@ -88,7 +88,7 @@ namespace Kkc {
                 var entries = model.entries (_input);
                 foreach (var entry in entries) {
                     var j = i + entry.input.char_count ();
-                    if (!check_constraints (constraints, i, j))
+                    if (!check_constraint (constraint, i, j))
                         continue;
                     var node = new UnigramTrellisNode (entry, j);
                     trellis[j].add (node);
@@ -97,9 +97,9 @@ namespace Kkc {
             return trellis;
         }
 
-        bool check_constraints (int[] constraints, int i, int j) {
+        bool check_constraint (int[] constraint, int i, int j) {
             int last_c = 0;
-            foreach (var c in constraints) {
+            foreach (var c in constraint) {
                 if (i == last_c && j == c) {
                     return true;
                 }
@@ -108,9 +108,9 @@ namespace Kkc {
             return i >= last_c;
         }
 
-        bool check_overlaps (int[] constraints, int i, int j) {
+        bool check_overlaps (int[] constraint, int i, int j) {
             int last_c = 0;
-            foreach (var c in constraints) {
+            foreach (var c in constraint) {
                 if ((last_c <= i && i <= c) && (last_c <= j && j <= c))
                     return true;
                 last_c = c;

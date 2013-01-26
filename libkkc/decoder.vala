@@ -21,7 +21,7 @@ namespace Kkc {
     public abstract class Decoder : Object {
         public abstract Segment[] decode (string input,
                                           int nbest,
-                                          int[] constraints);
+                                          int[] constraint);
 
         public static Decoder? create (LanguageModel model) {
             if (model is TrigramLanguageModel) {

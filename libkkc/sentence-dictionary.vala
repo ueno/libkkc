@@ -23,15 +23,15 @@ namespace Kkc {
      */
     public interface SentenceDictionary : Object, Dictionary {
         /**
-         * Lookup constraints.
+         * Lookup constraint.
          *
          * @param input input string to lookup
-         * @param constraints output location of constraints
+         * @param constraint output location of constraint
          *
          * @return `true` if found, `false` otherwise
          */
-        public abstract bool lookup_constraints (string input,
-                                                 out int[] constraints);
+        public abstract bool lookup_constraint (string input,
+                                                 out int[] constraint);
 
         /**
          * Lookup phrase.

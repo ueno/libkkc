@@ -214,13 +214,13 @@ namespace Kkc {
             }
         }
 
-        public bool lookup_constraints (string input, out int[] constraints) {
+        public bool lookup_constraint (string input, out int[] constraint) {
             var entry = constraint_entries.get (input);
             if (entry == null) {
-                constraints = new int[0];
+                constraint = new int[0];
                 return false;
             }
-            constraints = entry.to_array ();
+            constraint = entry.to_array ();
             return true;
         }
 
@@ -238,18 +238,18 @@ namespace Kkc {
         public bool select_segments (Segment[] segments) {
             int offset = 0;
             var input = new ArrayList<string?> ();
-            var constraints = new ArrayList<int> ();
+            var constraint = new ArrayList<int> ();
             var phrase = new ArrayList<string> ();
             foreach (var segment in segments) {
                 var count = segment.input.char_count ();
                 offset += count;
-                constraints.add (offset);
+                constraint.add (offset);
                 phrase.add (segment.output);
                 input.add (segment.input);
             }
             input.add (null);
             constraint_entries.set (string.joinv ("", input.to_array ()),
-                                    constraints);
+                                    constraint);
             phrase_entries.set (string.joinv (" ", input.to_array ()),
                                 phrase);
             return true;
