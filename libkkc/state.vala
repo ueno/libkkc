@@ -570,7 +570,7 @@ namespace Kkc {
                 state.output.append (state.segments.get_output ());
                 state.select_sentence ();
                 state.reset ();
-                return command != null;
+                return command != null || command == "commit";
             }
         }
     }
