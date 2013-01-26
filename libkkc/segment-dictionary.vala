@@ -28,10 +28,13 @@ namespace Kkc {
          * @param midasi a midasi (title) string to lookup
          * @param okuri whether to search okuri-ari entries or
          * okuri-nasi entries
+         * @param candidates output location of candidates
          *
-         * @return an array of Candidate
+         * @return `true` if found, `false` otherwise
          */
-        public abstract Candidate[] lookup (string midasi, bool okuri = false);
+        public abstract bool lookup_candidates (string midasi,
+                                                bool okuri,
+                                                out Candidate[] candidates);
 
         /**
          * Return an array of strings which matches midasi.
@@ -80,8 +83,11 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public Candidate[] lookup (string midasi, bool okuri = false) {
-            return new Candidate[0];
+        public bool lookup_candidates (string midasi,
+                                       bool okuri,
+                                       out Candidate[] candidates) {
+            candidates = new Candidate[0];
+            return false;
         }
 
         /**

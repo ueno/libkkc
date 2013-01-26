@@ -188,9 +188,13 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public Candidate[] lookup (string midasi, bool okuri = false) {
-            if (mmap.memory == null)
-                return new Candidate[0];
+        public bool lookup_candidates (string midasi,
+                                       bool okuri,
+                                       out Candidate[] candidates) {
+            if (mmap.memory == null) {
+                candidates = new Candidate[0];
+                return false;
+            }
 
             long start_offset, end_offset;
             if (okuri) {
@@ -205,7 +209,8 @@ namespace Kkc {
                 _midasi = converter.encode (midasi);
             } catch (GLib.Error e) {
                 warning ("can't encode %s: %s", midasi, e.message);
-                return new Candidate[0];
+                candidates = new Candidate[0];
+                return false;
             }
 
             long pos;
@@ -225,14 +230,17 @@ namespace Kkc {
                     } catch (GLib.Error e) {
                         warning ("can't decode line %s: %s",
                                  line, e.message);
-                        return new Candidate[0];
+                        candidates = new Candidate[0];
+                        return false;
                     }
-                    return DictionaryUtils.split_candidates (midasi,
-                                                             okuri,
-                                                             _line);
+                    candidates = DictionaryUtils.split_candidates (midasi,
+                                                                   okuri,
+                                                                   _line);
+                    return true;
                 }
             }
-            return new Candidate[0];
+            candidates = new Candidate[0];
+            return false;
         }
 
         static int strcmp_prefix (string a, string b) {

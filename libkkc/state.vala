@@ -240,20 +240,23 @@ namespace Kkc {
                 var _dict = dict as SegmentDictionary;
                 if (_dict == null)
                     continue;
-                var _candidates = _dict.lookup (template.source,
-                                                template.okuri);
-                foreach (var candidate in _candidates) {
-                    string text;
-                    text = Expression.eval (candidate.text);
-                    text = template.expand (text);
-                    candidate.output = text;
-                    // annotation may be an expression
-                    if (candidate.annotation != null) {
-                        candidate.annotation = Expression.eval (
-                            candidate.annotation);
+                Candidate[] _candidates;
+                if (_dict.lookup_candidates (template.source,
+                                             template.okuri,
+                                             out _candidates)) {
+                    foreach (var candidate in _candidates) {
+                        string text;
+                        text = Expression.eval (candidate.text);
+                        text = template.expand (text);
+                        candidate.output = text;
+                        // annotation may be an expression
+                        if (candidate.annotation != null) {
+                            candidate.annotation = Expression.eval (
+                                candidate.annotation);
+                        }
                     }
+                    candidates.add_candidates (_candidates);
                 }
-                candidates.add_candidates (_candidates);
             }
         }
 

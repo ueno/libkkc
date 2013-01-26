@@ -55,8 +55,12 @@ namespace Kkc {
             sentence_dict.save ();
         }
 
-        public Candidate[] lookup (string midasi, bool okuri = false) {
-            return segment_dict.lookup (midasi, okuri);
+        public bool lookup_candidates (string midasi,
+                                       bool okuri,
+                                       out Candidate[] candidates) {
+            return segment_dict.lookup_candidates (midasi,
+                                                   okuri,
+                                                   out candidates);
         }
 
         public string[] complete (string midasi) {

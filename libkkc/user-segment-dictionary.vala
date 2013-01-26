@@ -223,12 +223,16 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public Candidate[] lookup (string midasi, bool okuri = false) {
+        public bool lookup_candidates (string midasi,
+                                       bool okuri,
+                                       out Candidate[] candidates) {
             var entries = get_entries (okuri);
             if (entries.has_key (midasi)) {
-                return entries.get (midasi).to_array ();
+                candidates = entries.get (midasi).to_array ();
+                return true;
             } else {
-                return new Candidate[0];
+                candidates = new Candidate[0];
+                return false;
             }
         }
 
