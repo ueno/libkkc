@@ -396,22 +396,8 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
-            // check abort and commit event
-            if (command == "abort") {
-                bool retval = state.input_buffer.len > 0 ||
-                    state.rom_kana_converter.preedit.length > 0;
-                state.reset ();
-                return retval;
-            } else if (command == "commit") {
-                bool retval = state.input_buffer.len > 0 ||
-                    state.rom_kana_converter.preedit.length > 0;
-                state.rom_kana_converter.output_nn_if_any ();
-                state.output.append (state.input_buffer.str);
-                state.output.append (state.rom_kana_converter.output);
-                state.reset ();
-                return retval;
-            }
-            else if (command == "next-candidate") {
+            // check state transition
+            if (command == "next-candidate") {
                 if (state.input_buffer.len == 0)
                     return false;
                 if (state.segments.size == 0) {
@@ -473,36 +459,30 @@ namespace Kkc {
                 }
                 if (key.modifiers == 0 ||
                     key.modifiers == Kkc.ModifierType.SHIFT_MASK) {
-                    bool retval = false;
                     if (state.rom_kana_converter.append (key.code)) {
                         state.input_buffer.append (
                             state.rom_kana_converter.output);
                         state.rom_kana_converter.output = "";
-                        retval = true;
+                        return true;
                     }
                     else if (0x20 <= key.code && key.code <= 0x7F) {
                         state.input_buffer.append_c ((char) key.code);
                         state.rom_kana_converter.output = "";
-                        retval = true;
+                        return true;
                     }
-                    else {
-                        state.rom_kana_converter.output = "";
-                        retval = state.input_buffer.len > 0;
-                    }
-                    return retval;
                 }
                 break;
             case InputMode.LATIN:
-                if (key.modifiers == 0 &&
-                    key.modifiers == Kkc.ModifierType.SHIFT_MASK &&
+                if ((key.modifiers == 0 ||
+                     key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                     0x20 <= key.code && key.code <= 0x7F) {
                     state.input_buffer.append_c ((char) key.code);
                     return true;
                 }
                 break;
             case InputMode.WIDE_LATIN:
-                if (key.modifiers == 0 &&
-                    key.modifiers == Kkc.ModifierType.SHIFT_MASK &&
+                if ((key.modifiers == 0 ||
+                     key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                     0x20 <= key.code && key.code <= 0x7F) {
                     state.input_buffer.append_unichar (
                         RomKanaUtils.get_wide_latin_char ((char) key.code));
@@ -510,7 +490,14 @@ namespace Kkc {
                 }
                 break;
             }
-            return state.input_buffer.len > 0;
+
+            bool retval = state.input_buffer.len > 0 ||
+                state.rom_kana_converter.preedit.length > 0;
+            state.rom_kana_converter.output_nn_if_any ();
+            state.output.append (state.input_buffer.str);
+            state.output.append (state.rom_kana_converter.output);
+            state.reset ();
+            return retval;
         }
     }
 
@@ -575,7 +562,12 @@ namespace Kkc {
                 state.output.append (state.segments.get_output ());
                 state.select_sentence ();
                 state.reset ();
-                return command != null || command == "commit";
+                // If the key is not bound or won't be further
+                // processed by InitialStateHandler, update preedit.
+                return command != null || command == "commit" ||
+                    !((key.modifiers == 0 ||
+                       key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
+                      0x20 <= key.code && key.code <= 0x7F);
             }
         }
     }
