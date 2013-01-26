@@ -55,6 +55,9 @@ namespace Kkc {
             sentence_dict.save ();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool lookup_candidates (string midasi,
                                        bool okuri,
                                        out Candidate[] candidates) {
@@ -63,28 +66,46 @@ namespace Kkc {
                                                    out candidates);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public string[] complete (string midasi) {
             return segment_dict.complete (midasi);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool select_candidate (Candidate candidate) {
             return segment_dict.select_candidate (candidate);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool purge_candidate (Candidate candidate) {
             return segment_dict.purge_candidate (candidate);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool lookup_constraint (string input,
                                         out int[] constraint) {
             return sentence_dict.lookup_constraint (input, out constraint);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool lookup_phrase (string[] input,
                                    out string[] phrase) {
             return sentence_dict.lookup_phrase (input, out phrase);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool select_segments (Segment[] input) {
             return sentence_dict.select_segments (input);
         }

@@ -157,6 +157,9 @@ namespace Kkc {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void save () throws GLib.Error {
             var builder = new StringBuilder ();
             builder.append (";; constraint entries.\n");
@@ -191,6 +194,9 @@ namespace Kkc {
 #endif
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void reload () throws GLib.Error {
 #if VALA_0_16
             string attributes = FileAttribute.ETAG_VALUE;
@@ -214,6 +220,9 @@ namespace Kkc {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool lookup_constraint (string input, out int[] constraint) {
             var entry = constraint_entries.get (input);
             if (entry == null) {
@@ -224,6 +233,9 @@ namespace Kkc {
             return true;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public bool lookup_phrase (string[] input, out string[] phrase) {
             var _input = string.joinv (" ", input);
             var entry = phrase_entries.get (_input);
@@ -235,6 +247,9 @@ namespace Kkc {
             return true;
         }
  
+        /**
+         * {@inheritDoc}
+         */
         public bool select_segments (Segment[] segments) {
             int offset = 0;
             var input = new ArrayList<string?> ();
