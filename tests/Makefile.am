@@ -55,6 +55,8 @@ basic_SOURCES = basic.vala
 
 context_SOURCES = context.vala
 
+EXTRA_DIST = file-dict.dat
+
 CLEANFILES = valgrind.log.*
 
 -include $(top_srcdir)/git.mk
