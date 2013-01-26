@@ -126,8 +126,10 @@ namespace Kkc {
         void candidates_cursor_pos_changed (Object s, ParamSpec? p) {
             if (segments.cursor_pos >= 0 && candidates.cursor_pos >= 0) {
                 var candidate = candidates.get (candidates.cursor_pos);
-                segments[segments.cursor_pos].output = candidate.output;
-                segments_changed = true;
+                if (segments[segments.cursor_pos].output != candidate.output) {
+                    segments[segments.cursor_pos].output = candidate.output;
+                    segments_changed = true;
+                }
             }
         }
 
