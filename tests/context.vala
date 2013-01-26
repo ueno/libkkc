@@ -9,6 +9,7 @@ class ContextTests : Kkc.TestCase {
             context = new Kkc.Context (model);
         } catch (Kkc.LanguageModelError e) {
             stderr.printf ("%s\n", e.message);
+            Posix.exit (77);
         }
 
         try {
@@ -16,6 +17,7 @@ class ContextTests : Kkc.TestCase {
             context.add_dictionary (dict);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
+            Posix.exit (77);
         }
 
         try {

@@ -3,7 +3,7 @@ distclean_dirs = \
 	gtk-doc \
 	$(NULL)
 
-phony_deps = \
+docs = \
 	libkkc-doc \
 	libkkc-gtk-doc \
 	$(NULL)
@@ -28,12 +28,8 @@ libkkcdoc_DATA = \
 
 libkkcgtkdoc_DATA = gtk-doc/libkkc/html/*
 
-libkkcimg_DATA = \
-	libkkc/libkkc/img/*.png \
-	$(NULL)
-
-$(libkkcdoc_DATA) $(libkkcimg_DATA): libkkc-doc
-$(libkkcgtkdoc_DATA): libkkc-gtk-doc
+$(libkkcdoc_DATA) $(libkkcimg_DATA): libkkc-doc.stamp
+$(libkkcgtkdoc_DATA): libkkc-gtk-doc.stamp
 
 valadoc_flags = \
 	--force \
@@ -64,6 +60,7 @@ libkkc_doc_deps = \
 	$(NULL)
 valadoc_flags_libkkc = \
 	$(valadoc_flags) \
+	-D VALA_0_16 \
 	-X $(top_srcdir)/libkkc/libkkc.h \
 	$(addprefix --pkg=,$(libkkc_doc_deps)) \
 	--vapidir=$(top_srcdir)/libkkc \
@@ -73,22 +70,28 @@ valadoc_flags_libkkc = \
 	$(libkkc_doc_files) \
 	$(NULL)
 
-libkkc-doc: $(libkkc_doc_files)
+libkkc-doc.stamp: $(libkkc_doc_files)
 	$(AM_V_GEN)$(VALADOC) \
 		-o libkkc/ \
 		--doclet=devhelp \
 		$(valadoc_flags_libkkc) \
 		$(NULL)
+	@touch $@
 
-libkkc-gtk-doc: $(libkkc_doc_files)
+libkkc-gtk-doc.stamp: $(libkkc_doc_files)
 	$(AM_V_GEN)$(VALADOC) \
 		-X -l -X $(top_builddir)/libkkc/.libs/libkkc.so \
 		-o gtk-doc/libkkc \
 		--doclet=gtkdoc \
 		$(valadoc_flags_libkkc) \
 		$(NULL)
+	@touch $@
 
-.PHONY: $(phony_deps)
+stamps = $(addsuffix .stamp, $(docs))
+
+all: $(stamps)
+
+CLEANFILES = $(stamps)
 
 distclean-local: distclean-docs
 distclean-docs:

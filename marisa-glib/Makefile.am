@@ -45,7 +45,7 @@ Marisa_gir_FILES = $(libmarisa_glib_la_sources) $(libmarisa_glib_la_headers)
 
 INTROSPECTION_GIRS += Marisa.gir
 
-CLEANFILES += $(gir_DATA) $(typelib_DATA)
+CLEANFILES += $(INTROSPECTION_GIRS)
 endif
 
 if ENABLE_VAPIGEN
