@@ -41,3 +41,18 @@ in a bit more complex way using N-gram language models.
  # shrink the fourth segment (なかの -> なか)
  >> わたしのなまえはなかのです 1 3 4 7 8 10
  0: <わたし/わたし><の/の><名前/なまえ><は/は><中/なか><の/の><で/で><す/す>
+
+License:
+
+GPLv3+
+
+Copyright (C) 2011-2013 Daiki Ueno <ueno@gnu.org>
+Copyright (C) 2011-2013 Red Hat, Inc.
+
+This file is free software; as a special exception the author gives
+unlimited permission to copy and/or distribute it, with or without
+modifications, as long as this notice is preserved.
+
+This file is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
