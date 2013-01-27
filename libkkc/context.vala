@@ -149,12 +149,18 @@ namespace Kkc {
             notify_property ("input-mode");
         }
 
+        void candidates_selected_cb () {
+            notify_property ("input");
+        }
+
         void connect_state_signals (State state) {
             state.notify["input-mode"].connect (notify_input_mode_cb);
+            state.candidates.selected.connect (candidates_selected_cb);
         }
 
         void disconnect_state_signals (State state) {
             state.notify["input-mode"].disconnect (notify_input_mode_cb);
+            state.candidates.selected.disconnect (candidates_selected_cb);
         }
 
         /**
