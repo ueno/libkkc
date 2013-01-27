@@ -210,6 +210,12 @@ namespace Kkc {
         internal void lookup (Segment segment) {
             candidates.clear ();
 
+            var original = new Candidate (
+                segment.input,
+                false,
+                segment.output);
+            candidates.add_candidates (new Candidate[] { original });
+
             lookup_internal (new SimpleTemplate (segment.input));
             lookup_internal (new OkuriganaTemplate (segment.input));
             lookup_internal (new NumericTemplate (segment.input));
@@ -225,12 +231,6 @@ namespace Kkc {
                 false,
                 RomKanaUtils.get_katakana (segment.input));
             candidates.add_candidates (new Candidate[] { katakana });
-
-            var original = new Candidate (
-                segment.input,
-                false,
-                segment.output);
-            candidates.add_candidates (new Candidate[] { original });
 
             candidates.add_candidates_end ();
         }
@@ -558,7 +558,7 @@ namespace Kkc {
                 || command == "previous-candidate") {
                 state.handler_type = typeof (ConvertSegmentStateHandler);
                 state.candidates.first ();
-                return true;
+                return false;
             }
             if (command != null && command.has_prefix ("insert-kana-")) {
                 var kana = RomKanaUtils.convert_by_input_mode (
