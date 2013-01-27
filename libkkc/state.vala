@@ -235,20 +235,20 @@ namespace Kkc {
             candidates.add_candidates_end ();
         }
 
-        internal string? lookup_single (Segment segment) {
+        internal string? lookup_single (string input) {
             foreach (var dict in dictionaries) {
                 var _dict = dict as SegmentDictionary;
                 if (_dict == null)
                     continue;
                 Candidate[] _candidates;
                 Template template;
-                template = new SimpleTemplate (segment.input);
+                template = new SimpleTemplate (input);
                 if (_dict.lookup_candidates (template.source,
                                              template.okuri,
                                              out _candidates)) {
                     return template.expand (_candidates[0].text);
                 }
-                template = new OkuriganaTemplate (segment.input);
+                template = new OkuriganaTemplate (input);
                 if (_dict.lookup_candidates (template.source,
                                              template.okuri,
                                              out _candidates)) {
@@ -424,12 +424,13 @@ namespace Kkc {
                 if (state.input_buffer.len == 0)
                     return false;
                 if (state.segments.size == 0) {
+                    state.rom_kana_converter.output_nn_if_any ();
+                    state.input_buffer.append (state.rom_kana_converter.output);
                     string input = RomKanaUtils.get_hiragana (
                         state.input_buffer.str);
-                    var segment = new Segment (input, input);
-                    var output = state.lookup_single (segment);
+                    var output = state.lookup_single (input);
                     if (output != null) {
-                        segment.output = output;
+                        var segment = new Segment (input, output);
                         state.segments.set_segments (segment);
                     } else {
                         state.convert_sentence (input);
