@@ -235,6 +235,29 @@ namespace Kkc {
             candidates.add_candidates_end ();
         }
 
+        internal string? lookup_single (Segment segment) {
+            foreach (var dict in dictionaries) {
+                var _dict = dict as SegmentDictionary;
+                if (_dict == null)
+                    continue;
+                Candidate[] _candidates;
+                Template template;
+                template = new SimpleTemplate (segment.input);
+                if (_dict.lookup_candidates (template.source,
+                                             template.okuri,
+                                             out _candidates)) {
+                    return template.expand (_candidates[0].text);
+                }
+                template = new OkuriganaTemplate (segment.input);
+                if (_dict.lookup_candidates (template.source,
+                                             template.okuri,
+                                             out _candidates)) {
+                    return template.expand (_candidates[0].text);
+                }
+            }
+            return null;
+        }
+
         void lookup_internal (Template template) {
             foreach (var dict in dictionaries) {
                 var _dict = dict as SegmentDictionary;
@@ -403,7 +426,14 @@ namespace Kkc {
                 if (state.segments.size == 0) {
                     string input = RomKanaUtils.get_hiragana (
                         state.input_buffer.str);
-                    state.convert_sentence (input);
+                    var segment = new Segment (input, input);
+                    var output = state.lookup_single (segment);
+                    if (output != null) {
+                        segment.output = output;
+                        state.segments.set_segments (segment);
+                    } else {
+                        state.convert_sentence (input);
+                    }
                     state.segments.first_segment ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
                     return true;
