@@ -143,22 +143,59 @@ namespace Kkc {
             candidates.clear ();
         }
 
+        delegate void DictionaryCallback (Dictionary dictionary);
+        void with_dictionary (Type type,
+                              bool writable,
+                              DictionaryCallback callback)
+        {
+            foreach (var dictionary in dictionaries) {
+                if (dictionary.get_type ().is_a (type)
+                    && (!writable || !dictionary.read_only))
+                    callback (dictionary);
+            }
+        }
+
+        void save_candidates_for_dictionary (Dictionary dictionary,
+                                             Candidate[] _candidates)
+        {
+            var segment_dict = dictionary as SegmentDictionary;
+            foreach (var candidate in _candidates) {
+                segment_dict.select_candidate (candidate);
+            }
+
+            try {
+                segment_dict.save ();
+            } catch (Error e) {
+                warning ("couldn't save candidate into dictionary: %s",
+                         e.message);
+            }
+        }
+
         void save_candidates (Candidate[] _candidates) {
-            foreach (var dict in dictionaries) {
-                var _dict = dict as SegmentDictionary;
-                if (_dict == null || _dict.read_only)
-                    continue;
+            with_dictionary (typeof (SegmentDictionary),
+                             true,
+                             (dictionary) => {
+                                 save_candidates_for_dictionary (dictionary,
+                                                                 _candidates);
+                             });
+        }
 
-                foreach (var candidate in _candidates) {
-                    _dict.select_candidate (candidate);
-                }
+        void select_sentence_for_dictionary (Dictionary dictionary,
+                                             Gee.List<PrefixEntry?> prefixes)
+        {
+            var sentence_dict = dictionary as SentenceDictionary;
+            foreach (var prefix in prefixes) {
+                var _segments = segments.to_array ();
+                var stop = prefix.offset + prefix.sequence.length;
+                _segments = _segments[prefix.offset:stop];
+                sentence_dict.select_segments (_segments);
+            }
 
-                try {
-                    _dict.save ();
-                } catch (Error e) {
-                    warning ("couldn't save candidate into dictionary: %s",
-                             e.message);
-                }
+            try {
+                sentence_dict.save ();
+            } catch (Error e) {
+                warning ("couldn't save sentence into dictionary: %s",
+                         e.message);
             }
         }
 
@@ -175,25 +212,12 @@ namespace Kkc {
                 4,
                 5);
 
-            foreach (var dict in dictionaries) {
-                var _dict = dict as SentenceDictionary;
-                if (_dict == null || _dict.read_only)
-                    continue;
-
-                foreach (var prefix in prefixes) {
-                    var _segments = segments.to_array ();
-                    var stop = prefix.offset + prefix.sequence.length;
-                    _segments = _segments[prefix.offset:stop];
-                    _dict.select_segments (_segments);
-                }
-
-                try {
-                    _dict.save ();
-                } catch (Error e) {
-                    warning ("couldn't save sentence into dictionary: %s",
-                             e.message);
-                }
-            }
+            with_dictionary (typeof (SentenceDictionary),
+                             true,
+                             (dictionary) => {
+                                 select_sentence_for_dictionary (dictionary,
+                                                                 prefixes);
+                             });
         }
 
         internal void reset () {
@@ -207,6 +231,29 @@ namespace Kkc {
             input_buffer.erase ();
         }
 
+        internal string? lookup_single (string input) {
+            foreach (var dictionary in dictionaries) {
+                var segment_dict = dictionary as SegmentDictionary;
+                if (segment_dict == null)
+                    continue;
+                Candidate[] _candidates;
+                Template template;
+                template = new SimpleTemplate (input);
+                if (segment_dict.lookup_candidates (template.source,
+                                                    template.okuri,
+                                                    out _candidates)) {
+                    return template.expand (_candidates[0].text);
+                }
+                template = new OkuriganaTemplate (input);
+                if (segment_dict.lookup_candidates (template.source,
+                                                    template.okuri,
+                                                    out _candidates)) {
+                    return template.expand (_candidates[0].text);
+                }
+            }
+            return null;
+        }
+
         internal void lookup (Segment segment) {
             candidates.clear ();
 
@@ -216,9 +263,9 @@ namespace Kkc {
                 segment.output);
             candidates.add_candidates (new Candidate[] { original });
 
-            lookup_internal (new SimpleTemplate (segment.input));
-            lookup_internal (new OkuriganaTemplate (segment.input));
-            lookup_internal (new NumericTemplate (segment.input));
+            lookup_template (new SimpleTemplate (segment.input));
+            lookup_template (new OkuriganaTemplate (segment.input));
+            lookup_template (new NumericTemplate (segment.input));
 
             var hiragana = new Candidate (
                 segment.input,
@@ -235,52 +282,36 @@ namespace Kkc {
             candidates.add_candidates_end ();
         }
 
-        internal string? lookup_single (string input) {
-            foreach (var dict in dictionaries) {
-                var _dict = dict as SegmentDictionary;
-                if (_dict == null)
-                    continue;
-                Candidate[] _candidates;
-                Template template;
-                template = new SimpleTemplate (input);
-                if (_dict.lookup_candidates (template.source,
-                                             template.okuri,
-                                             out _candidates)) {
-                    return template.expand (_candidates[0].text);
+        void lookup_template_for_dictionary (Dictionary dictionary,
+                                             Template template)
+        {
+            var segment_dict = dictionary as SegmentDictionary;
+            Candidate[] _candidates;
+            if (segment_dict.lookup_candidates (template.source,
+                                                template.okuri,
+                                                out _candidates)) {
+                foreach (var candidate in _candidates) {
+                    string text;
+                    text = Expression.eval (candidate.text);
+                    text = template.expand (text);
+                    candidate.output = text;
+                    // annotation may be an expression
+                    if (candidate.annotation != null) {
+                        candidate.annotation = Expression.eval (
+                            candidate.annotation);
+                    }
                 }
-                template = new OkuriganaTemplate (input);
-                if (_dict.lookup_candidates (template.source,
-                                             template.okuri,
-                                             out _candidates)) {
-                    return template.expand (_candidates[0].text);
-                }
+                candidates.add_candidates (_candidates);
             }
-            return null;
         }
 
-        void lookup_internal (Template template) {
-            foreach (var dict in dictionaries) {
-                var _dict = dict as SegmentDictionary;
-                if (_dict == null)
-                    continue;
-                Candidate[] _candidates;
-                if (_dict.lookup_candidates (template.source,
-                                             template.okuri,
-                                             out _candidates)) {
-                    foreach (var candidate in _candidates) {
-                        string text;
-                        text = Expression.eval (candidate.text);
-                        text = template.expand (text);
-                        candidate.output = text;
-                        // annotation may be an expression
-                        if (candidate.annotation != null) {
-                            candidate.annotation = Expression.eval (
-                                candidate.annotation);
-                        }
-                    }
-                    candidates.add_candidates (_candidates);
-                }
-            }
+        void lookup_template (Template template) {
+            with_dictionary (typeof (SegmentDictionary),
+                             false,
+                             (dictionary) => {
+                                 lookup_template_for_dictionary (dictionary,
+                                                                 template);
+                             });
         }
 
         internal void convert_sentence (string input,
@@ -298,18 +329,8 @@ namespace Kkc {
             apply_phrase ();
         }
 
-        SentenceDictionary? find_setence_dictionary (bool writable) {
-            foreach (var dict in dictionaries) {
-                var sentence_dict = dict as SentenceDictionary;
-                if (sentence_dict != null
-                    && (!writable || !sentence_dict.read_only))
-                    return sentence_dict;
-            }
-            return null;
-        }
-
-        void apply_constraint () {
-            var sentence_dict = find_setence_dictionary (false);
+        void apply_constraint_for_dictionary (Dictionary dictionary) {
+            var sentence_dict = dictionary as SentenceDictionary;
             var sequence = Utils.split_utf8 (input);
             var prefixes = SequenceUtils.enumerate_prefixes (
                 sequence,
@@ -346,8 +367,14 @@ namespace Kkc {
             segments.set_segments (_segments[0]);
         }
 
-        void apply_phrase () {
-            var sentence_dict = find_setence_dictionary (false);
+        void apply_constraint () {
+            with_dictionary (typeof (SentenceDictionary),
+                             false,
+                             apply_constraint_for_dictionary);
+        }
+
+        void apply_phrase_for_dictionary (Dictionary dictionary) {
+            var sentence_dict = dictionary as SentenceDictionary;
             string[] sequence = new string[segments.size];
             for (var i = 0; i < segments.size; i++) {
                 sequence[i] = segments[i].input;
@@ -369,6 +396,12 @@ namespace Kkc {
                     offset += _value.length;
                 }
             }
+        }
+
+        void apply_phrase () {
+            with_dictionary (typeof (SentenceDictionary),
+                             false,
+                             apply_phrase_for_dictionary);
         }
 
         internal void resize_segment (int amount) {
