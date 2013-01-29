@@ -95,7 +95,7 @@ namespace Kkc {
             this.segments = new SegmentList ();
             this.segments.notify["cursor-pos"].connect (
                 segments_cursor_pos_changed);
-            this.candidates = new SimpleCandidateList ();
+            this.candidates = new CandidateList ();
             this.candidates.round = true;
             this.candidates.notify["cursor-pos"].connect (
                 candidates_cursor_pos_changed);
