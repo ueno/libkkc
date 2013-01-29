@@ -27,19 +27,19 @@ namespace Kkc {
         /**
          * Register dictionary.
          *
-         * @param dict a dictionary
+         * @param dictionary a dictionary
          */
-        public void add_dictionary (Dictionary dict) {
-            dictionaries.add (dict);
+        public void add_dictionary (Dictionary dictionary) {
+            dictionaries.add (dictionary);
         }
 
         /**
          * Unregister dictionary.
          *
-         * @param dict a dictionary
+         * @param dictionary a dictionary
          */
-        public void remove_dictionary (Dictionary dict) {
-            dictionaries.remove (dict);
+        public void remove_dictionary (Dictionary dictionary) {
+            dictionaries.remove (dictionary);
         }
 
         public void clear_dictionaries () {
@@ -135,6 +135,8 @@ namespace Kkc {
 
         /**
          * Create a new Context.
+         *
+         * @param model a language model
          *
          * @return a new Context
          */
@@ -299,6 +301,15 @@ namespace Kkc {
             clear_output ();
         }
 
+        /**
+         * Check if there is pending output
+         *
+         * @return `true` if there is output, `false` otherwise
+         */
+        public bool has_output () {
+            return state.output.len > 0;
+        }
+
         string retrieve_output (bool clear) {
             var output = "";
             if (state.output.len > 0)
@@ -307,10 +318,6 @@ namespace Kkc {
                 state.output.erase ();
             }
             return output;
-        }
-
-        public bool has_output () {
-            return state.output.len > 0;
         }
 
         /**
@@ -342,9 +349,9 @@ namespace Kkc {
          * Save dictionaries on to disk.
          */
         public void save_dictionaries () throws GLib.Error {
-            foreach (var dict in dictionaries) {
-                if (!dict.read_only) {
-                    dict.save ();
+            foreach (var dictionary in dictionaries) {
+                if (!dictionary.read_only) {
+                    dictionary.save ();
                 }
             }
         }
