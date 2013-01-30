@@ -22,28 +22,16 @@ namespace Kkc {
      * Main entry point of libkkc.
      */
     public class Context : Object {
-        Gee.List<Dictionary> dictionaries = new ArrayList<Dictionary> ();
-
         /**
-         * Register dictionary.
-         *
-         * @param dictionary a dictionary
+         * Dictionaries.
          */
-        public void add_dictionary (Dictionary dictionary) {
-            dictionaries.add (dictionary);
-        }
-
-        /**
-         * Unregister dictionary.
-         *
-         * @param dictionary a dictionary
-         */
-        public void remove_dictionary (Dictionary dictionary) {
-            dictionaries.remove (dictionary);
-        }
-
-        public void clear_dictionaries () {
-            dictionaries.clear ();
+        public DictionaryList dictionaries {
+            get {
+                return state.dictionaries;
+            }
+            set {
+                state.dictionaries = value;
+            }
         }
 
         /**
@@ -148,7 +136,7 @@ namespace Kkc {
             handlers.set (typeof (ConvertSegmentStateHandler),
                           new ConvertSegmentStateHandler ());
 			var decoder = Kkc.Decoder.create (model);
-            state = new State (decoder, dictionaries);
+            state = new State (decoder, new DictionaryList ());
             connect_state_signals (state);
         }
 
@@ -343,17 +331,6 @@ namespace Kkc {
          */
         public void clear_output () {
             state.output.erase ();
-        }
-
-        /**
-         * Save dictionaries on to disk.
-         */
-        public void save_dictionaries () throws GLib.Error {
-            foreach (var dictionary in dictionaries) {
-                if (!dictionary.read_only) {
-                    dictionary.save ();
-                }
-            }
         }
     }
 }

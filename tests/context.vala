@@ -13,8 +13,8 @@ class ContextTests : Kkc.TestCase {
         }
 
         try {
-            var dict = new Kkc.SystemSegmentDictionary ("file-dict.dat");
-            context.add_dictionary (dict);
+            var dictionary = new Kkc.SystemSegmentDictionary ("file-dict.dat");
+            context.dictionaries.add (dictionary);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
             Posix.exit (77);

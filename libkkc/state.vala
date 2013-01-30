@@ -51,7 +51,7 @@ namespace Kkc {
         internal SegmentList segments;
         bool segments_changed = false;
         internal CandidateList candidates;
-        internal Gee.List<Dictionary> dictionaries;
+        internal DictionaryList dictionaries;
 
         internal RomKanaConverter rom_kana_converter;
         internal StringBuilder input_buffer = new StringBuilder ();
@@ -89,7 +89,7 @@ namespace Kkc {
             return keymap.lookup_key (key);
         }
 
-        internal State (Decoder decoder, Gee.List<Dictionary> dictionaries) {
+        internal State (Decoder decoder, DictionaryList dictionaries) {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
@@ -138,26 +138,18 @@ namespace Kkc {
                 Candidate[] _candidates = {};
 
                 _candidates += candidates.get (candidates.cursor_pos);
-                save_candidates (_candidates);
+                dictionaries.call (
+                    typeof (SegmentDictionary),
+                    true,
+                    (dictionary) => {
+                        save_candidates (dictionary, _candidates);
+                        return true;
+                    });
             }
             candidates.clear ();
         }
 
-        delegate void DictionaryCallback (Dictionary dictionary);
-        void with_dictionary (Type type,
-                              bool writable,
-                              DictionaryCallback callback)
-        {
-            foreach (var dictionary in dictionaries) {
-                if (dictionary.get_type ().is_a (type)
-                    && (!writable || !dictionary.read_only))
-                    callback (dictionary);
-            }
-        }
-
-        void save_candidates_for_dictionary (Dictionary dictionary,
-                                             Candidate[] _candidates)
-        {
+        void save_candidates (Dictionary dictionary, Candidate[] _candidates) {
             var segment_dict = dictionary as SegmentDictionary;
             foreach (var candidate in _candidates) {
                 segment_dict.select_candidate (candidate);
@@ -169,15 +161,6 @@ namespace Kkc {
                 warning ("couldn't save candidate into dictionary: %s",
                          e.message);
             }
-        }
-
-        void save_candidates (Candidate[] _candidates) {
-            with_dictionary (typeof (SegmentDictionary),
-                             true,
-                             (dictionary) => {
-                                 save_candidates_for_dictionary (dictionary,
-                                                                 _candidates);
-                             });
         }
 
         void select_sentence_for_dictionary (Dictionary dictionary,
@@ -212,12 +195,13 @@ namespace Kkc {
                 4,
                 5);
 
-            with_dictionary (typeof (SentenceDictionary),
-                             true,
-                             (dictionary) => {
-                                 select_sentence_for_dictionary (dictionary,
-                                                                 prefixes);
-                             });
+            dictionaries.call (typeof (SentenceDictionary),
+                               true,
+                               (dictionary) => {
+                                   select_sentence_for_dictionary (dictionary,
+                                                                   prefixes);
+                                   return true;
+                               });
         }
 
         internal void reset () {
@@ -231,27 +215,38 @@ namespace Kkc {
             input_buffer.erase ();
         }
 
-        internal string? lookup_single (string input) {
-            foreach (var dictionary in dictionaries) {
-                var segment_dict = dictionary as SegmentDictionary;
-                if (segment_dict == null)
-                    continue;
-                Candidate[] _candidates;
-                Template template;
-                template = new SimpleTemplate (input);
-                if (segment_dict.lookup_candidates (template.source,
-                                                    template.okuri,
-                                                    out _candidates)) {
-                    return template.expand (_candidates[0].text);
-                }
-                template = new OkuriganaTemplate (input);
-                if (segment_dict.lookup_candidates (template.source,
-                                                    template.okuri,
-                                                    out _candidates)) {
-                    return template.expand (_candidates[0].text);
-                }
+        string? lookup_single_for_dictionary (Dictionary dictionary,
+                                              string input)
+        {
+            var segment_dict = dictionary as SegmentDictionary;
+            Candidate[] _candidates;
+            Template template;
+            template = new SimpleTemplate (input);
+            if (segment_dict.lookup_candidates (template.source,
+                                                template.okuri,
+                                                out _candidates)) {
+                return template.expand (_candidates[0].text);
+            }
+            template = new OkuriganaTemplate (input);
+            if (segment_dict.lookup_candidates (template.source,
+                                                template.okuri,
+                                                out _candidates)) {
+                return template.expand (_candidates[0].text);
             }
             return null;
+        }
+
+        internal string? lookup_single (string input) {
+            string? result = null;
+            dictionaries.call (typeof (SegmentDictionary),
+                               false,
+                               (dictionary) => {
+                                   result = lookup_single_for_dictionary (
+                                       dictionary,
+                                       input);
+                                   return result == null;
+                               });
+            return result;
         }
 
         internal void lookup (Segment segment) {
@@ -306,12 +301,13 @@ namespace Kkc {
         }
 
         void lookup_template (Template template) {
-            with_dictionary (typeof (SegmentDictionary),
-                             false,
-                             (dictionary) => {
-                                 lookup_template_for_dictionary (dictionary,
-                                                                 template);
-                             });
+            dictionaries.call (typeof (SegmentDictionary),
+                               false,
+                               (dictionary) => {
+                                   lookup_template_for_dictionary (dictionary,
+                                                                   template);
+                                   return true;
+                               });
         }
 
         internal void convert_sentence (string input,
@@ -368,9 +364,12 @@ namespace Kkc {
         }
 
         void apply_constraint () {
-            with_dictionary (typeof (SentenceDictionary),
-                             false,
-                             apply_constraint_for_dictionary);
+            dictionaries.call (typeof (SentenceDictionary),
+                               false,
+                               (dictionary) => {
+                                   apply_constraint_for_dictionary (dictionary);
+                                   return true;
+                               });
         }
 
         void apply_phrase_for_dictionary (Dictionary dictionary) {
@@ -399,9 +398,12 @@ namespace Kkc {
         }
 
         void apply_phrase () {
-            with_dictionary (typeof (SentenceDictionary),
-                             false,
-                             apply_phrase_for_dictionary);
+            dictionaries.call (typeof (SentenceDictionary),
+                               false,
+                               (dictionary) => {
+                                   apply_phrase_for_dictionary (dictionary);
+                                   return true;
+                               });
         }
 
         internal void resize_segment (int amount) {
