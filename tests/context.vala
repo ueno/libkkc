@@ -20,18 +20,7 @@ class ContextTests : Kkc.TestCase {
             Posix.exit (77);
         }
 
-        try {
-            var dict = new Kkc.UserDictionary ("user-dict");
-            context.add_dictionary (dict);
-        } catch (Error e) {
-            stderr.printf ("%s\n", e.message);
-        }
-
         add_test ("conversion", this.test_conversion);
-    }
-
-    public void tearDown () {
-        DirUtils.remove ("user-dict");
     }
 
     struct Conversion {
@@ -112,7 +101,7 @@ class ContextTests : Kkc.TestCase {
           "",
           0,
           -1,
-          "わたしの生絵は中のです" }
+          "わたしのなま絵は中のです" }
     };
 
     public void test_conversion () {
@@ -126,7 +115,6 @@ class ContextTests : Kkc.TestCase {
             assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
             context.reset ();
             context.clear_output ();
-            context.save_dictionaries ();
         }
     }
 }
