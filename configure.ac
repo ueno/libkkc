@@ -168,7 +168,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
 marisa-glib/Makefile
 libkkc/Makefile
-libkkc/libkkc.pc
+libkkc/kkc-1.0.pc
 rules/Makefile
 tools/Makefile
 tests/Makefile

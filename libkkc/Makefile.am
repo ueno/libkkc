@@ -129,11 +129,11 @@ CLEANFILES =					\
 	kkc-internals-@KKC_API_VERSION@.vapi	\
 	Kkc-@KKC_API_VERSION@.typelib		\
 	Kkc-@KKC_API_VERSION@.gir		\
-	libkkc.pc				\
+	kkc-1.0.pc				\
 	$(NULL)
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libkkc.pc
+pkgconfig_DATA = kkc-1.0.pc
 
 vapi_DATA = kkc-1.0.vapi kkc-1.0.deps
 vapidir = $(datadir)/vala/vapi
