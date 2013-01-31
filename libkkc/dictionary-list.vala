@@ -18,6 +18,21 @@
 using Gee;
 
 namespace Kkc {
+    /**
+     * Type to specify how a dictionary callback is handled.
+     */
+    public enum DictionaryCallbackReturn {
+        /**
+         * Continue to the next dictionary.
+         */
+        CONTINUE,
+
+        /**
+         * Stop the processing.
+         */
+        REMOVE
+    }
+
     public class DictionaryList : Object {
         Gee.List<Dictionary> dictionaries = new ArrayList<Dictionary> ();
 
@@ -48,7 +63,8 @@ namespace Kkc {
             dictionaries.clear ();
         }
 
-        public delegate bool DictionaryCallback (Dictionary dictionary);
+        public delegate DictionaryCallbackReturn DictionaryCallback (
+            Dictionary dictionary);
 
         /**
          * Call function with dictionaries.
@@ -64,7 +80,8 @@ namespace Kkc {
             foreach (var dictionary in dictionaries) {
                 if ((type == null || dictionary.get_type ().is_a (type))
                     && (!writable || !dictionary.read_only))
-                    if (!callback (dictionary))
+                    if (callback (dictionary)
+                        == DictionaryCallbackReturn.REMOVE)
                         return;
             }
         }
@@ -84,7 +101,7 @@ namespace Kkc {
                                        e.message);
                           }
                       }
-                      return true;
+                      return DictionaryCallbackReturn.CONTINUE;
                   });
         }
    }

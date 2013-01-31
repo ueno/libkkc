@@ -143,7 +143,7 @@ namespace Kkc {
                     true,
                     (dictionary) => {
                         select_candidates (dictionary, _candidates);
-                        return true;
+                        return DictionaryCallbackReturn.CONTINUE;
                     });
             }
             candidates.clear ();
@@ -188,7 +188,7 @@ namespace Kkc {
                                (dictionary) => {
                                    select_sentence_for_dictionary (dictionary,
                                                                    prefixes);
-                                   return true;
+                                   return DictionaryCallbackReturn.CONTINUE;
                                });
         }
 
@@ -232,7 +232,9 @@ namespace Kkc {
                                    result = lookup_single_for_dictionary (
                                        dictionary,
                                        input);
-                                   return result == null;
+                                   if (result == null)
+                                       return DictionaryCallbackReturn.REMOVE;
+                                   return DictionaryCallbackReturn.CONTINUE;
                                });
             return result;
         }
@@ -294,7 +296,7 @@ namespace Kkc {
                                (dictionary) => {
                                    lookup_template_for_dictionary (dictionary,
                                                                    template);
-                                   return true;
+                                   return DictionaryCallbackReturn.CONTINUE;
                                });
         }
 
@@ -383,7 +385,7 @@ namespace Kkc {
                                false,
                                (dictionary) => {
                                    apply_constraint_for_dictionary (dictionary);
-                                   return true;
+                                   return DictionaryCallbackReturn.CONTINUE;
                                });
         }
 
@@ -417,7 +419,7 @@ namespace Kkc {
                                false,
                                (dictionary) => {
                                    apply_phrase_for_dictionary (dictionary);
-                                   return true;
+                                   return DictionaryCallbackReturn.CONTINUE;
                                });
         }
 
