@@ -142,24 +142,19 @@ namespace Kkc {
                     typeof (SegmentDictionary),
                     true,
                     (dictionary) => {
-                        save_candidates (dictionary, _candidates);
+                        select_candidates (dictionary, _candidates);
                         return true;
                     });
             }
             candidates.clear ();
         }
 
-        void save_candidates (Dictionary dictionary, Candidate[] _candidates) {
+        void select_candidates (Dictionary dictionary,
+                                Candidate[] _candidates)
+        {
             var segment_dict = dictionary as SegmentDictionary;
             foreach (var candidate in _candidates) {
                 segment_dict.select_candidate (candidate);
-            }
-
-            try {
-                segment_dict.save ();
-            } catch (Error e) {
-                warning ("couldn't save candidate into dictionary: %s",
-                         e.message);
             }
         }
 
@@ -172,13 +167,6 @@ namespace Kkc {
                 var stop = prefix.offset + prefix.sequence.length;
                 _segments = _segments[prefix.offset:stop];
                 sentence_dict.select_segments (_segments);
-            }
-
-            try {
-                sentence_dict.save ();
-            } catch (Error e) {
-                warning ("couldn't save sentence into dictionary: %s",
-                         e.message);
             }
         }
 
