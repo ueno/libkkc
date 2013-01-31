@@ -561,15 +561,15 @@ namespace Kkc {
                     state.input_buffer.append (kana);
                     return true;
                 }
-                if (key.modifiers == 0 ||
-                    key.modifiers == Kkc.ModifierType.SHIFT_MASK) {
+                if ((key.modifiers == 0 ||
+                     key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
+                    0x20 <= key.code && key.code <= 0x7F) {
                     if (state.rom_kana_converter.append (key.code)) {
                         state.input_buffer.append (
                             state.rom_kana_converter.output);
                         state.rom_kana_converter.output = "";
                         return true;
-                    }
-                    else if (0x20 <= key.code && key.code <= 0x7F) {
+                    } else {
                         state.input_buffer.append_c ((char) key.code);
                         state.rom_kana_converter.output = "";
                         return true;
