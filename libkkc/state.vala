@@ -192,8 +192,8 @@ namespace Kkc {
             }
             var prefixes = SequenceUtils.enumerate_prefixes (
                 sequence,
-                4,
-                5);
+                int.min (2, segments.size),
+                int.min (5, segments.size));
 
             dictionaries.call (typeof (SentenceDictionary),
                                true,
@@ -330,31 +330,58 @@ namespace Kkc {
             var sequence = Utils.split_utf8 (input);
             var prefixes = SequenceUtils.enumerate_prefixes (
                 sequence,
-                4,
+                int.min (4, sequence.length),
                 sequence.length);
-            var offset = 0;
+            var last_offset = 0;
+            var next_offset = 0;
+            var next_constraint_index = 0;
             var constraint = new ArrayList<int> ();
             foreach (var prefix in prefixes) {
-                if (prefix.offset < offset)
+                if (prefix.offset < next_offset)
                     continue;
                 int[] _constraint;
                 var input = string.joinv ("", prefix.sequence);
                 if (sentence_dict.lookup_constraint (input,
-                                                      out _constraint)) {
+                                                     out _constraint)) {
                     assert (_constraint.length > 0);
-                    var _offset = 0;
-                    for (var i = 0; i < segments.size; i++) {
-                        _offset += segments[i].input.char_count ();
-                        if (offset < _offset
-                            && _offset < _constraint[0] + prefix.offset) {
-                            constraint.add (_offset);
+                    var constraint_index = 0;
+
+                    if (last_offset < _constraint[0] + prefix.offset) {
+                        // Fill the gap between the last offset and
+                        // the beginning of the constraint.
+                        var _offset = 0;
+                        for (var i = 0; i < segments.size; i++) {
+                            _offset += segments[i].input.char_count ();
+                            if (last_offset < _offset
+                                && _offset < _constraint[0] + prefix.offset) {
+                                constraint.add (_offset);
+                            }
                         }
+                        next_constraint_index = constraint.size;
+                    } else {
+                        // Make sure that the found constraint matches
+                        // the current constraint.
+                        bool found_overlap = false;
+                        for (var i = next_constraint_index;
+                             i < constraint.size;
+                             i++) {
+                            if (constraint[i]
+                                != _constraint[i - next_constraint_index] + prefix.offset) {
+                                found_overlap = true;
+                                break;
+                            }
+                            constraint_index++;
+                        }
+                        if (found_overlap)
+                            continue;
+                        next_constraint_index++;
                     }
 
-                    for (var i = 0; i < _constraint.length; i++) {
+                    for (var i = constraint_index; i < _constraint.length; i++)
                         constraint.add (_constraint[i] + prefix.offset);
-                    }
-                    offset = constraint.get (constraint.size - 1);
+
+                    last_offset = constraint.get (constraint.size - 1);
+                    next_offset = _constraint[0] + prefix.offset;
                 }
             }
             var _segments = decoder.decode (input,
@@ -380,15 +407,15 @@ namespace Kkc {
             }
             var prefixes = SequenceUtils.enumerate_prefixes (
                 sequence,
-                4,
-                5);
+                int.min (2, sequence.length),
+                int.min (5, sequence.length));
             var offset = 0;
             foreach (var prefix in prefixes) {
                 if (prefix.offset < offset)
                     continue;
                 string[] _value;
                 if (sentence_dict.lookup_phrase (prefix.sequence,
-                                         out _value)) {
+                                                 out _value)) {
                     for (var i = 0; i < _value.length; i++) {
                         segments[prefix.offset + i].output = _value[i];
                     }
@@ -409,22 +436,33 @@ namespace Kkc {
         internal void resize_segment (int amount) {
             if (segments.cursor_pos >= 0
                 && segments.cursor_pos < segments.size) {
+                // Can't expand the last segment.
+                if (amount > 0 && segments.cursor_pos > segments.size - 1)
+                    return;
+                // Can't shrink the segment to zero-length.
+                int segment_size = segments[segments.cursor_pos].input.char_count () + amount;
+                if (segment_size <= 0)
+                    return;
+
                 int[] constraint = {};
                 int offset = 0;
-                for (var i = 0; i < segments.size; i++) {
-                    int segment_size = segments[i].input.char_count ();
-                    if (i == segments.cursor_pos)
-                        segment_size += amount;
-                    offset += segment_size;
+                for (var i = 0; i < segments.cursor_pos; i++) {
+                    offset += segments[i].input.char_count ();
                     constraint += offset;
-                    if (i == segments.cursor_pos)
-                        break;
                 }
-                select_sentence ();
+
+                offset += segment_size;
+                constraint += offset;
+
+                string[] output = new string[segments.cursor_pos];
+                for (var i = 0; i < output.length; i++)
+                    output[i] = segments[i].output;
                 int cursor_pos = segments.cursor_pos;
                 convert_sentence (segments.get_input (), constraint);
-                segments.cursor_pos = cursor_pos;
                 apply_phrase ();
+                segments.cursor_pos = cursor_pos;
+                for (var i = 0; i < output.length; i++)
+                    segments[i].output = output[i];
                 segments_changed = true;
             }
         }
@@ -604,11 +642,13 @@ namespace Kkc {
                 return true;
             }
             else if (command == "expand-segment") {
-                state.resize_segment (1);
+                if (state.segments.cursor_pos < state.segments.size - 1)
+                    state.resize_segment (1);
                 return true;
             }
             else if (command == "shrink-segment") {
-                state.resize_segment (-1);
+                if (state.segments[state.segments.cursor_pos].input.char_count () > 1)
+                    state.resize_segment (-1);
                 return true;
             }
             else if (command == "next-segment") {

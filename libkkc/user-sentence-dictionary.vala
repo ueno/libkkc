@@ -262,6 +262,12 @@ namespace Kkc {
                 phrase.add (segment.output);
                 input.add (segment.input);
             }
+
+            // Don't add too short sentences to dictionary.
+            if (offset < 4)
+                return false;
+
+            // Make sure to null terminate so joinv determine the end of strv.
             input.add (null);
             constraint_entries.set (string.joinv ("", input.to_array ()),
                                     constraint);
