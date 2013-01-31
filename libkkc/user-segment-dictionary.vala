@@ -210,6 +210,7 @@ namespace Kkc {
                                    FileCreateFlags.PRIVATE,
                                    out etag);
 #endif
+            is_dirty = false;
         }
 
         Map<string,Gee.List<Candidate>> get_entries (bool okuri = false) {
@@ -310,6 +311,7 @@ namespace Kkc {
                         var first = candidates[0];
                         candidates[0] = candidates[index];
                         candidates[index] = first;
+                        is_dirty = true;
                         return true;
                     }
                     return false;
@@ -317,6 +319,7 @@ namespace Kkc {
                 index++;
             }
             candidates.insert (0, candidate);
+            is_dirty = true;
             return true;
         }
 
@@ -353,6 +356,11 @@ namespace Kkc {
                 return false;
             }
         }
+
+        /**
+         * {@inheritDoc}
+         */
+        public bool is_dirty { get; protected set; }
 
         File file;
         string etag;

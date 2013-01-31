@@ -192,6 +192,7 @@ namespace Kkc {
                                    FileCreateFlags.PRIVATE,
                                    out etag);
 #endif
+            is_dirty = false;
         }
 
         /**
@@ -273,6 +274,7 @@ namespace Kkc {
                                     constraint);
             phrase_entries.set (string.joinv (" ", input.to_array ()),
                                 phrase);
+            is_dirty = true;
             return true;
         }
 
@@ -285,6 +287,11 @@ namespace Kkc {
             }
         }
  
+        /**
+         * {@inheritDoc}
+         */
+        public bool is_dirty { get; protected set; }
+
         /**
          * Create a new UserSentenceDictionary.
          *

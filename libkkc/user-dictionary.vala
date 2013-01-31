@@ -42,6 +42,17 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
+        public bool is_dirty {
+            get {
+                return segment_dict.is_dirty || sentence_dict.is_dirty;
+            }
+            protected set {
+            }
+        }
+
+        /**
+         * {@inheritDoc}
+         */
         public void reload () throws GLib.Error {
             segment_dict.reload ();
             sentence_dict.reload ();

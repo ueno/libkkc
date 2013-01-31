@@ -76,11 +76,13 @@ namespace Kkc {
             call (null,
                   true,
                   (dictionary) => {
-                      try {
-                          dictionary.save ();
-                      } catch (Error e) {
-                          warning ("can't save dictionary: %s",
-                                   e.message);
+                      if (dictionary.is_dirty) {
+                          try {
+                              dictionary.save ();
+                          } catch (Error e) {
+                              warning ("can't save dictionary: %s",
+                                       e.message);
+                          }
                       }
                       return true;
                   });
