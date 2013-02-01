@@ -159,7 +159,10 @@ namespace Kkc {
             new HashMap<string,char> ();
 
         internal static unichar get_wide_latin_char (char c) {
-            return WideLatinTable[c - 32].get_char ();
+            if (0x20 <= c && c <= 0x7E) {
+                return WideLatinTable[c - 32].get_char ();
+            }
+            return c;
         }
 
         internal static string get_wide_latin (string latin) {
@@ -167,11 +170,7 @@ namespace Kkc {
             int index = 0;
             unichar uc;
             while (latin.get_next_char (ref index, out uc)) {
-                if (0x20 <= uc && uc <= 0x7E) {
-                    builder.append_unichar (get_wide_latin_char ((char)uc));
-                } else {
-                    builder.append_unichar (uc);
-                }
+                builder.append_unichar (get_wide_latin_char ((char)uc));
             }
             return builder.str;
         }

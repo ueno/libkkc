@@ -255,7 +255,6 @@ namespace Kkc {
                     current_node = rule.root_node;
                     return true;
                 } else if (rule.root_node.children[uc] == null) {
-                    _output.append_unichar (uc);
                     _preedit.erase ();
                     current_node = rule.root_node;
                     // there may be "NN" output
