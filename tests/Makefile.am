@@ -16,9 +16,10 @@
 
 SUBDIRS = lib .
 
-TESTS_ENVIRONMENT =					\
-	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly	\
-	G_SLICE=${G_SLICE},always-malloc		\
+TESTS_ENVIRONMENT =						\
+	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly		\
+	G_SLICE=${G_SLICE},always-malloc			\
+	LIBKKC_DATA_PATH=$(top_srcdir)/data:${srcdir}/data	\
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
 TESTS = basic context
 noinst_PROGRAMS = $(TESTS)
@@ -45,7 +46,6 @@ AM_VALAFLAGS =					\
 	--pkg gobject-2.0			\
 	--pkg gio-2.0				\
 	--pkg gee-1.0				\
-	--pkg posix				\
 	--pkg config				\
 	--pkg kkc-1.0				\
 	--pkg kkc-test				\
@@ -56,7 +56,15 @@ basic_SOURCES = basic.vala
 
 context_SOURCES = context.vala
 
-EXTRA_DIST = file-dict.dat
+EXTRA_DIST =					\
+	file-dict.dat				\
+	data/models/sorted3/metadata.json	\
+	data/models/sorted3/data.input		\
+	data/models/sorted3/data.1gram		\
+	data/models/sorted3/data.1gram.index	\
+	data/models/sorted3/data.2gram		\
+	data/models/sorted3/data.3gram		\
+	$(NULL)
 
 CLEANFILES = valgrind.log.*
 

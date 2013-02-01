@@ -168,7 +168,7 @@ namespace Kkc {
             new HashMap<string,Type?> ();
 
         static construct {
-            rules_path = RomKanaUtils.build_data_path ("rules");
+            rules_path = Utils.build_data_path ("rules");
             filter_types.set ("simple", typeof (SimpleKeyEventFilter));
             filter_types.set ("nicola", typeof (NicolaKeyEventFilter));
         }

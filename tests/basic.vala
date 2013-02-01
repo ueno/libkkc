@@ -9,7 +9,6 @@ class BasicTests : Kkc.TestCase {
             decoder = Kkc.Decoder.create (model);
         } catch (Kkc.LanguageModelError e) {
             stderr.printf ("%s\n", e.message);
-            Posix.exit (77);
         }
 
         /* Set up the tests */

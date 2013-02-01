@@ -9,15 +9,16 @@ class ContextTests : Kkc.TestCase {
             context = new Kkc.Context (model);
         } catch (Kkc.LanguageModelError e) {
             stderr.printf ("%s\n", e.message);
-            Posix.exit (77);
         }
 
         try {
-            var dictionary = new Kkc.SystemSegmentDictionary ("file-dict.dat");
+            var srcdir = Environment.get_variable ("srcdir");
+            assert (srcdir != null);
+            var dictionary = new Kkc.SystemSegmentDictionary (
+                Path.build_filename (srcdir, "file-dict.dat"));
             context.dictionaries.add (dictionary);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
-            Posix.exit (77);
         }
 
         add_test ("conversion", this.test_conversion);
@@ -44,20 +45,20 @@ class ContextTests : Kkc.TestCase {
           "" },
         { "SPC",
           "わたしのなまえはなかのです",
-          "わたしの名前は中のです",
-          8,
+          "私の名前は中のです",
+          9,
           0,
           "" },
         { "SPC Left",
           "わたしのなまえはなかのです",
-          "わたしの名前は中のです",
-          8,
+          "私の名前は中のです",
+          9,
           0,
           "" },
         { "SPC Right",
           "わたしのなまえはなかのです",
-          "わたしの名前は中のです",
-          8,
+          "私の名前は中のです",
+          9,
           1,
           "" },
         { "SPC Right C-Right",
@@ -66,42 +67,42 @@ class ContextTests : Kkc.TestCase {
           8,
           1,
           "" },
-        { "SPC Right Right C-Left",
+        { "SPC Right Right Right C-Left",
           "わたしのなまえはなかのです",
-          "わたしの生絵は中のです",
-          9,
-          2,
+          "私の名まえは中のです",
+          10,
+          3,
           "" },
         { "SPC SPC",
           "わたしのなまえはなかのです",
-          "私の名前は中のです",
-          8,
+          "渡しの名前は中のです",
+          9,
           0,
           "" },
         { "SPC SPC Right",
           "わたしのなまえはなかのです",
-          "私の名前は中のです",
-          8,
+          "渡しの名前は中のです",
+          9,
           1,
           "" },
         { "SPC SPC Right SPC",
           "わたしのなまえはなかのです",
-          "私埜名前は中のです",
-          8,
+          "渡し埜名前は中のです",
+          9,
           1,
           "" },
         { "SPC SPC Right SPC SPC",
           "わたしのなまえはなかのです",
-          "私之名前は中のです",
-          8,
+          "渡し之名前は中のです",
+          9,
           1,
           "" },
-        { "SPC Right Right C-Left SPC RET",
+        { "SPC Right Right Right C-Left SPC RET",
           "",
           "",
           0,
           -1,
-          "わたしのなま絵は中のです" }
+          "私の名間えは中のです" }
     };
 
     public void test_conversion () {
