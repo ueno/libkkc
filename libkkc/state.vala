@@ -252,17 +252,14 @@ namespace Kkc {
             lookup_template (new OkuriganaTemplate (segment.input));
             lookup_template (new NumericTemplate (segment.input));
 
-            var hiragana = new Candidate (
-                segment.input,
-                false,
-                segment.input);
-            candidates.add_candidates (new Candidate[] { hiragana });
-
-            var katakana = new Candidate (
-                segment.input,
-                false,
-                RomKanaUtils.get_katakana (segment.input));
-            candidates.add_candidates (new Candidate[] { katakana });
+            for (int mode = InputMode.HIRAGANA; mode < InputMode.LAST; mode++) {
+                var output = new Candidate (
+                    segment.input,
+                    false,
+                    RomKanaUtils.convert_by_input_mode (segment.input,
+                                                        (InputMode) mode));
+                candidates.add_candidates (new Candidate[] { output });
+            }
 
             candidates.add_candidates_end ();
         }
