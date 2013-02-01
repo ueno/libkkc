@@ -60,7 +60,7 @@ namespace Kkc {
                 return input_buffer.str + rom_kana_converter.preedit;
             }
         }
-
+        internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
 
         internal PunctulationStyle punctulation_style {
@@ -232,7 +232,7 @@ namespace Kkc {
                                    result = lookup_single_for_dictionary (
                                        dictionary,
                                        input);
-                                   if (result == null)
+                                   if (result != null)
                                        return DictionaryCallbackReturn.REMOVE;
                                    return DictionaryCallbackReturn.CONTINUE;
                                });
@@ -484,6 +484,15 @@ namespace Kkc {
             if (command == "next-candidate") {
                 if (state.input_buffer.len == 0)
                     return false;
+                if (state.selection.len > 0) {
+                    var input = state.input_buffer.str;
+                    var segment = new Segment (input, state.selection.str);
+                    state.segments.set_segments (segment);
+                    state.segments.first_segment ();
+                    state.candidates.first ();
+                    state.handler_type = typeof (ConvertSegmentStateHandler);
+                    return true;
+                }
                 if (state.segments.size == 0) {
                     state.rom_kana_converter.output_nn_if_any ();
                     state.input_buffer.append (state.rom_kana_converter.output);

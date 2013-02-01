@@ -164,6 +164,18 @@ namespace Kkc {
         }
 
         /**
+         * Set the current selection text.
+         *
+         * @param text selection text
+         */
+        public void set_selection (string? text) {
+            if (text == null)
+                state.selection.erase ();
+            else
+                state.selection.assign (text);
+        }
+
+        /**
          * Pass key events (separated by spaces) to the context.
          *
          * This function is rarely used in programs but in unit tests.
