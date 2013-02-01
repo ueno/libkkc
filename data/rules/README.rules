@@ -1,9 +1,9 @@
 * Rules overview
 
-libskk supports various typing rules such as AZIK, ACT, TUT-Code,
+libkkc supports various typing rules such as AZIK, ACT, TUT-Code,
 which define keyboard shortcuts and romaji-to-kana conversion table.
-Rules are normally read from ~/.config/libskk/rules and
-/usr/share/libskk/rules.
+Rules are normally read from ~/.config/libkkc/rules and
+/usr/share/libkkc/rules.
 
 * Rule directory structure
 
@@ -61,7 +61,7 @@ Each element in "include" may be either a relative or absolute path.
 A relative path does not include "/" while absolute one does.
 
 If path is relative, the map file is located under the same directory
-of the current map file.  Otherwise, libskk looks for the map file
+of the current map file.  Otherwise, libkkc looks for the map file
 outside of the diretory where the current map file is located.
 
 Example:
@@ -103,7 +103,6 @@ The current available commands are:
 
 abort
 commit
-commit-unhandled
 complete
 delete
 insert-kana-<kana>
@@ -114,7 +113,6 @@ previous-segment
 expand-segment
 shrink-segment
 set-input-mode-<mode>
-upper-<lower>
 
 ** Format of rom-kana map files
 
