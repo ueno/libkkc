@@ -63,12 +63,12 @@ namespace Kkc {
 
         internal StringBuilder output = new StringBuilder ();
 
-        internal PeriodStyle period_style {
+        internal PunctulationStyle punctulation_style {
             get {
-                return rom_kana_converter.period_style;
+                return rom_kana_converter.punctulation_style;
             }
             set {
-                rom_kana_converter.period_style = value;
+                rom_kana_converter.punctulation_style = value;
             }
         }
 
