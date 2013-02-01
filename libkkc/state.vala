@@ -322,7 +322,6 @@ namespace Kkc {
                 sequence,
                 int.min (4, sequence.length),
                 sequence.length);
-            var last_offset = 0;
             var next_offset = 0;
             var next_constraint_index = 0;
             var constraint = new ArrayList<int> ();
@@ -336,41 +335,43 @@ namespace Kkc {
                     assert (_constraint.length > 0);
                     var constraint_index = 0;
 
-                    if (last_offset < _constraint[0] + prefix.offset) {
-                        // Fill the gap between the last offset and
-                        // the beginning of the constraint.
-                        var _offset = 0;
-                        for (var i = 0; i < segments.size; i++) {
-                            _offset += segments[i].input.char_count ();
-                            if (last_offset < _offset
-                                && _offset < _constraint[0] + prefix.offset) {
-                                constraint.add (_offset);
+                    if (constraint.size > 0) {
+                        var last_offset = constraint.get (constraint.size - 1);
+                        if (last_offset < _constraint[0] + prefix.offset) {
+                            // Fill the gap between the last offset and
+                            // the beginning of the constraint.
+                            var _offset = 0;
+                            for (var i = 0; i < segments.size; i++) {
+                                _offset += segments[i].input.char_count ();
+                                if (last_offset < _offset
+                                    && _offset < _constraint[0] + prefix.offset) {
+                                    constraint.add (_offset);
+                                }
                             }
-                        }
-                        next_constraint_index = constraint.size;
-                    } else {
-                        // Make sure that the found constraint matches
-                        // the current constraint.
-                        bool found_overlap = false;
-                        for (var i = next_constraint_index;
-                             i < constraint.size;
-                             i++) {
-                            if (constraint[i]
-                                != _constraint[i - next_constraint_index] + prefix.offset) {
-                                found_overlap = true;
-                                break;
+                            next_constraint_index = constraint.size;
+                        } else {
+                            // Make sure that the found constraint matches
+                            // the current constraint.
+                            bool found_overlap = false;
+                            for (var i = next_constraint_index;
+                                 i < constraint.size;
+                                 i++) {
+                                if (constraint[i]
+                                    != _constraint[i - next_constraint_index] + prefix.offset) {
+                                    found_overlap = true;
+                                    break;
+                                }
+                                constraint_index++;
                             }
-                            constraint_index++;
+                            if (found_overlap)
+                                continue;
+                            next_constraint_index++;
                         }
-                        if (found_overlap)
-                            continue;
-                        next_constraint_index++;
                     }
 
                     for (var i = constraint_index; i < _constraint.length; i++)
                         constraint.add (_constraint[i] + prefix.offset);
 
-                    last_offset = constraint.get (constraint.size - 1);
                     next_offset = _constraint[0] + prefix.offset;
                 }
             }
