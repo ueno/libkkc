@@ -169,10 +169,11 @@ AC_CONFIG_FILES([Makefile
 marisa-glib/Makefile
 libkkc/Makefile
 libkkc/kkc-1.0.pc
-rules/Makefile
 tools/Makefile
 tests/Makefile
 tests/lib/Makefile
+data/Makefile
+data/rules/Makefile
 docs/Makefile
 po/Makefile.in])
 AC_OUTPUT
