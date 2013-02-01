@@ -340,17 +340,6 @@ namespace Kkc {
             }
         }
 
-        /**
-         * {@inheritDoc}
-         */
-        public bool is_dirty {
-            get {
-                return false;
-            }
-            protected set {
-            }
-        }
-
         File file;
         MemoryMappedFile mmap;
         string etag;

@@ -143,6 +143,7 @@ namespace Kkc {
                              file.get_path (), e.message);
                 }
             }
+            is_dirty = false;
         }
 
         static int compare_entry_asc (Map.Entry<string,Gee.List<Candidate>> a,
@@ -174,6 +175,9 @@ namespace Kkc {
          * {@inheritDoc}
          */
         public void save () throws GLib.Error {
+            if (!is_dirty)
+                return;
+
             var builder = new StringBuilder ();
             var coding = converter.get_coding_system ();
             if (coding != null) {
@@ -357,11 +361,6 @@ namespace Kkc {
             }
         }
 
-        /**
-         * {@inheritDoc}
-         */
-        public bool is_dirty { get; protected set; }
-
         File file;
         string etag;
         EncodingConverter converter;
@@ -370,6 +369,7 @@ namespace Kkc {
         Map<string,Gee.List<Candidate>> okuri_nasi_entries =
             new HashMap<string,Gee.List<Candidate>> ();
         string midasi_history[128];
+        bool is_dirty;
 
         /**
          * Create a new UserSegmentDictionary.

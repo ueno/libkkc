@@ -72,11 +72,6 @@ namespace Kkc {
         public abstract bool read_only { get; }
 
         /**
-         * Flag to indicate whether the dictionary has something to write.
-         */
-        public abstract bool is_dirty { get; protected set; }
-
-        /**
          * Reload the dictionary.
          *
          * @throws GLib.Error when reading the dictionary failed.

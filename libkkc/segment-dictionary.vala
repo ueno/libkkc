@@ -105,16 +105,5 @@ namespace Kkc {
                 return true;
             }
         }
-
-        /**
-         * {@inheritDoc}
-         */
-        public bool is_dirty {
-            get {
-                return false;
-            }
-            private set {
-            }
-        }
     }
 }

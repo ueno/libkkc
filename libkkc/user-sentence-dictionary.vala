@@ -22,6 +22,7 @@ namespace Kkc {
  {
         File file;
         string etag;
+        bool is_dirty;
 
         enum UserSentenceState {
             NONE,
@@ -161,6 +162,9 @@ namespace Kkc {
          * {@inheritDoc}
          */
         public void save () throws GLib.Error {
+            if (!is_dirty)
+                return;
+
             var builder = new StringBuilder ();
             builder.append (";; constraint entries.\n");
             var _constraint_entries = new ArrayList<Map.Entry<string,Gee.List<int>>> ();
@@ -219,6 +223,7 @@ namespace Kkc {
                              file.get_path (), e.message);
                 }
             }
+            is_dirty = false;
         }
 
         /**
@@ -287,11 +292,6 @@ namespace Kkc {
             }
         }
  
-        /**
-         * {@inheritDoc}
-         */
-        public bool is_dirty { get; protected set; }
-
         /**
          * Create a new UserSentenceDictionary.
          *

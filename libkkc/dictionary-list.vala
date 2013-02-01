@@ -93,13 +93,11 @@ namespace Kkc {
             call (null,
                   true,
                   (dictionary) => {
-                      if (dictionary.is_dirty) {
-                          try {
-                              dictionary.save ();
-                          } catch (Error e) {
-                              warning ("can't save dictionary: %s",
-                                       e.message);
-                          }
+                      try {
+                          dictionary.save ();
+                      } catch (Error e) {
+                          warning ("can't save dictionary: %s",
+                                   e.message);
                       }
                       return DictionaryCallbackReturn.CONTINUE;
                   });
