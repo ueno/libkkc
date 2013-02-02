@@ -141,7 +141,7 @@ namespace Kkc {
     /**
      * Type to specify how "." and "," are converted.
      */
-    public enum PunctulationStyle {
+    public enum PunctuationStyle {
         /**
          * Use "。" and "、" for "." and ",".
          */
@@ -181,7 +181,7 @@ namespace Kkc {
         RomKanaNode current_node;
 
         public KanaMode kana_mode { get; set; default = KanaMode.HIRAGANA; }
-        public PunctulationStyle punctulation_style { get; set; default = PunctulationStyle.JA_JA; }
+        public PunctuationStyle punctuation_style { get; set; default = PunctuationStyle.JA_JA; }
 
         StringBuilder _output = new StringBuilder ();
         StringBuilder _preedit = new StringBuilder ();
@@ -260,9 +260,9 @@ namespace Kkc {
                 // XXX: index_of_char does not work with '\0'
                 var index = uc != '\0' ? ".,".index_of_char (uc) : -1;
                 if (index >= 0) {
-                    index = PUNCTUATION_RULE[punctulation_style].index_of_nth_char (index);
-                    unichar punctulation = PUNCTUATION_RULE[punctulation_style].get_char (index);
-                    _output.append_unichar (punctulation);
+                    index = PUNCTUATION_RULE[punctuation_style].index_of_nth_char (index);
+                    unichar punctuation = PUNCTUATION_RULE[punctuation_style].get_char (index);
+                    _output.append_unichar (punctuation);
                     _preedit.erase ();
                     current_node = rule.root_node;
                     return true;

@@ -65,12 +65,12 @@ namespace Kkc {
         ArrayList<string> completion = new ArrayList<string> ();
         internal Iterator<string> completion_iterator;
 
-        internal PunctulationStyle punctulation_style {
+        internal PunctuationStyle punctuation_style {
             get {
-                return rom_kana_converter.punctulation_style;
+                return rom_kana_converter.punctuation_style;
             }
             set {
-                rom_kana_converter.punctulation_style = value;
+                rom_kana_converter.punctuation_style = value;
             }
         }
 

@@ -78,14 +78,14 @@ namespace Kkc {
         }
 
         /**
-         * Punctulation style used in romaji-to-kana conversion.
+         * Punctuation style used in romaji-to-kana conversion.
          */
-        public PunctulationStyle punctulation_style {
+        public PunctuationStyle punctuation_style {
             get {
-                return state.punctulation_style;
+                return state.punctuation_style;
             }
             set {
-                state.punctulation_style = value;
+                state.punctuation_style = value;
             }
         }
 
