@@ -349,6 +349,8 @@ namespace Kkc {
                     }
                 }
             }
+            if (modified)
+                is_dirty = true;
             return modified;
         }
 
