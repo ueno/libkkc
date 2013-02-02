@@ -6,7 +6,8 @@
             "Return": "commit",
             "C-m": "commit",
             "BackSpace": "delete",
-	    "Tab": "complete",
+            "A-r": "register",
+            "Tab": "complete",
             "C-h": "delete",
             "space": "next-candidate",
             "C-x": "previous-candidate",
@@ -22,7 +23,7 @@
             "S-Left": "shrink-segment",
             "C-o": "expand-segment",
             "C-i": "shrink-segment",
-	    "A-j": "set-input-mode-direct"
+            "A-j": "set-input-mode-direct"
         }
     }
 }

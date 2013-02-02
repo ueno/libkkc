@@ -153,22 +153,30 @@ namespace Kkc {
             notify_property ("input");
         }
 
+        void request_selection_text_cb () {
+            request_selection_text ();
+        }
+
         void connect_state_signals (State state) {
             state.notify["input-mode"].connect (notify_input_mode_cb);
+            state.request_selection_text.connect (request_selection_text_cb);
             state.candidates.selected.connect (candidates_selected_cb);
         }
 
         void disconnect_state_signals (State state) {
             state.notify["input-mode"].disconnect (notify_input_mode_cb);
+            state.request_selection_text.disconnect (request_selection_text_cb);
             state.candidates.selected.disconnect (candidates_selected_cb);
         }
+
+        public signal void request_selection_text ();
 
         /**
          * Set the current selection text.
          *
          * @param text selection text
          */
-        public void set_selection (string? text) {
+        public void set_selection_text (string? text) {
             if (text == null)
                 state.selection.erase ();
             else

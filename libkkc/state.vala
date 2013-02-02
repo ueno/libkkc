@@ -487,6 +487,8 @@ namespace Kkc {
                 completion_iterator = null;
             }
         }
+
+        public signal void request_selection_text ();
     }
 
     abstract class StateHandler : Object {
@@ -559,6 +561,11 @@ namespace Kkc {
                         return true;
                     }
                 }
+            }
+
+            if (command == "register") {
+                state.request_selection_text ();
+                return true;
             }
 
             if (state.input_mode == InputMode.DIRECT)

@@ -105,9 +105,11 @@ abort
 commit
 complete
 delete
+register
 insert-kana-<kana>
 next-candidate
 previous-candidate
+purge-candidate
 next-segment
 previous-segment
 expand-segment
