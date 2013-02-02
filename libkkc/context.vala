@@ -244,13 +244,13 @@ namespace Kkc {
             bool retval = false;
             foreach (var key in keys) {
                 if (key == "SPC")
-                    key = " ";
+                    key = "space";
                 else if (key == "TAB")
-                    key = "\t";
+                    key = "Tab";
                 else if (key == "RET")
-                    key = "\n";
+                    key = "Return";
                 else if (key == "DEL")
-                    key = "\b";
+                    key = "BackSpace";
 
                 KeyEvent ev;
                 try {
