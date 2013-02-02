@@ -106,7 +106,7 @@ namespace Kkc {
                     var segments = new ArrayList<string> ();
                     var strv = candidates_str.slice (1, -1).split ("/");
                     foreach (var str in strv) {
-                        segments.add (str);
+                        segments.add (DictionaryUtils.unescape (str));
                     }
                     phrase_entries.set (midasi, segments);
                     break;
@@ -149,7 +149,7 @@ namespace Kkc {
                 var entry = iter.get ();
                 string[] strv = new string[entry.value.size];
                 for (var i = 0; i < strv.length; i++) {
-                    strv[i] = entry.value[i];
+                    strv[i] = DictionaryUtils.escape (entry.value[i]);
                 }
                 var line = "%s /%s/\n".printf (
                     entry.key,

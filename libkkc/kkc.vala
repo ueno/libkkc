@@ -25,6 +25,7 @@ namespace Kkc {
      */
     public static void init () {
         // needed to use static methods defined in some classes
+        typeof (DictionaryUtils).class_ref ();
         typeof (LanguageModel).class_ref ();
 		typeof (Rule).class_ref ();
 		typeof (RomKanaUtils).class_ref ();

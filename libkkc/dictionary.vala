@@ -30,13 +30,14 @@ namespace Kkc {
             var strv = line.strip ().slice (1, -1).split ("/");
             Candidate[] candidates = new Candidate[strv.length];
             for (int i = 0; i < strv.length; i++) {
-                var text_annotation = strv[i].split (";", 2);
+                var candidate_str = unescape (strv[i]);
+                var text_annotation = candidate_str.split (";", 2);
                 string text, annotation;
                 if (text_annotation.length == 2) {
                     text = text_annotation[0];
                     annotation = text_annotation[1];
                 } else {
-                    text = strv[i];
+                    text = candidate_str;
                     annotation = null;
                 }
                 candidates[i] = new Candidate (midasi,
@@ -56,9 +57,58 @@ namespace Kkc {
         public static string join_candidates (Candidate[] candidates) {
             var strv = new string[candidates.length];
             for (int i = 0; i < candidates.length; i++) {
-                strv[i] = candidates[i].to_string ();
+                strv[i] = escape (candidates[i].to_string ());
             }
             return "/" + string.joinv ("/", strv) + "/";
+        }
+
+        public static string escape (string input) {
+            var builder = new StringBuilder ();
+            int index = 0;
+            unichar uc;
+            while (input.get_next_char (ref index, out uc)) {
+                switch (uc) {
+                case '\\':
+                case '/':
+                case '\n':
+                    builder.append ("\\x%02x".printf (uc));
+                    break;
+                default:
+                    builder.append_unichar (uc);
+                    break;
+                }
+            }
+            return builder.str;
+        }
+
+        static bool unescape_eval (MatchInfo info, StringBuilder result) {
+            var hex = info.fetch (1);
+            assert (hex != null);
+            result.append (Utils.parse_hex (hex));
+            return false;
+        }
+
+        public static string unescape (string input) {
+            try {
+                return escape_regex.replace_eval (input,
+                                                  -1,
+                                                  0,
+                                                  0,
+                                                  unescape_eval);
+            } catch (GLib.RegexError e) {
+                assert_not_reached ();
+            }
+        }
+
+        static Regex escape_regex;
+
+        static construct {
+            try {
+                escape_regex = new Regex (
+                    "\\\\x([0-9A-Fa-f]{1,2})");
+            } catch (GLib.RegexError e) {
+                assert_not_reached ();
+            }
         }
     }
 

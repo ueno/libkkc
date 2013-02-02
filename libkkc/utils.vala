@@ -47,6 +47,25 @@ namespace Kkc {
             }
             return result.to_array ();
         }
+
+        internal static int hex_char_to_int (char hex) {
+            if ('0' <= hex && hex <= '9') {
+                return hex - '0';
+            } else if ('a' <= hex.tolower () && hex.tolower () <= 'f') {
+                return hex - 'a' + 10;
+            }
+            return -1;
+        }
+
+        internal static string parse_hex (string hex) {
+            var builder = new StringBuilder ();
+            for (var i = 0; i < hex.length - 1; i += 2) {
+                int c = (hex_char_to_int (hex[i]) << 4) |
+                    hex_char_to_int (hex[i + 1]);
+                builder.append_c ((char)c);
+            }
+            return builder.str;
+        }
     }
 
     struct PrefixEntry {
