@@ -8,7 +8,7 @@
             "C-h": "delete",
             "[gh]": "abbrev",
             "C": "kuten",
-            " ": "next-candidate",
+            "space": "next-candidate",
             "\t": "complete",
             "C-i": "complete",
             ">": "special-midasi",

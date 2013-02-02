@@ -54,15 +54,11 @@ namespace Kkc {
     public class KeyEvent : Object {
         /**
          * The base name of the KeyEvent.
-         *
-         * This is exclusive to {@link code}.
          */
         public string? name { get; private set; }
 
         /**
          * The base code of the KeyEvent.
-         *
-         * This is exclusive to {@link name}.
          */
         public unichar code { get; private set; }
 
@@ -220,6 +216,10 @@ namespace Kkc {
         };
 
         static const Entry<uint,string>[] NAME_KEYVALS = {
+            { Keysyms.space, "space" },
+            { Keysyms.Tab, "Tab" },
+            { Keysyms.Return, "Return" },
+            { Keysyms.BackSpace, "BackSpace" },
             { Keysyms.Up, "Up" },
             { Keysyms.Down, "Down" },
             { Keysyms.Left, "Left" },
@@ -256,7 +256,6 @@ namespace Kkc {
                     break;
                 }
             }
-            assert (name == null || code == '\0');
             if (name == null && code == '\0') {
                 if (0x20 <= keyval && keyval < 0x7F) {
                     code = (unichar) keyval;
