@@ -453,6 +453,16 @@ namespace Kkc {
                 segments_changed = true;
             }
         }
+
+        internal void purge_candidate (Candidate candidate) {
+            dictionaries.call (typeof (SegmentDictionary),
+                               true,
+                               (dictionary) => {
+                                   var segment_dict = dictionary as SegmentDictionary;
+                                   segment_dict.purge_candidate (candidate);
+                                   return DictionaryCallbackReturn.CONTINUE;
+                               });
+        }
     }
 
     abstract class StateHandler : Object {
@@ -626,7 +636,8 @@ namespace Kkc {
             }
 
             if (command == "next-candidate"
-                || command == "previous-candidate") {
+                || command == "previous-candidate"
+                || command == "purge-candidate") {
                 state.handler_type = typeof (ConvertSegmentStateHandler);
                 state.candidates.first ();
                 return false;
@@ -686,6 +697,14 @@ namespace Kkc {
             }
             else if (command == "next-candidate") {
                 state.candidates.cursor_down ();
+                return true;
+            }
+            else if (command == "purge-candidate") {
+                if (state.candidates.cursor_pos >= 0) {
+                    var candidate = state.candidates.get ();
+                    state.purge_candidate (candidate);
+                    state.reset ();
+                }
                 return true;
             }
             else if (command == "abort") {

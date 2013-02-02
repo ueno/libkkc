@@ -10,6 +10,7 @@
             "space": "next-candidate",
             "C-x": "previous-candidate",
             "S-space": "previous-candidate",
+            "C-BackSpace": "purge-candidate",
             "Up": "previous-candidate",
             "Right": "next-segment",
             "Left": "previous-segment",
