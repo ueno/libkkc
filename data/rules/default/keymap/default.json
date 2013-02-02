@@ -6,6 +6,7 @@
             "Return": "commit",
             "C-m": "commit",
             "BackSpace": "delete",
+	    "Tab": "complete",
             "C-h": "delete",
             "space": "next-candidate",
             "C-x": "previous-candidate",

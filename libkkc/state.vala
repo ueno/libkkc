@@ -62,6 +62,9 @@ namespace Kkc {
         internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
 
+        ArrayList<string> completion = new ArrayList<string> ();
+        internal Iterator<string> completion_iterator;
+
         internal PunctulationStyle punctulation_style {
             get {
                 return rom_kana_converter.punctulation_style;
@@ -202,6 +205,8 @@ namespace Kkc {
             segments_changed = false;
             candidates.clear ();
             input_buffer.erase ();
+            completion_iterator = null;
+            completion.clear ();
         }
 
         string? lookup_single_for_dictionary (Dictionary dictionary,
@@ -464,6 +469,24 @@ namespace Kkc {
                                    return DictionaryCallbackReturn.CONTINUE;
                                });
         }
+
+        internal void completion_start (string input) {
+            dictionaries.call (typeof (SegmentDictionary),
+                               false,
+                               (dictionary) => {
+                                   var segment_dict = dictionary as SegmentDictionary;
+                                   string[] _completion = segment_dict.complete (input);
+                                   foreach (var word in _completion) {
+                                       completion.add (word);
+                                   }
+                                   return DictionaryCallbackReturn.CONTINUE;
+                               });
+            completion.sort ();
+            completion_iterator = completion.iterator ();
+            if (!completion_iterator.first ()) {
+                completion_iterator = null;
+            }
+        }
     }
 
     abstract class StateHandler : Object {
@@ -549,6 +572,22 @@ namespace Kkc {
                     return true;
                 }
                 return false;
+            }
+            else if (command == "complete") {
+                if (state.completion_iterator == null) {
+                    state.rom_kana_converter.output_nn_if_any ();
+                    state.input_buffer.append (state.rom_kana_converter.output);
+                    state.rom_kana_converter.output = "";
+                    state.completion_start (state.input_buffer.str);
+                }
+                if (state.completion_iterator != null) {
+                    string input = state.completion_iterator.get ();
+                    state.input_buffer.assign (input);
+                    if (state.completion_iterator.has_next ()) {
+                        state.completion_iterator.next ();
+                    }
+                }
+                return true;
             }
 
             switch (state.input_mode) {
