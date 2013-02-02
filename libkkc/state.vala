@@ -521,6 +521,7 @@ namespace Kkc {
                 if (state.selection.len > 0) {
                     var input = state.input_buffer.str;
                     var segment = new Segment (input, state.selection.str);
+                    state.selection.erase ();
                     state.segments.set_segments (segment);
                     state.segments.first_segment ();
                     state.candidates.first ();
