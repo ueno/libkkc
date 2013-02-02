@@ -155,7 +155,8 @@ namespace Kkc {
             { InputMode.KATAKANA, "katakana" },
             { InputMode.HANKAKU_KATAKANA, "hankaku-katakana" },
             { InputMode.LATIN, "latin" },
-            { InputMode.WIDE_LATIN, "wide-latin" }
+            { InputMode.WIDE_LATIN, "wide-latin" },
+            { InputMode.DIRECT, "direct" }
         };
 
         static string[] rules_path;

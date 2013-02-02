@@ -255,19 +255,18 @@ namespace Kkc {
             return builder.str;
         }
 
-        internal static string convert_by_input_mode (string str,
-                                                      InputMode input_mode)
+        internal static string convert_by_kana_mode (string str, KanaMode mode)
         {
-            switch (input_mode) {
-            case InputMode.HIRAGANA:
+            switch (mode) {
+            case KanaMode.HIRAGANA:
                 return get_hiragana (str);
-            case InputMode.KATAKANA:
+            case KanaMode.KATAKANA:
                 return get_katakana (str);
-            case InputMode.HANKAKU_KATAKANA:
+            case KanaMode.HANKAKU_KATAKANA:
                 return get_hankaku_katakana (str);
-            case InputMode.LATIN:
+            case KanaMode.LATIN:
                 return get_latin (str);
-            case InputMode.WIDE_LATIN:
+            case KanaMode.WIDE_LATIN:
                 return get_wide_latin (str);
             default:
                 return str;

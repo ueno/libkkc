@@ -3,9 +3,9 @@
         "keymap": {
             "C-g": "abort",
             "C-c": "abort",
-            "\n": "commit",
+            "Return": "commit",
             "C-m": "commit",
-            "\b": "delete",
+            "BackSpace": "delete",
             "C-h": "delete",
             "space": "next-candidate",
             "C-x": "previous-candidate",
@@ -20,7 +20,8 @@
             "S-Right": "expand-segment",
             "S-Left": "shrink-segment",
             "C-o": "expand-segment",
-            "C-i": "shrink-segment"
+            "C-i": "shrink-segment",
+	    "A-j": "set-input-mode-direct"
         }
     }
 }

@@ -123,7 +123,19 @@ namespace Kkc {
         /**
          * Half-width katakana like "ｱｲｳ...".
          */
-        HANKAKU_KATAKANA
+        HANKAKU_KATAKANA,
+
+        /**
+         * Half-width latin like "abc...".
+         */
+        LATIN,
+
+        /**
+         * Full-width latin like "ａｂｃ...".
+         */
+        WIDE_LATIN,
+
+        LAST
     }
 
     /**

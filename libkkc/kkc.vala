@@ -52,13 +52,18 @@ namespace Kkc {
         /**
          * Half-width latin like "abc...".
          */
-        LATIN,
+        LATIN = KanaMode.LATIN,
 
         /**
          * Full-width latin like "ａｂｃ...".
          */
-        WIDE_LATIN,
+        WIDE_LATIN = KanaMode.WIDE_LATIN,
 
+        /**
+         * Direct input.
+         */
+        DIRECT,
+        
         LAST,
 
         /**

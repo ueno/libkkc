@@ -106,6 +106,8 @@ namespace Kkc {
             try {
                 _typing_rule = new Rule ("default");
             } catch (RuleParseError e) {
+                warning ("cannot load default rule: %s",
+                         e.message);
                 assert_not_reached ();
             }
 
@@ -251,10 +253,10 @@ namespace Kkc {
             lookup_template (new OkuriganaTemplate (segment.input));
             lookup_template (new NumericTemplate (segment.input));
 
-            for (int mode = InputMode.HIRAGANA; mode < InputMode.LAST; mode++) {
-                var output = RomKanaUtils.convert_by_input_mode (
+            for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
+                var output = RomKanaUtils.convert_by_kana_mode (
                     segment.input,
-                    (InputMode) mode);
+                    (KanaMode) mode);
                 var candidate = new Candidate (segment.input, false, output);
                 candidates.add_candidates (new Candidate[] { candidate });
             }
@@ -481,7 +483,8 @@ namespace Kkc {
             { "set-input-mode-katakana", InputMode.KATAKANA },
             { "set-input-mode-hankaku-katakana", InputMode.HANKAKU_KATAKANA },
             { "set-input-mode-latin", InputMode.LATIN },
-            { "set-input-mode-wide-latin", InputMode.WIDE_LATIN }
+            { "set-input-mode-wide-latin", InputMode.WIDE_LATIN },
+            { "set-input-mode-direct", InputMode.DIRECT }
         };
 
         internal override bool process_key_event (State state,
@@ -560,9 +563,9 @@ namespace Kkc {
                     return false;
                 }
                 if (command != null && command.has_prefix ("insert-kana-")) {
-                    var kana = RomKanaUtils.convert_by_input_mode (
+                    var kana = RomKanaUtils.convert_by_kana_mode (
                         command["insert-kana-".length:command.length],
-                        state.input_mode);
+                        (KanaMode) state.input_mode);
                     state.input_buffer.append (kana);
                     return true;
                 }
@@ -599,6 +602,8 @@ namespace Kkc {
                     return true;
                 }
                 break;
+            case InputMode.DIRECT:
+                return false;
             }
 
             bool retval = state.input_buffer.len > 0 ||
@@ -626,9 +631,9 @@ namespace Kkc {
                 if (entry.key == command) {
                     state.rom_kana_converter.output_nn_if_any ();
                     state.output.assign (
-                        RomKanaUtils.convert_by_input_mode (
+                        RomKanaUtils.convert_by_kana_mode (
                             state.rom_kana_converter.output,
-                            entry.value));
+                            (KanaMode) entry.value));
                     state.rom_kana_converter.reset ();
                     return true;
                 }
@@ -642,9 +647,9 @@ namespace Kkc {
                 return false;
             }
             if (command != null && command.has_prefix ("insert-kana-")) {
-                var kana = RomKanaUtils.convert_by_input_mode (
+                var kana = RomKanaUtils.convert_by_kana_mode (
                     command["insert-kana-".length:command.length],
-                    state.input_mode);
+                    (KanaMode) state.input_mode);
                 state.rom_kana_converter.output = kana;
                 return true;
             }

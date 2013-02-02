@@ -24,6 +24,7 @@ default_files =					\
 	default/keymap/katakana.json		\
 	default/keymap/latin.json		\
 	default/keymap/wide-latin.json		\
+	default/keymap/direct.json		\
 	default/rom-kana/default.json		\
 	$(NULL)
 
