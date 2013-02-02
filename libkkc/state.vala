@@ -560,6 +560,9 @@ namespace Kkc {
                 }
             }
 
+            if (state.input_mode == InputMode.DIRECT)
+                return false;
+
             // check editing events
             if (command == "delete") {
                 if (state.rom_kana_converter.delete ()) {
@@ -574,17 +577,19 @@ namespace Kkc {
                 return false;
             }
             else if (command == "complete") {
-                if (state.completion_iterator == null) {
-                    state.rom_kana_converter.output_nn_if_any ();
-                    state.input_buffer.append (state.rom_kana_converter.output);
-                    state.rom_kana_converter.output = "";
-                    state.completion_start (state.input_buffer.str);
-                }
-                if (state.completion_iterator != null) {
-                    string input = state.completion_iterator.get ();
-                    state.input_buffer.assign (input);
-                    if (state.completion_iterator.has_next ()) {
-                        state.completion_iterator.next ();
+                state.rom_kana_converter.output_nn_if_any ();
+                state.input_buffer.append (state.rom_kana_converter.output);
+                state.rom_kana_converter.output = "";
+                if (state.input_buffer.len > 0) {
+                    if (state.completion_iterator == null) {
+                        state.completion_start (state.input_buffer.str);
+                    }
+                    if (state.completion_iterator != null) {
+                        string input = state.completion_iterator.get ();
+                        state.input_buffer.assign (input);
+                        if (state.completion_iterator.has_next ()) {
+                            state.completion_iterator.next ();
+                        }
                     }
                 }
                 return true;
@@ -641,8 +646,8 @@ namespace Kkc {
                     return true;
                 }
                 break;
-            case InputMode.DIRECT:
-                return false;
+            default:
+                break;
             }
 
             bool retval = state.input_buffer.len > 0 ||
