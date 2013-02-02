@@ -252,12 +252,11 @@ namespace Kkc {
             lookup_template (new NumericTemplate (segment.input));
 
             for (int mode = InputMode.HIRAGANA; mode < InputMode.LAST; mode++) {
-                var output = new Candidate (
+                var output = RomKanaUtils.convert_by_input_mode (
                     segment.input,
-                    false,
-                    RomKanaUtils.convert_by_input_mode (segment.input,
-                                                        (InputMode) mode));
-                candidates.add_candidates (new Candidate[] { output });
+                    (InputMode) mode);
+                var candidate = new Candidate (segment.input, false, output);
+                candidates.add_candidates (new Candidate[] { candidate });
             }
 
             candidates.add_candidates_end ();

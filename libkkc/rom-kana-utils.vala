@@ -158,11 +158,11 @@ namespace Kkc {
         static Map<string,char> _WideLatinToLatinTable =
             new HashMap<string,char> ();
 
-        internal static unichar get_wide_latin_char (char c) {
-            if (0x20 <= c && c <= 0x7E) {
-                return WideLatinTable[c - 32].get_char ();
+        internal static unichar get_wide_latin_char (unichar uc) {
+            if (0x20 <= uc && uc <= 0x7E) {
+                return WideLatinTable[uc - 32].get_char ();
             }
-            return c;
+            return uc;
         }
 
         internal static string get_wide_latin (string latin) {
@@ -170,12 +170,11 @@ namespace Kkc {
             int index = 0;
             unichar uc;
             while (latin.get_next_char (ref index, out uc)) {
-                builder.append_unichar (get_wide_latin_char ((char)uc));
+                builder.append_unichar (get_wide_latin_char (uc));
             }
             return builder.str;
         }
 
-#if 0
         internal static string get_latin (string wide_latin) {
             StringBuilder builder = new StringBuilder ();
             int index = 0;
@@ -190,7 +189,6 @@ namespace Kkc {
             }
             return builder.str;
         }
-#endif
 
         static unichar get_katakana_char (unichar uc) {
             if (_KatakanaTable.has_key (uc)) {
@@ -267,10 +265,8 @@ namespace Kkc {
                 return get_katakana (str);
             case InputMode.HANKAKU_KATAKANA:
                 return get_hankaku_katakana (str);
-#if 0
             case InputMode.LATIN:
                 return get_latin (str);
-#endif
             case InputMode.WIDE_LATIN:
                 return get_wide_latin (str);
             default:
