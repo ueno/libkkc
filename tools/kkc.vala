@@ -19,12 +19,18 @@ using Gee;
 
 static string opt_model = null;
 static bool opt_im = false;
+static string opt_system_dictionary;
+static string opt_user_dictionary;
 
 static const OptionEntry[] options = {
     { "model", 'm', 0, OptionArg.STRING, ref opt_model,
       N_("Language model"), null },
     { "im", '\0', 0, OptionArg.NONE, ref opt_im,
       N_("Run in input method testing mode"), null },
+    { "system-dictionary", 's', 0, OptionArg.STRING, ref opt_system_dictionary,
+      N_("Path to a system dictionary"), null },
+    { "user-dictionary", 'u', 0, OptionArg.STRING, ref opt_user_dictionary,
+      N_("Path to a user dictionary"), null },
     { null }
 };
 
@@ -48,7 +54,9 @@ static int main (string[] args) {
 
 	Kkc.LanguageModel model;
 	try {
-		model = Kkc.LanguageModel.load (opt_model == null ? "sorted3" : opt_model);
+		model = Kkc.LanguageModel.load (opt_model == null
+                                        ? "sorted3"
+                                        : opt_model);
 	} catch (Kkc.LanguageModelError e) {
 		stderr.printf ("%s\n", e.message);
 		return 1;
@@ -57,7 +65,32 @@ static int main (string[] args) {
 	Repl repl;
 	if (opt_im) {
 		var context = new Kkc.Context (model);
-		repl = new RomKanaRepl (context);
+
+        if (opt_user_dictionary != null) {
+            try {
+                context.dictionaries.add (
+                    new Kkc.UserDictionary (opt_user_dictionary));
+            } catch (GLib.Error e) {
+                stderr.printf ("can't open user dictionary %s: %s",
+                               opt_user_dictionary, e.message);
+                return 1;
+            }
+        }
+
+        if (opt_system_dictionary == null) {
+            opt_system_dictionary = Path.build_filename (Config.DATADIR,
+                                                         "skk", "SKK-JISYO.L");
+        }
+        try {
+            context.dictionaries.add (
+                new Kkc.SystemSegmentDictionary (opt_system_dictionary));
+        } catch (GLib.Error e) {
+            stderr.printf ("can't open system dictionary %s: %s",
+                           opt_system_dictionary, e.message);
+            return 1;
+        }
+
+		repl = new ContextRepl (context);
 	} else {
 		var decoder = Kkc.Decoder.create (model);
 		repl = new DecoderRepl (decoder);
@@ -71,7 +104,7 @@ interface Repl : Object {
     public abstract bool run ();	
 }
 
-class RomKanaRepl : Object, Repl {
+class ContextRepl : Object, Repl {
     Kkc.Context context;
     public bool run () {
         string? line;
@@ -81,8 +114,10 @@ class RomKanaRepl : Object, Repl {
             var output = context.poll_output ();
             stdout.printf (
                 "{ \"input\": \"%s\", " +
+                "\"segments\": \"%s\", " +
                 "\"output\": \"%s\" }\n",
                 input.replace ("\"", "\\\""),
+                context.segments.get_output (),
                 output.replace ("\"", "\\\""));
             context.reset ();
             context.clear_output ();
@@ -90,7 +125,7 @@ class RomKanaRepl : Object, Repl {
         return true;
     }
 
-    public RomKanaRepl (Kkc.Context context) {
+    public ContextRepl (Kkc.Context context) {
         this.context = context;
     }
 }
