@@ -256,10 +256,10 @@ namespace Kkc {
                     break;
                 }
             }
-            if (name == null && code == '\0') {
+            if (code == '\0') {
                 if (0x20 <= keyval && keyval < 0x7F) {
                     code = (unichar) keyval;
-                } else {
+                } else if (name == null) {
                     throw new KeyEventFormatError.KEYSYM_NOT_FOUND (
                         "unknown keysym %u", keyval);
                 }

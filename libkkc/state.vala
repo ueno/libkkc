@@ -61,6 +61,7 @@ namespace Kkc {
         }
         internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
+        internal bool quoted = false;
 
         ArrayList<string> completion = new ArrayList<string> ();
         internal Iterator<string> completion_iterator;
@@ -207,6 +208,7 @@ namespace Kkc {
             input_buffer.erase ();
             completion_iterator = null;
             completion.clear ();
+            quoted = false;
         }
 
         string? lookup_single_for_dictionary (Dictionary dictionary,
@@ -516,6 +518,43 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
+            // check mode switch events
+            if (command != null && command.has_prefix ("set-input-mode-") &&
+                !((state.input_mode == InputMode.HIRAGANA ||
+                   state.input_mode == InputMode.KATAKANA ||
+                   state.input_mode == InputMode.HANKAKU_KATAKANA) &&
+                  key.modifiers == 0 &&
+                  state.rom_kana_converter.can_consume (key.code))) {
+                foreach (var entry in input_mode_commands) {
+                    if (entry.key == command) {
+                        state.rom_kana_converter.output_nn_if_any ();
+                        state.input_mode = entry.value;
+                        return true;
+                    }
+                }
+            }
+
+            if (state.input_mode == InputMode.DIRECT)
+                return false;
+
+            // insert quoted
+            if (command == "quote") {
+                state.quoted = true;
+                return true;
+            }
+
+            if (state.quoted &&
+                (key.modifiers == 0 ||
+                 key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
+                0x20 <= key.code && key.code <= 0x7F) {
+                state.rom_kana_converter.output_nn_if_any ();
+                state.input_buffer.append (state.rom_kana_converter.output);
+                state.rom_kana_converter.output = "";
+                state.input_buffer.append_c ((char) key.code);
+                state.quoted = false;
+                return true;
+            }
+
             // check state transition
             if (command == "next-candidate") {
                 if (state.input_buffer.len == 0)
@@ -547,29 +586,12 @@ namespace Kkc {
                     return true;
                 }
             }
-            // check mode switch events
-            if (command != null && command.has_prefix ("set-input-mode-") &&
-                !((state.input_mode == InputMode.HIRAGANA ||
-                   state.input_mode == InputMode.KATAKANA ||
-                   state.input_mode == InputMode.HANKAKU_KATAKANA) &&
-                  key.modifiers == 0 &&
-                  state.rom_kana_converter.can_consume (key.code))) {
-                foreach (var entry in input_mode_commands) {
-                    if (entry.key == command) {
-                        state.rom_kana_converter.output_nn_if_any ();
-                        state.input_mode = entry.value;
-                        return true;
-                    }
-                }
-            }
 
+            // word registration
             if (command == "register") {
                 state.request_selection_text ();
                 return true;
             }
-
-            if (state.input_mode == InputMode.DIRECT)
-                return false;
 
             // check editing events
             if (command == "delete") {

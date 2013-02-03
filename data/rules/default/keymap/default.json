@@ -7,6 +7,7 @@
             "C-m": "commit",
             "C-h": "delete",
             "BackSpace": "delete",
+            "C-q": "quote",
             "C-r": "register",
             "Tab": "complete",
             "space": "next-candidate",
@@ -23,7 +24,8 @@
             "S-Left": "shrink-segment",
             "C-o": "expand-segment",
             "C-i": "shrink-segment",
-            "C-.": "set-input-mode-direct"
+            "A-@": "set-input-mode-direct",
+            "A-`": "set-input-mode-direct"
         }
     }
 }

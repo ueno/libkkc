@@ -105,6 +105,7 @@ abort
 commit
 complete
 delete
+quote
 register
 insert-kana-<kana>
 next-candidate
