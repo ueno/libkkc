@@ -546,7 +546,7 @@ namespace Kkc {
             if (state.quoted &&
                 (key.modifiers == 0 ||
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                0x20 <= key.code && key.code <= 0x7F) {
+                0x20 <= key.code && key.code < 0x7F) {
                 state.rom_kana_converter.output_nn_if_any ();
                 state.input_buffer.append (state.rom_kana_converter.output);
                 state.rom_kana_converter.output = "";
@@ -645,7 +645,7 @@ namespace Kkc {
                 }
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.code && key.code <= 0x7F) {
+                    0x20 <= key.code && key.code < 0x7F) {
                     if (state.rom_kana_converter.append (key.code)) {
                         state.input_buffer.append (
                             state.rom_kana_converter.output);
@@ -662,7 +662,7 @@ namespace Kkc {
             case InputMode.LATIN:
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.code && key.code <= 0x7F) {
+                    0x20 <= key.code && key.code < 0x7F) {
                     state.input_buffer.append_c ((char) key.code);
                     return true;
                 }
@@ -670,7 +670,7 @@ namespace Kkc {
             case InputMode.WIDE_LATIN:
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.code && key.code <= 0x7F) {
+                    0x20 <= key.code && key.code < 0x7F) {
                     state.input_buffer.append_unichar (
                         RomKanaUtils.get_wide_latin_char ((char) key.code));
                     return true;
@@ -759,7 +759,7 @@ namespace Kkc {
                 return command != null || command == "commit" ||
                     !((key.modifiers == 0 ||
                        key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                      0x20 <= key.code && key.code <= 0x7F);
+                      0x20 <= key.code && key.code < 0x7F);
             }
         }
     }
