@@ -5,8 +5,9 @@
     "define": {
         "keymap": {
             "Hiragana_Katakana": "set-input-mode-hiragana",
-            "A-j": "set-input-mode-hiragana",
-            "Eisu_toggle": "set-input-mode-latin"
+            "C-.": "set-input-mode-hiragana",
+            "Eisu_toggle": "set-input-mode-latin",
+            "C-l": "set-input-mode-latin"
         }
     }
 }

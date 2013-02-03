@@ -5,7 +5,10 @@
     "define": {
         "keymap": {
             "Hiragana_Katakana": "set-input-mode-hiragana",
-            "Eisu_toggle": "set-input-mode-latin"
+            "C-q": "set-input-mode-hiragana",
+            "Eisu_toggle": "set-input-mode-latin",
+            "C-l": "set-input-mode-latin",
+            "A-l": "set-input-mode-wide-latin"
         }
     }
 }

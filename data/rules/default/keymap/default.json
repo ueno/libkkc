@@ -5,10 +5,10 @@
             "C-c": "abort",
             "Return": "commit",
             "C-m": "commit",
-            "BackSpace": "delete",
-            "A-r": "register",
-            "Tab": "complete",
             "C-h": "delete",
+            "BackSpace": "delete",
+            "C-r": "register",
+            "Tab": "complete",
             "space": "next-candidate",
             "C-x": "previous-candidate",
             "S-space": "previous-candidate",
@@ -23,7 +23,7 @@
             "S-Left": "shrink-segment",
             "C-o": "expand-segment",
             "C-i": "shrink-segment",
-            "A-j": "set-input-mode-direct"
+            "C-.": "set-input-mode-direct"
         }
     }
 }
