@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-30 14:02+0900\n"
+"POT-Creation-Date: 2013-02-03 17:16+0900\n"
 "PO-Revision-Date: 2013-01-30 14:04+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,14 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../tools/kkc.vala:25
+#: ../tools/kkc.vala:27
 msgid "Language model"
 msgstr "言語モデル"
 
-#: ../tools/kkc.vala:27
+#: ../tools/kkc.vala:29
 msgid "Run in input method testing mode"
 msgstr "入力メソッドのテストモードで実行"
 
-#: ../tools/kkc.vala:38
+#: ../tools/kkc.vala:31
+msgid "Path to a system dictionary"
+msgstr "システム辞書のパス"
+
+#: ../tools/kkc.vala:33
+msgid "Path to a user dictionary"
+msgstr "ユーザ辞書のパス"
+
+#: ../tools/kkc.vala:44
 msgid "- perform kana-kanji conversion on the command line"
 msgstr "- かな漢字変換をコマンドラインから実行"
