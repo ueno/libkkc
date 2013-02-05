@@ -8,7 +8,7 @@
             "C-h": "delete",
             "BackSpace": "delete",
             "C-q": "quote",
-            "C-r": "register",
+            "A-r": "register",
             "Tab": "complete",
             "space": "next-candidate",
             "C-x": "previous-candidate",
