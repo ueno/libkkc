@@ -39,7 +39,11 @@ namespace Kkc {
             var trellis = build_trellis (input, constraint);
             add_unknown_nodes (trellis, input, constraint);
             forward_search (trellis, input);
-            return backward_search (trellis, nbest);
+            var segments = backward_search (trellis, nbest);
+            for (var i = 0; i < trellis.length; i++) {
+                trellis[i].clear ();
+            }
+            return segments;
         }
 
         protected void add_unknown_nodes (ArrayList<TrellisNode>[] trellis,
