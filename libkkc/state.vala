@@ -547,6 +547,7 @@ namespace Kkc {
                 foreach (var entry in input_mode_commands) {
                     if (entry.key == command) {
                         state.rom_kana_converter.output_nn_if_any ();
+                        state.selection.erase ();
                         state.input_mode = entry.value;
                         return true;
                     }
