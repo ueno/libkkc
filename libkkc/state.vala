@@ -371,6 +371,17 @@ namespace Kkc {
                                 continue;
                             next_constraint_index++;
                         }
+                    } else {
+                        // Fill the gap between the first segment and
+                        // the beginning of the constraint.
+                        var _offset = 0;
+                        for (var i = 0; i < segments.size; i++) {
+                            _offset += segments[i].input.char_count ();
+                            if (_offset < _constraint[0] + prefix.offset) {
+                                constraint.add (_offset);
+                            }
+                        }
+                        next_constraint_index = constraint.size;
                     }
 
                     for (var i = constraint_index; i < _constraint.length; i++)
@@ -382,6 +393,14 @@ namespace Kkc {
             var _segments = decoder.decode (input,
                                             1,
                                             constraint.to_array ());
+#if false
+            print ("constraint: ");
+            for (var i = 0; i < constraint.size; i++) {
+                print ("%d ", constraint[i]);
+                
+            }
+            print ("\n");
+#endif
             segments.set_segments (_segments[0]);
         }
 
