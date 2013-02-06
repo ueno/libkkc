@@ -233,13 +233,14 @@ namespace Kkc {
         }
 
         internal string? lookup_single (string input) {
+            var normalized_input = RomKanaUtils.normalize (input);
             string? result = null;
             dictionaries.call (typeof (SegmentDictionary),
                                false,
                                (dictionary) => {
                                    result = lookup_single_for_dictionary (
                                        dictionary,
-                                       input);
+                                       normalized_input);
                                    if (result != null)
                                        return DictionaryCallbackReturn.REMOVE;
                                    return DictionaryCallbackReturn.CONTINUE;
@@ -250,21 +251,22 @@ namespace Kkc {
         internal void lookup (Segment segment) {
             candidates.clear ();
 
+            var normalized_input = RomKanaUtils.normalize (segment.input);
             var original = new Candidate (
-                segment.input,
+                normalized_input,
                 false,
                 segment.output);
             candidates.add_candidates (new Candidate[] { original });
 
-            lookup_template (new SimpleTemplate (segment.input));
-            lookup_template (new OkuriganaTemplate (segment.input));
-            lookup_template (new NumericTemplate (segment.input));
+            lookup_template (new SimpleTemplate (normalized_input));
+            lookup_template (new OkuriganaTemplate (normalized_input));
+            lookup_template (new NumericTemplate (normalized_input));
 
             for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
                 var output = RomKanaUtils.convert_by_kana_mode (
-                    segment.input,
+                    normalized_input,
                     (KanaMode) mode);
-                var candidate = new Candidate (segment.input, false, output);
+                var candidate = new Candidate (normalized_input, false, output);
                 candidates.add_candidates (new Candidate[] { candidate });
             }
 

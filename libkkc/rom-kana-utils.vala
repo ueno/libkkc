@@ -190,6 +190,10 @@ namespace Kkc {
             return builder.str;
         }
 
+        internal static string normalize (string input) {
+            return get_latin (get_hiragana (input));
+        }
+
         static unichar get_katakana_char (unichar uc) {
             if (_KatakanaTable.has_key (uc)) {
                 return _KatakanaTable.get (uc);
