@@ -150,7 +150,14 @@ namespace Kkc {
         internal KeymapMapFile[] keymaps = new KeymapMapFile[InputMode.LAST];
         internal RomKanaMapFile rom_kana;
 
-        static const Entry<InputMode,string>[] keymap_names = {
+        // We can't use Entry<InputMode,*> here because of Vala bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=684262
+        struct KeymapNameEntry {
+            InputMode key;
+            string value;
+        }
+
+        static const KeymapNameEntry[] keymap_names = {
             { InputMode.HIRAGANA, "hiragana" },
             { InputMode.KATAKANA, "katakana" },
             { InputMode.HANKAKU_KATAKANA, "hankaku-katakana" },

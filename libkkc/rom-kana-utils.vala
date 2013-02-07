@@ -18,11 +18,6 @@
 using Gee;
 
 namespace Kkc {
-    struct Entry<K,V> {
-        K key;
-        V value;
-    }
-
     enum NumericConversionType {
         LATIN,
         WIDE_LATIN,
@@ -73,10 +68,10 @@ namespace Kkc {
             {'ヴ', "う゛", "ｳﾞ"}, {'ヵ', null, null}, {'ヶ', null, null}
         };
 
-        static const Entry<unichar,string>[] HankakuKatakanaSubstitute = {
-            {'ヮ', "ﾜ"},
-            {'ヵ', "ｶ"},
-            {'ヶ', "ｹ"}
+        static const KanaTableEntry[] HankakuKatakanaSubstitute = {
+            {'ヮ', null, "ﾜ"},
+            {'ヵ', null, "ｶ"},
+            {'ヶ', null, "ｹ"}
         };
 
         static const string[] WideLatinTable = {
@@ -339,8 +334,8 @@ namespace Kkc {
                 _HankakuKatakanaTable.set (entry.katakana,
                                            entry.hankaku_katakana);
                 foreach (var substitute in HankakuKatakanaSubstitute) {
-                    _HankakuKatakanaTable.set (substitute.key,
-                                               substitute.value);
+                    _HankakuKatakanaTable.set (substitute.katakana,
+                                               substitute.hankaku_katakana);
                 }
 
                 if (entry.hiragana != null) {

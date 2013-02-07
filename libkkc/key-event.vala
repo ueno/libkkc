@@ -209,13 +209,25 @@ namespace Kkc {
             }
         }
 
-        static const Entry<uint,unichar>[] CODE_KEYVALS = {
+        // We can't use Entry<uint,*> here because of Vala bug:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=684262
+        struct CodeKeyvalEntry {
+            uint key;
+            unichar value;
+        }
+
+        static const CodeKeyvalEntry[] CODE_KEYVALS = {
             { Keysyms.Tab, '\t' },
             { Keysyms.Return, '\n' },
             { Keysyms.BackSpace, '\b' }
         };
 
-        static const Entry<uint,string>[] NAME_KEYVALS = {
+        struct NameKeyvalEntry {
+            uint key;
+            string value;
+        }
+
+        static const NameKeyvalEntry[] NAME_KEYVALS = {
             { Keysyms.space, "space" },
             { Keysyms.Tab, "Tab" },
             { Keysyms.Return, "Return" },
