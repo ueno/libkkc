@@ -177,4 +177,5 @@ data/rules/Makefile
 data/templates/Makefile
 docs/Makefile
 po/Makefile.in])
+AC_CONFIG_FILES([tools/kkc-package-data], [chmod a+x tools/kkc-package-data])
 AC_OUTPUT

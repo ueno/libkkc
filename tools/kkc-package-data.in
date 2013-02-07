@@ -1,0 +1,129 @@
+#!/bin/sh
+# Copyright (C) 2011-2013 Daiki Ueno <ueno@gnu.org>
+# Copyright (C) 2011-2013 Red Hat, Inc.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+opt_text=text3
+opt_sorted=sorted3
+opt_package_name=libkkc-data
+opt_package_version=@PACKAGE_VERSION@
+opt_package_bugreport=@PACKAGE_BUGREPORT@
+prefix=@prefix@
+datarootdir=@datarootdir@
+opt_template=@datadir@/libkkc/templates/libkkc-data
+opt_input=
+
+exit_cmd=:
+
+func_error ()
+{
+  echo "$1"
+  exit_cmd=exit
+}
+
+{
+  while test $# -gt 0; do
+    opt="$1"
+    shift
+    case $opt in
+      --type|-t)
+        test $# = 0 && func_error "missing argument for $opt" && break
+        opt_sorted="$1"
+        ;;
+      --package-name|-N)
+        test $# = 0 && func_error "missing argument for $opt" && break
+        opt_package_name="$1"
+        ;;
+      --package-version|-V)
+        test $# = 0 && func_error "missing argument for $opt" && break
+        opt_package_version="$1"
+        ;;
+      --package-bugreport|-B)
+        test $# = 0 && func_error "missing argument for $opt" && break
+        opt_package_bugreport="$1"
+        ;;
+      --template|-T)
+        test $# = 0 && func_error "missing argument for $opt" && break
+        opt_template="$1"
+        ;;
+      --help)
+	cat <<EOF
+Generate 'libkkc-data' package from ARPA format language model file
+Usage: kkc-package-data [OPTIONS] FILE
+where OPTIONS are:
+--type, -t		Specify LM type (sorted2 or sorted3)
+--package-name, -N	Specify package name
+--package-version, -V	Specify package version
+--package-bugreport, -B	Specify package bugreport
+--template, -T		Specify template directory
+--help			Show this help
+EOF
+	exit 0
+	;;
+      -*)
+	func_error "unknown option $opt" && break
+	;;
+      *)
+	opt_input="$opt"
+	break
+        ;;
+    esac
+  done
+  $exit_cmd 1
+}
+
+if test -z "$opt_input"; then
+    func_error "no input file"
+fi
+$exit_cmd 1
+
+case "$opt_sorted" in
+  sorted2)
+    opt_text=text2
+    ;;
+  sorted3)
+    opt_text=text3
+    ;;
+  *)
+    func_error "unknown type $opt_sorted"
+    ;;
+esac
+$exit_cmd 1
+
+basedir="$PWD"
+workdir=`mktemp -d ${TMPDIR-/tmp}/kkc-package-data.XXXXXXXXXX`
+tmpfiles="$tmpfiles $workdir"
+
+cd "$workdir"
+cp -p -r $opt_template/* .
+sed -e "s|@PACKAGE_NAME[@]|${opt_package_name}|g" \
+  -e "s|@PACKAGE_VERSION[@]|${opt_package_version}|g" \
+  -e "s|@PACKAGE_BUGREPORT[@]|${opt_package_bugreport}|g" \
+  configure.ac.in > configure.ac
+mv "data/models/Makefile.${opt_sorted}" data/models/Makefile.am
+cp "${basedir}/${opt_input}" "data/models/${opt_text}/data.arpa"
+mkdir m4
+touch NEWS README AUTHORS ChangeLog
+autoreconf -f -i
+./configure
+make
+make distcheck
+cp "${opt_package_name}-${opt_package_version}.tar.xz" "$basedir"
+cd "$basedir"
+
+rm -rf "$workdir"
