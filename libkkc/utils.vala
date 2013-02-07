@@ -28,6 +28,11 @@ namespace Kkc {
                               Environment.get_user_config_dir (),
                               Config.PACKAGE_NAME,
                               subdir));
+                // For arch-dependent data files
+                dirs.add (Path.build_filename (Config.LIBDIR,
+                                               Config.PACKAGE_NAME,
+                                               subdir));
+                // For arch-independent data files
                 dirs.add (Path.build_filename (Config.PKGDATADIR, subdir));
             } else {
                 string[] elements = path.split (":");

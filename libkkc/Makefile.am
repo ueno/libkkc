@@ -43,6 +43,7 @@ libkkc_la_VALAFLAGS =						\
 libkkc_la_CFLAGS =				\
 	$(CODE_COVERAGE_CFLAGS)			\
 	$(LIBKKC_CFLAGS)			\
+	-DLIBDIR=\"$(libdir)\"			\
 	-DPKGDATADIR=\"$(pkgdatadir)\"		\
 	-I $(top_srcdir)			\
 	$(NULL)
