@@ -1,0 +1,5 @@
+{
+    "name": "sorted2",
+    "description": "binary based 2-gram dictionary",
+    "type": "sorted2"
+}

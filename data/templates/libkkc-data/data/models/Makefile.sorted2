@@ -1,0 +1,50 @@
+# Copyright (C) 2012-2013 Daiki Ueno <ueno@gnu.org>
+# Copyright (C) 2012-2013 Red Hat, Inc.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+text2_data_files =				\
+	text2/data.arpa				\
+	$(NULL)
+text2_files =					\
+	text2/metadata.json			\
+	$(text2_data_files)			\
+	$(NULL)
+
+sorted2_data_files =				\
+	sorted2/data.input			\
+	sorted2/data.1gram.index		\
+	sorted2/data.1gram			\
+	sorted2/data.2gram			\
+	$(NULL)
+sorted2_files =					\
+	sorted2/metadata.json			\
+	$(sorted2_data_files)			\
+	$(NULL)
+
+$(sorted2_data_files): $(text2_data_files)
+	@$(mkdir_p) sorted2
+	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/sortlm.py \
+		$(srcdir)/text2/data.arpa sorted2/data
+
+all: $(sorted2_data_files)
+
+modelsdir = $(libdir)/libkkc/models
+nobase_models_DATA = $(sorted2_files)
+
+CLEANFILES = $(sorted2_data_files)
+EXTRA_DIST =					\
+	sorted2/metadata.json			\
+	$(text2_files)				\
+	$(NULL)

@@ -1,0 +1,5 @@
+{
+    "name": "sorted3",
+    "description": "binary based 3-gram dictionary",
+    "type": "sorted3"
+}

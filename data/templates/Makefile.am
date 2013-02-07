@@ -14,6 +14,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = rules templates
+templatesdir = $(pkgdatadir)/templates
+
+nobase_dist_templates_DATA =				\
+	libkkc-data/tools/sortlm.py			\
+	libkkc-data/tools/Makefile.am			\
+	libkkc-data/configure.ac.in			\
+	libkkc-data/data/Makefile.am			\
+	libkkc-data/data/models/Makefile.sorted3	\
+	libkkc-data/data/models/sorted3/metadata.json	\
+	libkkc-data/data/models/text3/metadata.json	\
+	libkkc-data/data/models/text2/metadata.json	\
+	libkkc-data/data/models/sorted2/metadata.json	\
+	libkkc-data/data/models/Makefile.sorted2	\
+	libkkc-data/data/models/Makefile.am		\
+	libkkc-data/Makefile.am				\
+	$(NULL)
 
 -include $(top_srcdir)/git.mk

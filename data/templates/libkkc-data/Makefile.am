@@ -14,6 +14,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = rules templates
-
--include $(top_srcdir)/git.mk
+SUBDIRS = data tools
+ACLOCAL_AMFLAGS = -I m4

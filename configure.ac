@@ -174,6 +174,7 @@ tests/Makefile
 tests/lib/Makefile
 data/Makefile
 data/rules/Makefile
+data/templates/Makefile
 docs/Makefile
 po/Makefile.in])
 AC_OUTPUT

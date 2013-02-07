@@ -1,0 +1,52 @@
+# Copyright (C) 2012-2013 Daiki Ueno <ueno@gnu.org>
+# Copyright (C) 2012-2013 Red Hat, Inc.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+text3_data_files =				\
+	text3/data.arpa				\
+	$(NULL)
+text3_files =					\
+	text3/metadata.json			\
+	$(text3_data_files)			\
+	$(NULL)
+
+sorted3_data_files =				\
+	sorted3/data.input			\
+	sorted3/data.1gram.index		\
+	sorted3/data.1gram			\
+	sorted3/data.2gram			\
+	sorted3/data.3gram			\
+	$(NULL)
+sorted3_files =					\
+	sorted3/metadata.json			\
+	$(sorted3_data_files)			\
+	$(NULL)
+
+$(text3_data_files):
+$(sorted3_data_files): $(text3_data_files)
+	@$(mkdir_p) sorted3
+	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/sortlm.py \
+		$(srcdir)/text3/data.arpa sorted3/data
+
+all: $(sorted3_data_files)
+
+modelsdir = $(libdir)/libkkc/models
+nobase_models_DATA = $(sorted3_files)
+
+CLEANFILES = $(sorted3_data_files)
+EXTRA_DIST =					\
+	sorted3/metadata.json			\
+	$(text3_files)				\
+	$(NULL)
