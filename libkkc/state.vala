@@ -674,8 +674,7 @@ namespace Kkc {
                         state.rom_kana_converter.output = "";
                         return true;
                     } else {
-                        state.input_buffer.append_unichar (
-                            RomKanaUtils.get_wide_latin_char ((char) key.code));
+                        state.input_buffer.append_c ((char) key.code);
                         state.rom_kana_converter.output = "";
                         return true;
                     }
