@@ -156,7 +156,7 @@ namespace Kkc {
                          out string? line,
                          int direction) {
             long offset = start_offset + (end_offset - start_offset) / 2;
-            while (start_offset <= end_offset) {
+            while (start_offset < end_offset) {
                 assert (offset < mmap.length);
 
                 string _line = read_line (ref offset);
