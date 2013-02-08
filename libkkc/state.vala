@@ -706,6 +706,7 @@ namespace Kkc {
             state.rom_kana_converter.output_nn_if_any ();
             state.output.append (state.input_buffer.str);
             state.output.append (state.rom_kana_converter.output);
+            state.output.append (state.rom_kana_converter.preedit);
             state.reset ();
             return retval;
         }
