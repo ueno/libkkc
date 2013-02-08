@@ -151,8 +151,12 @@ namespace Kkc {
          * Metadata associated with the rule.
          */
         public RuleMetadata metadata { get; private set; }
-        internal KeymapMapFile[] keymaps = new KeymapMapFile[InputMode.LAST];
+        KeymapMapFile[] keymaps = new KeymapMapFile[InputMode.LAST];
         internal RomKanaMapFile rom_kana;
+
+        public Keymap get_keymap (InputMode mode) {
+            return keymaps[mode].keymap;
+        }
 
         // We can't use Entry<InputMode,*> here because of Vala bug:
         // https://bugzilla.gnome.org/show_bug.cgi?id=684262

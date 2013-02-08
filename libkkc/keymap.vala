@@ -18,8 +18,8 @@
 using Gee;
 
 namespace Kkc {
-    class Keymap : Object {
-        Map<string,string> entries = new HashMap<string,string> ();
+    public class Keymap : Object {
+        public Map<string,string> entries = new HashMap<string,string> ();
 
         public new void @set (string key, string command) {
             try {

@@ -87,7 +87,7 @@ namespace Kkc {
         }
 
         internal string? lookup_key (KeyEvent key) {
-            var keymap = _typing_rule.keymaps[input_mode].keymap;
+            var keymap = _typing_rule.get_keymap (input_mode);
             return_val_if_fail (keymap != null, null);
             return keymap.lookup_key (key);
         }

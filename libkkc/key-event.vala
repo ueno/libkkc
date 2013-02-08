@@ -299,9 +299,36 @@ namespace Kkc {
                         "unknown keysym %u", keyval);
                 }
             }
+            this.keyval = keyval;
             this.keycode = keycode;
             this.modifiers = modifiers; 
-       }
+        }
+
+        uint _keyval = Kkc.Keysyms.VoidSymbol;
+        public uint keyval {
+            get {
+                if (_keyval != Kkc.Keysyms.VoidSymbol)
+                    return _keyval;
+                else {
+                    foreach (var entry in NAME_KEYVALS) {
+                        if (entry.value == name) {
+                            return entry.key;
+                        }
+                    }
+                    foreach (var entry in CODE_KEYVALS) {
+                        if (entry.value == code) {
+                            return entry.key;
+                        }
+                    }
+                    if (0x20 <= (uint) code && (uint) code < 0x7F)
+                        return (uint) code;
+                    return Kkc.Keysyms.VoidSymbol;
+                }
+            }
+            set {
+                _keyval = value;
+            }
+        }
 
         /**
          * Compare two key events ignoring modifiers.
