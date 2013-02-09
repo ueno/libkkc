@@ -643,8 +643,9 @@ namespace Kkc {
                             state.completion_iterator.next ();
                         }
                     }
+                    return true;
                 }
-                return true;
+                return false;
             }
 
             switch (state.input_mode) {
