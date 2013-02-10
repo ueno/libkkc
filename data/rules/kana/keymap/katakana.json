@@ -1,0 +1,13 @@
+{
+    "include": [
+        "kana"
+    ],
+    "define": {
+        "keymap": {
+            "Hiragana_Katakana": "set-input-mode-hiragana",
+            "A-k": "set-input-mode-hankaku-katakana",
+            "Eisu_toggle": "set-input-mode-latin",
+            "A-l": "set-input-mode-latin"
+        }
+    }
+}

@@ -168,10 +168,11 @@ namespace Kkc {
          */
         public string to_string () {
             string _base = name != null ? name : code.to_string ();
+            if (name == null)
+                modifiers &= ~ModifierType.SHIFT_MASK;
             if (modifiers != 0) {
                 ArrayList<string?> elements = new ArrayList<string?> ();
-                if (name != null
-                    && (modifiers & ModifierType.SHIFT_MASK) != 0) {
+                if ((modifiers & ModifierType.SHIFT_MASK) != 0) {
                     elements.add ("shift");
                 }
                 if ((modifiers & ModifierType.CONTROL_MASK) != 0) {
