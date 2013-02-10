@@ -179,6 +179,7 @@ namespace Kkc {
         }
 
         RomKanaNode current_node;
+        bool preserve_preedit;
 
         public KanaMode kana_mode { get; set; default = KanaMode.HIRAGANA; }
         public PunctuationStyle punctuation_style { get; set; default = PunctuationStyle.JA_JA; }
@@ -260,33 +261,51 @@ namespace Kkc {
                 // XXX: index_of_char does not work with '\0'
                 var index = uc != '\0' ? ".,".index_of_char (uc) : -1;
                 if (index >= 0) {
+                    if (preserve_preedit)
+                        _output.append (_preedit.str);
                     index = PUNCTUATION_RULE[punctuation_style].index_of_nth_char (index);
                     unichar punctuation = PUNCTUATION_RULE[punctuation_style].get_char (index);
                     _output.append_unichar (punctuation);
                     _preedit.erase ();
                     current_node = rule.root_node;
+                    preserve_preedit = false;
                     return true;
                 } else if (rule.root_node.children[uc] == null) {
                     _preedit.erase ();
                     current_node = rule.root_node;
+                    preserve_preedit = false;
                     // there may be "NN" output
                     return retval;
+                } else if (preserve_preedit) {
+                    _output.append (_preedit.str);
+                    current_node = rule.root_node;
+                    preserve_preedit = false;
+                    _preedit.erase ();
+                    return append (uc);
                 } else {
-                    // abandon current preedit and restart lookup from
+                    // abandon the current preedit and restart lookup from
                     // the root with uc
                     _preedit.erase ();
                     current_node = rule.root_node;
+                    preserve_preedit = false;
                     return append (uc);
                 }
             } else if (child_node.n_children > 0) {
                 // node is not a terminal
-                _preedit.append_unichar (uc);
+                if (child_node.entry != null) {
+                    _preedit.append (child_node.entry.get_kana (kana_mode));
+                    preserve_preedit = true;
+                } else {
+                    _preedit.append_unichar (uc);
+                    preserve_preedit = false;
+                }
                 current_node = child_node;
                 return true;
             } else {
                 _output.append (child_node.entry.get_kana (kana_mode));
                 _preedit.erase ();
                 current_node = rule.root_node;
+                preserve_preedit = false;
                 for (int i = 0; i < child_node.entry.carryover.length; i++) {
                     append (child_node.entry.carryover[i]);
                 }
