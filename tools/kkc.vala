@@ -108,17 +108,26 @@ class ContextRepl : Object, Repl {
     Kkc.Context context;
     public bool run () {
         string? line;
+        var generator = new Json.Generator ();
+        generator.set_pretty (true);
         while ((line = stdin.read_line ()) != null) {
             context.process_key_events (line);
-            var input = context.input;
-            var output = context.poll_output ();
-            stdout.printf (
-                "{ \"input\": \"%s\", " +
-                "\"segments\": \"%s\", " +
-                "\"output\": \"%s\" }\n",
-                input.replace ("\"", "\\\""),
-                context.segments.get_output (),
-                output.replace ("\"", "\\\""));
+            var builder = new Json.Builder ();
+            builder.begin_object ();
+            builder.set_member_name ("input");
+            builder.add_string_value (context.input);
+            builder.set_member_name ("segments");
+            builder.begin_array ();
+            foreach (var segment in context.segments) {
+                builder.add_string_value (segment.output);
+            }
+            builder.end_array ();
+            builder.set_member_name ("output");
+            builder.add_string_value (context.poll_output ());
+            builder.end_object ();
+            generator.set_root (builder.get_root ());
+            size_t length;
+            stdout.printf ("%s\n", generator.to_data (out length));
             context.reset ();
             context.clear_output ();
         }
