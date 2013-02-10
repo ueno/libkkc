@@ -147,7 +147,12 @@ class ContextRepl : Object, Repl {
             builder.set_member_name ("segments");
             builder.begin_array ();
             foreach (var segment in context.segments) {
+                builder.begin_object ();
+                builder.set_member_name ("input");
+                builder.add_string_value (segment.input);
+                builder.set_member_name ("output");
                 builder.add_string_value (segment.output);
+                builder.end_object ();
             }
             builder.end_array ();
             builder.set_member_name ("output");
