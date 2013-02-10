@@ -21,6 +21,8 @@ static string opt_model = null;
 static bool opt_im = false;
 static string opt_system_dictionary;
 static string opt_user_dictionary;
+static string opt_typing_rule;
+static bool opt_list_typing_rules;
 
 static const OptionEntry[] options = {
     { "model", 'm', 0, OptionArg.STRING, ref opt_model,
@@ -31,6 +33,10 @@ static const OptionEntry[] options = {
       N_("Path to a system dictionary"), null },
     { "user-dictionary", 'u', 0, OptionArg.STRING, ref opt_user_dictionary,
       N_("Path to a user dictionary"), null },
+    { "rule", 'r', 0, OptionArg.STRING, ref opt_typing_rule,
+      N_("Typing rule (default: \"default\")"), null },
+    { "list-rules", 'l', 0, OptionArg.NONE, ref opt_list_typing_rules,
+      N_("List typing rules"), null },
     { null }
 };
 
@@ -51,6 +57,17 @@ static int main (string[] args) {
     }
 
     Kkc.init ();
+
+    if (opt_list_typing_rules) {
+        var rules = Kkc.Rule.list ();
+        foreach (var rule in rules) {
+            stdout.printf ("%s - %s: %s\n",
+                           rule.name,
+                           rule.label,
+                           rule.description);
+        }
+        return 0;
+    }
 
 	Kkc.LanguageModel model;
 	try {
@@ -88,6 +105,17 @@ static int main (string[] args) {
             stderr.printf ("can't open system dictionary %s: %s",
                            opt_system_dictionary, e.message);
             return 1;
+        }
+
+        if (opt_typing_rule != null) {
+            try {
+                context.typing_rule = new Kkc.Rule (opt_typing_rule);
+            } catch (Kkc.RuleParseError e) {
+                stderr.printf ("can't load rule \"%s\": %s\n",
+                               opt_typing_rule,
+                               e.message);
+                return 1;
+            }
         }
 
 		repl = new ContextRepl (context);
