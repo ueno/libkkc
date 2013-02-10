@@ -96,8 +96,6 @@ namespace Kkc {
             this.decoder = decoder;
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
-            this.segments.notify["cursor-pos"].connect (
-                segments_cursor_pos_changed);
             this.candidates = new CandidateList ();
             this.candidates.round = true;
             this.candidates.notify["cursor-pos"].connect (
@@ -120,12 +118,6 @@ namespace Kkc {
 
         ~State () {
             reset ();
-        }
-
-        void segments_cursor_pos_changed (Object s, ParamSpec? p) {
-            if (segments.cursor_pos >= 0) {
-                lookup (segments[segments.cursor_pos]);
-            }
         }
 
         void candidates_cursor_pos_changed (Object s, ParamSpec? p) {
@@ -740,6 +732,7 @@ namespace Kkc {
                 || command == "previous-candidate"
                 || command == "purge-candidate") {
                 state.handler_type = typeof (ConvertSegmentStateHandler);
+                state.lookup (state.segments[state.segments.cursor_pos]);
                 state.candidates.first ();
                 return false;
             }
