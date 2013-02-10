@@ -161,8 +161,6 @@ class ContextRepl : Object, Repl {
             generator.set_root (builder.get_root ());
             size_t length;
             stdout.printf ("%s\n", generator.to_data (out length));
-            context.reset ();
-            context.clear_output ();
         }
         return true;
     }
