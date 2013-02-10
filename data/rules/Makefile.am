@@ -50,19 +50,6 @@ azik_files =					\
 	azik/rom-kana/default.json		\
 	$(NULL)
 
-kana_files =					\
-	kana/metadata.json			\
-	kana/keymap/default.json		\
-	kana/keymap/kana.json			\
-	kana/keymap/hankaku-katakana.json	\
-	kana/keymap/hiragana.json		\
-	kana/keymap/katakana.json		\
-	kana/keymap/latin.json			\
-	kana/keymap/wide-latin.json		\
-	kana/keymap/direct.json			\
-	kana/rom-kana/default.json		\
-	$(NULL)
-
 kzik_files =					\
 	kzik/metadata.json			\
 	kzik/keymap/default.json		\
@@ -126,17 +113,29 @@ trycode_files =					\
 	trycode/keymap/hiragana.json		\
 	$(NULL)
 
+kana_files =					\
+	kana/metadata.json			\
+	kana/keymap/default.json		\
+	kana/keymap/hankaku-katakana.json	\
+	kana/keymap/hiragana.json		\
+	kana/keymap/katakana.json		\
+	kana/keymap/latin.json			\
+	kana/keymap/wide-latin.json		\
+	kana/keymap/direct.json			\
+	kana/rom-kana/default.json		\
+	$(NULL)
+
 nobase_dist_rules_DATA =			\
 	$(default_files)			\
 	$(act_files)				\
 	$(azik_files)				\
 	$(kzik_files)				\
-	$(kana_files)				\
 	$(tutcode_files)			\
 	$(tutcode_touch16x_files)		\
 	$(nicola_files)				\
 	$(tcode_files)				\
 	$(trycode_files)			\
+	$(kana_files)				\
 	README.rules				\
 	$(NULL)
 
