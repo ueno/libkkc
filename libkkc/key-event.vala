@@ -168,7 +168,8 @@ namespace Kkc {
          */
         public string to_string () {
             string _base = name != null ? name : code.to_string ();
-            if (name == null)
+            // Omit shift modifier when code is ASCII.
+            if (0x21 <= code && code < 0x7F)
                 modifiers &= ~ModifierType.SHIFT_MASK;
             if (modifiers != 0) {
                 ArrayList<string?> elements = new ArrayList<string?> ();
