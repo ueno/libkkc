@@ -111,7 +111,8 @@ namespace Kkc {
                     midasi,
                     okuri,
                     candidates_str);
-                var list = new ArrayList<Candidate> ();
+                var list = new ArrayList<Candidate> (
+                    (EqualFunc) candidate_equal);
                 foreach (var c in candidates) {
                     list.add (c);
                 }
@@ -156,6 +157,10 @@ namespace Kkc {
                                       Map.Entry<string,Gee.List<Candidate>> b)
         {
             return strcmp (b.key, a.key);
+        }
+
+        static bool candidate_equal (Candidate a, Candidate b) {
+            return a.text == b.text;
         }
 
         void write_entries (StringBuilder builder,
@@ -307,21 +312,12 @@ namespace Kkc {
             if (!entries.has_key (candidate.midasi)) {
                 entries.set (candidate.midasi, new ArrayList<Candidate> ());
             }
-            index = 0;
             var candidates = entries.get (candidate.midasi);
-            foreach (var c in candidates) {
-                if (c.text == candidate.text) {
-                    if (index > 0) {
-                        var first = candidates[0];
-                        candidates[0] = candidates[index];
-                        candidates[index] = first;
-                        is_dirty = true;
-                        return true;
-                    }
-                    return false;
-                }
-                index++;
-            }
+            index = candidates.index_of (candidate);
+            if (index == 0)
+                return false;
+            if (index > 0)
+                candidates.remove_at (index);
             candidates.insert (0, candidate);
             is_dirty = true;
             return true;
