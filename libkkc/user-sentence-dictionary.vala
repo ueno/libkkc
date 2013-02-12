@@ -18,6 +18,9 @@
 using Gee;
 
 namespace Kkc {
+    /**
+     * File based implementation of SentenceDictionary with write access.
+     */
     public class UserSentenceDictionary : Object, Dictionary, SentenceDictionary
  {
         File file;

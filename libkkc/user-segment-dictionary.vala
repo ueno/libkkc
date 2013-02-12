@@ -19,7 +19,7 @@ using Gee;
 
 namespace Kkc {
     /**
-     * File based implementation of Dictionary with write access.
+     * File based implementation of SegmentDictionary with write access.
      */
     public class UserSegmentDictionary : Object, Dictionary, SegmentDictionary {
         void load () throws DictionaryError, GLib.IOError {

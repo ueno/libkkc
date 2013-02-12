@@ -18,6 +18,12 @@
 using Gee;
 
 namespace Kkc {
+    /**
+     * Helper class which can be used as a single user dictionary.
+     *
+     * It implements both SegmentDictionary and SentenceDictionary,
+     * with write access.
+     */
     public class UserDictionary : Object, Dictionary, SegmentDictionary, SentenceDictionary {
         UserSegmentDictionary segment_dict;
         UserSentenceDictionary sentence_dict;
