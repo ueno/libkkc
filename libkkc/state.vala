@@ -486,6 +486,7 @@ namespace Kkc {
         }
 
         internal void completion_start (string input) {
+            completion.clear ();
             dictionaries.call (typeof (SegmentDictionary),
                                false,
                                (dictionary) => {
