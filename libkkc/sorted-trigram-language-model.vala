@@ -21,11 +21,21 @@ namespace Kkc {
     public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
         MemoryMappedFile trigram_mmap;
 
+        // Remember the last offset since bsearch_ngram takes time and
+        // the same 2-gram pair is likely to be used in the next call.
+        uint32 last_value = 0;
+        uint32 last_pvalue = 0;
+        long last_offset = 0;
+
         long trigram_offset (LanguageModelEntry ppentry,
                              LanguageModelEntry pentry,
                              LanguageModelEntry entry)
         {
             var c = bigram_offset (ppentry, pentry);
+
+            if (c == last_pvalue && entry.id == last_value)
+                return last_offset;
+
             uint8[] buffer = new uint8[8];
             uint8 *p = buffer;
             var value = ((uint32) entry.id).to_little_endian ();
@@ -41,6 +51,11 @@ namespace Kkc {
                 (long) trigram_mmap.length / record_size,
                 record_size,
                 buffer);
+
+            last_value = entry.id;
+            last_pvalue = (uint32) c;
+            last_offset = offset;
+
             return offset;
         }
 

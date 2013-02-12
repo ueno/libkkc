@@ -88,7 +88,16 @@ namespace Kkc {
             return null;
         }
 
+        // Remember the last offset since bsearch_ngram takes time and
+        // the same 2-gram pair is likely to be used in the next call.
+        uint32 last_value = 0;
+        uint32 last_pvalue = 0;
+        long last_offset = 0;
+
         protected long bigram_offset (LanguageModelEntry pentry, LanguageModelEntry entry) {
+            if (pentry.id == last_pvalue && entry.id == last_value)
+                return last_offset;
+
             uint8[] buffer = new uint8[8];
             uint8 *p = buffer;
             var value = ((uint32) entry.id).to_little_endian ();
@@ -104,6 +113,11 @@ namespace Kkc {
                 (long) bigram_mmap.length / record_size,
                 record_size,
                 buffer);
+
+            last_value = entry.id;
+            last_pvalue = pentry.id;
+            last_offset = offset;
+
             return offset;
         }
 
