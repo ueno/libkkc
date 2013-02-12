@@ -124,11 +124,7 @@ namespace Kkc {
          * {@inheritDoc}
          */
         public void reload () throws GLib.Error {
-#if VALA_0_16
             string attributes = FileAttribute.ETAG_VALUE;
-#else
-            string attributes = FILE_ATTRIBUTE_ETAG_VALUE;
-#endif
             FileInfo info = file.query_info (attributes,
                                              FileQueryInfoFlags.NONE);
             if (info.get_etag () != etag) {
@@ -205,20 +201,11 @@ namespace Kkc {
             var contents = converter.encode (builder.str);
             DirUtils.create_with_parents (Path.get_dirname (file.get_path ()),
                                           448);
-#if VALA_0_16
             file.replace_contents (contents.data,
                                    etag,
                                    false,
                                    FileCreateFlags.PRIVATE,
                                    out etag);
-#else
-            file.replace_contents (contents,
-                                   contents.length,
-                                   etag,
-                                   false,
-                                   FileCreateFlags.PRIVATE,
-                                   out etag);
-#endif
             is_dirty = false;
         }
 

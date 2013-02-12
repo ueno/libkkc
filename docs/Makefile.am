@@ -60,7 +60,6 @@ libkkc_doc_deps = \
 	$(NULL)
 valadoc_flags_libkkc = \
 	$(valadoc_flags) \
-	-D VALA_0_16 \
 	-X $(top_srcdir)/libkkc/libkkc.h \
 	$(addprefix --pkg=,$(libkkc_doc_deps)) \
 	--vapidir=$(top_srcdir)/libkkc \
