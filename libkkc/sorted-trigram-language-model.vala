@@ -20,6 +20,7 @@ using Gee;
 namespace Kkc {
     public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
         MemoryMappedFile trigram_mmap;
+        BloomFilter trigram_filter = null;
 
         // Remember the last offset since bsearch_ngram takes time and
         // the same 2-gram pair is likely to be used in the next call.
@@ -43,6 +44,10 @@ namespace Kkc {
             p += 4;
             var pvalue = ((uint32) c).to_little_endian ();
             Memory.copy (p, &pvalue, sizeof(uint32));
+
+            if (trigram_filter != null &&
+                !trigram_filter.contains (value, pvalue))
+                return -1;
 
             var record_size = 10;
             var offset = LanguageModelUtils.bsearch_ngram (
@@ -88,6 +93,16 @@ namespace Kkc {
 				error ("can't load %s: %s",
 					   trigram_file.get_path (), e.message);
 			}
+
+            var trigram_filter_file = File.new_for_path (
+                prefix + ".3gram.filter");
+            try {
+                trigram_filter = new BloomFilter (trigram_filter_file);
+            } catch (IOError e) {
+                warning ("can't load %s: %s",
+                         trigram_filter_file.get_path (),
+                         e.message);
+            }
         }
     }
 }

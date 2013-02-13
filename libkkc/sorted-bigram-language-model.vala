@@ -37,6 +37,7 @@ namespace Kkc {
         Marisa.Trie unigram_trie = new Marisa.Trie ();
         MemoryMappedFile unigram_mmap;
         MemoryMappedFile bigram_mmap;
+        BloomFilter bigram_filter = null;
 
         Collection<LanguageModelEntry?> unigram_entries_with_prefix (string prefix) {
             var entries = new ArrayList<LanguageModelEntry?> ();
@@ -105,6 +106,10 @@ namespace Kkc {
             p += 4;
             var pvalue = ((uint32) pentry.id).to_little_endian ();
             Memory.copy (p, &pvalue, sizeof(uint32));
+
+            if (bigram_filter != null
+                && !bigram_filter.contains (value, pvalue))
+                return -1;
 
             var record_size = 12;
             var offset = LanguageModelUtils.bsearch_ngram (
@@ -201,6 +206,16 @@ namespace Kkc {
 				error ("can't load %s: %s",
 					   bigram_file.get_path (), e.message);
 			}
+
+            var bigram_filter_file = File.new_for_path (
+                prefix + ".2gram.filter");
+            try {
+                bigram_filter = new BloomFilter (bigram_filter_file);
+            } catch (IOError e) {
+                warning ("can't load %s: %s",
+                         bigram_filter_file.get_path (),
+                         e.message);
+            }
 
             _bos = get (" ", "<s>");
             _eos = get (" ", "</s>");

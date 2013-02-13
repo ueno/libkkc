@@ -99,6 +99,7 @@ libkkc_la_SOURCES =				\
 	trigram-decoder.vala			\
 	segment-list.vala			\
 	segment.vala				\
+	bloom-filter.vala			\
 	$(libkkc_shell_sources)			\
 	utils.vala				\
 	kkc.vala				\

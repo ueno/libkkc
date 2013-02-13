@@ -27,6 +27,7 @@ sorted2_data_files =				\
 	sorted2/data.1gram.index		\
 	sorted2/data.1gram			\
 	sorted2/data.2gram			\
+	sorted2/data.2gram.filter		\
 	$(NULL)
 sorted2_files =					\
 	sorted2/metadata.json			\
@@ -37,6 +38,10 @@ $(sorted2_data_files): $(text2_data_files)
 	@$(mkdir_p) sorted2
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/sortlm.py \
 		$(srcdir)/text2/data.arpa sorted2/data
+	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/genfilter.py \
+		sorted2/data.2gram \
+		sorted2/data.2gram.filter \
+		12 8
 
 all: $(sorted2_data_files)
 
