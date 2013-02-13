@@ -63,7 +63,9 @@ EXTRA_DIST =					\
 	data/models/sorted3/data.1gram		\
 	data/models/sorted3/data.1gram.index	\
 	data/models/sorted3/data.2gram		\
+	data/models/sorted3/data.2gram.filter	\
 	data/models/sorted3/data.3gram		\
+	data/models/sorted3/data.3gram.filter	\
 	$(NULL)
 
 CLEANFILES = valgrind.log.*
