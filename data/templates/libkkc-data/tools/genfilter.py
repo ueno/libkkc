@@ -101,7 +101,8 @@ class FilterGenerator(object):
                 h = int(h * (m / float(0xFFFFFFFF)))
                 outmem[h/8] |= (1 << (h%8))
         inmem.close()
-        self.outfile.write(outmem)
+        # Convert bytearray to str, for Python 2.6 compatibility.
+        self.outfile.write(str(outmem))
 
 if __name__ == '__main__':
     import sys
