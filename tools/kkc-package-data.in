@@ -116,7 +116,7 @@ sed -e "s|@PACKAGE_NAME[@]|${opt_package_name}|g" \
   -e "s|@PACKAGE_BUGREPORT[@]|${opt_package_bugreport}|g" \
   configure.ac.in > configure.ac
 mv "data/models/Makefile.${opt_sorted}" data/models/Makefile.am
-cp "${basedir}/${opt_input}" "data/models/${opt_text}/data.arpa"
+cp "${opt_input}" "data/models/${opt_text}/data.arpa"
 mkdir m4
 touch NEWS README AUTHORS ChangeLog
 autoreconf -f -i

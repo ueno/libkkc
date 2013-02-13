@@ -27,9 +27,9 @@ sorted3_data_files =				\
 	sorted3/data.1gram.index		\
 	sorted3/data.1gram			\
 	sorted3/data.2gram			\
-	sorted2/data.2gram.filter		\
+	sorted3/data.2gram.filter		\
 	sorted3/data.3gram			\
-	sorted2/data.3gram.filter		\
+	sorted3/data.3gram.filter		\
 	$(NULL)
 sorted3_files =					\
 	sorted3/metadata.json			\
