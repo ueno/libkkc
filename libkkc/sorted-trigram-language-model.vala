@@ -37,17 +37,17 @@ namespace Kkc {
             if (c == last_pvalue && entry.id == last_value)
                 return last_offset;
 
+            if (trigram_filter != null &&
+                !trigram_filter.contains (entry.id, (uint32) c))
+                return -1;
+
             uint8[] buffer = new uint8[8];
             uint8 *p = buffer;
-            var value = ((uint32) entry.id).to_little_endian ();
+            var value = (uint32) entry.id;
             Memory.copy (p, &value, sizeof(uint32));
             p += 4;
-            var pvalue = ((uint32) c).to_little_endian ();
+            var pvalue = (uint32) c;
             Memory.copy (p, &pvalue, sizeof(uint32));
-
-            if (trigram_filter != null &&
-                !trigram_filter.contains (value, pvalue))
-                return -1;
 
             var record_size = 10;
             var offset = LanguageModelUtils.bsearch_ngram (
@@ -80,7 +80,7 @@ namespace Kkc {
                 return 0;
 
             uint8 *p = (uint8 *) trigram_mmap.memory + offset * 10 + 8;
-            var cost = uint16.from_little_endian (*((uint16 *) p));
+            var cost = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 

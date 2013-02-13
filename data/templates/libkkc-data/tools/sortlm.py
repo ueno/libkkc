@@ -134,7 +134,7 @@ class SortedGenerator(object):
         offset = 0
         for ids, value in sorted(self.__ngram_entries[0].iteritems()):
             unigram_offsets[ids[0]] = offset
-            s = struct.pack("<HHH",
+            s = struct.pack("=HHH",
                             quantize(value[0], self.__min_cost),
                             quantize(value[1], self.__min_cost),
                             0   # reserved
@@ -147,12 +147,12 @@ class SortedGenerator(object):
         bigram_offsets = {}
         bigram_file = open("%s.2gram" % self.__output_prefix, "wb")
         keys = self.__ngram_entries[1].keys()
-        items = [(struct.pack("<LL", ids[1], unigram_offsets[ids[0]]), ids) for ids in keys]
+        items = [(struct.pack("=LL", ids[1], unigram_offsets[ids[0]]), ids) for ids in keys]
         offset = 0
         for header, ids in sorted(items, cmp=cmp_header):
             value = self.__ngram_entries[1][ids]
             bigram_offsets[ids] = offset
-            s = struct.pack("<HH",
+            s = struct.pack("=HH",
                             quantize(value[0], self.__min_cost),
                             quantize(value[1], self.__min_cost))
             bigram_file.write(header + s)
@@ -163,10 +163,10 @@ class SortedGenerator(object):
             print "writing 3-gram file"
             trigram_file = open("%s.3gram" % self.__output_prefix, "wb")
             keys = self.__ngram_entries[2].keys()
-            items = [(struct.pack("<LL", ids[2], bigram_offsets[(ids[0], ids[1])]), ids) for ids in keys]
+            items = [(struct.pack("=LL", ids[2], bigram_offsets[(ids[0], ids[1])]), ids) for ids in keys]
             for header, ids in sorted(items, cmp=cmp_header):
                 value = self.__ngram_entries[2][ids]
-                s = struct.pack("<H",
+                s = struct.pack("=H",
                                 quantize(value[0], self.__min_cost))
                 trigram_file.write(header + s)
             trigram_file.close()

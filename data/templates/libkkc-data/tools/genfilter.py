@@ -95,12 +95,11 @@ class FilterGenerator(object):
         outmem = bytearray(m/8)
         for i in xrange(0, n):
             offset = i*self.record_size
-            b0, b1 = struct.unpack("<LL", inmem[offset:offset+self.header_size])
+            b0, b1 = struct.unpack("=LL", inmem[offset:offset+self.header_size])
             for k in xrange(0, 4):
                 h = murmur_hash3_32(b0, b1, k)
                 h = int(h * (m / float(0xFFFFFFFF)))
                 outmem[h/8] |= (1 << (h%8))
-        print (len(outmem),)
         inmem.close()
         self.outfile.write(outmem)
 
