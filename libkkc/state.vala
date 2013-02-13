@@ -365,7 +365,7 @@ namespace Kkc {
                                 continue;
                             next_constraint_index++;
                         }
-                    } else {
+                    } else if (prefix.offset > 0) {
                         // Fill the gap between the first segment and
                         // the beginning of the constraint.
                         var _offset = 0;
