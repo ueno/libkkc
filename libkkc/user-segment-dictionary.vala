@@ -271,25 +271,12 @@ namespace Kkc {
          * {@inheritDoc}
          */
         public bool select_candidate (Candidate candidate) {
-            int index;
-
-            // update midasi history
-            index = midasi_history.index_of (candidate.midasi);
-            if (index > 0) {
-                midasi_history.remove_at (index);
-            } else if (index < 0 &&
-                       midasi_history.size == MIDASI_HISTORY_SIZE) {
-                midasi_history.remove_at (midasi_history.size - 1);
-            }
-            midasi_history.insert (0, candidate.midasi);
-
-            // update candidates list associated with midasi
             var entries = get_entries (candidate.okuri);
             if (!entries.has_key (candidate.midasi)) {
                 entries.set (candidate.midasi, new ArrayList<Candidate> ());
             }
             var candidates = entries.get (candidate.midasi);
-            index = candidates.index_of (candidate);
+            var index = candidates.index_of (candidate);
             if (index == 0)
                 return false;
             if (index > 0)
@@ -342,8 +329,6 @@ namespace Kkc {
             new HashMap<string,Gee.List<Candidate>> ();
         Map<string,Gee.List<Candidate>> okuri_nasi_entries =
             new HashMap<string,Gee.List<Candidate>> ();
-        const int MIDASI_HISTORY_SIZE = 128;
-        Gee.List<string> midasi_history = new ArrayList<string> ();
         bool is_dirty;
 
         /**
