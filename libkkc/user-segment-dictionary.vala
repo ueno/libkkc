@@ -39,25 +39,6 @@ namespace Kkc {
                 return;
             }
 
-            var coding = EncodingConverter.extract_coding_system (line);
-            if (coding != null) {
-                try {
-                    var _converter = new EncodingConverter.from_coding_system (
-                        coding);
-                    if (_converter != null) {
-                        converter = _converter;
-                    }
-                } catch (GLib.Error e) {
-                    warning ("can't create converter from coding system %s: %s",
-                             coding, e.message);
-                }
-                // proceed to the next line
-                line = data.read_line (out length);
-                if (line == null) {
-                    return;
-                }
-            }
-
             Map<string,Gee.List<Candidate>>? entries = null;
             while (line != null) {
                 if (line.has_prefix (";; okuri-ari entries.")) {
@@ -84,12 +65,6 @@ namespace Kkc {
                     entries = okuri_nasi_entries;
                     okuri = false;
                     continue;
-                }
-                try {
-                    line = converter.decode (line);
-                } catch (GLib.Error e) {
-                    throw new DictionaryError.MALFORMED_INPUT (
-                        "can't decode line %s: %s", line, e.message);
                 }
                 int index = line.index_of ("/");
                 if (index < 1) {
@@ -180,10 +155,6 @@ namespace Kkc {
                 return;
 
             var builder = new StringBuilder ();
-            var coding = converter.get_coding_system ();
-            if (coding != null) {
-                builder.append (";;; -*- coding: %s -*-\n".printf (coding));
-            }
 
             builder.append (";; okuri-ari entries.\n");
             var entries = new ArrayList<Map.Entry<string,Gee.List<Candidate>>> ();
@@ -198,10 +169,9 @@ namespace Kkc {
             write_entries (builder, entries);
             entries.clear ();
 
-            var contents = converter.encode (builder.str);
             DirUtils.create_with_parents (Path.get_dirname (file.get_path ()),
                                           448);
-            file.replace_contents (contents.data,
+            file.replace_contents (builder.str.data,
                                    etag,
                                    false,
                                    FileCreateFlags.PRIVATE,
@@ -324,7 +294,6 @@ namespace Kkc {
 
         File file;
         string etag;
-        EncodingConverter converter;
         Map<string,Gee.List<Candidate>> okuri_ari_entries =
             new HashMap<string,Gee.List<Candidate>> ();
         Map<string,Gee.List<Candidate>> okuri_nasi_entries =
@@ -335,17 +304,13 @@ namespace Kkc {
          * Create a new UserSegmentDictionary.
          *
          * @param path a path to the file
-         * @param encoding encoding of the file (default UTF-8)
          *
          * @return a new UserSegmentDictionary
          * @throws GLib.Error if opening the file is failed
          */
-        public UserSegmentDictionary (string path,
-                                      string encoding = "UTF-8") throws GLib.Error
-        {
+        public UserSegmentDictionary (string path) throws GLib.Error {
             this.file = File.new_for_path (path);
             this.etag = "";
-            this.converter = new EncodingConverter (encoding);
             // user dictionary may not exist for the first time
             if (FileUtils.test (path, FileTest.EXISTS)) {
                 reload ();
