@@ -77,11 +77,10 @@ def murmur_hash3_32(b0, b1, seed):
     return h1
 
 class FilterGenerator(object):
-    def __init__(self, infile, outfile, record_size, header_size):
+    def __init__(self, infile, outfile, record_size):
         self.infile = infile
         self.outfile = outfile
         self.record_size = record_size
-        self.header_size = header_size
 
     def generate(self):
         size = os.fstat(self.infile.fileno()).st_size
@@ -95,7 +94,7 @@ class FilterGenerator(object):
         outmem = bytearray(m/8)
         for i in xrange(0, n):
             offset = i*self.record_size
-            b0, b1 = struct.unpack("=LL", inmem[offset:offset+self.header_size])
+            b0, b1 = struct.unpack("=LL", inmem[offset:offset+8])
             for k in xrange(0, 4):
                 h = murmur_hash3_32(b0, b1, k)
                 h = int(h * (m / float(0xFFFFFFFF)))
@@ -115,11 +114,8 @@ if __name__ == '__main__':
                         help='output file')
     parser.add_argument('record_size', type=int,
                         help='record size')
-    parser.add_argument('header_size', type=int,
-                        help='header size')
     args = parser.parse_args()
     generator = FilterGenerator(args.infile,
                                 args.outfile,
-                                args.record_size,
-                                args.header_size)
+                                args.record_size)
     generator.generate()

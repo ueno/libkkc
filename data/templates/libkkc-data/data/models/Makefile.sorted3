@@ -44,11 +44,11 @@ $(sorted3_data_files): $(text3_data_files)
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/genfilter.py \
 		sorted3/data.2gram \
 		sorted3/data.2gram.filter \
-		12 8
+		12
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/genfilter.py \
 		sorted3/data.3gram \
 		sorted3/data.3gram.filter \
-		10 8
+		10
 
 all: $(sorted3_data_files)
 

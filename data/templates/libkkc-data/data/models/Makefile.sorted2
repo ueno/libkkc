@@ -41,7 +41,7 @@ $(sorted2_data_files): $(text2_data_files)
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/genfilter.py \
 		sorted2/data.2gram \
 		sorted2/data.2gram.filter \
-		12 8
+		12
 
 all: $(sorted2_data_files)
 
