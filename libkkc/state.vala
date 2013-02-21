@@ -587,8 +587,8 @@ namespace Kkc {
                 if (state.segments.size == 0) {
                     state.rom_kana_converter.output_nn_if_any ();
                     state.input_buffer.append (state.rom_kana_converter.output);
-                    string input = RomKanaUtils.get_hiragana (
-                        state.input_buffer.str);
+                    string input = RomKanaUtils.get_hiragana (state.input);
+
                     var output = state.lookup_single (input);
                     if (output != null) {
                         var segment = new Segment (input, output);
