@@ -63,6 +63,11 @@ namespace Kkc {
         public unichar code { get; private set; }
 
         /**
+         * X keycode.
+         */
+        public uint keycode { get; set; }
+
+        /**
          * Modifier mask.
          */
         public ModifierType modifiers { get; set; }
@@ -258,6 +263,21 @@ namespace Kkc {
          */
         public KeyEvent.from_x_keysym (uint keyval,
                                        ModifierType modifiers) throws KeyEventFormatError {
+            from_x_event (keyval, 0, modifiers);
+        }
+
+        /**
+         * Create a key event from an X event.
+         *
+         * @param keyval an X keysym
+         * @param keycode an X keycode
+         * @param modifiers modifier mask
+         *
+         * @return a new KeyEvent
+         */
+        public KeyEvent.from_x_event (uint keyval,
+                                      uint keycode,
+                                      ModifierType modifiers) throws KeyEventFormatError {
             foreach (var entry in NAME_KEYVALS) {
                 if (entry.key == keyval) {
                     name = entry.value;
@@ -278,8 +298,9 @@ namespace Kkc {
                         "unknown keysym %u", keyval);
                 }
             }
-            this.modifiers = modifiers;
-        }
+            this.keycode = keycode;
+            this.modifiers = modifiers; 
+       }
 
         /**
          * Compare two key events ignoring modifiers.

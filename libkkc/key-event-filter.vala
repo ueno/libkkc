@@ -63,4 +63,27 @@ namespace Kkc {
             return key;
         }
     }
+
+    /**
+     * Key event filter for Kana typing rule.
+     *
+     * This class is rarely used in programs but specified as "filter"
+     * property in rule metadata.
+     *
+     * @see Rule
+     */
+    class KanaKeyEventFilter : KeyEventFilter {
+        /**
+         * {@inheritDoc}
+         */
+        public override KeyEvent? filter_key_event (KeyEvent key) {
+            // ignore key release event
+            if ((key.modifiers & ModifierType.RELEASE_MASK) != 0)
+                return null;
+            // convert backslash to yen sign if the keycode is 124
+            if (key.code == '\\' && key.keycode == 124)
+                return new KeyEvent (key.name, 0xA5, key.modifiers);
+            return key;
+        }
+    }
 }

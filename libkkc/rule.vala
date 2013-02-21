@@ -179,6 +179,7 @@ namespace Kkc {
             rules_path = Utils.build_data_path ("rules");
             filter_types.set ("simple", typeof (SimpleKeyEventFilter));
             filter_types.set ("nicola", typeof (NicolaKeyEventFilter));
+            filter_types.set ("kana", typeof (KanaKeyEventFilter));
         }
 
         static RuleMetadata load_metadata (string filename) throws RuleParseError

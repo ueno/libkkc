@@ -1,4 +1,5 @@
 {
     "name": "Kana",
-    "description": "Direct Kana typing"
+    "description": "Direct Kana typing",
+    "filter": "kana"
 }

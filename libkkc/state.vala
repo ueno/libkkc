@@ -661,7 +661,7 @@ namespace Kkc {
                 }
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.code && key.code < 0x7F) {
+                    state.rom_kana_converter.is_valid (key.code)) {
                     if (state.rom_kana_converter.append (key.code)) {
                         state.input_buffer.append (
                             state.rom_kana_converter.output);
