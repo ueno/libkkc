@@ -124,14 +124,20 @@ tables.  The value is an object which maps a string to either an array
 or null.
 
 If the value is an array, a new mapping is defined.  In that case each
-array can contain 2 to 4 elements.  The first two elements are
+array can contain 2 to 5 elements.  The first two elements are
 <carryover> and <hiragana>.  <carryover> is a string which will be
 added to preedit after the transition (for example, when "bb" is
 typed, "b" is <carryover> which will be added to the next preedit).
-<hiragana> is an output in hiragana.  The rest of those elements are
-<katakana> and <hankaku-katakana>, which are optional output strings
-in katakana and hankaku-katakana input mode (automatically derived
-from <hiragana> if they are omitted).
+
+<hiragana> is an output in hiragana.  The optional 3rd element is
+<katakana>, which will be an output when input mode is katakana.
+
+The optional 4th element is <hiragana_partial>, which will be an
+output when the input is incompletely finished (for example, when "nk"
+is typed, "ん" will be output and the next preedit will be "k").
+
+The optional 5th element is <katakana_partial>, katakana version of
+<hiragana_partial>.
 
 If the value is null, existing mapping of the corresponding key is
 removed from the parent map file.
@@ -144,7 +150,7 @@ Example:
   ],
   "define": {
     "rom-kana": {
-      "xka": [ "", "か", "ヵ", "ｶ" ],
+      "xka": [ "", "か", "ヵ" ],
       "b.": [ "", "ぶ" ],
       "dha": null
     }
@@ -155,8 +161,8 @@ This map file includes "default" map file first, defines new mappings
 for "xka" and "b.", and removes a mapping "dha" from the current map
 file.
 
-Copyright (C) 2011-2012 Daiki Ueno <ueno@gnu.org>
-Copyright (C) 2011-2012 Red Hat, Inc.
+Copyright (C) 2011-2013 Daiki Ueno <ueno@gnu.org>
+Copyright (C) 2011-2013 Red Hat, Inc.
 
 This file is free software; as a special exception the author gives
 unlimited permission to copy and/or distribute it, with or without

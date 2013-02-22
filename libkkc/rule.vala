@@ -48,18 +48,26 @@ namespace Kkc {
                 if (value.get_node_type () == Json.NodeType.ARRAY) {
                     var components = value.get_array ();
                     var length = components.get_length ();
-                    if (2 <= length && length <= 4) {
+                    if (2 <= length && length <= 5) {
                         var carryover = components.get_string_element (0);
-                        var kana = components.get_string_element (1);
-                        var partial = length >= 3 ?
+                        var hiragana = components.get_string_element (1);
+                        var katakana = length >= 3 ?
                             components.get_string_element (2) :
+                            RomKanaUtils.get_katakana (hiragana);
+                        var hiragana_partial = length >= 4 ?
+                            components.get_string_element (3) :
+                            "";
+                        var katakana_partial = length >= 5 ?
+                            components.get_string_element (4) :
                             "";
 
                         RomKanaEntry entry = {
                             key,
                             carryover,
-                            kana,
-                            partial
+                            hiragana,
+                            katakana,
+                            hiragana_partial,
+                            katakana_partial
                         };
                         node.insert (key, entry);
                     }

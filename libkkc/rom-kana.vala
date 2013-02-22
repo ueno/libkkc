@@ -22,8 +22,23 @@ namespace Kkc {
     struct RomKanaEntry {
         string rom;
         string carryover;
-        string kana;
-        string partial;
+        string hiragana;
+        string katakana;
+        string hiragana_partial;
+        string katakana_partial;
+
+        public string get_kana (KanaMode mode, bool partial) {
+            switch (mode) {
+            case KanaMode.HIRAGANA:
+                return partial ? hiragana_partial : hiragana;
+            case KanaMode.KATAKANA:
+                return partial ? katakana_partial : katakana;
+            default:
+                return RomKanaUtils.convert_by_kana_mode (
+                    partial ? hiragana_partial : hiragana,
+                    mode);
+            }
+        }
     }
 
     static const string[] PUNCTUATION_RULE = {"。、", "．，", "。，", "．、"};
@@ -213,15 +228,14 @@ namespace Kkc {
          * Flush partial output, if any.
          */
         public bool flush_partial () {
-            if (current_node.entry != null &&
-                current_node.entry.partial.length > 0) {
-                _output.append (
-                    RomKanaUtils.convert_by_kana_mode (
-                        current_node.entry.partial,
-                        kana_mode));
-                _preedit.erase ();
-                current_node = rule.root_node;
-                return true;
+            if (current_node.entry != null) {
+                var partial = current_node.entry.get_kana (kana_mode, true);
+                if (partial.length > 0) {
+                    _output.append (partial);
+                    _preedit.erase ();
+                    current_node = rule.root_node;
+                    return true;
+                }
             }
             return false;
         }
@@ -286,10 +300,8 @@ namespace Kkc {
             } else if (child_node.n_children > 0) {
                 // node is not a terminal
                 if (child_node.entry != null) {
-                    _preedit.append (
-                        RomKanaUtils.convert_by_kana_mode (
-                            child_node.entry.kana,
-                            kana_mode));
+                    _preedit.append (child_node.entry.get_kana (kana_mode,
+                                                                false));
                     preserve_preedit = true;
                 } else {
                     _preedit.append_unichar (uc);
@@ -298,10 +310,8 @@ namespace Kkc {
                 current_node = child_node;
                 return true;
             } else {
-                _output.append (
-                    RomKanaUtils.convert_by_kana_mode (
-                        child_node.entry.kana,
-                        kana_mode));
+                _output.append (child_node.entry.get_kana (kana_mode,
+                                                           false));
                 _preedit.erase ();
                 current_node = rule.root_node;
                 preserve_preedit = false;
