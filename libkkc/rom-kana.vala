@@ -48,13 +48,14 @@ namespace Kkc {
         internal RomKanaNode children[256];
         internal char c;
         internal uint n_children = 0;
-        internal bool valid[256];
+        internal uint8 valid[32];
 
         internal RomKanaNode (RomKanaEntry? entry) {
             this.entry = entry;
             for (int i = 0; i < children.length; i++) {
                 children[i] = null;
             }
+            Memory.set (valid, 0, valid.length);
         }
 
         internal void insert (string key, RomKanaEntry entry) {
@@ -68,7 +69,7 @@ namespace Kkc {
                 }
                 node.n_children++;
                 node = node.children[uc];
-                valid[uc] = true;
+                valid[uc / 8] |= (uint8) (1 << (uc % 8));
             }
             node.entry = entry;
         }
@@ -219,8 +220,9 @@ namespace Kkc {
         public bool is_valid (unichar uc) {
             if (uc > 256)
                 return false;
-            return current_node.valid[(int)uc] ||
-                _rule.root_node.valid[(int)uc];
+            uint8 mask = (uint8) (1 << (uc % 8));
+            return (current_node.valid[uc / 8] & mask) != 0 ||
+                (_rule.root_node.valid[uc / 8] & mask) != 0;
         }
 
         /**
