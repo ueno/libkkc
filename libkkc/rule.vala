@@ -50,20 +50,16 @@ namespace Kkc {
                     var length = components.get_length ();
                     if (2 <= length && length <= 4) {
                         var carryover = components.get_string_element (0);
-                        var hiragana = components.get_string_element (1);
-                        var katakana = length >= 3 ?
+                        var kana = components.get_string_element (1);
+                        var partial = length >= 3 ?
                             components.get_string_element (2) :
-                            RomKanaUtils.get_katakana (hiragana);
-                        var hankaku_katakana = length == 4 ?
-                            components.get_string_element (3) :
-                            RomKanaUtils.get_hankaku_katakana (katakana);
+                            "";
 
                         RomKanaEntry entry = {
                             key,
                             carryover,
-                            hiragana,
-                            katakana,
-                            hankaku_katakana
+                            kana,
+                            partial
                         };
                         node.insert (key, entry);
                     }

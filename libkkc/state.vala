@@ -541,7 +541,7 @@ namespace Kkc {
                   state.rom_kana_converter.can_consume (key.code))) {
                 foreach (var entry in input_mode_commands) {
                     if (entry.key == command) {
-                        state.rom_kana_converter.output_nn_if_any ();
+                        state.rom_kana_converter.flush_partial ();
                         state.selection.erase ();
                         state.input_mode = entry.value;
                         return true;
@@ -562,7 +562,7 @@ namespace Kkc {
                 (key.modifiers == 0 ||
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                 0x20 <= key.code && key.code < 0x7F) {
-                state.rom_kana_converter.output_nn_if_any ();
+                state.rom_kana_converter.flush_partial ();
                 state.input_buffer.append (state.rom_kana_converter.output);
                 state.rom_kana_converter.output = "";
                 state.input_buffer.append_c ((char) key.code);
@@ -585,7 +585,7 @@ namespace Kkc {
                     return true;
                 }
                 if (state.segments.size == 0) {
-                    state.rom_kana_converter.output_nn_if_any ();
+                    state.rom_kana_converter.flush_partial ();
                     state.input_buffer.append (state.rom_kana_converter.output);
                     string input = RomKanaUtils.get_hiragana (state.input);
 
@@ -622,7 +622,7 @@ namespace Kkc {
                 return false;
             }
             else if (command == "complete") {
-                state.rom_kana_converter.output_nn_if_any ();
+                state.rom_kana_converter.flush_partial ();
                 state.input_buffer.append (state.rom_kana_converter.output);
                 state.rom_kana_converter.output = "";
                 if (state.input_buffer.len > 0) {
@@ -646,7 +646,7 @@ namespace Kkc {
             case InputMode.KATAKANA:
             case InputMode.HANKAKU_KATAKANA:
                 if (command == "next-candidate") {
-                    state.rom_kana_converter.output_nn_if_any ();
+                    state.rom_kana_converter.flush_partial ();
                     state.input_buffer.append (state.rom_kana_converter.output);
                     state.rom_kana_converter.output = "";
                     state.handler_type = typeof (ConvertSentenceStateHandler);
@@ -697,7 +697,7 @@ namespace Kkc {
 
             bool retval = state.input_buffer.len > 0 ||
                 state.rom_kana_converter.preedit.length > 0;
-            state.rom_kana_converter.output_nn_if_any ();
+            state.rom_kana_converter.flush_partial ();
             state.output.append (state.input_buffer.str);
             state.output.append (state.rom_kana_converter.output);
             state.output.append (state.rom_kana_converter.preedit);
@@ -719,7 +719,7 @@ namespace Kkc {
             var command = state.lookup_key (key);
             foreach (var entry in end_preedit_commands) {
                 if (entry.key == command) {
-                    state.rom_kana_converter.output_nn_if_any ();
+                    state.rom_kana_converter.flush_partial ();
                     state.output.assign (
                         RomKanaUtils.convert_by_kana_mode (
                             state.rom_kana_converter.output,

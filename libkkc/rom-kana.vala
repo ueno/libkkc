@@ -22,22 +22,8 @@ namespace Kkc {
     struct RomKanaEntry {
         string rom;
         string carryover;
-
-        // we can't simply use string kana[3] here because array
-        // initializer in Vala does not support it
-        string hiragana;
-        string katakana;
-        string hankaku_katakana;
-
-        internal string get_kana (KanaMode kana_mode) {
-            if (kana_mode == KanaMode.HIRAGANA)
-                return hiragana;
-            else if (kana_mode == KanaMode.KATAKANA)
-                return katakana;
-            else if (kana_mode == KanaMode.HANKAKU_KATAKANA)
-                return hankaku_katakana;
-            return "";
-        }
+        string kana;
+        string partial;
     }
 
     static const string[] PUNCTUATION_RULE = {"。、", "．，", "。，", "．、"};
@@ -204,8 +190,6 @@ namespace Kkc {
             }
         }
 
-        static const string[] NN = { "ん", "ン", "ﾝ" };
-
         public RomKanaConverter () {
             try {
                 _rule = new RomKanaMapFile (Rule.find_rule ("default"));
@@ -226,11 +210,15 @@ namespace Kkc {
         }
 
         /**
-         * Output "nn" if preedit ends with "n".
+         * Flush partial output, if any.
          */
-        public bool output_nn_if_any () {
-            if (_preedit.str == "n") {
-                _output.append (NN[kana_mode]);
+        public bool flush_partial () {
+            if (current_node.entry != null &&
+                current_node.entry.partial.length > 0) {
+                _output.append (
+                    RomKanaUtils.convert_by_kana_mode (
+                        current_node.entry.partial,
+                        kana_mode));
                 _preedit.erase ();
                 current_node = rule.root_node;
                 return true;
@@ -262,7 +250,7 @@ namespace Kkc {
             var child_node = current_node.children[uc];
             if (child_node == null) {
                 // no such transition path in trie
-                var retval = output_nn_if_any ();
+                var retval = flush_partial ();
                 // XXX: index_of_char does not work with '\0'
                 var index = uc != '\0' ? ".,".index_of_char (uc) : -1;
                 if (index >= 0) {
@@ -298,7 +286,10 @@ namespace Kkc {
             } else if (child_node.n_children > 0) {
                 // node is not a terminal
                 if (child_node.entry != null) {
-                    _preedit.append (child_node.entry.get_kana (kana_mode));
+                    _preedit.append (
+                        RomKanaUtils.convert_by_kana_mode (
+                            child_node.entry.kana,
+                            kana_mode));
                     preserve_preedit = true;
                 } else {
                     _preedit.append_unichar (uc);
@@ -307,7 +298,10 @@ namespace Kkc {
                 current_node = child_node;
                 return true;
             } else {
-                _output.append (child_node.entry.get_kana (kana_mode));
+                _output.append (
+                    RomKanaUtils.convert_by_kana_mode (
+                        child_node.entry.kana,
+                        kana_mode));
                 _preedit.erase ();
                 current_node = rule.root_node;
                 preserve_preedit = false;
