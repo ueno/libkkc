@@ -250,6 +250,22 @@ namespace Kkc {
                 segment.output);
             candidates.add_candidates (new Candidate[] { original });
 
+            var _segments = decoder.decode (normalized_input,
+                                            3,
+                                            new int[0]);
+            foreach (var _segment in _segments) {
+                var builder = new StringBuilder ();
+                while (_segment != null) {
+                    builder.append (_segment.output);
+                    _segment = _segment.next;
+                }
+                var sentence = new Candidate (
+                    normalized_input,
+                    false,
+                    builder.str);
+                candidates.add_candidates (new Candidate[] { sentence });
+            }
+            
             lookup_template (new SimpleTemplate (normalized_input));
             lookup_template (new OkuriganaTemplate (normalized_input));
             lookup_template (new NumericTemplate (normalized_input));
