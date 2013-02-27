@@ -3,6 +3,7 @@
         "keymap": {
             "C-g": "abort",
             "C-c": "abort",
+            "Escape": "abort",
             "Return": "commit",
             "C-m": "commit",
             "C-h": "delete",

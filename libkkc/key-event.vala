@@ -239,6 +239,7 @@ namespace Kkc {
             { Keysyms.Tab, "Tab" },
             { Keysyms.Return, "Return" },
             { Keysyms.BackSpace, "BackSpace" },
+            { Keysyms.Escape, "Escape" },
             { Keysyms.Up, "Up" },
             { Keysyms.Down, "Down" },
             { Keysyms.Left, "Left" },
