@@ -240,10 +240,9 @@ namespace Kkc {
                     var i = (int) current_nbest_node.node.endpos - current_nbest_node.node.length;
                     foreach (var trellis_node in trellis[i]) {
                         var nbest_node = new NbestNode (trellis_node);
-                        var cost = nbest_node.node.cumulative_cost + path_cost (
-                            nbest_node.node,
-                            current_nbest_node.node,
-                            (int) i);
+                        var cost = path_cost (nbest_node.node,
+                                              current_nbest_node.node,
+                                              (int) i);
 
                         nbest_node.gn = cost + current_nbest_node.gn;
                         nbest_node.fn = nbest_node.gn + nbest_node.node.cumulative_cost;
@@ -262,7 +261,12 @@ namespace Kkc {
         }
         
         static int compare_nbest_node (NbestNode a, NbestNode b) {
-            return (int) b.fn - (int) a.fn; 
+            if (a.fn == b.fn)
+                return 0;
+            else if (a.fn < b.fn)
+                return 1;
+            else
+                return -1;
         }
 
         string concat_nbest_node_outputs (NbestNode nbest_node) {
