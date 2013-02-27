@@ -250,8 +250,20 @@ namespace Kkc {
                 segment.output);
             candidates.add_candidates (new Candidate[] { original });
 
+            for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
+                var output = RomKanaUtils.convert_by_kana_mode (
+                    normalized_input,
+                    (KanaMode) mode);
+                var candidate = new Candidate (normalized_input, false, output);
+                candidates.add_candidates (new Candidate[] { candidate });
+            }
+
+            lookup_template (new SimpleTemplate (normalized_input), true);
+            lookup_template (new OkuriganaTemplate (normalized_input), true);
+            lookup_template (new NumericTemplate (normalized_input), true);
+
             var _segments = decoder.decode (normalized_input,
-                                            3,
+                                            10,
                                             new int[0]);
             foreach (var _segment in _segments) {
                 var builder = new StringBuilder ();
@@ -266,17 +278,9 @@ namespace Kkc {
                 candidates.add_candidates (new Candidate[] { sentence });
             }
             
-            lookup_template (new SimpleTemplate (normalized_input));
-            lookup_template (new OkuriganaTemplate (normalized_input));
-            lookup_template (new NumericTemplate (normalized_input));
-
-            for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
-                var output = RomKanaUtils.convert_by_kana_mode (
-                    normalized_input,
-                    (KanaMode) mode);
-                var candidate = new Candidate (normalized_input, false, output);
-                candidates.add_candidates (new Candidate[] { candidate });
-            }
+            lookup_template (new SimpleTemplate (normalized_input), false);
+            lookup_template (new OkuriganaTemplate (normalized_input), false);
+            lookup_template (new NumericTemplate (normalized_input), false);
 
             candidates.add_candidates_end ();
         }
@@ -304,9 +308,9 @@ namespace Kkc {
             }
         }
 
-        void lookup_template (Template template) {
+        void lookup_template (Template template, bool user) {
             dictionaries.call (typeof (SegmentDictionary),
-                               false,
+                               user,
                                (dictionary) => {
                                    lookup_template_for_dictionary (dictionary,
                                                                    template);
