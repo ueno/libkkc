@@ -321,7 +321,8 @@ namespace Kkc {
         internal void convert_sentence (string input,
                                         int[]? constraint = null)
         {
-            var _segments = decoder.decode (input,
+            var normalized_input = RomKanaUtils.normalize (input);
+            var _segments = decoder.decode (normalized_input,
                                             1,
                                             constraint ?? new int[0]);
             segments.set_segments (_segments[0]);
