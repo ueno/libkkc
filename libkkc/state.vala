@@ -250,17 +250,9 @@ namespace Kkc {
                 segment.output);
             candidates.add_candidates (new Candidate[] { original });
 
-            for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
-                var output = RomKanaUtils.convert_by_kana_mode (
-                    normalized_input,
-                    (KanaMode) mode);
-                var candidate = new Candidate (normalized_input, false, output);
-                candidates.add_candidates (new Candidate[] { candidate });
-            }
-
-            lookup_template (new SimpleTemplate (normalized_input), true);
-            lookup_template (new OkuriganaTemplate (normalized_input), true);
-            lookup_template (new NumericTemplate (normalized_input), true);
+            lookup_template (new SimpleTemplate (normalized_input), 3);
+            lookup_template (new OkuriganaTemplate (normalized_input), 3);
+            lookup_template (new NumericTemplate (normalized_input), 3);
 
             var _segments = decoder.decode (normalized_input,
                                             10,
@@ -278,22 +270,36 @@ namespace Kkc {
                 candidates.add_candidates (new Candidate[] { sentence });
             }
             
-            lookup_template (new SimpleTemplate (normalized_input), false);
-            lookup_template (new OkuriganaTemplate (normalized_input), false);
-            lookup_template (new NumericTemplate (normalized_input), false);
+            lookup_template (new SimpleTemplate (normalized_input), -1);
+            lookup_template (new OkuriganaTemplate (normalized_input), -1);
+            lookup_template (new NumericTemplate (normalized_input), -1);
+
+            for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
+                var output = RomKanaUtils.convert_by_kana_mode (
+                    normalized_input,
+                    (KanaMode) mode);
+                var candidate = new Candidate (normalized_input, false, output);
+                candidates.add_candidates (new Candidate[] { candidate });
+            }
 
             candidates.add_candidates_end ();
         }
 
         void lookup_template_for_dictionary (Dictionary dictionary,
-                                             Template template)
+                                             Template template,
+                                             int max_matches)
         {
             var segment_dict = dictionary as SegmentDictionary;
             Candidate[] _candidates;
             if (segment_dict.lookup_candidates (template.source,
                                                 template.okuri,
                                                 out _candidates)) {
-                foreach (var candidate in _candidates) {
+                if (max_matches < 0)
+                    max_matches = _candidates.length - 1;
+                else
+                    max_matches = int.min (max_matches, _candidates.length - 1);
+                for (var i = 0; i <= max_matches; i++) {
+                    var candidate = _candidates[i];
                     string text;
                     text = Expression.eval (candidate.text);
                     text = template.expand (text);
@@ -308,12 +314,13 @@ namespace Kkc {
             }
         }
 
-        void lookup_template (Template template, bool user) {
+        void lookup_template (Template template, int max_matches) {
             dictionaries.call (typeof (SegmentDictionary),
-                               user,
+                               false,
                                (dictionary) => {
                                    lookup_template_for_dictionary (dictionary,
-                                                                   template);
+                                                                   template,
+                                                                   max_matches);
                                    return DictionaryCallbackReturn.CONTINUE;
                                });
         }
