@@ -253,6 +253,31 @@ namespace Kkc {
             }
         }
 
+        bool append_punctuation (unichar uc) {
+            var index = -1;
+            if (is_valid (uc)) {
+                var node = current_node.children[uc];
+                if (node != null && node.entry != null) {
+                    if (node.entry.hiragana == "。")
+                        index = 0;
+                    else if (node.entry.hiragana == "、")
+                        index = 1;
+                }
+            }
+            if (index >= 0) {
+                if (preserve_preedit)
+                    _output.append (_preedit.str);
+                index = PUNCTUATION_RULE[punctuation_style].index_of_nth_char (index);
+                unichar punctuation = PUNCTUATION_RULE[punctuation_style].get_char (index);
+                _output.append_unichar (punctuation);
+                _preedit.erase ();
+                current_node = rule.root_node;
+                preserve_preedit = false;
+                return true;
+            }
+            return false;
+        }
+
         /**
          * Append a character to the internal buffer.
          *
@@ -265,17 +290,7 @@ namespace Kkc {
             if (child_node == null) {
                 // no such transition path in trie
                 var retval = flush_partial ();
-                // XXX: index_of_char does not work with '\0'
-                var index = uc != '\0' ? ".,".index_of_char (uc) : -1;
-                if (index >= 0) {
-                    if (preserve_preedit)
-                        _output.append (_preedit.str);
-                    index = PUNCTUATION_RULE[punctuation_style].index_of_nth_char (index);
-                    unichar punctuation = PUNCTUATION_RULE[punctuation_style].get_char (index);
-                    _output.append_unichar (punctuation);
-                    _preedit.erase ();
-                    current_node = rule.root_node;
-                    preserve_preedit = false;
+                if (append_punctuation (uc)) {
                     return true;
                 } else if (rule.root_node.children[uc] == null) {
                     _preedit.erase ();
@@ -310,8 +325,9 @@ namespace Kkc {
                 current_node = child_node;
                 return true;
             } else {
-                _output.append (child_node.entry.get_kana (kana_mode,
-                                                           false));
+                if (append_punctuation (uc))
+                    return true;
+                _output.append (child_node.entry.get_kana (kana_mode, false));
                 _preedit.erase ();
                 current_node = rule.root_node;
                 preserve_preedit = false;
