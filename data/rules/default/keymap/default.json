@@ -12,6 +12,7 @@
             "A-r": "register",
             "Tab": "complete",
             "space": "next-candidate",
+            "Down": "next-candidate",
             "C-x": "previous-candidate",
             "S-space": "previous-candidate",
             "C-BackSpace": "purge-candidate",
