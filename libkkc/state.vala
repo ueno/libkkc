@@ -560,6 +560,11 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
+
+            // clear completion
+            if (command != "complete")
+                state.completion_iterator = null;
+
             // check mode switch events
             if (command != null && command.has_prefix ("set-input-mode-") &&
                 !((state.input_mode == InputMode.HIRAGANA ||
