@@ -21,8 +21,8 @@ namespace Kkc {
     public abstract class TrellisNode {
         public abstract uint endpos { get; }
         public abstract uint length { get; }
-        public abstract string input { owned get; }
-        public abstract string output { owned get; }
+        public abstract string input { get; }
+        public abstract string output { get; }
 
         public TrellisNode? previous;
         public double cumulative_cost;
@@ -40,13 +40,13 @@ namespace Kkc {
         }
 
         public override string input {
-            owned get {
+            get {
                 return _entry.input;
             }
         }
 
         public override string output {
-            owned get {
+            get {
                 return _entry.output;
             }
         }
@@ -97,19 +97,17 @@ namespace Kkc {
             }
         }
 
+        string _input;
         public override string input {
-            owned get {
-                if (_endpos < _right_node.endpos)
-                    return _left_node.entry.input;
-                return _left_node.entry.input + _right_node.entry.input;
+            get {
+                return _input;
             }
         }
 
+        string _output;
         public override string output {
-            owned get {
-                if (_endpos < _right_node.endpos)
-                    return _left_node.entry.output;
-                return _left_node.entry.output + _right_node.entry.output;
+            get {
+                return _output;
             }
         }
 
@@ -133,7 +131,17 @@ namespace Kkc {
             _left_node = left_node;
             _right_node = right_node;
             _endpos = endpos;
-            _entries = new LanguageModelEntry[] { left_node.entry, right_node.entry };
+            if (_endpos < _right_node.endpos) {
+                _input = _left_node.entry.input;
+                _output = _left_node.entry.output;
+            } else {
+                _input = _left_node.entry.input + _right_node.entry.input;
+                _output = _left_node.entry.output + _right_node.entry.output;
+            }
+            _entries = new LanguageModelEntry[] {
+                left_node.entry,
+                right_node.entry
+            };
         }
 
         public override string to_string () {
