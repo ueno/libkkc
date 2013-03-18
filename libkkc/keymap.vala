@@ -19,7 +19,7 @@ using Gee;
 
 namespace Kkc {
     public class Keymap : Object {
-        public Map<KeyEvent,string> entries =
+        Map<KeyEvent,string> entries =
             new HashMap<KeyEvent,string> ((HashFunc) key_hash,
                                           (EqualFunc) key_equal);
 
@@ -30,6 +30,10 @@ namespace Kkc {
         static uint key_hash (KeyEvent a) {
             return int_hash ((int) a.keyval) +
                 int_hash ((int) a.modifiers);
+        }
+
+        public MapIterator<KeyEvent,string> map_iterator () {
+            return entries.map_iterator ();
         }
 
         public new void @set (KeyEvent key, string command) {
