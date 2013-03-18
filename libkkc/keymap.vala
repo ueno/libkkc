@@ -19,35 +19,33 @@ using Gee;
 
 namespace Kkc {
     public class Keymap : Object {
-        public Map<string,string> entries = new HashMap<string,string> ();
+        public Map<KeyEvent,string> entries =
+            new HashMap<KeyEvent,string> ((HashFunc) key_hash,
+                                          (EqualFunc) key_equal);
 
-        public new void @set (string key, string command) {
-            try {
-                var ev = new KeyEvent.from_string (key);
-                entries.set (ev.to_string (), command);
-            } catch (KeyEventFormatError e) {
-                warning ("can't get key event from string %s: %s",
-                         key, e.message);
-            }
+        static bool key_equal (KeyEvent a, KeyEvent b) {
+            return a.keyval == b.keyval && a.modifiers == b.modifiers;
+        }
+
+        static uint key_hash (KeyEvent a) {
+            return int_hash ((int) a.keyval) +
+                int_hash ((int) a.modifiers);
+        }
+
+        public new void @set (KeyEvent key, string command) {
+            entries.set (key, command);
         }
 
         public string? lookup_key (KeyEvent key) {
-            return entries.get (key.to_string ());
+            return entries.get (key);
         }
 
         public KeyEvent? where_is (string command) {
             var iter = entries.map_iterator ();
             if (iter.first ()) {
                 do {
-                    if (iter.get_value () == command) {
-                        var key = iter.get_key ();
-                        try {
-                            return new KeyEvent.from_string (key);
-                        } catch (KeyEventFormatError e) {
-                            warning ("can't get key event from string %s: %s",
-                                     key, e.message);
-                        }
-                    }
+                    if (iter.get_value () == command)
+                        return iter.get_key ();
                 } while (iter.next ());
             }
             return null;

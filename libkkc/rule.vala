@@ -29,7 +29,14 @@ namespace Kkc {
                 keymap = new Keymap ();
                 foreach (var key in map.keys) {
                     var value = map.get (key);
-                    keymap.set (key, value.get_string ());
+                    try {
+                        keymap.set (new KeyEvent.from_string (key),
+                                    value.get_string ());
+                    } catch (KeyEventFormatError e) {
+                        warning (
+                            "can't get key event from string %s: %s",
+                            key, e.message);
+                    }
                 }
             } else {
                 throw new RuleParseError.FAILED ("no keymap entry");
