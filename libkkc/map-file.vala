@@ -26,12 +26,17 @@ namespace Kkc {
             var keys = object.get_members ();
             foreach (var key in keys) {
                 var value = object.get_member (key);
+                var _key = uniquify (key);
                 if (value.get_node_type () == Json.NodeType.NULL) {
-                    map.unset (key);
+                    map.unset (_key);
                 } else {
-                    map.set (key, value);
+                    map.set (_key, value);
                 }
             }
+        }
+
+        protected virtual string uniquify (string key) {
+            return key;
         }
 
         void load (RuleMetadata metadata,

@@ -21,6 +21,18 @@ namespace Kkc {
     class KeymapMapFile : MapFile {
         internal Keymap keymap;
 
+        protected override string uniquify (string key) {
+            try {
+                var event = new KeyEvent.from_string (key);
+                return event.to_string ();
+            } catch (KeyEventFormatError e) {
+                warning (
+                    "can't get key event from string %s: %s",
+                    key, e.message);
+                return key;
+            }
+        }
+
         internal KeymapMapFile (RuleMetadata metadata, string mode) throws RuleParseError
         {
             base (metadata, "keymap", mode);
