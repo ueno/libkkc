@@ -1,7 +1,4 @@
 {
-    "include": [
-        "default"
-    ],
     "define": {
         "keymap": {
             "Hiragana_Katakana": "set-input-mode-hiragana",
