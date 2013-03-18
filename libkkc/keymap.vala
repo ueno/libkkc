@@ -36,7 +36,7 @@ namespace Kkc {
             return entries.map_iterator ();
         }
 
-        public new void @set (KeyEvent key, string command) {
+        public new void @set (KeyEvent key, string? command) {
             entries.set (key, command);
         }
 
