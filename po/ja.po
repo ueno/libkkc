@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-03 17:16+0900\n"
-"PO-Revision-Date: 2013-01-30 14:04+0900\n"
+"POT-Creation-Date: 2013-03-19 13:22+0900\n"
+"PO-Revision-Date: 2013-03-19 13:26+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,22 +16,106 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../tools/kkc.vala:27
+#: ../libkkc/keymap.vala:28
+msgid "Abort"
+msgstr "中断"
+
+#: ../libkkc/keymap.vala:29
+msgid "Commit"
+msgstr "確定"
+
+#: ../libkkc/keymap.vala:30
+msgid "Complete"
+msgstr "補完"
+
+#: ../libkkc/keymap.vala:31
+msgid "Delete"
+msgstr "消去"
+
+#: ../libkkc/keymap.vala:32
+msgid "Quoted Insert"
+msgstr "直接入力"
+
+#: ../libkkc/keymap.vala:33
+msgid "Register Word"
+msgstr "辞書登録"
+
+#: ../libkkc/keymap.vala:34
+msgid "Next Candidate"
+msgstr "次候補"
+
+#: ../libkkc/keymap.vala:35
+msgid "Previous Candidate"
+msgstr "前候補"
+
+#: ../libkkc/keymap.vala:36
+msgid "Purge Candidate"
+msgstr "候補を削除"
+
+#: ../libkkc/keymap.vala:37
+msgid "Next Segment"
+msgstr "次の文節"
+
+#: ../libkkc/keymap.vala:38
+msgid "Previous Segment"
+msgstr "前の文節"
+
+#: ../libkkc/keymap.vala:39
+msgid "Expand Segment"
+msgstr "文節を伸ばす"
+
+#: ../libkkc/keymap.vala:40
+msgid "Shrink Segment"
+msgstr "文節を縮める"
+
+#: ../libkkc/keymap.vala:41
+msgid "Switch to Hiragana Input Mode"
+msgstr "ひらがな入力モードに変更"
+
+#: ../libkkc/keymap.vala:42
+msgid "Switch to Katakana Input Mode"
+msgstr "カタカナ入力モードに変更"
+
+#: ../libkkc/keymap.vala:43
+msgid "Switch to Hankaku Katakana Input Mode"
+msgstr "半角カタカナ入力モードに変更"
+
+#: ../libkkc/keymap.vala:44
+msgid "Switch to Latin Input Mode"
+msgstr "英数入力モードに変更"
+
+#: ../libkkc/keymap.vala:45
+msgid "Switch to Wide Latin Input Mode"
+msgstr "全角英数入力モードに変更"
+
+#: ../libkkc/keymap.vala:46
+msgid "Switch to Direct Input Mode"
+msgstr "直接入力モードに変更"
+
+#: ../tools/kkc.vala:29
 msgid "Language model"
 msgstr "言語モデル"
 
-#: ../tools/kkc.vala:29
+#: ../tools/kkc.vala:31
 msgid "Run in input method testing mode"
 msgstr "入力メソッドのテストモードで実行"
 
-#: ../tools/kkc.vala:31
+#: ../tools/kkc.vala:33
 msgid "Path to a system dictionary"
 msgstr "システム辞書のパス"
 
-#: ../tools/kkc.vala:33
+#: ../tools/kkc.vala:35
 msgid "Path to a user dictionary"
 msgstr "ユーザ辞書のパス"
 
-#: ../tools/kkc.vala:44
+#: ../tools/kkc.vala:37
+msgid "Typing rule (default: \"default\")"
+msgstr "タイピング方式 (既定: \"default\")"
+
+#: ../tools/kkc.vala:39
+msgid "List typing rules"
+msgstr "タイピング方式を一覧表示"
+
+#: ../tools/kkc.vala:50
 msgid "- perform kana-kanji conversion on the command line"
 msgstr "- かな漢字変換をコマンドラインから実行"
