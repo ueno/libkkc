@@ -109,7 +109,8 @@ static int main (string[] args) {
 
         if (opt_typing_rule != null) {
             try {
-                context.typing_rule = new Kkc.Rule (opt_typing_rule);
+                var metadata = Kkc.Rule.find_rule (opt_typing_rule);
+                context.typing_rule = new Kkc.Rule (metadata);
             } catch (Kkc.RuleParseError e) {
                 stderr.printf ("can't load rule \"%s\": %s\n",
                                opt_typing_rule,

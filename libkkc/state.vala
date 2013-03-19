@@ -106,7 +106,9 @@ namespace Kkc {
             rom_kana_converter = new RomKanaConverter ();
 
             try {
-                _typing_rule = new Rule ("default");
+                var metadata = Rule.find_rule ("default");
+                assert (metadata != null);
+                _typing_rule = new Rule (metadata);
             } catch (RuleParseError e) {
                 warning ("cannot load default rule: %s",
                          e.message);

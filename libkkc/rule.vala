@@ -277,29 +277,23 @@ namespace Kkc {
         /**
          * Create a rule.
          *
-         * @param name name of the rule to load
+         * @param metadata metadata of the rule
          *
          * @return a new Rule
          */
-        public Rule (string name) throws RuleParseError {
-            var metadata = find_rule (name);
-            if (metadata == null) {
-                throw new RuleParseError.FAILED (
-                    "can't find metadata for \"%s\"",
-                    name);
-            }
+        public Rule (RuleMetadata metadata) throws RuleParseError {
             this.metadata = metadata;
-
             var default_metadata = find_rule ("default");
             foreach (var entry in keymap_names) {
                 var _metadata = metadata;
-                if (metadata.locate_map_file ("keymap", entry.value) == null) {
+                if (_metadata.locate_map_file ("keymap", entry.value) == null) {
                     _metadata = default_metadata;
                 }
                 keymaps[entry.key] = new KeymapMapFile (_metadata, entry.value);
             }
 
-            if (metadata.locate_map_file ("rom-kana", "default") == null) {
+            var _metadata = metadata;
+            if (_metadata.locate_map_file ("rom-kana", "default") == null) {
                 _metadata = default_metadata;
             }
             rom_kana = new RomKanaMapFile (_metadata);
