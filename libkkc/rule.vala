@@ -209,7 +209,7 @@ namespace Kkc {
             filter_types.set ("kana", typeof (KanaKeyEventFilter));
         }
 
-        static RuleMetadata load_metadata (string filename) throws RuleParseError
+        public static RuleMetadata load_metadata (string filename) throws RuleParseError
         {
             Json.Parser parser = new Json.Parser ();
             try {
