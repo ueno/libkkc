@@ -18,13 +18,18 @@
 using Gee;
 
 namespace Kkc {
-    public struct KeymapCommand {
+    struct KeymapCommandEntry {
         string name;
         string label;
     }
 
+    public struct KeymapEntry {
+        KeyEvent key;
+        string? command;
+    }
+
     public class Keymap : Object {
-        static const KeymapCommand COMMANDS[] = {
+        static const KeymapCommandEntry Commands[] = {
             { "abort", N_("Abort") },
             { "commit", N_("Commit") },
             { "complete", N_("Complete") },
@@ -46,15 +51,26 @@ namespace Kkc {
             { "set-input-mode-direct", N_("Switch to Direct Input Mode") }
         };
 
-        public static KeymapCommand[] commands () {
-            KeymapCommand[] commands = new KeymapCommand[COMMANDS.length];
-            for (var i = 0; i < commands.length; i++)
-                commands[i].label = dgettext (Config.GETTEXT_PACKAGE,
-                                              commands[i].label);
-            return commands;
+        static Map<string,string> _CommandTable =
+            new HashMap<string,string> ();
+
+        static construct {
+            for (var i = 0; i < Commands.length; i++) {
+                var label = dgettext (Config.GETTEXT_PACKAGE,
+                                      Commands[i].label);
+                _CommandTable.set (Commands[i].name, label);
+            }
         }
 
-        Map<KeyEvent,string> entries =
+        public static string[] commands () {
+            return _CommandTable.keys.to_array ();
+        }
+
+        public static string get_command_label (string command) {
+            return _CommandTable.get (command);
+        }
+
+        Map<KeyEvent,string> _entries =
             new HashMap<KeyEvent,string> ((HashFunc) key_hash,
                                           (EqualFunc) key_equal);
 
@@ -67,20 +83,33 @@ namespace Kkc {
                 int_hash ((int) a.modifiers);
         }
 
-        public MapIterator<KeyEvent,string> map_iterator () {
-            return entries.map_iterator ();
+        public KeymapEntry[] entries () {
+            KeymapEntry[] result = {};
+            var iter = _entries.map_iterator ();
+            if (iter.first ()) {
+                do {
+                    var key = iter.get_key ();
+                    var command = iter.get_value ();
+                    KeymapEntry entry = {
+                        key,
+                        command
+                    };
+                    result += entry;
+                } while (iter.next ());
+            }
+            return result;
         }
 
         public new void @set (KeyEvent key, string? command) {
-            entries.set (key, command);
+            _entries.set (key, command);
         }
 
         public string? lookup_key (KeyEvent key) {
-            return entries.get (key);
+            return _entries.get (key);
         }
 
         public KeyEvent? where_is (string command) {
-            var iter = entries.map_iterator ();
+            var iter = _entries.map_iterator ();
             if (iter.first ()) {
                 do {
                     if (iter.get_value () == command)
