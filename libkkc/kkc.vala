@@ -26,9 +26,12 @@ namespace Kkc {
     public static void init () {
         // needed to use static methods defined in some classes
         typeof (DictionaryUtils).class_ref ();
+        typeof (Keymap).class_ref ();
         typeof (LanguageModel).class_ref ();
 		typeof (Rule).class_ref ();
 		typeof (RomKanaUtils).class_ref ();
+
+        Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
     }
 
     /**

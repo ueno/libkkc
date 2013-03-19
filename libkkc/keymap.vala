@@ -18,7 +18,42 @@
 using Gee;
 
 namespace Kkc {
+    public struct KeymapCommand {
+        string name;
+        string label;
+    }
+
     public class Keymap : Object {
+        static const KeymapCommand COMMANDS[] = {
+            { "abort", N_("Abort") },
+            { "commit", N_("Commit") },
+            { "complete", N_("Complete") },
+            { "delete", N_("Delete") },
+            { "quote", N_("Quoted Insert") },
+            { "register", N_("Register Word") },
+            { "next-candidate", N_("Next Candidate") },
+            { "previous-candidate", N_("Previous Candidate") },
+            { "purge-candidate", N_("Purge Candidate") },
+            { "next-segment", N_("Next Segment") },
+            { "previous-segment", N_("Previous Segment") },
+            { "expand-segment", N_("Expand Segment") },
+            { "shrink-segment", N_("Shrink Segment") },
+            { "set-input-mode-hiragana", N_("Switch to Hiragana Input Mode") },
+            { "set-input-mode-katakana", N_("Switch to Katakana Input Mode") },
+            { "set-input-mode-hankaku-katakana", N_("Switch to Hankaku Katakana Input Mode") },
+            { "set-input-mode-latin", N_("Switch to Latin Input Mode") },
+            { "set-input-mode-wide-latin", N_("Switch to Wide Latin Input Mode") },
+            { "set-input-mode-direct", N_("Switch to Direct Input Mode") }
+        };
+
+        public static KeymapCommand[] commands () {
+            KeymapCommand[] commands = new KeymapCommand[COMMANDS.length];
+            for (var i = 0; i < commands.length; i++)
+                commands[i].label = dgettext (Config.GETTEXT_PACKAGE,
+                                              commands[i].label);
+            return commands;
+        }
+
         Map<KeyEvent,string> entries =
             new HashMap<KeyEvent,string> ((HashFunc) key_hash,
                                           (EqualFunc) key_equal);

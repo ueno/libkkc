@@ -45,6 +45,7 @@ libkkc_la_CFLAGS =				\
 	$(LIBKKC_CFLAGS)			\
 	-DLIBDIR=\"$(libdir)\"			\
 	-DPKGDATADIR=\"$(pkgdatadir)\"		\
+	-DLOCALEDIR=\"$(datadir)/locale\"	\
 	-I $(top_srcdir)			\
 	$(NULL)
 libkkc_la_LIBADD = $(LIBKKC_LIBS) $(top_builddir)/marisa-glib/libmarisa-glib.la
