@@ -541,23 +541,7 @@ namespace Kkc {
         internal abstract bool process_key_event (State state, ref KeyEvent key);
     }
 
-    // We can't use Entry<*,InputMode> here because of Vala bug:
-    // https://bugzilla.gnome.org/show_bug.cgi?id=684262
-    struct InputModeCommandEntry {
-        string key;
-        InputMode value;
-    }
-
     class InitialStateHandler : StateHandler {
-        static const InputModeCommandEntry[] input_mode_commands = {
-            { "set-input-mode-hiragana", InputMode.HIRAGANA },
-            { "set-input-mode-katakana", InputMode.KATAKANA },
-            { "set-input-mode-hankaku-katakana", InputMode.HANKAKU_KATAKANA },
-            { "set-input-mode-latin", InputMode.LATIN },
-            { "set-input-mode-wide-latin", InputMode.WIDE_LATIN },
-            { "set-input-mode-direct", InputMode.DIRECT }
-        };
-
         internal override bool process_key_event (State state,
                                                   ref KeyEvent key)
         {
@@ -574,13 +558,14 @@ namespace Kkc {
                    state.input_mode == InputMode.HANKAKU_KATAKANA) &&
                   key.modifiers == 0 &&
                   state.rom_kana_converter.can_consume (key.code))) {
-                foreach (var entry in input_mode_commands) {
-                    if (entry.key == command) {
-                        state.rom_kana_converter.flush_partial ();
-                        state.selection.erase ();
-                        state.input_mode = entry.value;
-                        return true;
-                    }
+                var enum_class = (EnumClass) typeof (InputMode).class_ref ();
+                var enum_value = enum_class.get_value_by_nick (
+                    command["set-input-mode-".length:command.length]);
+                if (enum_value != null) {
+                    state.rom_kana_converter.flush_partial ();
+                    state.selection.erase ();
+                    state.input_mode = (InputMode) enum_value.value;
+                    return true;
                 }
             }
 
@@ -742,23 +727,20 @@ namespace Kkc {
     }
 
     class ConvertSentenceStateHandler : StateHandler {
-        static const InputModeCommandEntry[] end_preedit_commands = {
-            { "set-input-mode-hiragana", InputMode.HIRAGANA },
-            { "set-input-mode-katakana", InputMode.KATAKANA },
-            { "set-input-mode-hankaku-katakana", InputMode.HANKAKU_KATAKANA }
-        };
-
         internal override bool process_key_event (State state,
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
-            foreach (var entry in end_preedit_commands) {
-                if (entry.key == command) {
+            if (command.has_prefix ("set-input-mode-")) {
+                var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
+                var enum_value = enum_class.get_value_by_nick (
+                    command["set-input-mode-".length:command.length]);
+                if (enum_value != null) {
                     state.rom_kana_converter.flush_partial ();
                     state.output.assign (
                         RomKanaUtils.convert_by_kana_mode (
                             state.rom_kana_converter.output,
-                            (KanaMode) entry.value));
+                            (KanaMode) enum_value.value));
                     state.rom_kana_converter.reset ();
                     return true;
                 }
