@@ -276,12 +276,18 @@ namespace Kkc {
             lookup_template (new OkuriganaTemplate (normalized_input), -1);
             lookup_template (new NumericTemplate (normalized_input), -1);
 
-            for (int mode = KanaMode.HIRAGANA; mode < KanaMode.LAST; mode++) {
-                var output = RomKanaUtils.convert_by_kana_mode (
-                    normalized_input,
-                    (KanaMode) mode);
-                var candidate = new Candidate (normalized_input, false, output);
-                candidates.add_candidates (new Candidate[] { candidate });
+            var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
+            for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
+                var enum_value = enum_class.get_value (i);
+                if (enum_value != null) {
+                    var output = RomKanaUtils.convert_by_kana_mode (
+                        normalized_input,
+                        (KanaMode) enum_value.value);
+                    var candidate = new Candidate (normalized_input,
+                                                   false,
+                                                   output);
+                    candidates.add_candidates (new Candidate[] { candidate });
+                }
             }
 
             candidates.add_candidates_end ();

@@ -66,13 +66,6 @@ namespace Kkc {
         /**
          * Direct input.
          */
-        DIRECT,
-        
-        LAST,
-
-        /**
-         * The default.
-         */
-        DEFAULT = HIRAGANA,
+        DIRECT
     }
 }

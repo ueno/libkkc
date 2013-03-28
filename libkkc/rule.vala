@@ -170,28 +170,12 @@ namespace Kkc {
          * Metadata associated with the rule.
          */
         public RuleMetadata metadata { get; private set; }
-        KeymapMapFile[] keymaps = new KeymapMapFile[InputMode.LAST];
+        KeymapMapFile[] keymaps;
         internal RomKanaMapFile rom_kana;
 
         public Keymap get_keymap (InputMode mode) {
             return keymaps[mode].keymap;
         }
-
-        // We can't use Entry<InputMode,*> here because of Vala bug:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=684262
-        struct KeymapNameEntry {
-            InputMode key;
-            string value;
-        }
-
-        static const KeymapNameEntry[] keymap_names = {
-            { InputMode.HIRAGANA, "hiragana" },
-            { InputMode.KATAKANA, "katakana" },
-            { InputMode.HANKAKU_KATAKANA, "hankaku-katakana" },
-            { InputMode.LATIN, "latin" },
-            { InputMode.WIDE_LATIN, "wide-latin" },
-            { InputMode.DIRECT, "direct" }
-        };
 
         static string[] rules_path;
 
@@ -284,12 +268,19 @@ namespace Kkc {
         public Rule (RuleMetadata metadata) throws RuleParseError {
             this.metadata = metadata;
             var default_metadata = find_rule ("default");
-            foreach (var entry in keymap_names) {
-                var _metadata = metadata;
-                if (_metadata.locate_map_file ("keymap", entry.value) == null) {
-                    _metadata = default_metadata;
+            var enum_class = (EnumClass) typeof (InputMode).class_ref ();
+            this.keymaps = new KeymapMapFile[enum_class.maximum + 1];
+            for (var i = enum_class.minimum; i <= enum_class.maximum; i++) {
+                var enum_value = enum_class.get_value (i);
+                if (enum_value != null) {
+                    var _metadata = metadata;
+                    if (_metadata.locate_map_file ("keymap",
+                                                   enum_value.value_nick) ==
+                        null)
+                        _metadata = default_metadata;
+                    this.keymaps[enum_value.value] =
+                        new KeymapMapFile (_metadata, enum_value.value_nick);
                 }
-                keymaps[entry.key] = new KeymapMapFile (_metadata, entry.value);
             }
 
             var _metadata = metadata;

@@ -137,9 +137,7 @@ namespace Kkc {
         /**
          * Full-width latin like "ａｂｃ...".
          */
-        WIDE_LATIN,
-
-        LAST
+        WIDE_LATIN
     }
 
     /**
