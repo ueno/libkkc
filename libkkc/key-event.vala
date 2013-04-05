@@ -213,45 +213,6 @@ namespace Kkc {
             }
         }
 
-        // We can't use Entry<uint,*> here because of Vala bug:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=684262
-        struct CodeKeyvalEntry {
-            uint key;
-            unichar value;
-        }
-
-        static const CodeKeyvalEntry[] CODE_KEYVALS = {
-            { Keysyms.Tab, '\t' },
-            { Keysyms.Return, '\n' },
-            { Keysyms.BackSpace, '\b' }
-        };
-
-        struct NameKeyvalEntry {
-            uint key;
-            string value;
-        }
-
-        static const NameKeyvalEntry[] NAME_KEYVALS = {
-            { Keysyms.space, "space" },
-            { Keysyms.Tab, "Tab" },
-            { Keysyms.Return, "Return" },
-            { Keysyms.BackSpace, "BackSpace" },
-            { Keysyms.Escape, "Escape" },
-            { Keysyms.Up, "Up" },
-            { Keysyms.Down, "Down" },
-            { Keysyms.Left, "Left" },
-            { Keysyms.Right, "Right" },
-            { Keysyms.Page_Up, "Page_Up" },
-            { Keysyms.KP_Page_Up, "Page_Up" },
-            { Keysyms.Page_Down, "Page_Down" },
-            { Keysyms.KP_Page_Down, "Page_Down" },
-            { Keysyms.Muhenkan, "lshift" },
-            { Keysyms.Henkan, "rshift" },
-            { Keysyms.Hiragana_Katakana, "Hiragana_Katakana" },
-            { Keysyms.Zenkaku_Hankaku, "Zenkaku_Hankaku" },
-            { Keysyms.Eisu_toggle, "Eisu_toggle" }
-        };
-
         /**
          * Create a key event from an X keysym and modifiers.
          *
@@ -261,7 +222,8 @@ namespace Kkc {
          * @return a new KeyEvent
          */
         public KeyEvent.from_x_keysym (uint keyval,
-                                       ModifierType modifiers) throws KeyEventFormatError {
+                                       ModifierType modifiers)
+        {
             from_x_event (keyval, 0, modifiers);
         }
 
@@ -276,27 +238,11 @@ namespace Kkc {
          */
         public KeyEvent.from_x_event (uint keyval,
                                       uint keycode,
-                                      ModifierType modifiers) throws KeyEventFormatError {
-            foreach (var entry in NAME_KEYVALS) {
-                if (entry.key == keyval) {
-                    name = entry.value;
-                    break;
-                }
-            }
-            foreach (var entry in CODE_KEYVALS) {
-                if (entry.key == keyval) {
-                    code = entry.value;
-                    break;
-                }
-            }
-            if (code == '\0') {
-                if (0x20 <= keyval && keyval < 0x7F) {
-                    code = (unichar) keyval;
-                } else if (name == null) {
-                    throw new KeyEventFormatError.KEYSYM_NOT_FOUND (
-                        "unknown keysym %u", keyval);
-                }
-            }
+                                      ModifierType modifiers)
+        {
+            name = KeyEventUtils.keyval_name (keyval);
+            code = KeyEventUtils.keyval_code (keyval);
+
             // Clear shift modifier when code is ASCII and not SPC.
             // FIXME: check the keymap if the key has level 2
             if (0x21 <= keyval && keyval < 0x7F)
@@ -312,16 +258,9 @@ namespace Kkc {
                 if (_keyval != Kkc.Keysyms.VoidSymbol)
                     return _keyval;
                 else {
-                    foreach (var entry in NAME_KEYVALS) {
-                        if (entry.value == name) {
-                            return entry.key;
-                        }
-                    }
-                    foreach (var entry in CODE_KEYVALS) {
-                        if (entry.value == code) {
-                            return entry.key;
-                        }
-                    }
+                    var retval = KeyEventUtils.keyval_from_name (name);
+                    if (retval != Kkc.Keysyms.VoidSymbol)
+                        return retval;
                     if (0x20 <= (uint) code && (uint) code < 0x7F)
                         return (uint) code;
                     return Kkc.Keysyms.VoidSymbol;
