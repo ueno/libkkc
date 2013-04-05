@@ -90,15 +90,6 @@ namespace Kkc {
         }
 
         /**
-         * Create a copy of the key event.
-         *
-         * @return a new KeyEvent
-         */
-        public KeyEvent copy () {
-            return new KeyEvent (name, code, modifiers);
-        }
-
-        /**
          * Create a key event from string.
          *
          * @param key a string representation of a key event

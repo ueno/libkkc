@@ -290,7 +290,7 @@ namespace Kkc {
         }
 
         bool process_key_event_internal (KeyEvent key) {
-            KeyEvent _key = key.copy ();
+            KeyEvent _key = key;
             while (true) {
                 var handler_type = state.handler_type;
                 var handler = handlers.get (handler_type);
