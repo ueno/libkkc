@@ -248,6 +248,7 @@ namespace Kkc {
             { Keysyms.Muhenkan, "lshift" },
             { Keysyms.Henkan, "rshift" },
             { Keysyms.Hiragana_Katakana, "Hiragana_Katakana" },
+            { Keysyms.Zenkaku_Hankaku, "Zenkaku_Hankaku" },
             { Keysyms.Eisu_toggle, "Eisu_toggle" }
         };
 
