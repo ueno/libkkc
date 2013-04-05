@@ -65,6 +65,7 @@ libkkc_shell_sources =				\
 	key-event-filter.vala			\
 	key-event.vala				\
 	keymap.vala				\
+	keynames.vala				\
 	keysyms.vala				\
 	map-file.vala				\
 	nicola.vala				\

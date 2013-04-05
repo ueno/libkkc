@@ -100,6 +100,37 @@ namespace Kkc {
         }
     }
 
+    class KeyEventUtils : Object {
+        static Gee.Map<uint,string> keyval_to_keyname =
+            new HashMap<uint,string> ();
+        static Gee.Map<string,uint> keyname_to_keyval =
+            new HashMap<string,uint> ();
+
+        static construct {
+            foreach (var entry in keynames)
+                keyval_to_keyname.set (entry.keyval, entry.name);
+            foreach (var entry in keynames)
+                keyname_to_keyval.set (entry.name, entry.keyval);
+        }
+
+        public static string? keyval_name (uint keyval) {
+            return keyval_to_keyname.get (keyval);
+        }
+
+        public static uint keyval_from_name (string name) {
+            if (keyname_to_keyval.has_key (name))
+                return keyname_to_keyval.get (name);
+            return Keysyms.VoidSymbol;
+        }
+
+        public static uint keyval_code (uint keyval) {
+            // FIXME: handle unicode keyvals
+            if (0x20 <= keyval && keyval < 0x7F)
+                return keyval;
+            return '\0';
+        }
+    }
+
     class MemoryMappedFile : Object {
         void *_memory = null;
         public void *memory {
