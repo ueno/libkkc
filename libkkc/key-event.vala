@@ -173,9 +173,6 @@ namespace Kkc {
          */
         public string to_string () {
             string _base = name != null ? name : code.to_string ();
-            // Omit shift modifier when code is ASCII.
-            if (0x21 <= code && code < 0x7F)
-                modifiers &= ~ModifierType.SHIFT_MASK;
             if (modifiers != 0) {
                 ArrayList<string?> elements = new ArrayList<string?> ();
                 if ((modifiers & ModifierType.SHIFT_MASK) != 0) {
@@ -299,6 +296,10 @@ namespace Kkc {
                         "unknown keysym %u", keyval);
                 }
             }
+            // Clear shift modifier when code is ASCII and not SPC.
+            // FIXME: check the keymap if the key has level 2
+            if (0x21 <= keyval && keyval < 0x7F)
+                modifiers &= ~ModifierType.SHIFT_MASK;
             this.keyval = keyval;
             this.keycode = keycode;
             this.modifiers = modifiers; 
