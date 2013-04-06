@@ -737,7 +737,7 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
-            if (command.has_prefix ("set-input-mode-")) {
+            if (command != null && command.has_prefix ("set-input-mode-")) {
                 var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
                 var enum_value = enum_class.get_value_by_nick (
                     command["set-input-mode-".length:command.length]);
