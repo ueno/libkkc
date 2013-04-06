@@ -53,10 +53,22 @@ namespace Kkc {
      * @see Rule
      */
     class SimpleKeyEventFilter : KeyEventFilter {
+        static const uint[] modifier_keyvals = {
+            Keysyms.Shift_L,
+            Keysyms.Shift_R,
+            Keysyms.Control_L,
+            Keysyms.Control_R,
+            Keysyms.Alt_L,
+            Keysyms.Alt_R
+        };
+
         /**
          * {@inheritDoc}
          */
         public override KeyEvent? filter_key_event (KeyEvent key) {
+            // ignore modifier keys
+            if (key.keyval in modifier_keyvals)
+                return null;
             // ignore key release event
             if ((key.modifiers & ModifierType.RELEASE_MASK) != 0)
                 return null;
@@ -72,18 +84,19 @@ namespace Kkc {
      *
      * @see Rule
      */
-    class KanaKeyEventFilter : KeyEventFilter {
+    class KanaKeyEventFilter : SimpleKeyEventFilter {
         /**
          * {@inheritDoc}
          */
         public override KeyEvent? filter_key_event (KeyEvent key) {
-            // ignore key release event
-            if ((key.modifiers & ModifierType.RELEASE_MASK) != 0)
+            var _key = base.filter_key_event (key);
+            if (_key == null)
                 return null;
+
             // convert backslash to yen sign if the keycode is 124
-            if (key.code == '\\' && key.keycode == 124)
-                return new KeyEvent (key.name, 0xA5, key.modifiers);
-            return key;
+            if (_key.code == '\\' && _key.keycode == 124)
+                return new KeyEvent (_key.name, 0xA5, _key.modifiers);
+            return _key;
         }
     }
 }
