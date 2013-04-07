@@ -54,22 +54,27 @@ namespace Kkc {
         /**
          * The base name of the KeyEvent.
          */
-        public string? name { get; private set; }
+        public string name { get; construct set; }
 
         /**
-         * The base code of the KeyEvent.
+         * The base unicode output of the KeyEvent.
          */
-        public unichar code { get; private set; }
+        public unichar code { get; construct set; }
+
+        /**
+         * X keyval.
+         */
+        public uint keyval { get; construct set; }
 
         /**
          * X keycode.
          */
-        public uint keycode { get; set; }
+        public uint keycode { get; construct set; }
 
         /**
          * Modifier mask.
          */
-        public ModifierType modifiers { get; set; }
+        public ModifierType modifiers { get; construct set; }
 
         /**
          * Create a key event from string.
@@ -184,20 +189,6 @@ namespace Kkc {
         }
 
         /**
-         * Create a key event from an X keysym and modifiers.
-         *
-         * @param keyval an X keysym
-         * @param modifiers modifier mask
-         *
-         * @return a new KeyEvent
-         */
-        public KeyEvent.from_x_keysym (uint keyval,
-                                       ModifierType modifiers)
-        {
-            from_x_event (keyval, 0, modifiers);
-        }
-
-        /**
          * Create a key event from an X event.
          *
          * @param keyval an X keysym
@@ -220,25 +211,6 @@ namespace Kkc {
             this.keyval = keyval;
             this.keycode = keycode;
             this.modifiers = modifiers; 
-        }
-
-        uint _keyval = Kkc.Keysyms.VoidSymbol;
-        public uint keyval {
-            get {
-                if (_keyval != Kkc.Keysyms.VoidSymbol)
-                    return _keyval;
-                else {
-                    var retval = KeyEventUtils.keyval_from_name (name);
-                    if (retval != Kkc.Keysyms.VoidSymbol)
-                        return retval;
-                    if (0x20 <= (uint) code && (uint) code < 0x7F)
-                        return (uint) code;
-                    return Kkc.Keysyms.VoidSymbol;
-                }
-            }
-            set {
-                _keyval = value;
-            }
         }
     }
 }
