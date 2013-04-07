@@ -56,18 +56,6 @@ namespace Kkc {
          */
         public int64 maxwait = 10000000;
 
-        static const string[] SPECIAL_DOUBLES = {
-            "[fj]", "[gh]", "[dk]", "[LR]"
-        };
-
-        /**
-         * Special double key press events (SKK-NICOLA extension).
-         *
-         * By default, "[fj]" (f + j), "[gh]" (g + h), "[dk]" (d + k),
-         * and "[LR]" (left shift + right shift) are registered.
-         */
-        public string[] special_doubles;
-
         class TimedEntry<T> {
             public T data;
             public int64 time;
@@ -79,12 +67,6 @@ namespace Kkc {
         }
 
         LinkedList<TimedEntry<KeyEvent>> pending = new LinkedList<TimedEntry<KeyEvent>> ();
-
-        // we can't use normal constructor here since KeyEventFilter
-        // is constructed with Object.new (type).
-        construct {
-            special_doubles = SPECIAL_DOUBLES;
-        }
 
         static bool is_char (KeyEvent key) {
             return key.code != 0;
@@ -100,24 +82,6 @@ namespace Kkc {
 
         static bool is_shift (KeyEvent key) {
             return is_lshift (key) || is_rshift (key);
-        }
-
-        static string get_special_double_name (KeyEvent a, KeyEvent b) {
-            if (is_shift (a) && is_shift (b)) {
-                return "[LR]";
-            } else if (is_char (a) && is_char (b)) {
-                unichar ac, bc;
-                if (a.code < b.code) {
-                    ac = a.code;
-                    bc = b.code;
-                } else {
-                    ac = b.code;
-                    bc = a.code;
-                }
-                return @"[$ac$bc]";
-            } else {
-                return_val_if_reached (null);
-            }
         }
 
         KeyEvent? queue (KeyEvent key, int64 time, out int64 wait) {
@@ -180,9 +144,9 @@ namespace Kkc {
         }
 
         void apply_shift (KeyEvent s, KeyEvent c) {
-            if (s.name == "lshift") {
+            if (is_lshift (s)) {
                 c.modifiers |= ModifierType.LSHIFT_MASK;
-            } else if (s.name == "rshift") {
+            } else if (is_rshift (s)) {
                 c.modifiers |= ModifierType.RSHIFT_MASK;
             }
         }
@@ -218,21 +182,11 @@ namespace Kkc {
                     return r;
                 } else if ((is_char (a.data) && is_char (b.data)) ||
                            (is_shift (a.data) && is_shift (b.data))) {
-                    // skk-nicola uses some combinations of 2 character
-                    // keys ([fj], [gh], etc.) and 2 shift keys ([LR]).
-                    var name = get_special_double_name (b.data, a.data);
-                    if (name in special_doubles) {
-                        pending.clear ();
-                        return new KeyEvent (name,
-                                             (unichar) 0,
-                                             ModifierType.NONE);
-                    } else {
-                        pending.clear ();
-                        pending.offer_head (b);
-                        var r = dispatch_single (time);
-                        forwarded (a.data);
-                        return r;
-                    }
+                    pending.clear ();
+                    pending.offer_head (b);
+                    var r = dispatch_single (time);
+                    forwarded (a.data);
+                    return r;
                 } else if (time - a.time > timeout) {
                     pending.clear ();
                     if (is_shift (b.data)) {
@@ -267,12 +221,8 @@ namespace Kkc {
         public override KeyEvent? filter_key_event (KeyEvent key) {
             KeyEvent? output = null;
             int64 time;
-            if ((key.modifiers & ModifierType.USLEEP_MASK) != 0) {
-                Thread.usleep ((long) int.parse (key.name));
-                time = get_time_func ();
-            } else if ((key.modifiers & ~ModifierType.RELEASE_MASK) == 0 &&
-                       (is_shift (key) ||
-                        (0x20 <= key.code && key.code <= 0x7E))) {
+            if ((key.modifiers & ~ModifierType.RELEASE_MASK) == 0 &&
+                (is_shift (key) || (0x20 <= key.code && key.code <= 0x7E))) {
                 time = get_time_func ();
                 int64 wait;
                 output = queue (key, time, out wait);
