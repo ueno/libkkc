@@ -94,8 +94,10 @@ namespace Kkc {
                 return null;
 
             // convert backslash to yen sign if the keycode is 124
-            if (_key.code == '\\' && _key.keycode == 124)
-                return new KeyEvent (_key.name, 0xA5, _key.modifiers);
+            if (_key.keyval == Keysyms.backslash && _key.keycode == 124)
+                return new KeyEvent.from_x_event (Keysyms.yen,
+                                                  _key.keycode,
+                                                  _key.modifiers);
             return _key;
         }
     }

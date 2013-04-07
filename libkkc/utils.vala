@@ -120,10 +120,19 @@ namespace Kkc {
         public static uint keyval_from_name (string name) {
             if (keyname_to_keyval.has_key (name))
                 return keyname_to_keyval.get (name);
+
+            // handle ASCII keyvals with differnet name (e.g. at,
+            // percent, etc.)
+            if (name.char_count () == 1) {
+                unichar code = name.get_char ();
+                if (0x20 <= code && code < 0x7F)
+                    return code;
+            }
+
             return Keysyms.VoidSymbol;
         }
 
-        public static uint keyval_code (uint keyval) {
+        public static unichar keyval_code (uint keyval) {
             // FIXME: handle unicode keyvals
             if (0x20 <= keyval && keyval < 0x7F)
                 return keyval;

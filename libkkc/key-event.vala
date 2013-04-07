@@ -72,23 +72,6 @@ namespace Kkc {
         public ModifierType modifiers { get; set; }
 
         /**
-         * Create a key event.
-         *
-         * @param name a key name
-         * @param code a character code
-         * @param modifiers state of modifier keys
-         *
-         * @return a new KeyEvent
-         */
-        public KeyEvent (string? name,
-                         unichar code,
-                         ModifierType modifiers) {
-            this.name = name;
-            this.code = code;
-            this.modifiers = modifiers;
-        }
-
-        /**
          * Create a key event from string.
          *
          * @param key a string representation of a key event
@@ -96,62 +79,64 @@ namespace Kkc {
          * @return a new KeyEvent
          */
         public KeyEvent.from_string (string key) throws KeyEventFormatError {
+            ModifierType _modifiers = 0;
+            string _name = null;
             if (key.has_prefix ("(") && key.has_suffix (")")) {
                 var strv = key[1:-1].split (" ");
                 int index = 0;
                 for (; index < strv.length - 1; index++) {
                     if (strv[index] == "shift") {
-                        modifiers |= ModifierType.SHIFT_MASK;
+                        _modifiers |= ModifierType.SHIFT_MASK;
                     } else if (strv[index] == "control") {
-                        modifiers |= ModifierType.CONTROL_MASK;
+                        _modifiers |= ModifierType.CONTROL_MASK;
                     } else if (strv[index] == "meta") {
-                        modifiers |= ModifierType.META_MASK;
+                        _modifiers |= ModifierType.META_MASK;
                     } else if (strv[index] == "hyper") {
-                        modifiers |= ModifierType.HYPER_MASK;
+                        _modifiers |= ModifierType.HYPER_MASK;
                     } else if (strv[index] == "super") {
-                        modifiers |= ModifierType.SUPER_MASK;
+                        _modifiers |= ModifierType.SUPER_MASK;
                     } else if (strv[index] == "alt") {
-                        modifiers |= ModifierType.MOD1_MASK;
+                        _modifiers |= ModifierType.MOD1_MASK;
                     } else if (strv[index] == "lshift") {
-                        modifiers |= ModifierType.LSHIFT_MASK;
+                        _modifiers |= ModifierType.LSHIFT_MASK;
                     } else if (strv[index] == "rshift") {
-                        modifiers |= ModifierType.RSHIFT_MASK;
+                        _modifiers |= ModifierType.RSHIFT_MASK;
                     } else if (strv[index] == "release") {
-                        modifiers |= ModifierType.RELEASE_MASK;
+                        _modifiers |= ModifierType.RELEASE_MASK;
                     } else {
                         throw new KeyEventFormatError.PARSE_FAILED (
                             "unknown modifier %s", strv[index]);
                     }
                 }
-                name = strv[index];
-                code = name.char_count () == 1 ? name.get_char () : '\0';
+                _name = strv[index];
             }
             else {
                 int index = key.last_index_of ("-");
                 if (index > 0) {
-                    // support only limited modifiers in this form
+                    // support only limited _modifiers in this form
                     string[] mods = key.substring (0, index).split ("-");
                     foreach (var mod in mods) {
                         if (mod == "S") {
-                            modifiers |= ModifierType.SHIFT_MASK;
+                            _modifiers |= ModifierType.SHIFT_MASK;
                         } else if (mod == "C") {
-                            modifiers |= ModifierType.CONTROL_MASK;
+                            _modifiers |= ModifierType.CONTROL_MASK;
                         } else if (mod == "A") {
-                            modifiers |= ModifierType.MOD1_MASK;
+                            _modifiers |= ModifierType.MOD1_MASK;
                         } else if (mod == "M") {
-                            modifiers |= ModifierType.META_MASK;
+                            _modifiers |= ModifierType.META_MASK;
                         } else if (mod == "G") {
-                            modifiers |= ModifierType.MOD5_MASK;
+                            _modifiers |= ModifierType.MOD5_MASK;
                         }
                     }
-                    name = key.substring (index + 1);
-                    code = name.char_count () == 1 ? name.get_char () : '\0';
+                    _name = key.substring (index + 1);
                 } else {
-                    modifiers = ModifierType.NONE;
-                    name = key;
-                    code = name.char_count () == 1 ? name.get_char () : '\0';
+                    _modifiers = ModifierType.NONE;
+                    _name = key;
                 }
             }
+            from_x_event (KeyEventUtils.keyval_from_name (_name),
+                          0,
+                          _modifiers);
         }
 
         /**
