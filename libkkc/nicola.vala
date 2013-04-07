@@ -73,11 +73,11 @@ namespace Kkc {
         }
 
         static bool is_lshift (KeyEvent key) {
-            return key.name == "lshift";
+            return key.name == "Muhenkan";
         }
 
         static bool is_rshift (KeyEvent key) {
-            return key.name == "rshift";
+            return key.name == "Henkan";
         }
 
         static bool is_shift (KeyEvent key) {

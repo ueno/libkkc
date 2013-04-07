@@ -40,7 +40,6 @@ namespace Kkc {
         // dummy modifiers for NICOLA
         LSHIFT_MASK = 1 << 22,
         RSHIFT_MASK = 1 << 23,
-        USLEEP_MASK = 1 << 24,
 
         SUPER_MASK = 1 << 26,
         HYPER_MASK = 1 << 27,
@@ -117,8 +116,6 @@ namespace Kkc {
                         modifiers |= ModifierType.LSHIFT_MASK;
                     } else if (strv[index] == "rshift") {
                         modifiers |= ModifierType.RSHIFT_MASK;
-                    } else if (strv[index] == "usleep") {
-                        modifiers |= ModifierType.USLEEP_MASK;
                     } else if (strv[index] == "release") {
                         modifiers |= ModifierType.RELEASE_MASK;
                     } else {
@@ -189,9 +186,6 @@ namespace Kkc {
                 }
                 if ((modifiers & ModifierType.RSHIFT_MASK) != 0) {
                     elements.add ("rshift");
-                }
-                if ((modifiers & ModifierType.USLEEP_MASK) != 0) {
-                    elements.add ("usleep");
                 }
                 if ((modifiers & ModifierType.RELEASE_MASK) != 0) {
                     elements.add ("release");
