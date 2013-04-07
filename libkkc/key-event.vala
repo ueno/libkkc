@@ -59,7 +59,7 @@ namespace Kkc {
         /**
          * The base unicode output of the KeyEvent.
          */
-        public unichar code { get; construct set; }
+        public unichar unicode { get; construct set; }
 
         /**
          * X keyval.
@@ -150,7 +150,7 @@ namespace Kkc {
          * @return a string representing the KeyEvent
          */
         public string to_string () {
-            string _base = name != null ? name : code.to_string ();
+            string _base = name != null ? name : unicode.to_string ();
             if (modifiers != 0) {
                 ArrayList<string?> elements = new ArrayList<string?> ();
                 if ((modifiers & ModifierType.SHIFT_MASK) != 0) {
@@ -202,7 +202,7 @@ namespace Kkc {
                                       ModifierType modifiers)
         {
             name = KeyEventUtils.keyval_name (keyval);
-            code = KeyEventUtils.keyval_code (keyval);
+            unicode = KeyEventUtils.keyval_unicode (keyval);
 
             // Clear shift modifier when code is ASCII and not SPC.
             // FIXME: check the keymap if the key has level 2

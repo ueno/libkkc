@@ -69,7 +69,7 @@ namespace Kkc {
         LinkedList<TimedEntry<KeyEvent>> pending = new LinkedList<TimedEntry<KeyEvent>> ();
 
         static bool is_char (KeyEvent key) {
-            return key.code != 0;
+            return key.unicode != 0;
         }
 
         static bool is_lshift (KeyEvent key) {
@@ -224,7 +224,8 @@ namespace Kkc {
             KeyEvent? output = null;
             int64 time;
             if ((key.modifiers & ~ModifierType.RELEASE_MASK) == 0 &&
-                (is_shift (key) || (0x20 <= key.code && key.code <= 0x7E))) {
+                (is_shift (key) ||
+                 (0x20 <= key.unicode && key.unicode <= 0x7E))) {
                 time = get_time_func ();
                 int64 wait;
                 output = queue (key, time, out wait);

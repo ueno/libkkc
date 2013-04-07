@@ -563,7 +563,7 @@ namespace Kkc {
                    state.input_mode == InputMode.KATAKANA ||
                    state.input_mode == InputMode.HANKAKU_KATAKANA) &&
                   key.modifiers == 0 &&
-                  state.rom_kana_converter.can_consume (key.code))) {
+                  state.rom_kana_converter.can_consume (key.unicode))) {
                 var enum_class = (EnumClass) typeof (InputMode).class_ref ();
                 var enum_value = enum_class.get_value_by_nick (
                     command["set-input-mode-".length:command.length]);
@@ -587,11 +587,11 @@ namespace Kkc {
             if (state.quoted &&
                 (key.modifiers == 0 ||
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                0x20 <= key.code && key.code < 0x7F) {
+                0x20 <= key.unicode && key.unicode < 0x7F) {
                 state.rom_kana_converter.flush_partial ();
                 state.input_buffer.append (state.rom_kana_converter.output);
                 state.rom_kana_converter.output = "";
-                state.input_buffer.append_c ((char) key.code);
+                state.input_buffer.append_c ((char) key.unicode);
                 state.quoted = false;
                 return true;
             }
@@ -687,14 +687,14 @@ namespace Kkc {
                 }
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    state.rom_kana_converter.is_valid (key.code)) {
-                    if (state.rom_kana_converter.append (key.code)) {
+                    state.rom_kana_converter.is_valid (key.unicode)) {
+                    if (state.rom_kana_converter.append (key.unicode)) {
                         state.input_buffer.append (
                             state.rom_kana_converter.output);
                         state.rom_kana_converter.output = "";
                         return true;
                     } else {
-                        state.input_buffer.append_c ((char) key.code);
+                        state.input_buffer.append_c ((char) key.unicode);
                         state.rom_kana_converter.output = "";
                         return true;
                     }
@@ -703,17 +703,17 @@ namespace Kkc {
             case InputMode.LATIN:
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.code && key.code < 0x7F) {
-                    state.input_buffer.append_c ((char) key.code);
+                    0x20 <= key.unicode && key.unicode < 0x7F) {
+                    state.input_buffer.append_c ((char) key.unicode);
                     return true;
                 }
                 break;
             case InputMode.WIDE_LATIN:
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.code && key.code < 0x7F) {
+                    0x20 <= key.unicode && key.unicode < 0x7F) {
                     state.input_buffer.append_unichar (
-                        RomKanaUtils.get_wide_latin_char ((char) key.code));
+                        RomKanaUtils.get_wide_latin_char ((char) key.unicode));
                     return true;
                 }
                 break;
@@ -799,7 +799,7 @@ namespace Kkc {
                 return command != null || command == "commit" ||
                     !((key.modifiers == 0 ||
                        key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                      0x20 <= key.code && key.code < 0x7F);
+                      0x20 <= key.unicode && key.unicode < 0x7F);
             }
         }
     }

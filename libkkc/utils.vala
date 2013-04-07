@@ -132,7 +132,7 @@ namespace Kkc {
             return Keysyms.VoidSymbol;
         }
 
-        public static unichar keyval_code (uint keyval) {
+        public static unichar keyval_unicode (uint keyval) {
             if (0x20 <= keyval && keyval < 0x7F)
                 return keyval;
             // FIXME: handle other unicode keyvals
