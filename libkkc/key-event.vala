@@ -240,16 +240,5 @@ namespace Kkc {
                 _keyval = value;
             }
         }
-
-        /**
-         * Compare two key events ignoring modifiers.
-         *
-         * @param key a KeyEvent
-         *
-         * @return `true` if those base components are equal, `false` otherwise
-         */
-        public bool base_equal (KeyEvent key) {
-            return code == key.code && name == key.name;
-        }
     }
 }

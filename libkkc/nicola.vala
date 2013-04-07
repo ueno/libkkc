@@ -87,7 +87,8 @@ namespace Kkc {
         KeyEvent? queue (KeyEvent key, int64 time, out int64 wait) {
             // press/release a same key
             if ((key.modifiers & ModifierType.RELEASE_MASK) != 0) {
-                if (pending.size > 0 && pending.get (0).data.base_equal (key)) {
+                if (pending.size > 0 &&
+                    pending.get (0).data.keyval == key.keyval) {
                     var entry = pending.get (0);
                     wait = get_next_wait (key, time);
                     pending.clear ();
@@ -96,7 +97,8 @@ namespace Kkc {
             }
             // ignore key repeat
             else {
-                if (pending.size > 0 && pending.get (0).data.base_equal (key)) {
+                if (pending.size > 0 &&
+                    pending.get (0).data.keyval == key.keyval) {
                     pending.get (0).time = time;
                     wait = get_next_wait (key, time);
                     return key;
