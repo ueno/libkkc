@@ -58,8 +58,14 @@ namespace Kkc {
             Keysyms.Shift_R,
             Keysyms.Control_L,
             Keysyms.Control_R,
+            Keysyms.Meta_L,
+            Keysyms.Meta_R,
             Keysyms.Alt_L,
-            Keysyms.Alt_R
+            Keysyms.Alt_R,
+            Keysyms.Super_L,
+            Keysyms.Super_R,
+            Keysyms.Hyper_L,
+            Keysyms.Hyper_R
         };
 
         /**
