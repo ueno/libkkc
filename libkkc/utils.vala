@@ -133,9 +133,15 @@ namespace Kkc {
         }
 
         public static unichar keyval_code (uint keyval) {
-            // FIXME: handle unicode keyvals
             if (0x20 <= keyval && keyval < 0x7F)
                 return keyval;
+            // FIXME: handle other unicode keyvals
+            switch (keyval) {
+            case Keysyms.yen:
+                return "\xc2\xa5".get_char ();
+            default:
+                break;
+            }
             return '\0';
         }
     }
