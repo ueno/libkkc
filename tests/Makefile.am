@@ -21,7 +21,7 @@ TESTS_ENVIRONMENT =						\
 	G_SLICE=${G_SLICE},always-malloc			\
 	LIBKKC_DATA_PATH=$(top_srcdir)/data:${srcdir}/data	\
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
-TESTS = basic context
+TESTS = basic context user-rule
 noinst_PROGRAMS = $(TESTS)
 noinst_HEADERS =
 
@@ -56,6 +56,8 @@ basic_SOURCES = basic.vala
 
 context_SOURCES = context.vala
 
+user_rule_SOURCES = user-rule.vala
+
 EXTRA_DIST =					\
 	file-dict.dat				\
 	data/models/sorted3/metadata.json	\
@@ -69,5 +71,8 @@ EXTRA_DIST =					\
 	$(NULL)
 
 CLEANFILES = valgrind.log.*
+
+clean-local:
+	-rm -rf test-user-rule
 
 -include $(top_srcdir)/git.mk

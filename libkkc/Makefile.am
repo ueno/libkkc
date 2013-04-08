@@ -72,6 +72,7 @@ libkkc_shell_sources =				\
 	rom-kana-utils.vala			\
 	rom-kana.vala				\
 	rule.vala				\
+	user-rule.vala				\
 	context.vala				\
 	state.vala				\
 	dictionary.vala				\
