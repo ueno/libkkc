@@ -17,7 +17,6 @@
 rulesdir = $(pkgdatadir)/rules
 
 default_files =					\
-	default/metadata.json			\
 	default/keymap/default.json		\
 	default/keymap/hankaku-katakana.json	\
 	default/keymap/hiragana.json		\
@@ -27,9 +26,11 @@ default_files =					\
 	default/keymap/direct.json		\
 	default/rom-kana/default.json		\
 	$(NULL)
+default_metadata_in =				\
+	default/metadata.json.in		\
+	$(NULL)
 
 act_files =					\
-	act/metadata.json			\
 	act/keymap/default.json			\
 	act/keymap/hankaku-katakana.json	\
 	act/keymap/hiragana.json		\
@@ -38,9 +39,11 @@ act_files =					\
 	act/keymap/wide-latin.json		\
 	act/rom-kana/default.json		\
 	$(NULL)
+act_metadata_in =				\
+	act/metadata.json.in			\
+	$(NULL)
 
 azik_files =					\
-	azik/metadata.json			\
 	azik/keymap/default.json		\
 	azik/keymap/hankaku-katakana.json	\
 	azik/keymap/hiragana.json		\
@@ -49,9 +52,11 @@ azik_files =					\
 	azik/keymap/wide-latin.json		\
 	azik/rom-kana/default.json		\
 	$(NULL)
+azik_metadata_in =				\
+	azik/metadata.json.in			\
+	$(NULL)
 
 kzik_files =					\
-	kzik/metadata.json			\
 	kzik/keymap/default.json		\
 	kzik/keymap/hankaku-katakana.json	\
 	kzik/keymap/hiragana.json		\
@@ -60,9 +65,11 @@ kzik_files =					\
 	kzik/keymap/wide-latin.json		\
 	kzik/rom-kana/default.json		\
 	$(NULL)
+kzik_metadata_in =				\
+	kzik/metadata.json.in			\
+	$(NULL)
 
 tutcode_files =					\
-	tutcode/metadata.json			\
 	tutcode/keymap/hankaku-katakana.json	\
 	tutcode/keymap/hiragana.json		\
 	tutcode/keymap/katakana.json		\
@@ -70,9 +77,11 @@ tutcode_files =					\
 	tutcode/keymap/wide-latin.json		\
 	tutcode/rom-kana/default.json		\
 	$(NULL)
+tutcode_metadata_in =				\
+	tutcode/metadata.json.in		\
+	$(NULL)
 
 tutcode_touch16x_files =				\
-	tutcode-touch16x/metadata.json			\
 	tutcode-touch16x/keymap/hankaku-katakana.json	\
 	tutcode-touch16x/keymap/hiragana.json		\
 	tutcode-touch16x/keymap/katakana.json		\
@@ -80,9 +89,11 @@ tutcode_touch16x_files =				\
 	tutcode-touch16x/keymap/wide-latin.json		\
 	tutcode-touch16x/rom-kana/default.json		\
 	$(NULL)
+tutcode_touch16x_metadata_in =			\
+	tutcode-touch16x/metadata.json.in	\
+	$(NULL)
 
 nicola_files =					\
-	nicola/metadata.json			\
 	nicola/keymap/default.json		\
 	nicola/keymap/kana.json			\
 	nicola/keymap/latin.json		\
@@ -92,29 +103,35 @@ nicola_files =					\
 	nicola/keymap/hiragana.json		\
 	nicola/rom-kana/default.json		\
 	$(NULL)
+nicola_metadata_in =				\
+	nicola/metadata.json.in			\
+	$(NULL)
 
 tcode_files =					\
 	tcode/rom-kana/default.json		\
-	tcode/metadata.json			\
 	tcode/keymap/latin.json			\
 	tcode/keymap/katakana.json		\
 	tcode/keymap/hankaku-katakana.json	\
 	tcode/keymap/wide-latin.json		\
 	tcode/keymap/hiragana.json		\
 	$(NULL)
+tcode_files =					\
+	tcode/metadata.json.in			\
+	$(NULL)
 
 trycode_files =					\
 	trycode/rom-kana/default.json		\
-	trycode/metadata.json			\
 	trycode/keymap/latin.json		\
 	trycode/keymap/katakana.json		\
 	trycode/keymap/hankaku-katakana.json	\
 	trycode/keymap/wide-latin.json		\
 	trycode/keymap/hiragana.json		\
 	$(NULL)
+trycode_metadata_in =				\
+	trycode/metadata.json.in		\
+	$(NULL)
 
 kana_files =					\
-	kana/metadata.json			\
 	kana/keymap/default.json		\
 	kana/keymap/hankaku-katakana.json	\
 	kana/keymap/hiragana.json		\
@@ -124,19 +141,66 @@ kana_files =					\
 	kana/keymap/direct.json			\
 	kana/rom-kana/default.json		\
 	$(NULL)
+kana_metadata_in =				\
+	kana/metadata.json.in			\
+	$(NULL)
 
-nobase_dist_rules_DATA =			\
+nobase_rules_DATA =				\
 	$(default_files)			\
+	$(default_metadata_in:.in=)		\
 	$(act_files)				\
+	$(act_metadata_in:.in=)			\
 	$(azik_files)				\
+	$(azik_metadata_in:.in=)		\
 	$(kzik_files)				\
+	$(kzik_metadata_in:.in=)		\
 	$(tutcode_files)			\
+	$(tutcode_metadata_in:.in=)		\
 	$(tutcode_touch16x_files)		\
+	$(tutcode_touch16x_metadata_in:.in=)	\
 	$(nicola_files)				\
+	$(nicola_metadata_in:.in=)		\
 	$(tcode_files)				\
+	$(tcode_metadata_in:.in=)		\
 	$(trycode_files)			\
+	$(trycode_metadata_in:.in=)		\
 	$(kana_files)				\
+	$(kana_metadata_in:.in=)		\
 	README.rules				\
 	$(NULL)
+
+EXTRA_DIST =					\
+	$(default_files)			\
+	$(default_metadata_in)			\
+	$(act_files)				\
+	$(act_metadata_in)			\
+	$(azik_files)				\
+	$(azik_metadata_in)			\
+	$(kzik_files)				\
+	$(kzik_metadata_in)			\
+	$(tutcode_files)			\
+	$(tutcode_metadata_in)			\
+	$(tutcode_touch16x_files)		\
+	$(tutcode_touch16x_metadata_in)		\
+	$(nicola_files)				\
+	$(nicola_metadata_in)			\
+	$(tcode_files)				\
+	$(tcode_metadata_in)			\
+	$(trycode_files)			\
+	$(trycode_metadata_in)			\
+	$(kana_files)				\
+	$(kana_metadata_in)			\
+	README.rules				\
+	$(NULL)
+
+SUFFIXES = .json .json.in
+
+edit = sed -e 's!\(^ *"[^"]*": *\)_(\("[^"]*"\))!\1\2!g'
+.json.in.json:
+	rm -f $@ $@.tmp
+	srcdir=''; \
+	  test -f ./$< || srcdir=$(srcdir)/; \
+	  $(edit) $${srcdir}$< >$@.tmp
+	mv $@.tmp $@
 
 -include $(top_srcdir)/git.mk

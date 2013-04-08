@@ -239,7 +239,13 @@ namespace Kkc {
                     filter = "simple";
                 }
 
-                return RuleMetadata () { label = name,
+                var label = name;
+                if (label != "")
+                    label = dgettext (Config.GETTEXT_PACKAGE, label);
+                if (description != "")
+                    description = dgettext (Config.GETTEXT_PACKAGE,
+                                            description);
+                return RuleMetadata () { label = label,
                         description = description,
                         filter = filter,
                         base_dir = Path.get_dirname (filename) };

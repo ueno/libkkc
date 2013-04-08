@@ -1,0 +1,4 @@
+{
+    "name": _("KZIK"),
+    "description": _("Extended romaji input method based on AZIK, developed by OHASHI Hideya <http://ohac.sytes.net/pukiwiki.php?kzik>")
+}

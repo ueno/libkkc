@@ -1,0 +1,4 @@
+{
+    "name": _("Default"),
+    "description": _("Default typing rule")
+}
