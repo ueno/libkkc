@@ -22,6 +22,9 @@ EXTRA_DIST =					\
 	$(metadata_in)				\
 	$(NULL)
 
-SUFFIXES = .json .json.in
+CLEANFILES =					\
+	metadata.json				\
+	$(NULL)
+
 -include $(top_srcdir)/data/rules/rule.mk
 -include $(top_srcdir)/git.mk

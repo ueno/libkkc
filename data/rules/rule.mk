@@ -1,4 +1,4 @@
-SUFFIXES = .json .json.in
+.SUFFIXES: .json .json.in
 
 edit = sed -e 's!\(^ *"[^"]*": *\)_(\("[^"]*"\))!\1\2!g'
 .json.in.json:
