@@ -40,7 +40,7 @@ class UserRuleTests : Kkc.TestCase {
                                       overriding_keymap);
 
         try {
-            rule = new Kkc.UserRule (parent, base_dir, "test");
+            rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         } catch (Error e) {
             assert_not_reached ();
         }
