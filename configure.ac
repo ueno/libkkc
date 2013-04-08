@@ -174,6 +174,16 @@ tests/Makefile
 tests/lib/Makefile
 data/Makefile
 data/rules/Makefile
+data/rules/default/Makefile
+data/rules/act/Makefile
+data/rules/azik/Makefile
+data/rules/kzik/Makefile
+data/rules/tutcode/Makefile
+data/rules/tutcode-touch16x/Makefile
+data/rules/nicola/Makefile
+data/rules/tcode/Makefile
+data/rules/trycode/Makefile
+data/rules/kana/Makefile
 data/templates/Makefile
 docs/Makefile
 po/Makefile.in])

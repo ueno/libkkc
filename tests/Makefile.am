@@ -72,7 +72,21 @@ EXTRA_DIST =					\
 
 CLEANFILES = valgrind.log.*
 
+$(TESTS): copyrules.stamp
+copyrules.stamp:
+	for i in default kana; do \
+	  $(mkdir_p) data/rules/$$i; \
+	  cp $(top_builddir)/data/rules/$$i/metadata.json data/rules/$$i; \
+	  for j in keymap rom-kana; do \
+	    $(mkdir_p) data/rules/$$i/$$j; \
+	    cp $(top_srcdir)/data/rules/$$i/$$j/*.json data/rules/$$i/$$j; \
+	  done \
+	done
+	touch $@
+
 clean-local:
+	-rm -f copyrules.stamp
+	-rm -rf data/rules
 	-rm -rf test-user-rule
 
 -include $(top_srcdir)/git.mk
