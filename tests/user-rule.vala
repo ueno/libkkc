@@ -11,10 +11,9 @@ class UserRuleTests : Kkc.TestCase {
         assert (parent != null);
 
         var srcdir = Environment.get_variable ("srcdir");
-        var base_dir = Path.build_filename (srcdir, "test-user-rule");
         Kkc.UserRule rule;
         try {
-            rule = new Kkc.UserRule (parent, base_dir, "test");
+            rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         } catch (Error e) {
             assert_not_reached ();
         }
@@ -26,10 +25,9 @@ class UserRuleTests : Kkc.TestCase {
         assert (parent != null);
 
         var srcdir = Environment.get_variable ("srcdir");
-        var base_dir = Path.build_filename (srcdir, "test-user-rule");
         Kkc.UserRule rule;
         try {
-            rule = new Kkc.UserRule (parent, base_dir, "test");
+            rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         } catch (Error e) {
             assert_not_reached ();
         }

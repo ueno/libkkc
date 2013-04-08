@@ -16,10 +16,10 @@
 
 SUBDIRS = lib .
 
-TESTS_ENVIRONMENT =						\
-	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly		\
-	G_SLICE=${G_SLICE},always-malloc			\
-	LIBKKC_DATA_PATH=$(top_srcdir)/data:${srcdir}/data	\
+TESTS_ENVIRONMENT =							    \
+	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly			    \
+	G_SLICE=${G_SLICE},always-malloc				    \
+	LIBKKC_DATA_PATH=$(builddir)/data:${srcdir}/data:$(top_srcdir)/data \
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
 TESTS = basic context user-rule
 noinst_PROGRAMS = $(TESTS)
@@ -72,20 +72,20 @@ EXTRA_DIST =					\
 
 CLEANFILES = valgrind.log.*
 
-$(TESTS): copyrules.stamp
-copyrules.stamp:
+$(TESTS): rules.stamp
+rules.stamp:
 	for i in default kana; do \
 	  $(mkdir_p) data/rules/$$i; \
 	  cp $(top_builddir)/data/rules/$$i/metadata.json data/rules/$$i; \
 	  for j in keymap rom-kana; do \
 	    $(mkdir_p) data/rules/$$i/$$j; \
 	    cp $(top_srcdir)/data/rules/$$i/$$j/*.json data/rules/$$i/$$j; \
-	  done \
+	  done; \
 	done
 	touch $@
 
 clean-local:
-	-rm -f copyrules.stamp
+	-rm -f rules.stamp
 	-rm -rf data/rules
 	-rm -rf test-user-rule
 
