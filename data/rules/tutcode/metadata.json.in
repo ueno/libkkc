@@ -1,4 +1,5 @@
 {
     "name": _("TUT-Code"),
-    "description": _("Japanese direct input method developed by Hajime Ohiwa and Takaaki Takashima <http://www.crew.sfc.keio.ac.jp/~chk/intro.html>")
+    "description": _("Japanese direct input method developed by Hajime Ohiwa and Takaaki Takashima <http://www.crew.sfc.keio.ac.jp/~chk/intro.html>"),
+    "priority": 10
 }

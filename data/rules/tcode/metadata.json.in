@@ -1,4 +1,5 @@
 {
     "name": _("T-Code"),
-    "description": _("Japanese direct input method developed by the T-Code project <http://openlab.jp/tcode/>")
+    "description": _("Japanese direct input method developed by the T-Code project <http://openlab.jp/tcode/>"),
+    "priority": 10
 }

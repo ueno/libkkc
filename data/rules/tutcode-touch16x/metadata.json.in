@@ -1,4 +1,5 @@
 {
     "name": _("TUT-Code (Touch16+)"),
-    "description": _("TUT-Code with Touch16+ extension")
+    "description": _("TUT-Code with Touch16+ extension"),
+    "priority": 10
 }

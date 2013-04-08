@@ -146,6 +146,11 @@ namespace Kkc {
         string filter;
 
         /**
+         * Priority of the rule.
+         */
+        int priority;
+
+        /**
          * Return the path of the map file.
          *
          * @param type type of the map file
@@ -239,6 +244,12 @@ namespace Kkc {
                     filter = "simple";
                 }
 
+                int priority = 0;
+                if (object.has_member ("priority")) {
+                    member = object.get_member ("priority");
+                    priority = (int) member.get_int ();
+                }
+
                 var label = name;
                 if (label != "")
                     label = dgettext (Config.GETTEXT_PACKAGE, label);
@@ -248,7 +259,8 @@ namespace Kkc {
                 return RuleMetadata () { label = label,
                         description = description,
                         filter = filter,
-                        base_dir = Path.get_dirname (filename) };
+                        base_dir = Path.get_dirname (filename),
+                        priority = priority };
 
             } catch (GLib.Error e) {
                 throw new RuleParseError.FAILED ("can't load rule: %s",

@@ -1,4 +1,5 @@
 {
     "name": _("Default"),
-    "description": _("Default typing rule")
+    "description": _("Default typing rule"),
+    "priority": 99
 }

@@ -1,4 +1,5 @@
 {
     "name": _("AZIK (Japanese 106 keyboard)"),
-    "description": _("Extended romaji input method developed by Kiyoshi Kimura <http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm>")
+    "description": _("Extended romaji input method developed by Kiyoshi Kimura <http://hp.vector.co.jp/authors/VA002116/azik/azikindx.htm>"),
+    "priority": 10
 }
