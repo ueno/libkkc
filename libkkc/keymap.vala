@@ -89,7 +89,7 @@ namespace Kkc {
          */
         public Keymap? parent { get; set; default = null; }
 
-        Map<KeyEvent,string> _entries =
+        Map<KeyEvent,string> map_entries =
             new HashMap<KeyEvent,string> ((HashFunc) key_hash,
                                           (EqualFunc) key_equal);
 
@@ -108,19 +108,13 @@ namespace Kkc {
          * @return array of KeymapEntry
          */
         public KeymapEntry[] entries () {
-            var merged_entries = new HashMap<KeyEvent,string> (
-                (HashFunc) key_hash,
-                (EqualFunc) key_equal);
-
-            if (parent != null) {
-                var parent_entries = parent.entries ();
-                foreach (var entry in parent_entries) {
-                    merged_entries.set (entry.key, entry.command);
-                }
-            }
-
-            merged_entries.set_all (_entries);
-            return entries_to_array (merged_entries);
+            var _map_entries =
+                new HashMap<KeyEvent,string> ((HashFunc) key_hash,
+                                              (EqualFunc) key_equal);
+            if (parent != null)
+                _map_entries.set_all (parent.map_entries);
+            _map_entries.set_all (map_entries);
+            return map_entries_to_array (_map_entries);
         }
 
         /**
@@ -129,12 +123,12 @@ namespace Kkc {
          * @return array of KeymapEntry
          */
         public KeymapEntry[] local_entries () {
-            return entries_to_array (_entries);
+            return map_entries_to_array (map_entries);
         }
 
-        KeymapEntry[] entries_to_array (Map<KeyEvent,string> _entries) {
+        KeymapEntry[] map_entries_to_array (Map<KeyEvent,string> map_entries) {
             KeymapEntry[] result = {};
-            var iter = _entries.map_iterator ();
+            var iter = map_entries.map_iterator ();
             if (iter.first ()) {
                 do {
                     var key = iter.get_key ();
@@ -156,7 +150,7 @@ namespace Kkc {
          * @param command command or `null` to unset
          */
         public new void @set (KeyEvent key, string? command) {
-            _entries.set (key, command);
+            map_entries.set (key, command);
         }
 
         /**
@@ -166,8 +160,8 @@ namespace Kkc {
          * @return command or `null`
          */
         public string? lookup_key (KeyEvent key) {
-            if (_entries.has_key (key))
-                return _entries.get (key);
+            if (map_entries.has_key (key))
+                return map_entries.get (key);
             if (parent != null)
                 return parent.lookup_key (key);
             return null;
@@ -180,7 +174,7 @@ namespace Kkc {
          * @return a key event or `null`
          */
         public KeyEvent? where_is (string command) {
-            var iter = _entries.map_iterator ();
+            var iter = map_entries.map_iterator ();
             if (iter.first ()) {
                 do {
                     if (iter.get_value () == command)
