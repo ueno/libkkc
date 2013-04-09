@@ -28,6 +28,9 @@ namespace Kkc {
         string? command;
     }
 
+    /**
+     * Object representing a keymap.
+     */
     public class Keymap : Object {
         static const KeymapCommandEntry Commands[] = {
             { "abort", N_("Abort") },
@@ -62,13 +65,29 @@ namespace Kkc {
             }
         }
 
+        /**
+         * List commands usable in keymap.
+         *
+         * @return array of commands
+         */
         public static string[] commands () {
             return _CommandTable.keys.to_array ();
         }
 
+        /**
+         * Return a label for a command
+         *
+         * @param command command
+         * @return label
+         */
         public static string get_command_label (string command) {
             return _CommandTable.get (command);
         }
+
+        /**
+         * Parent keymap.
+         */
+        public Keymap? parent { get; set; default = null; }
 
         Map<KeyEvent,string> _entries =
             new HashMap<KeyEvent,string> ((HashFunc) key_hash,
@@ -83,6 +102,11 @@ namespace Kkc {
                 int_hash ((int) a.modifiers);
         }
 
+        /**
+         * Return keymap entries.
+         *
+         * @return array of KeymapEntry
+         */
         public KeymapEntry[] entries () {
             KeymapEntry[] result = {};
             var iter = _entries.map_iterator ();
@@ -100,14 +124,36 @@ namespace Kkc {
             return result;
         }
 
+        /**
+         * Bind a key event to a command.
+         *
+         * @param key key event
+         * @param command command or `null` to unset
+         */
         public new void @set (KeyEvent key, string? command) {
             _entries.set (key, command);
         }
 
+        /**
+         * Lookup a command bound to a key event.
+         *
+         * @param key key event
+         * @return command or `null`
+         */
         public string? lookup_key (KeyEvent key) {
-            return _entries.get (key);
+            if (_entries.has_key (key))
+                return _entries.get (key);
+            if (parent != null)
+                return parent.lookup_key (key);
+            return null;
         }
 
+        /**
+         * Lookup a key event to which a command is bound.
+         *
+         * @param command command
+         * @return a key event or `null`
+         */
         public KeyEvent? where_is (string command) {
             var iter = _entries.map_iterator ();
             if (iter.first ()) {
@@ -116,6 +162,8 @@ namespace Kkc {
                         return iter.get_key ();
                 } while (iter.next ());
             }
+            if (parent != null)
+                return parent.where_is (command);
             return null;
         }
     }

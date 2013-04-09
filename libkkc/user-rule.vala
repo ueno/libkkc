@@ -150,14 +150,11 @@ namespace Kkc {
         }
 
         /**
-         * Save overriding keymap for given input mode.
+         * Save keymap for given input mode.
          *
          * @param input_mode input mode
-         * @param keymap keymap
          */
-        public void write_overriding_keymap (InputMode input_mode,
-                                             Keymap keymap) throws Error
-        {
+        public void write (InputMode input_mode) throws Error {
             var enum_class = (EnumClass) typeof (InputMode).class_ref ();
             var keymap_name = enum_class.get_value (input_mode).value_nick;
             var keymap_path = Path.build_filename (path, "keymap");
@@ -166,7 +163,9 @@ namespace Kkc {
             var generator = new Json.Generator ();
             generator.set_pretty (true);
 
-            var builder = create_keymap (parent, keymap_name, keymap);
+            var builder = create_keymap (parent,
+                                         keymap_name,
+                                         get_keymap (input_mode));
             generator.set_root (builder.get_root ());
 
             var filename = Path.build_filename (keymap_path,

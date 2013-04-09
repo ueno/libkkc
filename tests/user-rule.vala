@@ -3,7 +3,7 @@ class UserRuleTests : Kkc.TestCase {
         base ("UserRule");
 
         add_test ("creation", this.test_creation);
-        add_test ("write-overriding-keymap", this.test_write_overriding_keymap);
+        add_test ("write", this.test_write);
     }
 
     public void test_creation () {
@@ -11,44 +11,29 @@ class UserRuleTests : Kkc.TestCase {
         assert (parent != null);
 
         var srcdir = Environment.get_variable ("srcdir");
-        Kkc.UserRule rule;
-        try {
-            rule = new Kkc.UserRule (parent, "test-user-rule", "test");
-        } catch (Error e) {
-            assert_not_reached ();
-        }
+        var rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         assert (rule != null);
     }
 
-    public void test_write_overriding_keymap () {
+    public void test_write () {
         var parent = Kkc.Rule.find_rule ("kana");
         assert (parent != null);
 
         var srcdir = Environment.get_variable ("srcdir");
         Kkc.UserRule rule;
-        try {
-            rule = new Kkc.UserRule (parent, "test-user-rule", "test");
-        } catch (Error e) {
-            assert_not_reached ();
-        }
+
+        rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         assert (rule != null);
 
-        var overriding_keymap = new Kkc.Keymap ();
-        var overriding_event = new Kkc.KeyEvent.from_string ("C-a");
-        overriding_keymap.set (overriding_event, "abort");
-        rule.write_overriding_keymap (Kkc.InputMode.HIRAGANA,
-                                      overriding_keymap);
+        var event0 = new Kkc.KeyEvent.from_string ("C-a");
+        rule.get_keymap (Kkc.InputMode.HIRAGANA).set (event0, "abort");
+        rule.write (Kkc.InputMode.HIRAGANA);
 
-        try {
-            rule = new Kkc.UserRule (parent, "test-user-rule", "test");
-        } catch (Error e) {
-            assert_not_reached ();
-        }
+        rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         assert (rule != null);
 
-        var keymap = rule.get_keymap (Kkc.InputMode.HIRAGANA);
-        var event = new Kkc.KeyEvent.from_string ("C-a");
-        var command = keymap.lookup_key (event);
+        var event1 = new Kkc.KeyEvent.from_string ("C-a");
+        var command = rule.get_keymap (Kkc.InputMode.HIRAGANA).lookup_key (event1);
         assert (command == "abort");
     }
 }

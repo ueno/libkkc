@@ -20,6 +20,7 @@ using Gee;
 namespace Kkc {
     class KeymapMapFile : MapFile {
         internal Keymap keymap;
+        internal Keymap parent_keymap;
 
         protected override string uniquify (string key) {
             try {
@@ -33,14 +34,12 @@ namespace Kkc {
             }
         }
 
-        internal KeymapMapFile (RuleMetadata metadata, string mode) throws RuleParseError
-        {
-            base (metadata, "keymap", mode);
-            if (has_map ("keymap")) {
-                var map = get ("keymap");
-                keymap = new Keymap ();
-                foreach (var key in map.keys) {
-                    var value = map.get (key);
+        void load_keymap (Keymap keymap, Map<string,Json.Node> map) {
+            var iter = map.map_iterator ();
+            if (iter.first ()) {
+                do {
+                    var key = iter.get_key ();
+                    var value = iter.get_value ();
                     try {
                         keymap.set (new KeyEvent.from_string (key),
                                     value.get_string ());
@@ -49,19 +48,28 @@ namespace Kkc {
                             "can't get key event from string %s: %s",
                             key, e.message);
                     }
-                }
-            } else {
-                throw new RuleParseError.FAILED ("no keymap entry");
+                } while (iter.next ());
             }
+        }
+
+        internal KeymapMapFile (RuleMetadata metadata, string mode) throws RuleParseError
+        {
+            base (metadata, "keymap", mode);
+
+            keymap = new Keymap ();
+            load_keymap (keymap, get ("keymap"));
+
+            keymap.parent = new Keymap ();
+            load_keymap (keymap.parent, get_parent ("keymap"));
         }
     }
 
     class RomKanaMapFile : MapFile {
         internal RomKanaNode root_node;
 
-        RomKanaNode parse_rule (Map<string,Json.Node> map) throws RuleParseError
+        void load_rom_kana (RomKanaNode node,
+                            Map<string,Json.Node> map) throws RuleParseError
         {
-            var node = new RomKanaNode (null);
             foreach (var key in map.keys) {
                 var value = map.get (key);
                 if (value.get_node_type () == Json.NodeType.ARRAY) {
@@ -99,16 +107,26 @@ namespace Kkc {
                         "\"rom-kana\" member must be either an array or null");
                 }
             }
-            return node;
         }
 
         public RomKanaMapFile (RuleMetadata metadata) throws RuleParseError {
             base (metadata, "rom-kana", "default");
-            if (has_map ("rom-kana")) {
-                root_node = parse_rule (get ("rom-kana"));
-            } else {
-                throw new RuleParseError.FAILED ("no rom-kana entry");
+
+            root_node = new RomKanaNode (null);
+            var parent_map = get_parent ("rom-kana");
+            var map = get ("rom-kana");
+            var iter = map.map_iterator ();
+            if (iter.first ()) {
+                do {
+                    var key = iter.get_key ();
+                    var value = iter.get_value ();
+                    if (value.get_node_type () == Json.NodeType.NULL)
+                        parent_map.unset (key);
+                    else
+                        parent_map.set (key, value);
+                } while (iter.next ());
             }
+            load_rom_kana (root_node, parent_map);
         }
     }
 

@@ -21,17 +21,15 @@ namespace Kkc {
     abstract class MapFile : Object {
         Map<string,Map<string,Json.Node>> maps =
             new HashMap<string,Map<string,Json.Node>> ();
+        Map<string,Map<string,Json.Node>> parent_maps =
+            new HashMap<string,Map<string,Json.Node>> ();
 
         void load_map (Map<string,Json.Node> map, Json.Object object) {
             var keys = object.get_members ();
             foreach (var key in keys) {
                 var value = object.get_member (key);
                 var _key = uniquify (key);
-                if (value.get_node_type () == Json.NodeType.NULL) {
-                    map.unset (_key);
-                } else {
-                    map.set (_key, value);
-                }
+                map.set (_key, value);
             }
         }
 
@@ -42,7 +40,9 @@ namespace Kkc {
         void load (RuleMetadata metadata,
                    string type,
                    string name,
-                   Set<string> included) throws RuleParseError
+                   Set<string> parents,
+                   Map<string,Map<string,Json.Node>> maps,
+                   Map<string,Map<string,Json.Node>> parent_maps) throws RuleParseError
         {
             var filename = metadata.locate_map_file (type, name);
             if (filename == null) {
@@ -75,7 +75,7 @@ namespace Kkc {
                 var elements = include.get_elements ();
                 foreach (var element in elements) {
                     var parent = element.get_string ();
-                    if (parent in included) {
+                    if (parent in parents) {
                         throw new RuleParseError.FAILED (
                             "found circular include of %s", parent);
                     }
@@ -93,8 +93,13 @@ namespace Kkc {
                         throw new RuleParseError.FAILED ("can't find rule %s",
                                                          parent_rule);
                     }
-                    load (parent_metadata, type, parent_name, included);
-                    included.add (parent);
+                    load (parent_metadata,
+                          type,
+                          parent_name,
+                          parents,
+                          parent_maps,
+                          parent_maps);
+                    parents.add (parent);
                 }
             }
 
@@ -125,16 +130,20 @@ namespace Kkc {
                           string type,
                           string name) throws RuleParseError
         {
-            Set<string> included = new HashSet<string> ();
-            load (metadata, type, name, included);
-        }
-
-        internal bool has_map (string name) {
-            return maps.has_key (name);
+            Set<string> parents = new HashSet<string> ();
+            load (metadata, type, name, parents, maps, parent_maps);
         }
 
         internal new Map<string,Json.Node> @get (string name) {
-            return maps.get (name);
+            if (maps.has_key (name))
+                return maps.get (name);
+            return new HashMap<string,Json.Node> ();
+        }
+
+        internal new Map<string,Json.Node> @get_parent (string name) {
+            if (parent_maps.has_key (name))
+                return parent_maps.get (name);
+            return new HashMap<string,Json.Node> ();
         }
     }
 }
