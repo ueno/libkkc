@@ -56,8 +56,6 @@ namespace Kkc {
 
         /**
          * Remove all dictionaries.
-         *
-         * @param dictionary a dictionary
          */
         public void clear () {
             dictionaries.clear ();
