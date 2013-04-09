@@ -121,7 +121,7 @@ namespace Kkc {
                 builder.begin_object ();
                 builder.set_member_name ("keymap");
                 builder.begin_object ();
-                var entries = keymap.entries ();
+                var entries = keymap.local_entries ();
                 foreach (var entry in entries) {
                     builder.set_member_name (entry.key.to_string ());
                     if (entry.command == null)

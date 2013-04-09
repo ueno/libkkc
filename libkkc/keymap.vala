@@ -103,13 +103,11 @@ namespace Kkc {
         }
 
         /**
-         * Return keymap entries.
+         * Return all the keymap entries including parent's.
          *
          * @return array of KeymapEntry
          */
         public KeymapEntry[] entries () {
-            KeymapEntry[] result = {};
-
             var merged_entries = new HashMap<KeyEvent,string> (
                 (HashFunc) key_hash,
                 (EqualFunc) key_equal);
@@ -122,8 +120,21 @@ namespace Kkc {
             }
 
             merged_entries.set_all (_entries);
+            return entries_to_array (merged_entries);
+        }
 
-            var iter = merged_entries.map_iterator ();
+        /**
+         * Return keymap entries not including parent's.
+         *
+         * @return array of KeymapEntry
+         */
+        public KeymapEntry[] local_entries () {
+            return entries_to_array (_entries);
+        }
+
+        KeymapEntry[] entries_to_array (Map<KeyEvent,string> _entries) {
+            KeymapEntry[] result = {};
+            var iter = _entries.map_iterator ();
             if (iter.first ()) {
                 do {
                     var key = iter.get_key ();
