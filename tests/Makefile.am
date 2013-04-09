@@ -21,7 +21,7 @@ TESTS_ENVIRONMENT =							    \
 	G_SLICE=${G_SLICE},always-malloc				    \
 	LIBKKC_DATA_PATH=$(builddir)/data:${srcdir}/data:$(top_srcdir)/data \
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
-TESTS = basic context user-rule
+TESTS = basic context user-rule rom-kana
 noinst_PROGRAMS = $(TESTS)
 noinst_HEADERS =
 
@@ -33,9 +33,10 @@ AM_CPPFLAGS =					\
 	-I$(top_builddir)/tests/lib		\
 	$(NULL)
 
-LDADD = $(top_builddir)/libkkc/libkkc.la	\
-	$(LIBKKC_LIBS)				\
-	$(builddir)/lib/libkkc-test.la		\
+LDADD = $(top_builddir)/libkkc/libkkc-internals.la	\
+	$(LIBKKC_LIBS)					\
+	$(builddir)/lib/libkkc-test.la			\
+	-lstdc++					\
 	$(NULL)
 
 AM_VALAFLAGS =					\
@@ -47,7 +48,8 @@ AM_VALAFLAGS =					\
 	--pkg gio-2.0				\
 	--pkg gee-1.0				\
 	--pkg config				\
-	--pkg kkc-1.0				\
+	--pkg json-glib-1.0			\
+	--pkg kkc-internals-1.0			\
 	--pkg kkc-test				\
 	-g					\
 	$(NULL)
@@ -57,6 +59,8 @@ basic_SOURCES = basic.vala
 context_SOURCES = context.vala
 
 user_rule_SOURCES = user-rule.vala
+
+rom_kana_SOURCES = rom-kana.vala
 
 EXTRA_DIST =					\
 	file-dict.dat				\
