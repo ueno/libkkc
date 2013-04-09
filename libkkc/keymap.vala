@@ -109,7 +109,21 @@ namespace Kkc {
          */
         public KeymapEntry[] entries () {
             KeymapEntry[] result = {};
-            var iter = _entries.map_iterator ();
+
+            var merged_entries = new HashMap<KeyEvent,string> (
+                (HashFunc) key_hash,
+                (EqualFunc) key_equal);
+
+            if (parent != null) {
+                var parent_entries = parent.entries ();
+                foreach (var entry in parent_entries) {
+                    merged_entries.set (entry.key, entry.command);
+                }
+            }
+
+            merged_entries.set_all (_entries);
+
+            var iter = merged_entries.map_iterator ();
             if (iter.first ()) {
                 do {
                     var key = iter.get_key ();
