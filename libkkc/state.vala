@@ -596,6 +596,25 @@ namespace Kkc {
                 return true;
             }
 
+            if (command != null &&
+                command.has_prefix ("convert-") &&
+                state.input_buffer.len > 0) {
+                var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
+                var enum_value = enum_class.get_value_by_nick (
+                    command["convert-".length:command.length]);
+                if (enum_value != null) {
+                    state.selection.erase ();
+                    state.rom_kana_converter.flush_partial ();
+                    state.input_buffer.append (state.rom_kana_converter.output);
+                    state.rom_kana_converter.output = "";
+                    state.input_buffer.assign (
+                        RomKanaUtils.convert_by_kana_mode (
+                            state.input_buffer.str,
+                            (KanaMode) enum_value.value));
+                    return true;
+                }
+            }
+
             // check state transition
             if (command == "next-candidate") {
                 if (state.input_buffer.len == 0)

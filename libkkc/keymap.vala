@@ -51,7 +51,12 @@ namespace Kkc {
             { "set-input-mode-hankaku-katakana", N_("Switch to Hankaku Katakana Input Mode") },
             { "set-input-mode-latin", N_("Switch to Latin Input Mode") },
             { "set-input-mode-wide-latin", N_("Switch to Wide Latin Input Mode") },
-            { "set-input-mode-direct", N_("Switch to Direct Input Mode") }
+            { "set-input-mode-direct", N_("Switch to Direct Input Mode") },
+            { "convert-hiragana", N_("Convert to Hiragana") },
+            { "convert-katakana", N_("Convert to Katakana") },
+            { "convert-hankaku-katakana", N_("Convert to Hankaku Katakana") },
+            { "convert-latin", N_("Convert to Latin") },
+            { "convert-wide-latin", N_("Convert to Wide Latin") }
         };
 
         static Map<string,string> _CommandTable =

@@ -27,7 +27,12 @@
             "C-o": "expand-segment",
             "C-i": "shrink-segment",
             "A-@": "set-input-mode-direct",
-            "A-`": "set-input-mode-direct"
+            "A-`": "set-input-mode-direct",
+            "F6": "convert-hiragana",
+            "F7": "convert-katakana",
+            "F8": "convert-hankaku-katakana",
+            "F9": "convert-wide-latin",
+            "F10": "convert-latin"
         }
     }
 }

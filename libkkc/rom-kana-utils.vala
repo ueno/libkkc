@@ -373,8 +373,9 @@ namespace Kkc {
                         var composition = _CompositionTable.get (uc0);
                         composition.set (uc1, entry.katakana);
                     } else {
-                        _KatakanaTable.set (entry.hankaku_katakana.get_char (),
-                                            entry.katakana);
+                        var uc = entry.hankaku_katakana.get_char ();
+                        if (!_KatakanaTable.has_key (uc))
+                            _KatakanaTable.set (uc, entry.katakana);
                     }
                 }
             }
