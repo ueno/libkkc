@@ -18,6 +18,7 @@
 AM_CPPFLAGS = -include $(CONFIG_HEADER)
 
 lib_LTLIBRARIES = libkkc.la
+noinst_LTLIBRARIES = libkkc-internals.la
 
 libkkc_la_VALAFLAGS =						\
 	--includedir=libkkc					\
@@ -55,6 +56,12 @@ libkkc_la_LDFLAGS =							\
 	-export-dynamic							\
 	-export-symbols $(srcdir)/libkkc.symbols			\
 	$(NULL)
+
+libkkc_internals_la_DEPENDENCIES = $(libkkc_la_OBJECTS)
+libkkc_internals_la_CFLAGS = $(libkkc_la_CFLAGS)
+libkkc_internals_la_LIBADD = $(libkkc_la_LIBADD) $(libkkc_la_OBJECTS)
+libkkc_internals_la_LDFLAGS = $(CODE_COVERAGE_LDFLAGS)
+libkkc_internals_la_SOURCES =
 
 libkkcincludedir = $(includedir)/libkkc
 libkkcinclude_HEADERS = libkkc.h
