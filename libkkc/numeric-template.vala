@@ -53,7 +53,7 @@ namespace Kkc {
                     if (!regex.match_full (source, -1, start_pos, 0, out info))
                         break;
                 } catch (GLib.RegexError e) {
-                    return_val_if_reached (source);
+                    return_if_reached ();
                 }
 
                 string numeric = info.fetch (0);
