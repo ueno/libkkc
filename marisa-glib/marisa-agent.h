@@ -1,5 +1,5 @@
 #ifndef __MARISA_AGENT_H__
-#define __MARISA_AGENT_H__ 1
+#define __MARISA_AGENT_H__
 
 #include <marisa-glib/marisa-key.h>
 

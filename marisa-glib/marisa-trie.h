@@ -1,5 +1,5 @@
 #ifndef __MARISA_TRIE_H__
-#define __MARISA_TRIE_H__ 1
+#define __MARISA_TRIE_H__
 
 #include <marisa-glib/marisa-keyset.h>
 

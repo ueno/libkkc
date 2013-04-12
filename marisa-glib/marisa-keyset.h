@@ -1,5 +1,5 @@
 #ifndef __MARISA_KEYSET_H__
-#define __MARISA_KEYSET_H__ 1
+#define __MARISA_KEYSET_H__
 
 #include <glib-object.h>
 
