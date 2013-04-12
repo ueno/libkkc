@@ -57,14 +57,26 @@ libkkc_la_LDFLAGS =							\
 	-export-symbols $(srcdir)/libkkc.symbols			\
 	$(NULL)
 
-libkkc_internals_la_DEPENDENCIES = $(libkkc_la_OBJECTS)
-libkkc_internals_la_CFLAGS = $(libkkc_la_CFLAGS)
-libkkc_internals_la_LIBADD = $(libkkc_la_LIBADD) $(libkkc_la_OBJECTS)
-libkkc_internals_la_LDFLAGS = $(CODE_COVERAGE_LDFLAGS)
+libkkc_internals_la_DEPENDENCIES =		\
+	$(libkkc_la_OBJECTS)			\
+	$(NULL)
+libkkc_internals_la_CFLAGS =			\
+	$(libkkc_la_CFLAGS)			\
+	$(NULL)
+libkkc_internals_la_LIBADD =			\
+	$(libkkc_la_LIBADD)			\
+	$(libkkc_la_OBJECTS)			\
+	$(MARISA_GLIB_STATIC_DEPENDENCIES)	\
+	$(NULL)
+libkkc_internals_la_LDFLAGS =			\
+	$(CODE_COVERAGE_LDFLAGS)		\
+	$(NULL)
 libkkc_internals_la_SOURCES =
 
 libkkcincludedir = $(includedir)/libkkc
-libkkcinclude_HEADERS = libkkc.h
+libkkcinclude_HEADERS =				\
+	libkkc.h				\
+	$(NULL)
 
 libkkc_shell_sources =				\
 	candidate-list.vala			\

@@ -36,7 +36,7 @@ AM_CPPFLAGS =					\
 LDADD = $(top_builddir)/libkkc/libkkc-internals.la	\
 	$(LIBKKC_LIBS)					\
 	$(builddir)/lib/libkkc-test.la			\
-	-lstdc++					\
+	$(MARISA_GLIB_STATIC_DEPENDENCIES)		\
 	$(NULL)
 
 AM_VALAFLAGS =					\
