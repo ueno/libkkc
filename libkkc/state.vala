@@ -145,7 +145,6 @@ namespace Kkc {
                         return DictionaryCallbackReturn.CONTINUE;
                     });
             }
-            candidates.clear ();
         }
 
         void select_candidates (Dictionary dictionary,
