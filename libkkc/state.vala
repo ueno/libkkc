@@ -133,27 +133,14 @@ namespace Kkc {
         }
 
         void candidates_selected (Candidate candidate) {
-            if (segments.cursor_pos >= 0 && candidates.cursor_pos >= 0) {
-                Candidate[] _candidates = {};
-
-                _candidates += candidates.get (candidates.cursor_pos);
-                dictionaries.call (
-                    typeof (SegmentDictionary),
-                    true,
-                    (dictionary) => {
-                        select_candidates (dictionary, _candidates);
-                        return DictionaryCallbackReturn.CONTINUE;
-                    });
-            }
-        }
-
-        void select_candidates (Dictionary dictionary,
-                                Candidate[] _candidates)
-        {
-            var segment_dict = dictionary as SegmentDictionary;
-            foreach (var candidate in _candidates) {
-                segment_dict.select_candidate (candidate);
-            }
+            dictionaries.call (
+                typeof (SegmentDictionary),
+                true,
+                (dictionary) => {
+                    var segment_dict = dictionary as SegmentDictionary;
+                    segment_dict.select_candidate (candidate);
+                    return DictionaryCallbackReturn.CONTINUE;
+                });
         }
 
         void select_sentence_for_dictionary (Dictionary dictionary,
