@@ -107,6 +107,10 @@ namespace Kkc {
                 case '4':
                 case '9':
                     // not supported yet
+                    builder.append (
+                        RomKanaUtils.get_numeric (
+                            numerics[index],
+                            NumericConversionType.LATIN));
                     break;
                 default:
                     warning ("unknown numeric conversion type: %s",

@@ -247,10 +247,12 @@ namespace Kkc {
                     var output = RomKanaUtils.convert_by_kana_mode (
                         normalized_input,
                         (KanaMode) enum_value.value);
-                    var candidate = new Candidate (normalized_input,
-                                                   false,
-                                                   output);
-                    kana_candidates.add (candidate);
+                    if (output != original.output) {
+                        var candidate = new Candidate (normalized_input,
+                                                       false,
+                                                       output);
+                        kana_candidates.add (candidate);
+                    }
                 }
             }
             candidates.add_all (kana_candidates.to_array ());
@@ -303,17 +305,15 @@ namespace Kkc {
                     max_matches = int.min (max_matches, _candidates.length - 1);
                 for (var i = 0; i <= max_matches; i++) {
                     var candidate = _candidates[i];
-                    string text;
-                    text = Expression.eval (candidate.text);
-                    text = template.expand (text);
-                    candidate.output = text;
-                    // annotation may be an expression
+                    var text = Expression.eval (candidate.text);
+                    candidate.output = template.expand (text);
+                    // Annotation may also be an expression.
                     if (candidate.annotation != null) {
                         candidate.annotation = Expression.eval (
                             candidate.annotation);
                     }
+                    candidates.add (candidate);
                 }
-                candidates.add_all (_candidates);
             }
         }
 
