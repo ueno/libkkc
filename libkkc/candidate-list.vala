@@ -94,13 +94,8 @@ namespace Kkc {
             populated ();
         }
 
-        /**
-         * Return cursor position of the beginning of the current page.
-         *
-         * @return cursor position
-         */
-        uint get_page_start_cursor_pos () {
-            var pages = (cursor_pos - page_start) / page_size;
+        uint get_page_start_cursor_pos (int pos) {
+            var pages = (pos - page_start) / page_size;
             return pages * page_size + page_start;
         }
 
@@ -113,7 +108,7 @@ namespace Kkc {
          */
         public bool select_at (uint index_in_page) {
             assert (index_in_page < page_size);
-            var page_offset = get_page_start_cursor_pos ();
+            var page_offset = get_page_start_cursor_pos (cursor_pos);
             if (page_offset + index_in_page < size) {
                 _cursor_pos = (int) (page_offset + index_in_page);
                 notify_property ("cursor-pos");
@@ -180,27 +175,36 @@ namespace Kkc {
             }
         }
 
+        bool cursor_move (int step) {
+            if (_candidates.is_empty || step == 0)
+                return false;
+
+            if (round) {
+                var pos = (_cursor_pos + step) % _candidates.size;
+                if (pos < 0)
+                    pos += _candidates.size;
+                _cursor_pos = pos;
+                notify_property ("cursor-pos");
+                return true;
+            } else {
+                var pos = _cursor_pos + step;
+                if (0 <= pos && pos < _candidates.size) {
+                    _cursor_pos = pos;
+                    notify_property ("cursor-pos");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /**
          * Move cursor to the previous candidate.
          *
          * @return `true` if cursor position has changed, `false` otherwise.
          */
         public bool cursor_up () {
-            if (round) {
-                _cursor_pos = (_cursor_pos - 1) % _candidates.size;
-                if (_cursor_pos < 0)
-                    _cursor_pos += _candidates.size;
-                notify_property ("cursor-pos");
-                return true;
-            } else {
-                assert (_cursor_pos >= 0);
-                if (_cursor_pos > 0) {
-                    _cursor_pos--;
-                    notify_property ("cursor-pos");
-                    return true;
-                }
-            }
-            return false;
+            return cursor_move (-1);
         }
 
         /**
@@ -209,18 +213,32 @@ namespace Kkc {
          * @return `true` if cursor position has changed, `false` otherwise
          */
         public bool cursor_down () {
+            return cursor_move (1);
+        }
+
+        bool page_move (int step) {
+            if (_candidates.is_empty || step == 0)
+                return false;
+
             if (round) {
-                _cursor_pos = (_cursor_pos + 1) % _candidates.size;
-                if (_cursor_pos < 0)
-                    _cursor_pos += _candidates.size;
-                notify_property ("cursor-pos");
-                return true;
-            } else {
-                assert (_cursor_pos >= 0);
-                if (_cursor_pos < _candidates.size - 1) {
-                    _cursor_pos++;
+                var pos = (_cursor_pos + _page_size * step) % _candidates.size;
+                if (pos < 0)
+                    pos += _candidates.size;
+                pos = (int) get_page_start_cursor_pos (pos);
+                if (pos != _cursor_pos) {
+                    _cursor_pos = pos;
                     notify_property ("cursor-pos");
                     return true;
+                }
+            } else {
+                var pos = _cursor_pos + _page_size * step;
+                if (0 <= pos && pos < _candidates.size) {
+                    pos = (int) get_page_start_cursor_pos (pos);
+                    if (pos != _cursor_pos) {
+                        _cursor_pos = pos;
+                        notify_property ("cursor-pos");
+                        return true;
+                    }
                 }
             }
             return false;
@@ -232,22 +250,7 @@ namespace Kkc {
          * @return `true` if cursor position has changed, `false` otherwise
          */
         public bool page_up () {
-            if (round) {
-                _cursor_pos = (_cursor_pos - _page_size) % _candidates.size;
-                if (_cursor_pos < 0)
-                    _cursor_pos += _candidates.size;
-                _cursor_pos = (int) get_page_start_cursor_pos ();
-                return true;
-            } else {
-                assert (_cursor_pos >= 0);
-                if (_cursor_pos >= _page_start + _page_size) {
-                    _cursor_pos -= _page_size;
-                    _cursor_pos = (int) get_page_start_cursor_pos ();
-                    notify_property ("cursor-pos");
-                    return true;
-                }
-            }
-            return false;
+            return page_move (-1);
         }
 
         /**
@@ -256,23 +259,7 @@ namespace Kkc {
          * @return `true` if cursor position has changed, `false` otherwise
          */
         public bool page_down () {
-            if (round) {
-                _cursor_pos = (_cursor_pos + _page_size) % _candidates.size;
-                if (_cursor_pos < 0)
-                    _cursor_pos += _candidates.size;
-                _cursor_pos = (int) get_page_start_cursor_pos ();
-                return true;
-            } else {
-                assert (_cursor_pos >= 0);
-                if (_cursor_pos >= _page_start &&
-                    _cursor_pos < _candidates.size - _page_size) {
-                    _cursor_pos += _page_size;
-                    _cursor_pos = (int) get_page_start_cursor_pos ();
-                    notify_property ("cursor-pos");
-                    return true;
-                }
-            }
-            return false;
+            return page_move (1);
         }
 
         int _page_start;
