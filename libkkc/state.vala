@@ -236,7 +236,24 @@ namespace Kkc {
                 normalized_input,
                 false,
                 segment.output);
-            candidates.add_candidates (new Candidate[] { original });
+            candidates.add (original);
+
+            // Add Kana candidates first to avoid dupes.
+            var kana_candidates = new CandidateList ();
+            var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
+            for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
+                var enum_value = enum_class.get_value (i);
+                if (enum_value != null) {
+                    var output = RomKanaUtils.convert_by_kana_mode (
+                        normalized_input,
+                        (KanaMode) enum_value.value);
+                    var candidate = new Candidate (normalized_input,
+                                                   false,
+                                                   output);
+                    kana_candidates.add (candidate);
+                }
+            }
+            candidates.add_all (kana_candidates.to_array ());
 
             lookup_template (new SimpleTemplate (normalized_input), 3);
             lookup_template (new OkuriganaTemplate (normalized_input), 3);
@@ -255,28 +272,20 @@ namespace Kkc {
                     normalized_input,
                     false,
                     builder.str);
-                candidates.add_candidates (new Candidate[] { sentence });
+                candidates.add (sentence);
             }
             
             lookup_template (new SimpleTemplate (normalized_input), -1);
             lookup_template (new OkuriganaTemplate (normalized_input), -1);
             lookup_template (new NumericTemplate (normalized_input), -1);
 
-            var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
-            for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
-                var enum_value = enum_class.get_value (i);
-                if (enum_value != null) {
-                    var output = RomKanaUtils.convert_by_kana_mode (
-                        normalized_input,
-                        (KanaMode) enum_value.value);
-                    var candidate = new Candidate (normalized_input,
-                                                   false,
-                                                   output);
-                    candidates.add_candidates (new Candidate[] { candidate });
-                }
+            // Move Kana candidates at the end.
+            for (var i = 0; i < kana_candidates.size; i++) {
+                candidates.remove_at (1);
+                candidates.insert (candidates.size, kana_candidates[i]);
             }
 
-            candidates.add_candidates_end ();
+            candidates.populated ();
         }
 
         void lookup_template_for_dictionary (Dictionary dictionary,
@@ -304,7 +313,7 @@ namespace Kkc {
                             candidate.annotation);
                     }
                 }
-                candidates.add_candidates (_candidates);
+                candidates.add_all (_candidates);
             }
         }
 

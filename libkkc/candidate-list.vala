@@ -81,17 +81,36 @@ namespace Kkc {
             }
         }
 
-        internal void add_candidates (Candidate[] array) {
-            foreach (var c in array) {
-                if (!(c.output in seen)) {
-                    _candidates.add (c);
-                    seen.add (c.output);
-                }
-            }
+        internal void insert (int index, Candidate candidate) {
+            _candidates.insert (index, candidate);
         }
 
-        internal void add_candidates_end () {
-            populated ();
+        internal bool add (Candidate candidate) {
+            if (!(candidate.output in seen)) {
+                _candidates.add (candidate);
+                seen.add (candidate.output);
+                return true;
+            }
+            return false;
+        }
+
+        internal bool add_all (Candidate[] array) {
+            bool retval = false;
+            foreach (var c in array) {
+                if (add (c))
+                    retval = true;
+            }
+            return retval;
+        }
+
+        internal Candidate remove_at (int index) {
+            var candidate = _candidates.remove_at (index);
+            seen.remove (candidate.output);
+            return candidate;
+        }
+
+        internal Candidate[] to_array () {
+            return _candidates.to_array ();
         }
 
         uint get_page_start_cursor_pos (int pos) {
