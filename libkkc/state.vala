@@ -257,9 +257,9 @@ namespace Kkc {
             }
             candidates.add_all (kana_candidates.to_array ());
 
+            lookup_template (new NumericTemplate (normalized_input), 3);
             lookup_template (new SimpleTemplate (normalized_input), 3);
             lookup_template (new OkuriganaTemplate (normalized_input), 3);
-            lookup_template (new NumericTemplate (normalized_input), 3);
 
             var _segments = decoder.decode (normalized_input,
                                             10,
@@ -277,9 +277,9 @@ namespace Kkc {
                 candidates.add (sentence);
             }
             
+            lookup_template (new NumericTemplate (normalized_input), -1);
             lookup_template (new SimpleTemplate (normalized_input), -1);
             lookup_template (new OkuriganaTemplate (normalized_input), -1);
-            lookup_template (new NumericTemplate (normalized_input), -1);
 
             // Move Kana candidates at the end.
             for (var i = 0; i < kana_candidates.size; i++) {
