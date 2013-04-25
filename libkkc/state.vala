@@ -804,6 +804,11 @@ namespace Kkc {
                 state.handler_type = typeof (InitialStateHandler);
                 return true;
             }
+            else if (command != null && command.has_prefix ("convert-")) {
+                state.segments.clear ();
+                state.handler_type = typeof (InitialStateHandler);
+                return false;
+            }
             else {
                 state.output.append (state.segments.get_output ());
                 state.select_sentence ();
@@ -857,6 +862,11 @@ namespace Kkc {
                 return false;
             }
             else if (command == "delete") {
+                state.candidates.clear ();
+                state.handler_type = typeof (ConvertSentenceStateHandler);
+                return false;
+            }
+            else if (command != null && command.has_prefix ("convert-")) {
                 state.candidates.clear ();
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
