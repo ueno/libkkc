@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-08 12:35+0900\n"
-"PO-Revision-Date: 2013-04-08 12:47+0900\n"
+"POT-Creation-Date: 2013-04-26 18:24+0900\n"
+"PO-Revision-Date: 2013-04-26 18:25+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -16,81 +16,105 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../libkkc/keymap.vala:33
+#: ../libkkc/keymap.vala:36
 msgid "Abort"
 msgstr "中断"
 
-#: ../libkkc/keymap.vala:34
+#: ../libkkc/keymap.vala:37
 msgid "Commit"
 msgstr "確定"
 
-#: ../libkkc/keymap.vala:35
+#: ../libkkc/keymap.vala:38
 msgid "Complete"
 msgstr "補完"
 
-#: ../libkkc/keymap.vala:36
+#: ../libkkc/keymap.vala:39
 msgid "Delete"
 msgstr "消去"
 
-#: ../libkkc/keymap.vala:37
+#: ../libkkc/keymap.vala:40
 msgid "Quoted Insert"
 msgstr "直接入力"
 
-#: ../libkkc/keymap.vala:38
+#: ../libkkc/keymap.vala:41
 msgid "Register Word"
 msgstr "辞書登録"
 
-#: ../libkkc/keymap.vala:39
+#: ../libkkc/keymap.vala:42
 msgid "Next Candidate"
 msgstr "次候補"
 
-#: ../libkkc/keymap.vala:40
+#: ../libkkc/keymap.vala:43
 msgid "Previous Candidate"
 msgstr "前候補"
 
-#: ../libkkc/keymap.vala:41
+#: ../libkkc/keymap.vala:44
 msgid "Purge Candidate"
 msgstr "候補を削除"
 
-#: ../libkkc/keymap.vala:42
+#: ../libkkc/keymap.vala:45
 msgid "Next Segment"
 msgstr "次の文節"
 
-#: ../libkkc/keymap.vala:43
+#: ../libkkc/keymap.vala:46
 msgid "Previous Segment"
 msgstr "前の文節"
 
-#: ../libkkc/keymap.vala:44
+#: ../libkkc/keymap.vala:47
 msgid "Expand Segment"
 msgstr "文節を伸ばす"
 
-#: ../libkkc/keymap.vala:45
+#: ../libkkc/keymap.vala:48
 msgid "Shrink Segment"
 msgstr "文節を縮める"
 
-#: ../libkkc/keymap.vala:46
+#: ../libkkc/keymap.vala:49
 msgid "Switch to Hiragana Input Mode"
 msgstr "ひらがな入力モードに変更"
 
-#: ../libkkc/keymap.vala:47
+#: ../libkkc/keymap.vala:50
 msgid "Switch to Katakana Input Mode"
 msgstr "カタカナ入力モードに変更"
 
-#: ../libkkc/keymap.vala:48
+#: ../libkkc/keymap.vala:51
 msgid "Switch to Hankaku Katakana Input Mode"
 msgstr "半角カタカナ入力モードに変更"
 
-#: ../libkkc/keymap.vala:49
+#: ../libkkc/keymap.vala:52
 msgid "Switch to Latin Input Mode"
 msgstr "英数入力モードに変更"
 
-#: ../libkkc/keymap.vala:50
+#: ../libkkc/keymap.vala:53
 msgid "Switch to Wide Latin Input Mode"
 msgstr "全角英数入力モードに変更"
 
-#: ../libkkc/keymap.vala:51
+#: ../libkkc/keymap.vala:54
 msgid "Switch to Direct Input Mode"
 msgstr "直接入力モードに変更"
+
+#: ../libkkc/keymap.vala:55
+msgid "Convert to Hiragana"
+msgstr "ひらがなに変換"
+
+#: ../libkkc/keymap.vala:56
+msgid "Convert to Katakana"
+msgstr "カタカナに変換"
+
+#: ../libkkc/keymap.vala:57
+msgid "Convert to Hankaku Katakana"
+msgstr "半角カタカナに変換"
+
+#: ../libkkc/keymap.vala:58
+msgid "Convert to Latin"
+msgstr "英数に変換"
+
+#: ../libkkc/keymap.vala:59
+msgid "Convert to Wide Latin"
+msgstr "全角英数に変換"
+
+#: ../libkkc/keymap.vala:60
+msgid "Abort conversion"
+msgstr "変換を中止"
 
 #: ../tools/kkc.vala:29
 msgid "Language model"
@@ -120,77 +144,26 @@ msgstr "タイピング方式を一覧表示"
 msgid "- perform kana-kanji conversion on the command line"
 msgstr "- かな漢字変換をコマンドラインから実行"
 
-#: ../data/rules/act/metadata.json.in:2
-msgid "ACT"
-msgstr "ACT"
+#: ../data/rules/tutcode/metadata.json.in:2
+msgid "TUT-Code"
+msgstr "TUT-Code"
 
-#: ../data/rules/act/metadata.json.in:3
+#: ../data/rules/tutcode/metadata.json.in:3
 msgid ""
-"Extended romaji input method based on AZIK for Dvorak keyboard layout, "
-"developed by Kiyoshi Kimura <http://hp.vector.co.jp/authors/VA002116/azik/"
-"azikindx.htm#act>"
-msgstr "Dvorak キーボード配列にもとづいた拡張ローマ字入力メソッド。"
-
-#: ../data/rules/azik-jp106/metadata.json.in:2
-msgid "AZIK (Japanese 106 keyboard)"
-msgstr "AZIK (日本語 106 キーボード)"
-
-#: ../data/rules/azik-jp106/metadata.json.in:3
-#: ../data/rules/azik/metadata.json.in:3
-msgid ""
-"Extended romaji input method developed by Kiyoshi Kimura <http://hp.vector."
-"co.jp/authors/VA002116/azik/azikindx.htm>"
-msgstr "拡張ローマ字入力メソッド"
+"Japanese direct input method developed by Hajime Ohiwa and Takaaki Takashima "
+"<http://www.crew.sfc.keio.ac.jp/~chk/intro.html>"
+msgstr "日本語直接入力メソッド"
 
 #: ../data/rules/azik/metadata.json.in:2
 msgid "AZIK"
 msgstr "AZIK"
 
-#: ../data/rules/default/metadata.json.in:2
-msgid "Default"
-msgstr "デフォルト"
-
-#: ../data/rules/default/metadata.json.in:3
-msgid "Default typing rule"
-msgstr "デフォルトのタイピング方式"
-
-#: ../data/rules/kana/metadata.json.in:2
-msgid "Kana"
-msgstr "かな"
-
-#: ../data/rules/kana/metadata.json.in:3
-msgid "Direct Kana typing"
-msgstr "かな直接入力"
-
-#: ../data/rules/kzik/metadata.json.in:2
-msgid "KZIK"
-msgstr "KZIK"
-
-#: ../data/rules/kzik/metadata.json.in:3
+#: ../data/rules/azik/metadata.json.in:3
+#: ../data/rules/azik-jp106/metadata.json.in:3
 msgid ""
-"Extended romaji input method based on AZIK, developed by OHASHI Hideya "
-"<http://ohac.sytes.net/pukiwiki.php?kzik>"
-msgstr "AZIK にもとづいた拡張ローマ字入力メソッド"
-
-#: ../data/rules/nicola/metadata.json.in:2
-msgid "NICOLA"
-msgstr "NICOLA"
-
-#: ../data/rules/nicola/metadata.json.in:3
-msgid ""
-"Input method using thumb shift keyboard developed by the NICOLA (NIhongo-"
-"nyuuryoku COnsortium LAyout) project <http://nicola.sunicom.co.jp/index.html>"
-msgstr "親指シフトキーボードを使った入力メソッド"
-
-#: ../data/rules/tcode/metadata.json.in:2
-msgid "T-Code"
-msgstr "T-Code"
-
-#: ../data/rules/tcode/metadata.json.in:3
-msgid ""
-"Japanese direct input method developed by the T-Code project <http://openlab."
-"jp/tcode/>"
-msgstr "T-Code プロジェクトで開発された日本語直接入力メソッド"
+"Extended romaji input method developed by Kiyoshi Kimura <http://hp.vector."
+"co.jp/authors/VA002116/azik/azikindx.htm>"
+msgstr "拡張ローマ字入力メソッド"
 
 #: ../data/rules/trycode/metadata.json.in:2
 msgid "TRY-CODE"
@@ -202,6 +175,57 @@ msgid ""
 "<http://www.m17n.org/ntakahas/npx/aggressive/aggressive4.en.html>"
 msgstr "T-Code にもとづいた日本語直接入力メソッド"
 
+#: ../data/rules/default/metadata.json.in:2
+msgid "Default"
+msgstr "デフォルト"
+
+#: ../data/rules/default/metadata.json.in:3
+msgid "Default typing rule"
+msgstr "デフォルトのタイピング方式"
+
+#: ../data/rules/azik-jp106/metadata.json.in:2
+msgid "AZIK (Japanese 106 keyboard)"
+msgstr "AZIK (日本語 106 キーボード)"
+
+#: ../data/rules/tcode/metadata.json.in:2
+msgid "T-Code"
+msgstr "T-Code"
+
+#: ../data/rules/tcode/metadata.json.in:3
+msgid ""
+"Japanese direct input method developed by the T-Code project <http://openlab."
+"jp/tcode/>"
+msgstr "T-Code プロジェクトで開発された日本語直接入力メソッド"
+
+#: ../data/rules/act/metadata.json.in:2
+msgid "ACT"
+msgstr "ACT"
+
+#: ../data/rules/act/metadata.json.in:3
+msgid ""
+"Extended romaji input method based on AZIK for Dvorak keyboard layout, "
+"developed by Kiyoshi Kimura <http://hp.vector.co.jp/authors/VA002116/azik/"
+"azikindx.htm#act>"
+msgstr "Dvorak キーボード配列にもとづいた拡張ローマ字入力メソッド。"
+
+#: ../data/rules/kana/metadata.json.in:2
+msgid "Kana"
+msgstr "かな"
+
+#: ../data/rules/kana/metadata.json.in:3
+msgid "Direct Kana typing"
+msgstr "かな直接入力"
+
+#: ../data/rules/nicola/metadata.json.in:2
+msgid "NICOLA"
+msgstr "NICOLA"
+
+#: ../data/rules/nicola/metadata.json.in:3
+msgid ""
+"Input method using thumb shift keyboard developed by the NICOLA (NIhongo-"
+"nyuuryoku COnsortium LAyout) project <http://nicola.sunicom.co.jp/index.html>"
+msgstr "親指シフトキーボードを使った入力メソッド"
+
 #: ../data/rules/tutcode-touch16x/metadata.json.in:2
 msgid "TUT-Code (Touch16+)"
 msgstr "TUT-Code (Touch16+)"
@@ -210,12 +234,12 @@ msgstr "TUT-Code (Touch16+)"
 msgid "TUT-Code with Touch16+ extension"
 msgstr "TUT-Code (Touch16+ 拡張)"
 
-#: ../data/rules/tutcode/metadata.json.in:2
-msgid "TUT-Code"
-msgstr "TUT-Code"
+#: ../data/rules/kzik/metadata.json.in:2
+msgid "KZIK"
+msgstr "KZIK"
 
-#: ../data/rules/tutcode/metadata.json.in:3
+#: ../data/rules/kzik/metadata.json.in:3
 msgid ""
-"Japanese direct input method developed by Hajime Ohiwa and Takaaki Takashima "
-"<http://www.crew.sfc.keio.ac.jp/~chk/intro.html>"
-msgstr "日本語直接入力メソッド"
+"Extended romaji input method based on AZIK, developed by OHASHI Hideya "
+"<http://ohac.sytes.net/pukiwiki.php?kzik>"
+msgstr "AZIK にもとづいた拡張ローマ字入力メソッド"
