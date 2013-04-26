@@ -1,2 +1,13 @@
 libkkc/keymap.vala
 tools/kkc.vala
+data/rules/tutcode/metadata.json.in
+data/rules/azik/metadata.json.in
+data/rules/trycode/metadata.json.in
+data/rules/default/metadata.json.in
+data/rules/azik-jp106/metadata.json.in
+data/rules/tcode/metadata.json.in
+data/rules/act/metadata.json.in
+data/rules/kana/metadata.json.in
+data/rules/nicola/metadata.json.in
+data/rules/tutcode-touch16x/metadata.json.in
+data/rules/kzik/metadata.json.in
