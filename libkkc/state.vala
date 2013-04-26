@@ -790,7 +790,8 @@ namespace Kkc {
                 state.segments.previous_segment ();
                 return true;
             }
-            else if (command == "abort" || command == "delete") {
+            else if (command == "abort" || command == "delete" ||
+                     command == "abort-conversion") {
                 state.segments.clear ();
                 state.handler_type = typeof (InitialStateHandler);
                 return true;
@@ -857,7 +858,8 @@ namespace Kkc {
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
-            else if (command != null && command.has_prefix ("convert-")) {
+            else if ((command != null && command.has_prefix ("convert-")) ||
+                     command == "abort-conversion") {
                 state.candidates.clear ();
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
