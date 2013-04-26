@@ -257,10 +257,12 @@ namespace Kkc {
             }
             candidates.add_all (kana_candidates.to_array ());
 
-            lookup_template (new NumericTemplate (normalized_input), 3);
-            lookup_template (new SimpleTemplate (normalized_input), 3);
-            lookup_template (new OkuriganaTemplate (normalized_input), 3);
+            // Do segment lookup first.
+            lookup_template (new NumericTemplate (normalized_input));
+            lookup_template (new SimpleTemplate (normalized_input));
+            lookup_template (new OkuriganaTemplate (normalized_input));
 
+            // Then, do sentence lookup.
             var _segments = decoder.decode (normalized_input,
                                             10,
                                             new int[0]);
@@ -276,10 +278,6 @@ namespace Kkc {
                     builder.str);
                 candidates.add (sentence);
             }
-            
-            lookup_template (new NumericTemplate (normalized_input), -1);
-            lookup_template (new SimpleTemplate (normalized_input), -1);
-            lookup_template (new OkuriganaTemplate (normalized_input), -1);
 
             // Move Kana candidates at the end.
             for (var i = 0; i < kana_candidates.size; i++) {
@@ -291,20 +289,14 @@ namespace Kkc {
         }
 
         void lookup_template_for_dictionary (Dictionary dictionary,
-                                             Template template,
-                                             int max_matches)
+                                             Template template)
         {
             var segment_dict = dictionary as SegmentDictionary;
             Candidate[] _candidates;
             if (segment_dict.lookup_candidates (template.source,
                                                 template.okuri,
                                                 out _candidates)) {
-                if (max_matches < 0)
-                    max_matches = _candidates.length - 1;
-                else
-                    max_matches = int.min (max_matches, _candidates.length - 1);
-                for (var i = 0; i <= max_matches; i++) {
-                    var candidate = _candidates[i];
+                foreach (var candidate in _candidates) {
                     var text = Expression.eval (candidate.text);
                     candidate.output = template.expand (text);
                     // Annotation may also be an expression.
@@ -317,13 +309,12 @@ namespace Kkc {
             }
         }
 
-        void lookup_template (Template template, int max_matches) {
+        void lookup_template (Template template) {
             dictionaries.call (typeof (SegmentDictionary),
                                false,
                                (dictionary) => {
                                    lookup_template_for_dictionary (dictionary,
-                                                                   template,
-                                                                   max_matches);
+                                                                   template);
                                    return DictionaryCallbackReturn.CONTINUE;
                                });
         }
