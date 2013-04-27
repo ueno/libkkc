@@ -32,6 +32,9 @@ namespace Kkc {
             get {
                 return _cursor_pos;
             }
+            set {
+                _cursor_pos = value;
+            }
         }
 
         /**

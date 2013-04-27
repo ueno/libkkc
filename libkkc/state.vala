@@ -757,14 +757,21 @@ namespace Kkc {
                 }
             }
 
-            if (command == "next-candidate"
-                || command == "previous-candidate"
-                || command == "purge-candidate") {
+            if (command == "next-candidate" ||
+                command == "previous-candidate" ||
+                command == "purge-candidate") {
                 state.handler_type = typeof (ConvertSegmentStateHandler);
                 state.lookup (state.segments[state.segments.cursor_pos]);
                 state.candidates.first ();
                 return false;
             }
+
+            if (command == "original-candidate") {
+                var segment = state.segments[state.segments.cursor_pos];
+                segment.output = segment.input;
+                return true;
+            }
+
             if (command != null && command.has_prefix ("insert-kana-")) {
                 var kana = RomKanaUtils.convert_by_kana_mode (
                     command["insert-kana-".length:command.length],
@@ -790,8 +797,7 @@ namespace Kkc {
                 state.segments.previous_segment ();
                 return true;
             }
-            else if (command == "abort" || command == "delete" ||
-                     command == "abort-conversion") {
+            else if (command == "abort" || command == "delete") {
                 state.segments.clear ();
                 state.handler_type = typeof (InitialStateHandler);
                 return true;
@@ -853,13 +859,9 @@ namespace Kkc {
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
-            else if (command == "delete") {
-                state.candidates.clear ();
-                state.handler_type = typeof (ConvertSentenceStateHandler);
-                return false;
-            }
-            else if ((command != null && command.has_prefix ("convert-")) ||
-                     command == "abort-conversion") {
+            else if (command == "delete" ||
+                     command == "original-candidate" ||
+                     (command != null && command.has_prefix ("convert-"))) {
                 state.candidates.clear ();
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;

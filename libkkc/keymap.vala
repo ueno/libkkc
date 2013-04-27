@@ -57,7 +57,7 @@ namespace Kkc {
             { "convert-hankaku-katakana", N_("Convert to Hankaku Katakana") },
             { "convert-latin", N_("Convert to Latin") },
             { "convert-wide-latin", N_("Convert to Wide Latin") },
-            { "abort-conversion", N_("Abort conversion") }
+            { "original-candidate", N_("Original Candidate") }
         };
 
         static Map<string,string> _CommandTable =
