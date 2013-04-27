@@ -25,23 +25,22 @@ libmarisa_glib_la_LIBADD = $(GIO_LIBS) $(MARISA_LIBS)
 
 noinst_HEADERS = marisa-glib.h marisa-glib-private.h $(libmarisa_glib_la_headers)
 
--include $(INTROSPECTION_MAKEFILE)
-INTROSPECTION_GIRS =
-INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir)
-INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
-
 EXTRA_DIST =
 CLEANFILES =
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 
 if HAVE_INTROSPECTION
+-include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS =
+INTROSPECTION_SCANNER_ARGS = --add-include-path=$(builddir)
+INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+
 Marisa.gir: libmarisa-glib.la
-Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa
+Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa $(MARISA_GLIB_STATIC_DEPENDENCIES)
 Marisa_gir_INCLUDES = GLib-2.0 GObject-2.0 Gio-2.0
 Marisa_gir_CFLAGS = $(libmarisa_glib_la_CFLAGS)
 Marisa_gir_LIBS = libmarisa-glib.la
-Marisa_gir_LDFLAGS = $(MARISA_GLIB_STATIC_DEPENDENCIES)
 Marisa_gir_FILES = $(libmarisa_glib_la_sources) $(libmarisa_glib_la_headers)
 
 INTROSPECTION_GIRS += Marisa.gir
