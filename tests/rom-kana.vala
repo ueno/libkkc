@@ -12,16 +12,16 @@ class RomKanaTests : Kkc.TestCase {
         var converter = new Kkc.RomKanaConverter ();
         converter.rule = rule.rom_kana;
         converter.append ('a');
-        assert (converter.output == "");
-        assert (converter.preedit == "ち");
+        assert (converter.get_produced_output () == "");
+        assert (converter.pending_output == "ち");
         converter.append ('@');
-        assert (converter.output == "ぢ");
-        assert (converter.preedit == "");
+        assert (converter.get_produced_output () == "ぢ");
+        assert (converter.pending_output == "");
         converter.reset ();
         converter.append ('a');
         converter.append ('>');
-        assert (converter.output == "ち。");
-        assert (converter.preedit == "");
+        assert (converter.get_produced_output () == "ち。");
+        assert (converter.pending_output == "");
     }
 }
 

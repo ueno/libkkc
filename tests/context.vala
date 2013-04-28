@@ -21,7 +21,30 @@ class ContextTests : Kkc.TestCase {
             stderr.printf ("%s\n", e.message);
         }
 
+        add_test ("initial", this.test_initial);
         add_test ("conversion", this.test_conversion);
+    }
+
+    public void test_initial () {
+        context.process_key_events ("k y o");
+        assert (context.input == "きょ");
+        context.process_key_events ("DEL");
+        assert (context.input == "");
+        context.reset ();
+        context.clear_output ();
+
+        context.process_key_events ("k y o");
+        assert (context.input == "きょ");
+        context.process_key_events ("F10");
+        assert (context.input == "kyo");
+        context.process_key_events ("F9");
+        assert (context.input == "ｋｙｏ");
+        context.process_key_events ("F7");
+        assert (context.input == "キョ");
+        context.process_key_events ("DEL");
+        assert (context.input == "きょ");
+        context.reset ();
+        context.clear_output ();
     }
 
     struct Conversion {

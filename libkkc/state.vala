@@ -27,23 +27,21 @@ namespace Kkc {
                 return _input_mode;
             }
             set {
-                output.append (rom_kana_converter.output);
-                var last_input_mode = _input_mode;
-                reset ();
+                var _last_input_mode = _input_mode;
                 _input_mode = value;
-                switch (_input_mode) {
-                case InputMode.HIRAGANA:
-                case InputMode.KATAKANA:
-                case InputMode.HANKAKU_KATAKANA:
-                    rom_kana_converter.kana_mode = (KanaMode) value;
-                    break;
-                default:
-                    break;
-                }
-                if (_input_mode != last_input_mode) {
+                if (_last_input_mode != _input_mode) {
                     notify_property ("input-mode");
                 }
             }
+        }
+
+        internal void finish_rom_kana_conversion () {
+            rom_kana_converter.flush_partial ();
+            var chars = rom_kana_converter.get_produced ();
+            foreach (var c in chars) {
+                input_chars.add (c);
+            }
+            rom_kana_converter.clear_produced ();
         }
 
         internal Decoder decoder;
@@ -53,16 +51,23 @@ namespace Kkc {
         internal DictionaryList dictionaries;
 
         internal RomKanaConverter rom_kana_converter;
-        internal StringBuilder input_buffer = new StringBuilder ();
-        internal string input {
-            owned get {
-                return input_buffer.str + rom_kana_converter.preedit;
+        internal Gee.List<RomKanaCharacter?> input_chars = new ArrayList<RomKanaCharacter?> ();
+        internal string get_input () {
+            if (overriding_input != null)
+                return overriding_input;
+
+            var builder = new StringBuilder ();
+            foreach (var c in input_chars) {
+                builder.append (c.output);
             }
+            builder.append (rom_kana_converter.pending_output);
+            return builder.str;
         }
         internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
         internal bool quoted = false;
 
+        internal string? overriding_input = null;
         ArrayList<string> completion = new ArrayList<string> ();
         internal Iterator<string> completion_iterator;
 
@@ -185,7 +190,8 @@ namespace Kkc {
             segments.clear ();
             segments_changed = false;
             candidates.clear ();
-            input_buffer.erase ();
+            input_chars.clear ();
+            overriding_input = null;
             completion_iterator = null;
             completion.clear ();
             quoted = false;
@@ -329,13 +335,15 @@ namespace Kkc {
             segments.set_segments (_segments[0]);
 
             if (constraint == null) {
-                apply_constraint ();
+                apply_constraint (input);
             }
 
             apply_phrase ();
         }
 
-        void apply_constraint_for_dictionary (Dictionary dictionary) {
+        void apply_constraint_for_dictionary (Dictionary dictionary,
+                                              string input)
+        {
             var sentence_dict = dictionary as SentenceDictionary;
             var sequence = Utils.split_utf8 (input);
             var prefixes = SequenceUtils.enumerate_prefixes (
@@ -349,8 +357,8 @@ namespace Kkc {
                 if (prefix.offset < next_offset)
                     continue;
                 int[] _constraint;
-                var input = string.joinv ("", prefix.sequence);
-                if (sentence_dict.lookup_constraint (input,
+                var _input = string.joinv ("", prefix.sequence);
+                if (sentence_dict.lookup_constraint (_input,
                                                      out _constraint)) {
                     assert (_constraint.length > 0);
                     var constraint_index = 0;
@@ -420,11 +428,12 @@ namespace Kkc {
             segments.set_segments (_segments[0]);
         }
 
-        void apply_constraint () {
+        void apply_constraint (string input) {
             dictionaries.call (typeof (SentenceDictionary),
                                false,
                                (dictionary) => {
-                                   apply_constraint_for_dictionary (dictionary);
+                                   apply_constraint_for_dictionary (dictionary,
+                                                                    input);
                                    return DictionaryCallbackReturn.CONTINUE;
                                });
         }
@@ -538,75 +547,97 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
+            var has_overriding_input = state.overriding_input != null;
 
-            // clear completion
-            if (command != "complete")
+            // Clear completion data.
+            if (command != "complete") {
+                state.overriding_input = null;
                 state.completion_iterator = null;
+            }
 
-            // check mode switch events
-            if (command != null && command.has_prefix ("set-input-mode-") &&
-                !((state.input_mode == InputMode.HIRAGANA ||
-                   state.input_mode == InputMode.KATAKANA ||
-                   state.input_mode == InputMode.HANKAKU_KATAKANA) &&
-                  key.modifiers == 0 &&
-                  state.rom_kana_converter.can_consume (key.unicode))) {
+            // Check mode switch events.
+            if (command != null && command.has_prefix ("set-input-mode-")) {
                 var enum_class = (EnumClass) typeof (InputMode).class_ref ();
                 var enum_value = enum_class.get_value_by_nick (
                     command["set-input-mode-".length:command.length]);
                 if (enum_value != null) {
-                    state.rom_kana_converter.flush_partial ();
                     state.selection.erase ();
+                    state.finish_rom_kana_conversion ();
+                    state.output.append (state.get_input ());
                     state.input_mode = (InputMode) enum_value.value;
                     return true;
                 }
             }
 
+            // Don't handle any keys under direct input mode, except
+            // mode switch keys.
             if (state.input_mode == InputMode.DIRECT)
                 return false;
 
-            // insert quoted
+            // Enter quoted insert mode.
             if (command == "quote") {
                 state.quoted = true;
                 return true;
             }
 
+            // Exit quoted insert mode.
             if (state.quoted &&
                 (key.modifiers == 0 ||
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                 0x20 <= key.unicode && key.unicode < 0x7F) {
-                state.rom_kana_converter.flush_partial ();
-                state.input_buffer.append (state.rom_kana_converter.output);
-                state.rom_kana_converter.output = "";
-                state.input_buffer.append_c ((char) key.unicode);
+                state.finish_rom_kana_conversion ();
+                state.input_chars.add (RomKanaCharacter () {
+                        output = key.unicode.to_string (),
+                        input = key.unicode.to_string ()
+                    });
                 state.quoted = false;
                 return true;
             }
 
+            // Handle inline conversion.  This sets state.overriding_input.
             if (command != null &&
                 command.has_prefix ("convert-") &&
-                state.input_buffer.len > 0) {
+                state.input_chars.size > 0) {
                 var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
                 var enum_value = enum_class.get_value_by_nick (
                     command["convert-".length:command.length]);
                 if (enum_value != null) {
                     state.selection.erase ();
-                    state.rom_kana_converter.flush_partial ();
-                    state.input_buffer.append (state.rom_kana_converter.output);
-                    state.rom_kana_converter.output = "";
-                    state.input_buffer.assign (
-                        RomKanaUtils.convert_by_kana_mode (
-                            state.input_buffer.str,
-                            (KanaMode) enum_value.value));
+                    state.finish_rom_kana_conversion ();
+                    var builder = new StringBuilder ();
+                    foreach (var c in state.input_chars) {
+                        switch (enum_value.value) {
+                        case KanaMode.HIRAGANA:
+                        case KanaMode.KATAKANA:
+                        case KanaMode.HANKAKU_KATAKANA:
+                            builder.append (RomKanaUtils.convert_by_kana_mode (
+                                                c.output,
+                                                (KanaMode) enum_value.value));
+                            break;
+                        case KanaMode.LATIN:
+                        case KanaMode.WIDE_LATIN:
+                            builder.append (RomKanaUtils.convert_by_kana_mode (
+                                                c.input,
+                                                (KanaMode) enum_value.value));
+                            break;
+                        }
+                    }
+                    state.overriding_input = builder.str;
                     return true;
                 }
             }
 
-            // check state transition
+            // If there was state.overriding_input, cancel it and
+            // discard the current key event.
+            if (has_overriding_input)
+                return true;
+
+            // Check state transition.
             if (command == "next-candidate") {
-                if (state.input_buffer.len == 0)
+                if (state.input_chars.size == 0)
                     return false;
                 if (state.selection.len > 0) {
-                    var input = state.input_buffer.str;
+                    var input = state.get_input ();
                     var segment = new Segment (input, state.selection.str);
                     state.selection.erase ();
                     state.segments.set_segments (segment);
@@ -616,9 +647,8 @@ namespace Kkc {
                     return true;
                 }
                 if (state.segments.size == 0) {
-                    state.rom_kana_converter.flush_partial ();
-                    state.input_buffer.append (state.rom_kana_converter.output);
-                    string input = RomKanaUtils.get_hiragana (state.input);
+                    state.finish_rom_kana_conversion ();
+                    string input = RomKanaUtils.get_hiragana (state.get_input ());
 
                     var output = state.lookup_single (input);
                     if (output != null) {
@@ -633,36 +663,33 @@ namespace Kkc {
                 }
             }
 
-            // word registration
+            // Word registration
             if (command == "register") {
                 state.request_selection_text ();
                 return true;
             }
 
-            // check editing events
+            // Pre-edit editing events.
             if (command == "delete") {
                 if (state.rom_kana_converter.delete ()) {
                     return true;
                 }
-                if (state.input_buffer.len > 0) {
-                    state.input_buffer.truncate (
-                        state.input_buffer.str.index_of_nth_char (
-                            state.input_buffer.str.char_count () - 1));
+                if (state.input_chars.size > 0) {
+                    state.input_chars.remove_at (state.input_chars.size - 1);
                     return true;
                 }
                 return false;
             }
-            else if (command == "complete") {
-                state.rom_kana_converter.flush_partial ();
-                state.input_buffer.append (state.rom_kana_converter.output);
-                state.rom_kana_converter.output = "";
-                if (state.input_buffer.len > 0) {
+
+            // Word completion.
+            if (command == "complete") {
+                state.finish_rom_kana_conversion ();
+                if (state.input_chars.size > 0) {
                     if (state.completion_iterator == null) {
-                        state.completion_start (state.input_buffer.str);
+                        state.completion_start (state.get_input ());
                     }
                     if (state.completion_iterator != null) {
-                        string input = state.completion_iterator.get ();
-                        state.input_buffer.assign (input);
+                        state.overriding_input = state.completion_iterator.get ();
                         if (state.completion_iterator.has_next ()) {
                             state.completion_iterator.next ();
                         }
@@ -677,9 +704,7 @@ namespace Kkc {
             case InputMode.KATAKANA:
             case InputMode.HANKAKU_KATAKANA:
                 if (command == "next-candidate") {
-                    state.rom_kana_converter.flush_partial ();
-                    state.input_buffer.append (state.rom_kana_converter.output);
-                    state.rom_kana_converter.output = "";
+                    state.finish_rom_kana_conversion ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
                     return false;
                 }
@@ -687,38 +712,43 @@ namespace Kkc {
                     var kana = RomKanaUtils.convert_by_kana_mode (
                         command["insert-kana-".length:command.length],
                         (KanaMode) state.input_mode);
-                    state.input_buffer.append (kana);
+                    state.input_chars.add (RomKanaCharacter () {
+                            output = kana,
+                            input = key.unicode.to_string ()
+                        });
                     return true;
                 }
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                     state.rom_kana_converter.is_valid (key.unicode)) {
                     if (state.rom_kana_converter.append (key.unicode)) {
-                        state.input_buffer.append (
-                            state.rom_kana_converter.output);
-                        state.rom_kana_converter.output = "";
+                        var chars = state.rom_kana_converter.get_produced ();
+                        foreach (var c in chars) {
+                            state.input_chars.add (c);
+                        }
+                        state.rom_kana_converter.clear_produced ();
                         return true;
                     } else {
-                        state.input_buffer.append_c ((char) key.unicode);
-                        state.rom_kana_converter.output = "";
+                        state.input_chars.add (RomKanaCharacter () {
+                                output = key.unicode.to_string (),
+                                input = key.unicode.to_string ()
+                            });
+                        state.rom_kana_converter.clear_produced ();
                         return true;
                     }
                 }
                 break;
             case InputMode.LATIN:
-                if ((key.modifiers == 0 ||
-                     key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                    0x20 <= key.unicode && key.unicode < 0x7F) {
-                    state.input_buffer.append_c ((char) key.unicode);
-                    return true;
-                }
-                break;
             case InputMode.WIDE_LATIN:
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                     0x20 <= key.unicode && key.unicode < 0x7F) {
-                    state.input_buffer.append_unichar (
-                        RomKanaUtils.get_wide_latin_char ((char) key.unicode));
+                    state.finish_rom_kana_conversion ();
+                    var input = state.get_input ();
+                    state.output.append (input);
+                    state.output.append (RomKanaUtils.convert_by_kana_mode (
+                                             key.unicode.to_string (),
+                                             (KanaMode) state.input_mode));
                     return true;
                 }
                 break;
@@ -726,14 +756,11 @@ namespace Kkc {
                 break;
             }
 
-            bool retval = state.input_buffer.len > 0 ||
-                state.rom_kana_converter.preedit.length > 0;
-            state.rom_kana_converter.flush_partial ();
-            state.output.append (state.input_buffer.str);
-            state.output.append (state.rom_kana_converter.output);
-            state.output.append (state.rom_kana_converter.preedit);
+            state.finish_rom_kana_conversion ();
+            var input = state.get_input ();
+            state.output.append (input);
             state.reset ();
-            return retval;
+            return input.length > 0;
         }
     }
 
@@ -747,12 +774,7 @@ namespace Kkc {
                 var enum_value = enum_class.get_value_by_nick (
                     command["set-input-mode-".length:command.length]);
                 if (enum_value != null) {
-                    state.rom_kana_converter.flush_partial ();
-                    state.output.assign (
-                        RomKanaUtils.convert_by_kana_mode (
-                            state.rom_kana_converter.output,
-                            (KanaMode) enum_value.value));
-                    state.rom_kana_converter.reset ();
+                    state.input_mode = (InputMode) enum_value.value;
                     return true;
                 }
             }
@@ -765,18 +787,9 @@ namespace Kkc {
                 state.candidates.first ();
                 return false;
             }
-
-            if (command == "original-candidate") {
+            else if (command == "original-candidate") {
                 var segment = state.segments[state.segments.cursor_pos];
                 segment.output = segment.input;
-                return true;
-            }
-
-            if (command != null && command.has_prefix ("insert-kana-")) {
-                var kana = RomKanaUtils.convert_by_kana_mode (
-                    command["insert-kana-".length:command.length],
-                    (KanaMode) state.input_mode);
-                state.rom_kana_converter.output = kana;
                 return true;
             }
             else if (command == "expand-segment") {

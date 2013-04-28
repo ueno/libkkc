@@ -57,7 +57,7 @@ namespace Kkc {
          */
         public string input {
             owned get {
-                return state.input;
+                return state.get_input ();
             }
         }
 

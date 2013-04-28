@@ -165,6 +165,11 @@ namespace Kkc {
         EN_JA
     }
 
+    public struct RomKanaCharacter {
+        string output;
+        string input;
+    }
+
     /**
      * Romaji-to-kana converter.
      */
@@ -185,21 +190,38 @@ namespace Kkc {
         public KanaMode kana_mode { get; set; default = KanaMode.HIRAGANA; }
         public PunctuationStyle punctuation_style { get; set; default = PunctuationStyle.JA_JA; }
 
-        StringBuilder _output = new StringBuilder ();
-        StringBuilder _preedit = new StringBuilder ();
-
-        public string output {
+        StringBuilder _pending_output = new StringBuilder ();
+        public string pending_output {
             get {
-                return _output.str;
-            }
-            internal set {
-                _output.assign (value);
+                return _pending_output.str;
             }
         }
-        public string preedit {
+
+        StringBuilder _pending_input = new StringBuilder ();
+        public string pending_input {
             get {
-                return _preedit.str;
+                return _pending_input.str;
             }
+        }
+
+        Gee.List<RomKanaCharacter?> _produced = new ArrayList<RomKanaCharacter?> ();
+        public RomKanaCharacter[] get_produced () {
+            RomKanaCharacter[] array = new RomKanaCharacter[_produced.size];
+            for (var i = 0; i < _produced.size; i++)
+                array[i] = _produced[i];
+            return array;
+        }
+
+        public string get_produced_output () {
+            var builder = new StringBuilder ();
+            foreach (var c in _produced) {
+                builder.append (c.output);
+            }
+            return builder.str;
+        }
+
+        public void clear_produced () {
+            _produced.clear ();
         }
 
         public RomKanaConverter () {
@@ -222,14 +244,17 @@ namespace Kkc {
         }
 
         /**
-         * Flush partial output, if any.
+         * Finish pending input, if any.
          */
         public bool flush_partial () {
             if (current_node.entry != null) {
                 var partial = current_node.entry.get_kana (kana_mode, true);
                 if (partial.length > 0) {
-                    _output.append (partial);
-                    _preedit.erase ();
+                    _produced.add (RomKanaCharacter () {
+                            output = partial, input = _pending_input.str
+                        });
+                    _pending_input.erase ();
+                    _pending_output.erase ();
                     current_node = rule.root_node;
                     return true;
                 }
@@ -262,12 +287,20 @@ namespace Kkc {
                 }
             }
             if (index >= 0) {
-                if (current_node.entry != null)
-                    _output.append (_preedit.str);
+                if (current_node.entry != null) {
+                    _produced.add (RomKanaCharacter () {
+                            output = _pending_output.str,
+                            input = _pending_input.str
+                        });
+                }
                 index = PUNCTUATION_RULE[punctuation_style].index_of_nth_char (index);
                 unichar punctuation = PUNCTUATION_RULE[punctuation_style].get_char (index);
-                _output.append_unichar (punctuation);
-                _preedit.erase ();
+                _produced.add (RomKanaCharacter () {
+                        output = punctuation.to_string (),
+                        input = uc.to_string ()
+                    });
+                _pending_input.erase ();
+                _pending_output.erase ();
                 current_node = rule.root_node;
                 return true;
             }
@@ -284,43 +317,56 @@ namespace Kkc {
         public bool append (unichar uc) {
             var child_node = current_node.children[uc];
             if (child_node == null) {
-                // no such transition path in trie
+                // No such transition path in trie.
                 var retval = flush_partial ();
                 if (append_punctuation (uc)) {
                     return true;
                 } else if (rule.root_node.children[uc] == null) {
-                    _preedit.erase ();
+                    _pending_input.erase ();
+                    _pending_output.erase ();
                     current_node = rule.root_node;
-                    // there may be "NN" output
                     return retval;
                 } else if (current_node.entry != null) {
-                    _output.append (_preedit.str);
+                    _produced.add (RomKanaCharacter () {
+                            output = _pending_output.str,
+                            input = _pending_input.str
+                        });
                     current_node = rule.root_node;
-                    _preedit.erase ();
+                    _pending_input.erase ();
+                    _pending_output.erase ();
                     return append (uc);
                 } else {
-                    // abandon the current preedit and restart lookup from
-                    // the root with uc
-                    _preedit.erase ();
+                    // Abandon the pending input and restart lookup
+                    // from the root with uc.
+                    _pending_input.erase ();
+                    _pending_output.erase ();
                     current_node = rule.root_node;
                     return append (uc);
                 }
             } else if (child_node.n_children > 0) {
-                // node is non-terminal
+                // Node is non-terminal.
                 if (child_node.entry != null) {
-                    _preedit.append (child_node.entry.get_kana (kana_mode,
-                                                                false));
+                    _pending_input.append_unichar (uc);
+                    _pending_output.append (
+                        child_node.entry.get_kana (kana_mode,
+                                                   false));
                 } else {
-                    _preedit.append_unichar (uc);
+                    _pending_input.append_unichar (uc);
+                    _pending_output.append_unichar (uc);
                 }
                 current_node = child_node;
                 return true;
             } else {
-                // node is terminal
+                // Node is terminal.
                 if (append_punctuation (uc))
                     return true;
-                _output.append (child_node.entry.get_kana (kana_mode, false));
-                _preedit.erase ();
+                var str = child_node.entry.get_kana (kana_mode, false);
+                _pending_input.append_unichar (uc);
+                _produced.add (RomKanaCharacter () {
+                        output = str, input = _pending_input.str
+                    });
+                _pending_input.erase ();
+                _pending_output.erase ();
                 current_node = rule.root_node;
                 for (int i = 0; i < child_node.entry.carryover.length; i++) {
                     append (child_node.entry.carryover[i]);
@@ -333,16 +379,13 @@ namespace Kkc {
          * Check if a character will be consumed by the current conversion.
          *
          * @param uc an ASCII character
-         * @param preedit_only only checks if preedit is active
          * @param no_carryover return false if there will be carryover
+         *
          * @return `true` if the character can be consumed
          */
         public bool can_consume (unichar uc,
-                                 bool preedit_only = false,
                                  bool no_carryover = true)
         {
-            if (preedit_only && _preedit.len == 0)
-                return false;
             var child_node = current_node.children[uc];
             if (child_node == null)
                 return false;
@@ -356,8 +399,9 @@ namespace Kkc {
          * Reset the internal state of the converter.
          */
         public void reset () {
-            _output.erase ();
-            _preedit.erase ();
+            clear_produced ();
+            _pending_input.erase ();
+            _pending_output.erase ();
             current_node = rule.root_node;
         }
 
@@ -367,19 +411,20 @@ namespace Kkc {
          * @return `true` if any character is removed, `false` otherwise
          */
         public bool delete () {
-            if (_preedit.len > 0) {
+            if (_pending_output.len > 0) {
                 current_node = current_node.parent;
                 if (current_node == null)
                     current_node = rule.root_node;
-                _preedit.truncate (
-                    _preedit.str.index_of_nth_char (
-                        _preedit.str.char_count () - 1));
+                _pending_output.truncate (
+                    _pending_output.str.index_of_nth_char (
+                        _pending_output.str.char_count () - 1));
+                _pending_input.truncate (
+                    _pending_input.str.index_of_nth_char (
+                        _pending_input.str.char_count () - 1));
                 return true;
             }
-            if (_output.len > 0) {
-                _output.truncate (
-                    _output.str.index_of_nth_char (
-                        _output.str.char_count () - 1));
+            if (_produced.size > 0) {
+                _produced.remove_at (_produced.size - 1);
                 return true;
             }
             return false;
