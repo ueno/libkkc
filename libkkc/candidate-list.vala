@@ -24,6 +24,9 @@ namespace Kkc {
     public class CandidateList : Object {
         ArrayList<Candidate> _candidates = new ArrayList<Candidate> ();
 
+        // Don't make this a object property.  In some cases we need
+        // to update the cursor position without property
+        // notification.  See clear().
         int _cursor_pos;
         /**
          * Current cursor position.
@@ -74,8 +77,10 @@ namespace Kkc {
                 _cursor_pos = -1;
                 is_cursor_changed = true;
             }
-            // to avoid race condition, emit signals after modifying
-            // _candidates and _cursor_pos
+
+            // To avoid race condition in the caller side where
+            // monitoring the property changes, emit signals after
+            // modifying _candidates and _cursor_pos.
             if (is_populated) {
                 populated ();
             }
@@ -116,7 +121,7 @@ namespace Kkc {
             return _candidates.to_array ();
         }
 
-        uint get_page_start_cursor_pos (int pos) {
+        uint get_page_start_cursor_pos (uint pos) {
             var pages = (pos - page_start) / page_size;
             return pages * page_size + page_start;
         }
@@ -148,12 +153,21 @@ namespace Kkc {
             selected (candidate);
         }
 
+        /**
+         * Create a new CandidateList.
+         *
+         * @param page_start starting index of pagination
+         * @param page_size page size
+         * @param round whether to loop over the candidate list
+         *
+         * @return a new CandidateList
+         */
         public CandidateList (uint page_start = 4,
-                                    uint page_size = 7,
-                                    bool round = false)
+                              uint page_size = 7,
+                              bool round = false)
         {
-            _page_start = (int) page_start;
-            _page_size = (int) page_size;
+            this.page_start = page_start;
+            this.page_size = page_size;
             this.round = round;
         }
 
@@ -243,21 +257,21 @@ namespace Kkc {
                 return false;
 
             if (round) {
-                var pos = (_cursor_pos + _page_size * step) % _candidates.size;
+                var pos = (_cursor_pos + page_size * step) % _candidates.size;
                 if (pos < 0)
                     pos += _candidates.size;
-                pos = (int) get_page_start_cursor_pos (pos);
+                pos = get_page_start_cursor_pos (pos);
                 if (pos != _cursor_pos) {
-                    _cursor_pos = pos;
+                    _cursor_pos = (int) pos;
                     notify_property ("cursor-pos");
                     return true;
                 }
             } else {
-                var pos = _cursor_pos + _page_size * step;
+                var pos = _cursor_pos + page_size * step;
                 if (0 <= pos && pos < _candidates.size) {
-                    pos = (int) get_page_start_cursor_pos (pos);
+                    pos = get_page_start_cursor_pos (pos);
                     if (pos != _cursor_pos) {
-                        _cursor_pos = pos;
+                        _cursor_pos = (int) pos;
                         notify_property ("cursor-pos");
                         return true;
                     }
@@ -284,31 +298,15 @@ namespace Kkc {
             return page_move (1);
         }
 
-        int _page_start;
         /**
          * Starting index of paging.
          */
-        public uint page_start {
-            get {
-                return (uint) _page_start;
-            }
-            set {
-                _page_start = (int) value;
-            }
-        }
+        public uint page_start { get; set; }
 
-        int _page_size;
         /**
          * Page size.
          */
-        public uint page_size {
-            get {
-                return (uint) _page_size;
-            }
-            set {
-                _page_size = (int) value;
-            }
-        }
+        public uint page_size { get; set; }
 
         /**
          * Flag to indicate whether to loop over the candidates.
@@ -320,7 +318,7 @@ namespace Kkc {
          */
         public bool page_visible {
             get {
-                return _cursor_pos >= _page_start;
+                return _cursor_pos >= (int) page_start;
             }
         }
 
