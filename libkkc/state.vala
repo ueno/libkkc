@@ -44,6 +44,52 @@ namespace Kkc {
             rom_kana_converter.clear_produced ();
         }
 
+        void get_input_chars_positions_for_segment (out int start,
+                                                    out int end)
+        {
+            int start_char_pos = 0;
+            for (var i = 0; i < segments.cursor_pos; i++) {
+                start_char_pos += segments[i].input.char_count ();
+            }
+            int char_pos = 0;
+            for (start = 0; start < input_chars.size; start++) {
+                if (char_pos >= start_char_pos)
+                    break;
+                char_pos += input_chars[start].output.char_count ();
+            }
+            int end_char_pos = char_pos + segments[segments.cursor_pos].input.char_count ();
+            for (end = start; end < input_chars.size; end++) {
+                char_pos += input_chars[start].output.char_count ();
+                if (char_pos >= end_char_pos)
+                    break;
+            }
+        }
+
+        internal void convert_segment_by_kana_mode (KanaMode mode) {
+            int start, end;
+            get_input_chars_positions_for_segment (out start, out end);
+
+            var builder = new StringBuilder ();
+            for (; start <= end; start++) {
+                switch (mode) {
+                case KanaMode.HIRAGANA:
+                case KanaMode.KATAKANA:
+                case KanaMode.HANKAKU_KATAKANA:
+                    builder.append (RomKanaUtils.convert_by_kana_mode (
+                                        input_chars[start].output,
+                                        mode));
+                    break;
+                case KanaMode.LATIN:
+                case KanaMode.WIDE_LATIN:
+                    builder.append (RomKanaUtils.convert_by_kana_mode (
+                                        input_chars[start].input,
+                                        mode));
+                    break;
+                }
+            }
+            segments[segments.cursor_pos].output = builder.str;
+        }
+
         internal Decoder decoder;
         internal SegmentList segments;
         bool segments_changed = false;
@@ -816,21 +862,24 @@ namespace Kkc {
                 return true;
             }
             else if (command != null && command.has_prefix ("convert-")) {
-                state.segments.clear ();
-                state.handler_type = typeof (InitialStateHandler);
-                return false;
+                var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
+                var enum_value = enum_class.get_value_by_nick (
+                    command["convert-".length:command.length]);
+                if (enum_value != null) {
+                    state.convert_segment_by_kana_mode ((KanaMode) enum_value.value);
+                    return true;
+                }
             }
-            else {
-                state.output.append (state.segments.get_output ());
-                state.select_sentence ();
-                state.reset ();
-                // If the key is not bound or won't be further
-                // processed by InitialStateHandler, update preedit.
-                return command != null || command == "commit" ||
-                    !((key.modifiers == 0 ||
-                       key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                      0x20 <= key.unicode && key.unicode < 0x7F);
-            }
+
+            state.output.append (state.segments.get_output ());
+            state.select_sentence ();
+            state.reset ();
+            // If the key is not bound or won't be further
+            // processed by InitialStateHandler, update preedit.
+            return command != null || command == "commit" ||
+                !((key.modifiers == 0 ||
+                   key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
+                  0x20 <= key.unicode && key.unicode < 0x7F);
         }
     }
 
@@ -879,12 +928,11 @@ namespace Kkc {
                 state.handler_type = typeof (ConvertSentenceStateHandler);
                 return false;
             }
-            else {
-                if (state.candidates.cursor_pos >= 0)
-                    state.candidates.select ();
-                state.handler_type = typeof (ConvertSentenceStateHandler);
-                return false;
-            }
+
+            if (state.candidates.cursor_pos >= 0)
+                state.candidates.select ();
+            state.handler_type = typeof (ConvertSentenceStateHandler);
+            return false;
         }
     }
 }

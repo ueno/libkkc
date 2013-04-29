@@ -45,6 +45,11 @@ class ContextTests : Kkc.TestCase {
         assert (context.input == "きょ");
         context.reset ();
         context.clear_output ();
+
+        context.process_key_events ("w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right F10");
+        assert (context.segments.get_output () == "私no名前は中のです");
+        context.reset ();
+        context.clear_output ();
     }
 
     struct Conversion {
