@@ -59,7 +59,7 @@ namespace Kkc {
             }
             int end_char_pos = char_pos + segments[segments.cursor_pos].input.char_count ();
             for (end = start; end < input_chars.size; end++) {
-                char_pos += input_chars[start].output.char_count ();
+                char_pos += input_chars[end].output.char_count ();
                 if (char_pos >= end_char_pos)
                     break;
             }
