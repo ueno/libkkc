@@ -625,12 +625,14 @@ namespace Kkc {
                                                   ref KeyEvent key)
         {
             var command = state.lookup_key (key);
-            var has_overriding_input = state.overriding_input != null;
 
             // Clear completion data.
-            if (command != "complete") {
-                state.overriding_input = null;
-                state.completion_iterator = null;
+            if (state.last_command_key != null) {
+                string last_command = state.lookup_key (state.last_command_key);
+                if (last_command == "complete" && command != "complete") {
+                    state.overriding_input = null;
+                    state.completion_iterator = null;
+                }
             }
 
             // Check mode switch events.
@@ -690,15 +692,11 @@ namespace Kkc {
                 }
             }
 
-            // If there was state.overriding_input, cancel it and
-            // discard the current key event.
-            if (has_overriding_input)
-                return true;
-
             // Check state transition.
             if (command == "next-candidate") {
                 if (state.input_chars.size == 0)
                     return false;
+
                 if (state.selection.len > 0) {
                     var input = state.get_input ();
                     var segment = new Segment (input, state.selection.str);
@@ -709,6 +707,7 @@ namespace Kkc {
                     state.handler_type = typeof (ConvertSegmentStateHandler);
                     return true;
                 }
+
                 if (state.segments.size == 0) {
                     state.finish_rom_kana_conversion ();
                     string input = RomKanaUtils.get_hiragana (state.get_input ());
@@ -724,6 +723,8 @@ namespace Kkc {
                     state.handler_type = typeof (ConvertSentenceStateHandler);
                     return true;
                 }
+
+                return true;
             }
 
             // Word registration
@@ -732,15 +733,22 @@ namespace Kkc {
                 return true;
             }
 
+            if ((command == "delete" || command == "abort") &&
+                state.overriding_input != null) {
+                state.overriding_input = null;
+                return true;
+            }
+
             // Pre-edit editing events.
             if (command == "delete") {
-                if (state.rom_kana_converter.delete ()) {
+                if (state.rom_kana_converter.delete ())
                     return true;
-                }
+
                 if (state.input_chars.size > 0) {
                     state.input_chars.remove_at (state.input_chars.size - 1);
                     return true;
                 }
+
                 return false;
             }
 
@@ -762,25 +770,30 @@ namespace Kkc {
                 return false;
             }
 
+            bool retval = false;
+
+            if (state.overriding_input != null) {
+                state.output.append (state.get_input ());
+                state.overriding_input = null;
+                state.reset ();
+                retval = true;
+            }
+
+            if (command != null && command.has_prefix ("insert-kana-")) {
+                var kana = RomKanaUtils.convert_by_kana_mode (
+                    command["insert-kana-".length:command.length],
+                    (KanaMode) state.input_mode);
+                state.input_chars.add (RomKanaCharacter () {
+                        output = kana,
+                            input = key.unicode.to_string ()
+                    });
+                return true;
+            }
+
             switch (state.input_mode) {
             case InputMode.HIRAGANA:
             case InputMode.KATAKANA:
             case InputMode.HANKAKU_KATAKANA:
-                if (command == "next-candidate") {
-                    state.finish_rom_kana_conversion ();
-                    state.handler_type = typeof (ConvertSentenceStateHandler);
-                    return false;
-                }
-                if (command != null && command.has_prefix ("insert-kana-")) {
-                    var kana = RomKanaUtils.convert_by_kana_mode (
-                        command["insert-kana-".length:command.length],
-                        (KanaMode) state.input_mode);
-                    state.input_chars.add (RomKanaCharacter () {
-                            output = kana,
-                            input = key.unicode.to_string ()
-                        });
-                    return true;
-                }
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                     state.rom_kana_converter.is_valid (key.unicode)) {
@@ -823,7 +836,7 @@ namespace Kkc {
             var input = state.get_input ();
             state.output.append (input);
             state.reset ();
-            return input.length > 0;
+            return retval || input.length > 0;
         }
     }
 

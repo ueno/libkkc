@@ -45,6 +45,17 @@ class ContextTests : Kkc.TestCase {
         assert (context.input == "キョ");
         context.process_key_events ("DEL");
         assert (context.input == "きょ");
+        context.process_key_events ("F9");
+        assert (context.input == "ｋｙｏ");
+        context.process_key_events ("RET");
+        assert (context.input == "");
+        assert (context.poll_output () == "ｋｙｏ");
+        context.reset ();
+        context.clear_output ();
+
+        context.process_key_events ("w a t a s h i F10 n o");
+        assert (context.input == "の");
+        assert (context.poll_output () == "watashi");
         context.reset ();
         context.clear_output ();
 
