@@ -294,8 +294,10 @@ namespace Kkc {
             while (true) {
                 var handler_type = state.handler_type;
                 var handler = handlers.get (handler_type);
+                state.this_command_key = key;
                 if (handler.process_key_event (state, ref _key)) {
                     notify_property ("input");
+                    state.last_command_key = key;
                     return true;
                 }
                 // state.handler_type may change if handler cannot

@@ -65,27 +65,43 @@ namespace Kkc {
             }
         }
 
+        internal string convert_input_char_by_kana_mode (RomKanaCharacter c,
+                                                         KanaMode mode) {
+            switch (mode) {
+            case KanaMode.HIRAGANA:
+            case KanaMode.KATAKANA:
+            case KanaMode.HANKAKU_KATAKANA:
+                return RomKanaUtils.convert_by_kana_mode (
+                    c.output,
+                    mode);
+            case KanaMode.LATIN:
+            case KanaMode.WIDE_LATIN:
+                if (last_command_key != null && this_command_key != null) {
+                    var last_command = lookup_key (last_command_key);
+                    var this_command = lookup_key (this_command_key);
+                    if (last_command == this_command)
+                        latin_conversion_upper = !latin_conversion_upper;
+                    else
+                        latin_conversion_upper = false;
+                } else
+                    latin_conversion_upper = false;
+                return RomKanaUtils.convert_by_kana_mode (
+                    latin_conversion_upper ? c.input.up () : c.input,
+                    mode);
+            }
+            return_val_if_reached (null);
+        }
+
         internal void convert_segment_by_kana_mode (KanaMode mode) {
             int start, end;
             get_input_chars_positions_for_segment (out start, out end);
 
             var builder = new StringBuilder ();
             for (; start <= end; start++) {
-                switch (mode) {
-                case KanaMode.HIRAGANA:
-                case KanaMode.KATAKANA:
-                case KanaMode.HANKAKU_KATAKANA:
-                    builder.append (RomKanaUtils.convert_by_kana_mode (
-                                        input_chars[start].output,
-                                        mode));
-                    break;
-                case KanaMode.LATIN:
-                case KanaMode.WIDE_LATIN:
-                    builder.append (RomKanaUtils.convert_by_kana_mode (
-                                        input_chars[start].input,
-                                        mode));
-                    break;
-                }
+                builder.append (
+                    convert_input_char_by_kana_mode (
+                        input_chars[start],
+                        mode));
             }
             segments[segments.cursor_pos].output = builder.str;
         }
@@ -112,6 +128,9 @@ namespace Kkc {
         internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
         internal bool quoted = false;
+        internal KeyEvent? this_command_key = null;
+        internal KeyEvent? last_command_key = null;
+        bool latin_conversion_upper = false;
 
         internal string? overriding_input = null;
         ArrayList<string> completion = new ArrayList<string> ();
@@ -241,6 +260,7 @@ namespace Kkc {
             completion_iterator = null;
             completion.clear ();
             quoted = false;
+            latin_conversion_upper = false;
         }
 
         string? lookup_single_for_dictionary (Dictionary dictionary,
@@ -650,23 +670,13 @@ namespace Kkc {
                 if (enum_value != null) {
                     state.selection.erase ();
                     state.finish_rom_kana_conversion ();
+
                     var builder = new StringBuilder ();
                     foreach (var c in state.input_chars) {
-                        switch (enum_value.value) {
-                        case KanaMode.HIRAGANA:
-                        case KanaMode.KATAKANA:
-                        case KanaMode.HANKAKU_KATAKANA:
-                            builder.append (RomKanaUtils.convert_by_kana_mode (
-                                                c.output,
-                                                (KanaMode) enum_value.value));
-                            break;
-                        case KanaMode.LATIN:
-                        case KanaMode.WIDE_LATIN:
-                            builder.append (RomKanaUtils.convert_by_kana_mode (
-                                                c.input,
-                                                (KanaMode) enum_value.value));
-                            break;
-                        }
+                        builder.append (
+                            state.convert_input_char_by_kana_mode (
+                                c,
+                                (KanaMode) enum_value.value));
                     }
                     state.overriding_input = builder.str;
                     return true;
