@@ -18,6 +18,7 @@ SUBDIRS =					\
 	default					\
 	act					\
 	azik					\
+	azik-jp106				\
 	kzik					\
 	tutcode					\
 	tutcode-touch16x			\

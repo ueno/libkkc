@@ -181,6 +181,7 @@ data/rules/Makefile
 data/rules/default/Makefile
 data/rules/act/Makefile
 data/rules/azik/Makefile
+data/rules/azik-jp106/Makefile
 data/rules/kzik/Makefile
 data/rules/tutcode/Makefile
 data/rules/tutcode-touch16x/Makefile
