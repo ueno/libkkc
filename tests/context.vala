@@ -25,52 +25,36 @@ class ContextTests : Kkc.TestCase {
         add_test ("conversion", this.test_conversion);
     }
 
-    public void test_initial () {
-        context.process_key_events ("k y o");
-        assert (context.input == "きょ");
-        context.process_key_events ("DEL");
-        assert (context.input == "");
-        context.reset ();
-        context.clear_output ();
-
-        context.process_key_events ("k y o");
-        assert (context.input == "きょ");
-        context.process_key_events ("F10");
-        assert (context.input == "kyo");
-        context.process_key_events ("F10");
-        assert (context.input == "KYO");
-        context.process_key_events ("F9");
-        assert (context.input == "ｋｙｏ");
-        context.process_key_events ("F7");
-        assert (context.input == "キョ");
-        context.process_key_events ("DEL");
-        assert (context.input == "きょ");
-        context.process_key_events ("F9");
-        assert (context.input == "ｋｙｏ");
-        context.process_key_events ("RET");
-        assert (context.input == "");
-        assert (context.poll_output () == "ｋｙｏ");
-        context.reset ();
-        context.clear_output ();
-
-        context.process_key_events ("w a t a s h i F10 n o");
-        assert (context.input == "の");
-        assert (context.poll_output () == "watashi");
-        context.reset ();
-        context.clear_output ();
-
-        context.process_key_events ("w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right F10");
-        assert (context.segments.get_output () == "私no名前は中のです");
-        context.reset ();
-        context.clear_output ();
-
-        context.process_key_events ("w a t a s h i n o n a m a e h a n a k a n o d e s u SPC F10 F10");
-        assert (context.segments.get_output () == "WATASHIの名前は中のです");
-        context.reset ();
-        context.clear_output ();
+    struct InitialData {
+        string keys;
+        string input;
+        string output;
     }
 
-    struct Conversion {
+    static const InitialData[] initial_data = {
+        { "k y o", "きょ", "" },
+        { "k y o DEL", "", "" },
+        { "k y o F7", "キョ", "" },
+        { "k y o F10", "kyo", "" },
+        { "k y o F10 F10", "KYO", "" },
+        { "k y o F9", "ｋｙｏ", "" },
+        { "k y o F10 F9", "ｋｙｏ", "" },
+        { "k y o F9 RET", "", "ｋｙｏ" },
+        { "w a t a s h i F10 n o", "の", "watashi" }
+    };
+
+    public void test_initial () {
+        foreach (var initial in initial_data) {
+            context.process_key_events (initial.keys);
+            var output = context.poll_output ();
+            assert (output == initial.output);
+            assert (context.input == initial.input);
+            context.reset ();
+            context.clear_output ();
+        }
+    }
+
+    struct ConversionData {
         string keys;
         string input;
         string segments;
@@ -79,10 +63,10 @@ class ContextTests : Kkc.TestCase {
         string output;
     }
 
-    static const string PREFIX_KEYS =
+    static const string CONVERSION_PREFIX_KEYS =
       "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
 
-    static const Conversion[] conversions = {
+    static const ConversionData[] conversion_data = {
         { "",
           "わたしのなまえはなかのです",
           "",
@@ -148,12 +132,24 @@ class ContextTests : Kkc.TestCase {
           "",
           0,
           -1,
-          "私の名間えは中のです" }
+          "私の名間えは中のです" },
+        { "SPC Right F10",
+          "わたしのなまえはなかのです",
+          "私no名前は中のです",
+          9,
+          1,
+          "" },
+        { "SPC F10 F10",
+          "わたしのなまえはなかのです",
+          "WATASHIの名前は中のです",
+          9,
+          0,
+          "" }
     };
 
     public void test_conversion () {
-        foreach (var conversion in conversions) {
-            context.process_key_events (PREFIX_KEYS + conversion.keys);
+        foreach (var conversion in conversion_data) {
+            context.process_key_events (CONVERSION_PREFIX_KEYS + conversion.keys);
             var output = context.poll_output ();
             assert (output == conversion.output);
             assert (context.input == conversion.input);
