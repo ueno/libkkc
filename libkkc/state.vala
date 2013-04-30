@@ -65,8 +65,8 @@ namespace Kkc {
             }
         }
 
-        internal string convert_input_char_by_kana_mode (RomKanaCharacter c,
-                                                         KanaMode mode) {
+        string convert_input_char_by_kana_mode (RomKanaCharacter c,
+                                                KanaMode mode) {
             switch (mode) {
             case KanaMode.HIRAGANA:
             case KanaMode.KATAKANA:
@@ -76,15 +76,6 @@ namespace Kkc {
                     mode);
             case KanaMode.LATIN:
             case KanaMode.WIDE_LATIN:
-                if (last_command_key != null && this_command_key != null) {
-                    var last_command = lookup_key (last_command_key);
-                    var this_command = lookup_key (this_command_key);
-                    if (last_command == this_command)
-                        latin_conversion_upper = !latin_conversion_upper;
-                    else
-                        latin_conversion_upper = false;
-                } else
-                    latin_conversion_upper = false;
                 return RomKanaUtils.convert_by_kana_mode (
                     latin_conversion_upper ? c.input.up () : c.input,
                     mode);
@@ -95,7 +86,14 @@ namespace Kkc {
         internal void convert_segment_by_kana_mode (KanaMode mode) {
             int start, end;
             get_input_chars_positions_for_segment (out start, out end);
+            segments[segments.cursor_pos].output =
+                convert_input_chars_by_kana_mode (mode, start, end);
+        }
 
+        internal string convert_input_chars_by_kana_mode (KanaMode mode,
+                                                          int start, int end)
+        {
+            update_latin_conversion_upper (mode);
             var builder = new StringBuilder ();
             for (; start <= end; start++) {
                 builder.append (
@@ -103,7 +101,21 @@ namespace Kkc {
                         input_chars[start],
                         mode));
             }
-            segments[segments.cursor_pos].output = builder.str;
+            return builder.str;
+        }
+
+        void update_latin_conversion_upper (KanaMode mode) {
+            if (mode == KanaMode.LATIN || mode == KanaMode.WIDE_LATIN) {
+                if (last_command_key != null && this_command_key != null) {
+                    var last_command = lookup_key (last_command_key);
+                    var this_command = lookup_key (this_command_key);
+                    if (last_command == this_command)
+                        latin_conversion_upper = !latin_conversion_upper;
+                    else
+                        latin_conversion_upper = false;
+                } else
+                    latin_conversion_upper = false;
+            }
         }
 
         internal Decoder decoder;
@@ -667,18 +679,13 @@ namespace Kkc {
                 var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
                 var enum_value = enum_class.get_value_by_nick (
                     command["convert-".length:command.length]);
-                if (enum_value != null) {
+                if (enum_value != null && state.input_chars.size > 0) {
                     state.selection.erase ();
                     state.finish_rom_kana_conversion ();
-
-                    var builder = new StringBuilder ();
-                    foreach (var c in state.input_chars) {
-                        builder.append (
-                            state.convert_input_char_by_kana_mode (
-                                c,
-                                (KanaMode) enum_value.value));
-                    }
-                    state.overriding_input = builder.str;
+                    state.overriding_input =
+                        state.convert_input_chars_by_kana_mode (
+                            (KanaMode) enum_value.value,
+                            0, state.input_chars.size - 1);
                     return true;
                 }
             }

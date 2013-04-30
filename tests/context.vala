@@ -53,8 +53,8 @@ class ContextTests : Kkc.TestCase {
         context.reset ();
         context.clear_output ();
 
-        context.process_key_events ("w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right F10 F10");
-        assert (context.segments.get_output () == "私NO名前は中のです");
+        context.process_key_events ("w a t a s h i n o n a m a e h a n a k a n o d e s u SPC F10 F10");
+        assert (context.segments.get_output () == "WATASHIの名前は中のです");
         context.reset ();
         context.clear_output ();
     }
