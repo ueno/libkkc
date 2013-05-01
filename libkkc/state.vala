@@ -29,6 +29,9 @@ namespace Kkc {
             set {
                 var _last_input_mode = _input_mode;
                 _input_mode = value;
+                if (_input_mode >= KanaMode.HIRAGANA &&
+                    _input_mode <= KanaMode.HANKAKU_KATAKANA)
+                    rom_kana_converter.kana_mode = (KanaMode) _input_mode;
                 if (_last_input_mode != _input_mode) {
                     notify_property ("input-mode");
                 }
