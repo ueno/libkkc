@@ -22,6 +22,7 @@ class ContextTests : Kkc.TestCase {
         }
 
         add_test ("initial", this.test_initial);
+        add_test ("conversion-simple", this.test_conversion_simple);
         add_test ("conversion", this.test_conversion);
     }
 
@@ -61,6 +62,30 @@ class ContextTests : Kkc.TestCase {
         int segments_size;
         int segments_cursor_pos;
         string output;
+    }
+
+    static const ConversionData[] conversion_simple_data = {
+        { "k y u u k a SPC C-Right F10",
+          "きゅうか",
+          "kyuuka",
+          1,
+          0,
+          ""
+        }
+    };
+
+    public void test_conversion_simple () {
+        foreach (var conversion in conversion_simple_data) {
+            context.process_key_events (conversion.keys);
+            var output = context.poll_output ();
+            assert (output == conversion.output);
+            assert (context.input == conversion.input);
+            assert (context.segments.get_output () == conversion.segments);
+            assert (context.segments.size == conversion.segments_size);
+            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
+            context.reset ();
+            context.clear_output ();
+        }
     }
 
     static const string CONVERSION_PREFIX_KEYS =
