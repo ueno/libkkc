@@ -47,10 +47,7 @@ namespace Kkc {
         void get_input_chars_positions_for_segment (out int start,
                                                     out int end)
         {
-            int start_char_pos = 0;
-            for (var i = 0; i < segments.cursor_pos; i++) {
-                start_char_pos += segments[i].input.char_count ();
-            }
+            int start_char_pos = segments.get_offset (segments.cursor_pos);
             int char_pos = 0;
             for (start = 0; start < input_chars.size; start++) {
                 if (char_pos >= start_char_pos)

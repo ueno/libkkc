@@ -20,6 +20,7 @@ using Gee;
 namespace Kkc {
     public class SegmentList : Object {
         Gee.List<Segment> segments = new ArrayList<Segment> ();
+        Gee.List<int> offsets = new ArrayList<int> ();
 
         int _cursor_pos = -1;
         public int cursor_pos {
@@ -39,6 +40,7 @@ namespace Kkc {
 
         public void clear () {
             segments.clear ();
+            offsets.clear ();
             cursor_pos = -1;
         }
 
@@ -46,10 +48,18 @@ namespace Kkc {
             return segments.get (index);
         }
 
+        public int get_offset (int index) {
+            return offsets[index];
+        }
+
         public void set_segments (Segment segment) {
+            int offset = 0;
             segments.clear ();
+            offsets.clear ();
             while (segment != null) {
                 segments.add (segment);
+                offsets.add (offset);
+                offset += segment.input.char_count ();
                 segment = segment.next;
             }
         }
