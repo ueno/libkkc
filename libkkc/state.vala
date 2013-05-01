@@ -627,6 +627,13 @@ namespace Kkc {
             if (state.last_command_key != null) {
                 string last_command = state.lookup_key (state.last_command_key);
                 if (last_command == "complete" && command != "complete") {
+                    var builder = new StringBuilder ();
+                    foreach (var c in state.input_chars)
+                        builder.append (c.input);
+                    state.input_chars.clear ();
+                    state.input_chars.add (RomKanaCharacter () {
+                            output = state.overriding_input, input = builder.str
+                        });
                     state.overriding_input = null;
                     state.completion_iterator = null;
                 }
@@ -641,6 +648,7 @@ namespace Kkc {
                     state.selection.erase ();
                     state.finish_rom_kana_conversion ();
                     state.output.append (state.get_input ());
+                    state.reset ();
                     state.input_mode = (InputMode) enum_value.value;
                     return true;
                 }
@@ -816,12 +824,12 @@ namespace Kkc {
                 if ((key.modifiers == 0 ||
                      key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                     0x20 <= key.unicode && key.unicode < 0x7F) {
-                    state.finish_rom_kana_conversion ();
-                    var input = state.get_input ();
-                    state.output.append (input);
-                    state.output.append (RomKanaUtils.convert_by_kana_mode (
-                                             key.unicode.to_string (),
-                                             (KanaMode) state.input_mode));
+                    state.input_chars.add (RomKanaCharacter () {
+                            output = RomKanaUtils.convert_by_kana_mode (
+                                key.unicode.to_string (),
+                                (KanaMode) state.input_mode),
+                            input = key.unicode.to_string ()
+                        });
                     return true;
                 }
                 break;
