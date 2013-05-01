@@ -449,8 +449,8 @@ namespace Kkc {
                             var _offset = 0;
                             for (var i = 0; i < segments.size; i++) {
                                 _offset += segments[i].input.char_count ();
-                                if (last_offset < _offset
-                                    && _offset < _constraint[0] + prefix.offset) {
+                                if (last_offset < _offset &&
+                                    _offset < _constraint[0] + prefix.offset) {
                                     constraint.add (_offset);
                                 }
                             }
@@ -551,8 +551,8 @@ namespace Kkc {
         }
 
         internal void resize_segment (int amount) {
-            if (segments.cursor_pos >= 0
-                && segments.cursor_pos < segments.size) {
+            if (segments.cursor_pos >= 0 &&
+                segments.cursor_pos < segments.size) {
                 // Can't expand the last segment.
                 if (amount > 0 && segments.cursor_pos > segments.size - 1)
                     return;
