@@ -137,6 +137,13 @@ namespace Kkc {
             builder.append (rom_kana_converter.pending_output);
             return builder.str;
         }
+
+        internal bool has_input () {
+            return overriding_input != null ||
+                input_chars.size > 0 ||
+                rom_kana_converter.pending_output.length > 0;
+        }
+
         internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
         internal bool quoted = false;
@@ -773,6 +780,14 @@ namespace Kkc {
                             state.completion_iterator.next ();
                         }
                     }
+                    return true;
+                }
+                return false;
+            }
+
+            if (command == "abort") {
+                if (state.has_input ()) {
+                    state.reset ();
                     return true;
                 }
                 return false;
