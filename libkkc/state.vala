@@ -641,9 +641,11 @@ namespace Kkc {
                     foreach (var c in state.input_chars)
                         builder.append (c.input);
                     state.input_chars.clear ();
-                    state.input_chars.add (RomKanaCharacter () {
-                            output = state.overriding_input, input = builder.str
-                        });
+                    if (state.overriding_input != null)
+                        state.input_chars.add (RomKanaCharacter () {
+                                output = state.overriding_input,
+                                input = builder.str
+                            });
                     state.overriding_input = null;
                     state.completion_iterator = null;
                 }

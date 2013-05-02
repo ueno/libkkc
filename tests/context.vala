@@ -33,6 +33,7 @@ class ContextTests : Kkc.TestCase {
     }
 
     static const InitialData[] initial_data = {
+        { "a TAB", "あい", "" },
         { "k y o", "きょ", "" },
         { "k y o DEL", "", "" },
         { "k y o F7", "キョ", "" },

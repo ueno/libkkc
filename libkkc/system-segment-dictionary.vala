@@ -286,8 +286,9 @@ namespace Kkc {
                                  line);
                     } else {
                         var completed = line[0:index];
-                        // don't add midasi word itself
-                        if (completed != _midasi) {
+                        // don't add midasi word itself nor prefix word
+                        if (completed != _midasi &&
+                            !completed.has_suffix (">")) {
                             try {
                                 string decoded = converter.decode (completed);
                                 completion.insert (0, decoded);
@@ -311,8 +312,9 @@ namespace Kkc {
                                  line);
                     } else {
                         var completed = line[0:index];
-                        // don't add midasi word itself
-                        if (completed != _midasi) {
+                        // don't add midasi word itself nor prefix word
+                        if (completed != _midasi &&
+                            !completed.has_suffix (">")) {
                             try {
                                 string decoded = converter.decode (completed);
                                 completion.add (decoded);
