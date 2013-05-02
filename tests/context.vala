@@ -41,7 +41,8 @@ class ContextTests : Kkc.TestCase {
         { "k y o F9", "ｋｙｏ", "" },
         { "k y o F10 F9", "ｋｙｏ", "" },
         { "k y o F9 RET", "", "ｋｙｏ" },
-        { "w a t a s h i F10 n o", "の", "watashi" }
+        { "w a t a s h i F10 n o", "の", "watashi" },
+        { "a C-c", "", "" }
     };
 
     public void test_initial () {
