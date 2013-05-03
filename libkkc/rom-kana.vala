@@ -315,6 +315,18 @@ namespace Kkc {
          * @return `true` if the character is handled, `false` otherwise
          */
         public bool append (unichar uc) {
+            // Directly produce characters under Latin Kana mode.
+            if (kana_mode == KanaMode.LATIN ||
+                kana_mode == KanaMode.WIDE_LATIN) {
+                var input = uc.to_string ();
+                var output = RomKanaUtils.convert_by_kana_mode (input,
+                                                                kana_mode);
+                _produced.add (RomKanaCharacter () {
+                        output = output, input = input
+                    });
+                return true;
+            }
+
             var child_node = current_node.children[uc];
             if (child_node == null) {
                 // No such transition path in trie.
@@ -360,10 +372,10 @@ namespace Kkc {
                 // Node is terminal.
                 if (append_punctuation (uc))
                     return true;
-                var str = child_node.entry.get_kana (kana_mode, false);
                 _pending_input.append_unichar (uc);
                 _produced.add (RomKanaCharacter () {
-                        output = str, input = _pending_input.str
+                        output = child_node.entry.get_kana (kana_mode, false),
+                        input = _pending_input.str
                     });
                 _pending_input.erase ();
                 _pending_output.erase ();
