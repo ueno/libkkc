@@ -637,15 +637,17 @@ namespace Kkc {
             if (state.last_command_key != null) {
                 string last_command = state.lookup_key (state.last_command_key);
                 if (last_command == "complete" && command != "complete") {
-                    var builder = new StringBuilder ();
-                    foreach (var c in state.input_chars)
-                        builder.append (c.input);
-                    state.input_chars.clear ();
-                    if (state.overriding_input != null)
+                    if (state.overriding_input != null) {
+                        var builder = new StringBuilder ();
+                        foreach (var c in state.input_chars) {
+                            builder.append (c.input);
+                        }
+                        state.input_chars.clear ();
                         state.input_chars.add (RomKanaCharacter () {
                                 output = state.overriding_input,
                                 input = builder.str
                             });
+                    }
                     state.overriding_input = null;
                     state.completion_iterator = null;
                 }
