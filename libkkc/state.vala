@@ -40,68 +40,37 @@ namespace Kkc {
 
         internal void finish_rom_kana_conversion () {
             rom_kana_converter.flush_partial ();
-            var chars = rom_kana_converter.get_produced ();
-            foreach (var c in chars) {
-                input_chars.add (c);
-            }
-            rom_kana_converter.clear_produced ();
+            input_characters.add_all (rom_kana_converter.produced);
+            rom_kana_converter.produced.clear ();
         }
 
-        void get_input_chars_positions_for_segment (out int start,
-                                                    out int end)
-        {
+        internal void convert_segment_by_kana_mode (KanaMode mode) {
             int start_char_pos = segments.get_offset (segments.cursor_pos);
-            int char_pos = 0;
-            for (start = 0; start < input_chars.size; start++) {
-                if (char_pos >= start_char_pos)
-                    break;
-                char_pos += input_chars[start].output.char_count ();
-            }
-            int end_char_pos = char_pos + segments[segments.cursor_pos].input.char_count ();
-            for (end = start; end < input_chars.size; end++) {
-                char_pos += input_chars[end].output.char_count ();
-                if (char_pos >= end_char_pos)
-                    break;
-            }
+            int stop_char_pos = start_char_pos + segments[segments.cursor_pos].input.char_count ();
+            var characters = input_characters.slice (start_char_pos, stop_char_pos);
+            segments[segments.cursor_pos].output =
+                convert_input_characters_by_kana_mode (characters, mode);
         }
 
-        string convert_input_char_by_kana_mode (RomKanaCharacter c,
-                                                KanaMode mode) {
+        internal string convert_input_characters_by_kana_mode (RomKanaCharacterList characters, KanaMode mode) {
+            update_latin_conversion_upper (mode);
+
             switch (mode) {
             case KanaMode.HIRAGANA:
             case KanaMode.KATAKANA:
             case KanaMode.HANKAKU_KATAKANA:
                 return RomKanaUtils.convert_by_kana_mode (
-                    c.output,
+                    characters.get_output (),
                     mode);
             case KanaMode.LATIN:
             case KanaMode.WIDE_LATIN:
                 return RomKanaUtils.convert_by_kana_mode (
-                    latin_conversion_upper ? c.input.up () : c.input,
+                    latin_conversion_upper ?
+                    characters.get_input ().up () :
+                    characters.get_input (),
                     mode);
             }
             return_val_if_reached (null);
-        }
-
-        internal void convert_segment_by_kana_mode (KanaMode mode) {
-            int start, end;
-            get_input_chars_positions_for_segment (out start, out end);
-            segments[segments.cursor_pos].output =
-                convert_input_chars_by_kana_mode (mode, start, end);
-        }
-
-        internal string convert_input_chars_by_kana_mode (KanaMode mode,
-                                                          int start, int end)
-        {
-            update_latin_conversion_upper (mode);
-            var builder = new StringBuilder ();
-            for (; start <= end; start++) {
-                builder.append (
-                    convert_input_char_by_kana_mode (
-                        input_chars[start],
-                        mode));
-            }
-            return builder.str;
         }
 
         void update_latin_conversion_upper (KanaMode mode) {
@@ -125,22 +94,21 @@ namespace Kkc {
         internal DictionaryList dictionaries;
 
         internal RomKanaConverter rom_kana_converter;
-        internal Gee.List<RomKanaCharacter?> input_chars = new ArrayList<RomKanaCharacter?> ();
+        internal RomKanaCharacterList input_characters = new RomKanaCharacterList ();
+
         internal string get_input () {
             if (overriding_input != null)
                 return overriding_input;
 
             var builder = new StringBuilder ();
-            foreach (var c in input_chars) {
-                builder.append (c.output);
-            }
+            builder.append (input_characters.get_output ());
             builder.append (rom_kana_converter.pending_output);
             return builder.str;
         }
 
         internal bool has_input () {
             return overriding_input != null ||
-                input_chars.size > 0 ||
+                input_characters.size > 0 ||
                 rom_kana_converter.pending_output.length > 0;
         }
 
@@ -274,7 +242,7 @@ namespace Kkc {
             segments.clear ();
             segments_changed = false;
             candidates.clear ();
-            input_chars.clear ();
+            input_characters.clear ();
             overriding_input = null;
             completion_iterator = null;
             completion.clear ();
@@ -639,11 +607,9 @@ namespace Kkc {
                 if (last_command == "complete" && command != "complete") {
                     if (state.overriding_input != null) {
                         var builder = new StringBuilder ();
-                        foreach (var c in state.input_chars) {
-                            builder.append (c.input);
-                        }
-                        state.input_chars.clear ();
-                        state.input_chars.add (RomKanaCharacter () {
+                        builder.append (state.input_characters.get_input ());
+                        state.input_characters.clear ();
+                        state.input_characters.add (RomKanaCharacter () {
                                 output = state.overriding_input,
                                 input = builder.str
                             });
@@ -685,7 +651,7 @@ namespace Kkc {
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                 0x20 <= key.unicode && key.unicode < 0x7F) {
                 state.finish_rom_kana_conversion ();
-                state.input_chars.add (RomKanaCharacter () {
+                state.input_characters.add (RomKanaCharacter () {
                         output = key.unicode.to_string (),
                         input = key.unicode.to_string ()
                     });
@@ -696,24 +662,24 @@ namespace Kkc {
             // Handle inline conversion.  This sets state.overriding_input.
             if (command != null &&
                 command.has_prefix ("convert-") &&
-                state.input_chars.size > 0) {
+                state.input_characters.size > 0) {
                 var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
                 var enum_value = enum_class.get_value_by_nick (
                     command["convert-".length:command.length]);
-                if (enum_value != null && state.input_chars.size > 0) {
+                if (enum_value != null && state.input_characters.size > 0) {
                     state.selection.erase ();
                     state.finish_rom_kana_conversion ();
                     state.overriding_input =
-                        state.convert_input_chars_by_kana_mode (
-                            (KanaMode) enum_value.value,
-                            0, state.input_chars.size - 1);
+                        state.convert_input_characters_by_kana_mode (
+                            state.input_characters,
+                            (KanaMode) enum_value.value);
                     return true;
                 }
             }
 
             // Check state transition.
             if (command == "next-candidate") {
-                if (state.input_chars.size == 0)
+                if (state.input_characters.size == 0)
                     return false;
 
                 if (state.selection.len > 0) {
@@ -763,8 +729,8 @@ namespace Kkc {
                 if (state.rom_kana_converter.delete ())
                     return true;
 
-                if (state.input_chars.size > 0) {
-                    state.input_chars.remove_at (state.input_chars.size - 1);
+                if (state.input_characters.size > 0) {
+                    state.input_characters.remove_at (state.input_characters.size - 1);
                     return true;
                 }
 
@@ -774,7 +740,7 @@ namespace Kkc {
             // Word completion.
             if (command == "complete") {
                 state.finish_rom_kana_conversion ();
-                if (state.input_chars.size > 0) {
+                if (state.input_characters.size > 0) {
                     if (state.completion_iterator == null) {
                         state.completion_start (state.get_input ());
                     }
@@ -810,9 +776,9 @@ namespace Kkc {
                 var kana = RomKanaUtils.convert_by_kana_mode (
                     command["insert-kana-".length:command.length],
                     (KanaMode) state.input_mode);
-                state.input_chars.add (RomKanaCharacter () {
+                state.input_characters.add (RomKanaCharacter () {
                         output = kana,
-                            input = key.unicode.to_string ()
+                        input = key.unicode.to_string ()
                     });
                 return true;
             }
@@ -821,18 +787,15 @@ namespace Kkc {
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                 state.rom_kana_converter.is_valid (key.unicode)) {
                 if (state.rom_kana_converter.append (key.unicode)) {
-                    var chars = state.rom_kana_converter.get_produced ();
-                    foreach (var c in chars) {
-                        state.input_chars.add (c);
-                    }
-                    state.rom_kana_converter.clear_produced ();
+                    state.input_characters.add_all (state.rom_kana_converter.produced);
+                    state.rom_kana_converter.produced.clear ();
                     return true;
                 } else {
-                    state.input_chars.add (RomKanaCharacter () {
+                    state.input_characters.add (RomKanaCharacter () {
                             output = key.unicode.to_string (),
-                                input = key.unicode.to_string ()
+                            input = key.unicode.to_string ()
                         });
-                    state.rom_kana_converter.clear_produced ();
+                    state.rom_kana_converter.produced.clear ();
                     return true;
                 }
             }

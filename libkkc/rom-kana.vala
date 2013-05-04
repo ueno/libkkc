@@ -165,9 +165,129 @@ namespace Kkc {
         EN_JA
     }
 
+    /**
+     * Object representing a minimal unit of a transliterated character.
+     */
     public struct RomKanaCharacter {
         string output;
         string input;
+    }
+
+    /**
+     * A list of RomKanaCharacter
+     */
+    public class RomKanaCharacterList : Object {
+        Gee.List<RomKanaCharacter?> _characters = new ArrayList<RomKanaCharacter?> ();
+
+        /**
+         * The number of characters in the character list.
+         */
+        public int size {
+            get {
+                return _characters.size;
+            }
+        }
+
+        /**
+         * Append a character to the character list.
+         *
+         * @param character a RomKanaCharacter
+         */
+        public void add (RomKanaCharacter character) {
+            _characters.add (character);
+        }
+
+        /**
+         * Append all characters in other character list to the character list.
+         *
+         * @param other RomKanaCharacterList
+         */
+        public void add_all (RomKanaCharacterList other) {
+            _characters.add_all (other._characters);
+        }
+
+        /**
+         * Get a character at the given index.
+         *
+         * @param index index
+         *
+         * @return a RomKanaCharacter
+         */
+        public new RomKanaCharacter @get (int index) {
+            return _characters.get (index);
+        }
+
+        /**
+         * Remove all characters from the character list.
+         */
+        public void clear () {
+            _characters.clear ();
+        }
+
+        /**
+         * Return a slice of this character list.
+         *
+         * @param start_char_pos zero-based index of the begin of the slice
+         * @param end_char_pos zero-based index after the end of the slice
+         *
+         * @return a RomKanaCharacterList
+         */
+        public RomKanaCharacterList slice (int start_char_pos,
+                                           int stop_char_pos)
+        {
+            int start, stop, char_pos = 0;
+            for (start = 0; start < _characters.size; start++) {
+                if (char_pos >= start_char_pos)
+                    break;
+                char_pos += _characters[start].output.char_count ();
+            }
+            for (stop = start; stop < _characters.size; stop++) {
+                char_pos += _characters[stop].output.char_count ();
+                if (char_pos >= stop_char_pos)
+                    break;
+            }
+
+            var result = new RomKanaCharacterList ();
+            for (; start <= stop; start++) {
+                result.add (_characters[start]);
+            }
+            return result;
+        }
+
+        /**
+         * Remove a character at the given index.
+         *
+         * @param index index
+         */
+        public void remove_at (int index) {
+            _characters.remove_at (index);
+        }
+
+        /**
+         * Return the concatenation of all character output as a string.
+         *
+         * @return a string
+         */
+        public string get_output () {
+            var builder = new StringBuilder ();
+            foreach (var character in _characters) {
+                builder.append (character.output);
+            }
+            return builder.str;
+        }
+
+        /**
+         * Return the concatenation of all character input as a string.
+         *
+         * @return a string
+         */
+        public string get_input () {
+            var builder = new StringBuilder ();
+            foreach (var character in _characters) {
+                builder.append (character.input);
+            }
+            return builder.str;
+        }
     }
 
     /**
@@ -204,12 +324,11 @@ namespace Kkc {
             }
         }
 
-        Gee.List<RomKanaCharacter?> _produced = new ArrayList<RomKanaCharacter?> ();
-        public RomKanaCharacter[] get_produced () {
-            RomKanaCharacter[] array = new RomKanaCharacter[_produced.size];
-            for (var i = 0; i < _produced.size; i++)
-                array[i] = _produced[i];
-            return array;
+        RomKanaCharacterList _produced = new RomKanaCharacterList ();
+        public RomKanaCharacterList produced {
+            get {
+                return _produced;
+            }
         }
 
         public string get_produced_output () {
@@ -218,10 +337,6 @@ namespace Kkc {
                 builder.append (c.output);
             }
             return builder.str;
-        }
-
-        public void clear_produced () {
-            _produced.clear ();
         }
 
         public RomKanaConverter () {
@@ -411,7 +526,7 @@ namespace Kkc {
          * Reset the internal state of the converter.
          */
         public void reset () {
-            clear_produced ();
+            _produced.clear ();
             _pending_input.erase ();
             _pending_output.erase ();
             current_node = rule.root_node;
