@@ -851,48 +851,6 @@ namespace Kkc {
 
     class ConvertSentenceStateHandler : StateHandler {
         construct {
-            register_command (
-                "set-input-mode-hiragana",
-                (command, state, ref key) => {
-                    state.input_mode = InputMode.HIRAGANA;
-                    return true;
-                });
-
-            register_command (
-                "set-input-mode-katakana",
-                (command, state, ref key) => {
-                    state.input_mode = InputMode.KATAKANA;
-                    return true;
-                });
-
-            register_command (
-                "set-input-mode-hankaku-katakana",
-                (command, state, ref key) => {
-                    state.input_mode = InputMode.HANKAKU_KATAKANA;
-                    return true;
-                });
-
-            register_command (
-                "set-input-mode-latin",
-                (command, state, ref key) => {
-                    state.input_mode = InputMode.LATIN;
-                    return true;
-                });
-
-            register_command (
-                "set-input-mode-wide-latin",
-                (command, state, ref key) => {
-                    state.input_mode = InputMode.WIDE_LATIN;
-                    return true;
-                });
-
-            register_command (
-                "set-input-mode-direct",
-                (command, state, ref key) => {
-                    state.input_mode = InputMode.DIRECT;
-                    return true;
-                });
-
             var start_segment_conversion =
                 new CommandHandler ((command, state, ref key) => {
                         state.handler_type = typeof (ConvertSegmentStateHandler);
