@@ -592,33 +592,45 @@ namespace Kkc {
     }
 
     abstract class StateHandler : Object {
-        public delegate bool CommandCallback (State state, ref KeyEvent key);
+        public delegate bool CommandCallback (string? command,
+                                              State state,
+                                              ref KeyEvent key);
 
         public class CommandHandler {
             unowned CommandCallback cb;
             public CommandHandler (CommandCallback cb) {
                 this.cb = cb;
             }
-            public bool call (State state, ref KeyEvent key) {
-                return this.cb (state, ref key);
+            public bool call (string? command, State state, ref KeyEvent key) {
+                return this.cb (command, state, ref key);
             }
         }
 
         Gee.Map<string, CommandHandler> command_handlers = new HashMap<string, CommandHandler> ();
         CommandHandler? default_command_handler = null;
 
-        public void register_command_handler (string? command, CommandHandler handler) {
+        public void register_command_handler (string? command,
+                                              CommandHandler handler)
+        {
             if (command != null)
                 command_handlers.set (command, handler);
             else
                 default_command_handler = handler;
         }
 
+        public void register_command (string? command,
+                                      CommandCallback cb)
+        {
+            register_command_handler (command, new CommandHandler (cb));
+        }
+
         public bool dispatch_command (State state, ref KeyEvent key) {
             var command = state.lookup_key (key);
             if (command != null && command_handlers.has_key (command))
-                return command_handlers.get (command).call (state, ref key);
-            return default_command_handler.call (state, ref key);
+                return command_handlers.get (command).call (command,
+                                                            state,
+                                                            ref key);
+            return default_command_handler.call (command, state, ref key);
         }
 
         public abstract bool process_key_event (State state, ref KeyEvent key);
@@ -838,133 +850,232 @@ namespace Kkc {
     }
 
     class ConvertSentenceStateHandler : StateHandler {
-        internal override bool process_key_event (State state,
-                                                  ref KeyEvent key)
-        {
-            var command = state.lookup_key (key);
-            if (command != null && command.has_prefix ("set-input-mode-")) {
-                var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
-                var enum_value = enum_class.get_value_by_nick (
-                    command["set-input-mode-".length:command.length]);
-                if (enum_value != null) {
-                    state.input_mode = (InputMode) enum_value.value;
+        construct {
+            register_command (
+                "set-input-mode-hiragana",
+                (command, state, ref key) => {
+                    state.input_mode = InputMode.HIRAGANA;
                     return true;
-                }
-            }
+                });
 
-            if (command == "next-candidate" ||
-                command == "previous-candidate" ||
-                command == "purge-candidate") {
-                state.handler_type = typeof (ConvertSegmentStateHandler);
-                state.lookup (state.segments[state.segments.cursor_pos]);
-                state.candidates.first ();
-                return false;
-            }
-            else if (command == "original-candidate") {
-                var segment = state.segments[state.segments.cursor_pos];
-                segment.output = segment.input;
-                return true;
-            }
-            else if (command == "expand-segment") {
-                if (state.segments.cursor_pos < state.segments.size - 1)
-                    state.resize_segment (1);
-                return true;
-            }
-            else if (command == "shrink-segment") {
-                if (state.segments[state.segments.cursor_pos].input.char_count () > 1)
-                    state.resize_segment (-1);
-                return true;
-            }
-            else if (command == "next-segment") {
-                state.segments.next_segment ();
-                return true;
-            }
-            else if (command == "previous-segment") {
-                state.segments.previous_segment ();
-                return true;
-            }
-            else if (command == "abort" || command == "delete") {
-                state.segments.clear ();
-                state.handler_type = typeof (InitialStateHandler);
-                return true;
-            }
-            else if (command != null && command.has_prefix ("convert-")) {
-                var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
-                var enum_value = enum_class.get_value_by_nick (
-                    command["convert-".length:command.length]);
-                if (enum_value != null) {
-                    state.convert_segment_by_kana_mode ((KanaMode) enum_value.value);
+            register_command (
+                "set-input-mode-katakana",
+                (command, state, ref key) => {
+                    state.input_mode = InputMode.KATAKANA;
                     return true;
-                }
-            }
+                });
 
-            state.output.append (state.segments.get_output ());
-            state.select_sentence ();
-            state.reset ();
-            // If the key is not bound or won't be further
-            // processed by InitialStateHandler, update preedit.
-            return command != null || command == "commit" ||
-                !((key.modifiers == 0 ||
-                   key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                  0x20 <= key.unicode && key.unicode < 0x7F);
+            register_command (
+                "set-input-mode-hankaku-katakana",
+                (command, state, ref key) => {
+                    state.input_mode = InputMode.HANKAKU_KATAKANA;
+                    return true;
+                });
+
+            register_command (
+                "set-input-mode-latin",
+                (command, state, ref key) => {
+                    state.input_mode = InputMode.LATIN;
+                    return true;
+                });
+
+            register_command (
+                "set-input-mode-wide-latin",
+                (command, state, ref key) => {
+                    state.input_mode = InputMode.WIDE_LATIN;
+                    return true;
+                });
+
+            register_command (
+                "set-input-mode-direct",
+                (command, state, ref key) => {
+                    state.input_mode = InputMode.DIRECT;
+                    return true;
+                });
+
+            var start_segment_conversion =
+                new CommandHandler ((command, state, ref key) => {
+                        state.handler_type = typeof (ConvertSegmentStateHandler);
+                        state.lookup (state.segments[state.segments.cursor_pos]);
+                        state.candidates.first ();
+                        return false;
+                    });
+
+            register_command_handler (
+                "next-candidate",
+                start_segment_conversion);
+
+            register_command_handler (
+                "previous-candidate",
+                start_segment_conversion);
+
+            register_command_handler (
+                "purge-candidate",
+                start_segment_conversion);
+
+            register_command (
+                "original-candidate",
+                (command, state, ref key) => {
+                    var segment = state.segments[state.segments.cursor_pos];
+                    segment.output = segment.input;
+                    return true;
+                });
+
+            register_command (
+                "expand-segment",
+                (command, state, ref key) => {
+                    if (state.segments.cursor_pos < state.segments.size - 1)
+                        state.resize_segment (1);
+                    return true;
+                });
+
+            register_command (
+                "shrink-segment",
+                (command, state, ref key) => {
+                    if (state.segments[state.segments.cursor_pos].input.char_count () > 1)
+                        state.resize_segment (-1);
+                    return true;
+                });
+
+            register_command (
+                "next-segment",
+                (command, state, ref key) => {
+                    state.segments.next_segment ();
+                    return true;
+                });
+
+            register_command (
+                "previous-segment",
+                (command, state, ref key) => {
+                    state.segments.previous_segment ();
+                    return true;
+                });
+
+            var abort_and_switch_to_initial =
+                new CommandHandler ((command, state, ref key) => {
+                        state.segments.clear ();
+                        state.handler_type = typeof (InitialStateHandler);
+                        return true;
+                    });
+
+            register_command_handler (
+                "abort",
+                abort_and_switch_to_initial);
+
+            register_command_handler (
+                "delete",
+                abort_and_switch_to_initial);
+
+            register_command (
+                "convert-hiragana",
+                (command, state, ref key) => {
+                    state.convert_segment_by_kana_mode (KanaMode.HIRAGANA);
+                    return true;
+                });
+
+            register_command (
+                "convert-katakana",
+                (command, state, ref key) => {
+                    state.convert_segment_by_kana_mode (KanaMode.KATAKANA);
+                    return true;
+                });
+
+            register_command (
+                "convert-hankaku-katakana",
+                (command, state, ref key) => {
+                    state.convert_segment_by_kana_mode (KanaMode.HANKAKU_KATAKANA);
+                    return true;
+                });
+
+            register_command (
+                "convert-latin",
+                (command, state, ref key) => {
+                    state.convert_segment_by_kana_mode (KanaMode.LATIN);
+                    return true;
+                });
+
+            register_command (
+                "convert-wide-latin",
+                (command, state, ref key) => {
+                    state.convert_segment_by_kana_mode (KanaMode.WIDE_LATIN);
+                    return true;
+                });
+
+            register_command (
+                null,
+                (command, state, ref key) => {
+                    state.output.append (state.segments.get_output ());
+                    state.select_sentence ();
+                    state.reset ();
+                    // If the key is not bound or won't be further
+                    // processed by InitialStateHandler, update preedit.
+                    return command != null || command == "commit" ||
+                        !((key.modifiers == 0 ||
+                           key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
+                          0x20 <= key.unicode && key.unicode < 0x7F);
+                });
+        }
+
+        public override bool process_key_event (State state, ref KeyEvent key) {
+            return dispatch_command (state, ref key);
         }
     }
 
     class ConvertSegmentStateHandler : StateHandler {
         construct {
-            register_command_handler (
+            register_command (
                 "previous-candidate",
-                new CommandHandler ((state, ref key) => {
-                        state.candidates.cursor_up ();
-                        return true;
-                    }));
+                (command, state, ref key) => {
+                    state.candidates.cursor_up ();
+                    return true;
+                });
 
-            register_command_handler (
+            register_command (
                 "next-candidate",
-                new CommandHandler ((state, ref key) => {
-                        state.candidates.cursor_down ();
-                        return true;
-                    }));
+                (command, state, ref key) => {
+                    state.candidates.cursor_down ();
+                    return true;
+                });
 
-            register_command_handler (
+            register_command (
                 "purge-candidate",
-                new CommandHandler ((state, ref key) => {
-                        if (state.candidates.cursor_pos >= 0) {
-                            var candidate = state.candidates.get ();
-                            state.purge_candidate (candidate);
-                            state.reset ();
-                        }
-                        return true;
-                    }));
+                (command, state, ref key) => {
+                    if (state.candidates.cursor_pos >= 0) {
+                        var candidate = state.candidates.get ();
+                        state.purge_candidate (candidate);
+                        state.reset ();
+                    }
+                    return true;
+                });
 
-            register_command_handler (
+            register_command (
                 "abort",
-                new CommandHandler ((state, ref key) => {
-                        state.candidates.clear ();
-                        state.handler_type = typeof (ConvertSentenceStateHandler);
-                        return true;
-                    }));
+                (command, state, ref key) => {
+                    state.candidates.clear ();
+                    state.handler_type = typeof (ConvertSentenceStateHandler);
+                    return true;
+                });
 
-            register_command_handler (
+            register_command (
                 "next-segment",
-                new CommandHandler ((state, ref key) => {
-                        if (state.candidates.cursor_pos >= 0)
-                            state.candidates.select ();
-                        state.handler_type = typeof (ConvertSentenceStateHandler);
-                        return false;
-                    }));
+                (command, state, ref key) => {
+                    if (state.candidates.cursor_pos >= 0)
+                        state.candidates.select ();
+                    state.handler_type = typeof (ConvertSentenceStateHandler);
+                    return false;
+                });
 
-            register_command_handler (
+            register_command (
                 "previous-segment",
-                new CommandHandler ((state, ref key) => {
-                        if (state.candidates.cursor_pos >= 0)
-                            state.candidates.select ();
-                        state.handler_type = typeof (ConvertSentenceStateHandler);
-                        return false;
-                    }));
+                (command, state, ref key) => {
+                    if (state.candidates.cursor_pos >= 0)
+                        state.candidates.select ();
+                    state.handler_type = typeof (ConvertSentenceStateHandler);
+                    return false;
+                });
 
-            var fallback_sentence_conversion =
-                new CommandHandler ((state, ref key) => {
+            var fallback_to_sentence_conversion =
+                new CommandHandler ((command, state, ref key) => {
                         state.candidates.clear ();
                         state.handler_type = typeof (ConvertSentenceStateHandler);
                         return false;
@@ -972,30 +1083,29 @@ namespace Kkc {
                     
             register_command_handler (
                 "delete",
-                fallback_sentence_conversion);
+                fallback_to_sentence_conversion);
 
             register_command_handler (
                 "original-candidate",
-                fallback_sentence_conversion);
+                fallback_to_sentence_conversion);
 
             var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
             for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
                 var enum_value = enum_class.get_value (i);
-                if (enum_value != null) {
+                if (enum_value != null)
                     register_command_handler (
                         "convert-" + enum_value.value_nick,
-                        fallback_sentence_conversion);
-                }
+                        fallback_to_sentence_conversion);
             }
 
-            register_command_handler (
+            register_command (
                 null,
-                new CommandHandler ((state, ref key) => {
-                        if (state.candidates.cursor_pos >= 0)
-                            state.candidates.select ();
-                        state.handler_type = typeof (ConvertSentenceStateHandler);
-                        return false;
-                    }));
+                (command, state, ref key) => {
+                    if (state.candidates.cursor_pos >= 0)
+                        state.candidates.select ();
+                    state.handler_type = typeof (ConvertSentenceStateHandler);
+                    return false;
+                });
         }
 
         public override bool process_key_event (State state, ref KeyEvent key) {
