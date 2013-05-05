@@ -49,11 +49,11 @@ namespace Kkc {
             int stop_char_pos = start_char_pos + segments[segments.cursor_pos].input.char_count ();
             var characters = input_characters.slice (start_char_pos, stop_char_pos);
             segments[segments.cursor_pos].output =
-                convert_input_characters_by_kana_mode (characters, mode);
+                convert_rom_kana_characters_by_kana_mode (characters, mode);
         }
 
-        internal string convert_input_characters_by_kana_mode (RomKanaCharacterList characters, KanaMode mode) {
-            update_latin_conversion_upper (mode);
+        internal string convert_rom_kana_characters_by_kana_mode (RomKanaCharacterList characters, KanaMode mode) {
+            update_latin_conversion_case (mode);
 
             switch (mode) {
             case KanaMode.HIRAGANA:
@@ -73,7 +73,7 @@ namespace Kkc {
             return_val_if_reached (null);
         }
 
-        void update_latin_conversion_upper (KanaMode mode) {
+        void update_latin_conversion_case (KanaMode mode) {
             if (mode == KanaMode.LATIN || mode == KanaMode.WIDE_LATIN) {
                 if (last_command_key != null && this_command_key != null) {
                     var last_command = lookup_key (last_command_key);
@@ -670,7 +670,7 @@ namespace Kkc {
                     state.selection.erase ();
                     state.finish_rom_kana_conversion ();
                     state.overriding_input =
-                        state.convert_input_characters_by_kana_mode (
+                        state.convert_rom_kana_characters_by_kana_mode (
                             state.input_characters,
                             (KanaMode) enum_value.value);
                     return true;
