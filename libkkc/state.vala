@@ -592,7 +592,36 @@ namespace Kkc {
     }
 
     abstract class StateHandler : Object {
-        internal abstract bool process_key_event (State state, ref KeyEvent key);
+        public delegate bool CommandCallback (State state, ref KeyEvent key);
+
+        public class CommandHandler {
+            unowned CommandCallback cb;
+            public CommandHandler (CommandCallback cb) {
+                this.cb = cb;
+            }
+            public bool call (State state, ref KeyEvent key) {
+                return this.cb (state, ref key);
+            }
+        }
+
+        Gee.Map<string, CommandHandler> command_handlers = new HashMap<string, CommandHandler> ();
+        CommandHandler? default_command_handler = null;
+
+        public void register_command_handler (string? command, CommandHandler handler) {
+            if (command != null)
+                command_handlers.set (command, handler);
+            else
+                default_command_handler = handler;
+        }
+
+        public bool dispatch_command (State state, ref KeyEvent key) {
+            var command = state.lookup_key (key);
+            if (command != null && command_handlers.has_key (command))
+                return command_handlers.get (command).call (state, ref key);
+            return default_command_handler.call (state, ref key);
+        }
+
+        public abstract bool process_key_event (State state, ref KeyEvent key);
     }
 
     class InitialStateHandler : StateHandler {
@@ -882,55 +911,95 @@ namespace Kkc {
     }
 
     class ConvertSegmentStateHandler : StateHandler {
-        internal override bool process_key_event (State state,
-                                                  ref KeyEvent key)
-        {
-            var command = state.lookup_key (key);
-            if (command == "previous-candidate") {
-                state.candidates.cursor_up ();
-                return true;
-            }
-            else if (command == "next-candidate") {
-                state.candidates.cursor_down ();
-                return true;
-            }
-            else if (command == "purge-candidate") {
-                if (state.candidates.cursor_pos >= 0) {
-                    var candidate = state.candidates.get ();
-                    state.purge_candidate (candidate);
-                    state.reset ();
+        construct {
+            register_command_handler (
+                "previous-candidate",
+                new CommandHandler ((state, ref key) => {
+                        state.candidates.cursor_up ();
+                        return true;
+                    }));
+
+            register_command_handler (
+                "next-candidate",
+                new CommandHandler ((state, ref key) => {
+                        state.candidates.cursor_down ();
+                        return true;
+                    }));
+
+            register_command_handler (
+                "purge-candidate",
+                new CommandHandler ((state, ref key) => {
+                        if (state.candidates.cursor_pos >= 0) {
+                            var candidate = state.candidates.get ();
+                            state.purge_candidate (candidate);
+                            state.reset ();
+                        }
+                        return true;
+                    }));
+
+            register_command_handler (
+                "abort",
+                new CommandHandler ((state, ref key) => {
+                        state.candidates.clear ();
+                        state.handler_type = typeof (ConvertSentenceStateHandler);
+                        return true;
+                    }));
+
+            register_command_handler (
+                "next-segment",
+                new CommandHandler ((state, ref key) => {
+                        if (state.candidates.cursor_pos >= 0)
+                            state.candidates.select ();
+                        state.handler_type = typeof (ConvertSentenceStateHandler);
+                        return false;
+                    }));
+
+            register_command_handler (
+                "previous-segment",
+                new CommandHandler ((state, ref key) => {
+                        if (state.candidates.cursor_pos >= 0)
+                            state.candidates.select ();
+                        state.handler_type = typeof (ConvertSentenceStateHandler);
+                        return false;
+                    }));
+
+            var fallback_sentence_conversion =
+                new CommandHandler ((state, ref key) => {
+                        state.candidates.clear ();
+                        state.handler_type = typeof (ConvertSentenceStateHandler);
+                        return false;
+                    });
+                    
+            register_command_handler (
+                "delete",
+                fallback_sentence_conversion);
+
+            register_command_handler (
+                "original-candidate",
+                fallback_sentence_conversion);
+
+            var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
+            for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
+                var enum_value = enum_class.get_value (i);
+                if (enum_value != null) {
+                    register_command_handler (
+                        "convert-" + enum_value.value_nick,
+                        fallback_sentence_conversion);
                 }
-                return true;
-            }
-            else if (command == "abort") {
-                state.candidates.clear ();
-                state.handler_type = typeof (ConvertSentenceStateHandler);
-                return true;
-            }
-            else if (command == "next-segment") {
-                if (state.candidates.cursor_pos >= 0)
-                    state.candidates.select ();
-                state.handler_type = typeof (ConvertSentenceStateHandler);
-                return false;
-            }
-            else if (command == "previous-segment") {
-                if (state.candidates.cursor_pos >= 0)
-                    state.candidates.select ();
-                state.handler_type = typeof (ConvertSentenceStateHandler);
-                return false;
-            }
-            else if (command == "delete" ||
-                     command == "original-candidate" ||
-                     (command != null && command.has_prefix ("convert-"))) {
-                state.candidates.clear ();
-                state.handler_type = typeof (ConvertSentenceStateHandler);
-                return false;
             }
 
-            if (state.candidates.cursor_pos >= 0)
-                state.candidates.select ();
-            state.handler_type = typeof (ConvertSentenceStateHandler);
-            return false;
+            register_command_handler (
+                null,
+                new CommandHandler ((state, ref key) => {
+                        if (state.candidates.cursor_pos >= 0)
+                            state.candidates.select ();
+                        state.handler_type = typeof (ConvertSentenceStateHandler);
+                        return false;
+                    }));
+        }
+
+        public override bool process_key_event (State state, ref KeyEvent key) {
+            return dispatch_command (state, ref key);
         }
     }
 }
