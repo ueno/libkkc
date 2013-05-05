@@ -594,15 +594,15 @@ namespace Kkc {
     abstract class StateHandler : Object {
         public delegate bool CommandCallback (string? command,
                                               State state,
-                                              ref KeyEvent key);
+                                              KeyEvent key);
 
         public class CommandHandler {
             unowned CommandCallback cb;
             public CommandHandler (CommandCallback cb) {
                 this.cb = cb;
             }
-            public bool call (string? command, State state, ref KeyEvent key) {
-                return this.cb (command, state, ref key);
+            public bool call (string? command, State state, KeyEvent key) {
+                return this.cb (command, state, key);
             }
         }
 
@@ -624,22 +624,20 @@ namespace Kkc {
             register_command_handler (command, new CommandHandler (cb));
         }
 
-        public bool dispatch_command (State state, ref KeyEvent key) {
+        public bool dispatch_command (State state, KeyEvent key) {
             var command = state.lookup_key (key);
             if (command != null && command_handlers.has_key (command))
                 return command_handlers.get (command).call (command,
                                                             state,
-                                                            ref key);
-            return default_command_handler.call (command, state, ref key);
+                                                            key);
+            return default_command_handler.call (command, state, key);
         }
 
-        public abstract bool process_key_event (State state, ref KeyEvent key);
+        public abstract bool process_key_event (State state, KeyEvent key);
     }
 
     class InitialStateHandler : StateHandler {
-        internal override bool process_key_event (State state,
-                                                  ref KeyEvent key)
-        {
+        public override bool process_key_event (State state, KeyEvent key) {
             var command = state.lookup_key (key);
 
             // Clear completion data.
@@ -852,7 +850,7 @@ namespace Kkc {
     class ConvertSentenceStateHandler : StateHandler {
         construct {
             var start_segment_conversion =
-                new CommandHandler ((command, state, ref key) => {
+                new CommandHandler ((command, state, key) => {
                         state.handler_type = typeof (ConvertSegmentStateHandler);
                         state.lookup (state.segments[state.segments.cursor_pos]);
                         state.candidates.first ();
@@ -873,7 +871,7 @@ namespace Kkc {
 
             register_command (
                 "original-candidate",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     var segment = state.segments[state.segments.cursor_pos];
                     segment.output = segment.input;
                     return true;
@@ -881,7 +879,7 @@ namespace Kkc {
 
             register_command (
                 "expand-segment",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     if (state.segments.cursor_pos < state.segments.size - 1)
                         state.resize_segment (1);
                     return true;
@@ -889,7 +887,7 @@ namespace Kkc {
 
             register_command (
                 "shrink-segment",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     if (state.segments[state.segments.cursor_pos].input.char_count () > 1)
                         state.resize_segment (-1);
                     return true;
@@ -897,20 +895,20 @@ namespace Kkc {
 
             register_command (
                 "next-segment",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.segments.next_segment ();
                     return true;
                 });
 
             register_command (
                 "previous-segment",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.segments.previous_segment ();
                     return true;
                 });
 
             var abort_and_switch_to_initial =
-                new CommandHandler ((command, state, ref key) => {
+                new CommandHandler ((command, state, key) => {
                         state.segments.clear ();
                         state.handler_type = typeof (InitialStateHandler);
                         return true;
@@ -926,42 +924,42 @@ namespace Kkc {
 
             register_command (
                 "convert-hiragana",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.convert_segment_by_kana_mode (KanaMode.HIRAGANA);
                     return true;
                 });
 
             register_command (
                 "convert-katakana",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.convert_segment_by_kana_mode (KanaMode.KATAKANA);
                     return true;
                 });
 
             register_command (
                 "convert-hankaku-katakana",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.convert_segment_by_kana_mode (KanaMode.HANKAKU_KATAKANA);
                     return true;
                 });
 
             register_command (
                 "convert-latin",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.convert_segment_by_kana_mode (KanaMode.LATIN);
                     return true;
                 });
 
             register_command (
                 "convert-wide-latin",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.convert_segment_by_kana_mode (KanaMode.WIDE_LATIN);
                     return true;
                 });
 
             register_command (
                 null,
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.output.append (state.segments.get_output ());
                     state.select_sentence ();
                     state.reset ();
@@ -974,8 +972,8 @@ namespace Kkc {
                 });
         }
 
-        public override bool process_key_event (State state, ref KeyEvent key) {
-            return dispatch_command (state, ref key);
+        public override bool process_key_event (State state, KeyEvent key) {
+            return dispatch_command (state, key);
         }
     }
 
@@ -983,21 +981,21 @@ namespace Kkc {
         construct {
             register_command (
                 "previous-candidate",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.candidates.cursor_up ();
                     return true;
                 });
 
             register_command (
                 "next-candidate",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.candidates.cursor_down ();
                     return true;
                 });
 
             register_command (
                 "purge-candidate",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     if (state.candidates.cursor_pos >= 0) {
                         var candidate = state.candidates.get ();
                         state.purge_candidate (candidate);
@@ -1008,7 +1006,7 @@ namespace Kkc {
 
             register_command (
                 "abort",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     state.candidates.clear ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
                     return true;
@@ -1016,7 +1014,7 @@ namespace Kkc {
 
             register_command (
                 "next-segment",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     if (state.candidates.cursor_pos >= 0)
                         state.candidates.select ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
@@ -1025,7 +1023,7 @@ namespace Kkc {
 
             register_command (
                 "previous-segment",
-                (command, state, ref key) => {
+                (command, state, key) => {
                     if (state.candidates.cursor_pos >= 0)
                         state.candidates.select ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
@@ -1033,7 +1031,7 @@ namespace Kkc {
                 });
 
             var fallback_to_sentence_conversion =
-                new CommandHandler ((command, state, ref key) => {
+                new CommandHandler ((command, state, key) => {
                         state.candidates.clear ();
                         state.handler_type = typeof (ConvertSentenceStateHandler);
                         return false;
@@ -1058,7 +1056,7 @@ namespace Kkc {
 
             register_command (
                 null,
-                (command, state, ref key) => {
+                (command, state, key) => {
                     if (state.candidates.cursor_pos >= 0)
                         state.candidates.select ();
                     state.handler_type = typeof (ConvertSentenceStateHandler);
@@ -1066,8 +1064,8 @@ namespace Kkc {
                 });
         }
 
-        public override bool process_key_event (State state, ref KeyEvent key) {
-            return dispatch_command (state, ref key);
+        public override bool process_key_event (State state, KeyEvent key) {
+            return dispatch_command (state, key);
         }
     }
 }

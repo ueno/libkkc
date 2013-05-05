@@ -290,12 +290,11 @@ namespace Kkc {
         }
 
         bool process_key_event_internal (KeyEvent key) {
-            KeyEvent _key = key;
             while (true) {
                 var handler_type = state.handler_type;
                 var handler = handlers.get (handler_type);
                 state.this_command_key = key;
-                if (handler.process_key_event (state, ref _key)) {
+                if (handler.process_key_event (state, key)) {
                     notify_property ("input");
                     state.last_command_key = key;
                     return true;
