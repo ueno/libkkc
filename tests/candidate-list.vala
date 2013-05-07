@@ -36,6 +36,16 @@ class CandidateListTests : Kkc.TestCase {
 
         assert (candidates.select_at (1));
         assert (candidates.cursor_pos == 4);
+
+        candidates.first ();
+        assert (candidates.next ());
+        assert (candidates.cursor_pos == 1);
+        assert (candidates.previous ());
+        assert (candidates.cursor_pos == 0);
+        assert (candidates.next ());
+        assert (candidates.next ());
+        assert (candidates.next ());
+        assert (candidates.cursor_pos == 0);
     }
 }
 

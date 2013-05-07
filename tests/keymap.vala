@@ -25,7 +25,8 @@ class KeymapTests : Kkc.TestCase {
         key = keymap.where_is ("register");
         assert (key.to_string () == "(alt r)");
 
-        keymap.commands ();
+        var commands = keymap.commands ();
+        var entries = keymap.entries ();
 
         assert (keymap.get_command_label ("register") == "Register Word");
     }

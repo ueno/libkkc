@@ -68,6 +68,12 @@ class UserDictionaryTests : Kkc.TestCase {
           "渡しの名まえは中のです",
           10,
           0,
+          "" },
+        { "SPC Right SPC Right SPC",
+          "わたしのなまえはなかのです",
+          "渡し埜那まえは中のです",
+          10,
+          2,
           "" }
     };
 
@@ -128,7 +134,7 @@ class UserDictionaryTests : Kkc.TestCase {
     };
 
     public void test_register () {
-        context.request_selection_text.connect (() => {
+        var handler_id = context.request_selection_text.connect (() => {
                 context.set_selection_text ("abc");
             });
         context.process_key_events ("A-r a i SPC RET");
@@ -137,9 +143,19 @@ class UserDictionaryTests : Kkc.TestCase {
         context.process_key_events ("a i SPC");
         assert (context.segments.size == 1);
         assert (context.segments.get_output () == "abc");
+        context.reset ();
+        context.clear_output ();
 
         context.dictionaries.save ();
 
+        context.disconnect (handler_id);
+        context.request_selection_text.connect (() => {
+                context.set_selection_text (null);
+            });
+        context.process_key_events ("A-r a i SPC");
+        context.reset ();
+        context.clear_output ();
+        
         try {
             new Kkc.UserDictionary ("test-user-dictionary");
         } catch (Error e) {

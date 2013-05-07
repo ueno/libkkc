@@ -4,13 +4,6 @@ class ContextTests : Kkc.TestCase {
     public ContextTests () {
         base ("Context");
 
-        try {
-            Kkc.LanguageModel model = Kkc.LanguageModel.load ("sorted3");
-            context = new Kkc.Context (model);
-        } catch (Kkc.LanguageModelError e) {
-            stderr.printf ("%s\n", e.message);
-        }
-
         add_test ("initial", this.test_initial);
         add_test ("sentence_conversion", this.test_sentence_conversion);
         add_test ("segment_conversion", this.test_segment_conversion);
@@ -55,6 +48,45 @@ class ContextTests : Kkc.TestCase {
 
     public void test_initial () {
         do_conversions (INITIAL_DATA);
+
+        var input_mode = context.input_mode;
+        context.process_key_events ("A-l");
+        assert (context.input_mode == Kkc.InputMode.LATIN);
+        context.reset ();
+        context.clear_output ();
+        context.input_mode = input_mode;
+
+        context.process_key_events ("(alt a)");
+        context.reset ();
+        context.clear_output ();
+
+        context.process_key_events ("\\(");
+        context.reset ();
+        context.clear_output ();
+
+        context.process_key_events ("a RET");
+        assert (context.has_output ());
+        assert (context.peek_output () == "あ");
+        assert (context.has_output ());
+        context.reset ();
+        context.clear_output ();
+
+        assert (context.punctuation_style == Kkc.PunctuationStyle.JA_JA);
+        context.punctuation_style = Kkc.PunctuationStyle.EN_EN;
+        context.process_key_events (". RET");
+        assert (context.poll_output () == "．");
+        assert (context.punctuation_style == Kkc.PunctuationStyle.EN_EN);
+        context.reset ();
+        context.clear_output ();
+
+        var rule = context.typing_rule;
+        assert (rule != null);
+        assert (rule.metadata.name == "default");
+
+        var metadata = Kkc.Rule.find_rule ("kana");
+        context.typing_rule = new Kkc.Rule (metadata);
+        context.process_key_event (new Kkc.KeyEvent.from_x_event (132, 0x5c, 0));
+        context.typing_rule = rule;
     }
 
     static const ConversionData SENTENCE_CONVERSION_DATA[] = {
@@ -180,6 +212,13 @@ class ContextTests : Kkc.TestCase {
 
     public override void set_up () {
         try {
+            Kkc.LanguageModel model = Kkc.LanguageModel.load ("sorted3");
+            context = new Kkc.Context (model);
+        } catch (Kkc.LanguageModelError e) {
+            stderr.printf ("%s\n", e.message);
+        }
+
+        try {
             new Kkc.SystemSegmentDictionary (
                 "test-system-dictionary-nonexistent");
             assert_not_reached ();
@@ -200,7 +239,7 @@ class ContextTests : Kkc.TestCase {
     }
 
     public override void tear_down () {
-        context.dictionaries.clear ();
+        context = null;
     }
 }
 
