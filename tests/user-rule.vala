@@ -6,11 +6,15 @@ class UserRuleTests : Kkc.TestCase {
         add_test ("write", this.test_write);
     }
 
+    public override void set_up () {
+        if (FileUtils.test ("test-user-rule", FileTest.EXISTS))
+            Kkc.TestUtils.remove_dir ("test-user-rule");
+    }
+
     public void test_creation () {
         var parent = Kkc.Rule.find_rule ("kana");
         assert (parent != null);
 
-        var srcdir = Environment.get_variable ("srcdir");
         var rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         assert (rule != null);
     }
@@ -19,10 +23,7 @@ class UserRuleTests : Kkc.TestCase {
         var parent = Kkc.Rule.find_rule ("kana");
         assert (parent != null);
 
-        var srcdir = Environment.get_variable ("srcdir");
-        Kkc.UserRule rule;
-
-        rule = new Kkc.UserRule (parent, "test-user-rule", "test");
+        Kkc.UserRule rule = new Kkc.UserRule (parent, "test-user-rule", "test");
         assert (rule != null);
 
         var event0 = new Kkc.KeyEvent.from_string ("C-a");

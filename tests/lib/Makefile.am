@@ -1,6 +1,6 @@
 noinst_LTLIBRARIES = libkkc-test.la
 
-libkkc_test_la_SOURCES = test-case.vala
+libkkc_test_la_SOURCES = test-case.vala test-utils.vala
 
 libkkc_test_la_CFLAGS =				\
 	$(AM_CFLAGS)				\

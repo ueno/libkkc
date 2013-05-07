@@ -222,6 +222,11 @@ class ContextTests : Kkc.TestCase {
           "" }
     };
 
+    public override void set_up () {
+        if (FileUtils.test ("test-user-dictionary", FileTest.EXISTS))
+            Kkc.TestUtils.remove_dir ("test-user-dictionary");
+    }
+
     public void test_user_dictionary () {
         Kkc.UserDictionary dictionary;
         try {
