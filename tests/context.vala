@@ -21,6 +21,8 @@ class ContextTests : Kkc.TestCase {
             stderr.printf ("%s\n", e.message);
         }
 
+        context.dictionaries.add (new Kkc.EmptySegmentDictionary ());
+
         add_test ("initial", this.test_initial);
         add_test ("conversion-simple", this.test_conversion_simple);
         add_test ("conversion", this.test_conversion);
