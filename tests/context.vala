@@ -24,6 +24,7 @@ class ContextTests : Kkc.TestCase {
         add_test ("initial", this.test_initial);
         add_test ("conversion-simple", this.test_conversion_simple);
         add_test ("conversion", this.test_conversion);
+        add_test ("user-dictionary", this.test_user_dictionary);
     }
 
     struct InitialData {
@@ -186,6 +187,65 @@ class ContextTests : Kkc.TestCase {
             context.reset ();
             context.clear_output ();
         }
+    }
+
+    static const ConversionData[] user_dictionary_data = {
+        { "SPC",
+          "わたしのなまえはなかのです",
+          "私の名前は中のです",
+          9,
+          0,
+          "" },
+        { "SPC Right Right Right C-Left RET",
+          "",
+          "",
+          0,
+          -1,
+          "私の名まえは中のです" },
+        { "SPC",
+          "わたしのなまえはなかのです",
+          "私の名まえは中のです",
+          10,
+          0,
+          "" },
+        { "SPC SPC RET",
+          "",
+          "",
+          0,
+          -1,
+          "渡しの名まえは中のです" },
+        { "SPC",
+          "わたしのなまえはなかのです",
+          "渡しの名まえは中のです",
+          10,
+          0,
+          "" }
+    };
+
+    public void test_user_dictionary () {
+        Kkc.UserDictionary dictionary;
+        try {
+            var srcdir = Environment.get_variable ("srcdir");
+            assert (srcdir != null);
+            dictionary = new Kkc.UserDictionary (
+                Path.build_filename (srcdir, "test-user-dictionary"));
+            context.dictionaries.add (dictionary);
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+        foreach (var conversion in user_dictionary_data) {
+            context.process_key_events (CONVERSION_PREFIX_KEYS + conversion.keys);
+            var output = context.poll_output ();
+            assert (output == conversion.output);
+            assert (context.input == conversion.input);
+            assert (context.segments.get_output () == conversion.segments);
+            assert (context.segments.size == conversion.segments_size);
+            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
+            context.reset ();
+            context.clear_output ();
+        }
+        context.dictionaries.remove (dictionary);
+        dictionary.save ();
     }
 }
 

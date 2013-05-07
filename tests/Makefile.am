@@ -94,5 +94,6 @@ clean-local:
 	-rm -f rules.stamp
 	-rm -rf data/rules
 	-rm -rf test-user-rule
+	-rm -rf test-user-dictionary
 
 -include $(top_srcdir)/git.mk
