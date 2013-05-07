@@ -83,6 +83,11 @@ expression_SOURCES = expression.vala
 EXTRA_DIST =					\
 	file-dict.dat				\
 	data/models/sorted3/metadata.json	\
+	data/models/text3/metadata.json		\
+	data/models/text3/data.arpa		\
+	$(NULL)
+
+CLEANFILES =					\
 	data/models/sorted3/data.input		\
 	data/models/sorted3/data.1gram		\
 	data/models/sorted3/data.1gram.index	\
@@ -90,11 +95,11 @@ EXTRA_DIST =					\
 	data/models/sorted3/data.2gram.filter	\
 	data/models/sorted3/data.3gram		\
 	data/models/sorted3/data.3gram.filter	\
+	valgrind.log.*				\
+	*.stamp					\
 	$(NULL)
 
-CLEANFILES = valgrind.log.*
-
-$(TESTS): rules.stamp
+$(TESTS): rules.stamp models.stamp
 rules.stamp:
 	for i in default kana; do \
 	  $(mkdir_p) data/rules/$$i; \
@@ -106,8 +111,20 @@ rules.stamp:
 	done
 	touch $@
 
+models.stamp:
+	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/sortlm.py \
+	  data/models/text3/data.arpa data/models/sorted3/data
+	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/genfilter.py \
+          data/models/sorted3/data.2gram \
+          data/models/sorted3/data.2gram.filter \
+          12
+	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/genfilter.py \
+          data/models/sorted3/data.3gram \
+          data/models/sorted3/data.3gram.filter \
+          10
+	touch $@
+
 clean-local:
-	-rm -f rules.stamp
 	-rm -rf data/rules
 	-rm -rf test-user-rule
 	-rm -rf test-user-dictionary

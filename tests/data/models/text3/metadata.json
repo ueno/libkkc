@@ -1,0 +1,5 @@
+{
+    "name": "text3",
+    "description": "text based 3-gram dictionary (for testing)",
+    "type": "text3"
+}
