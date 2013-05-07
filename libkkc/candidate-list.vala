@@ -122,8 +122,7 @@ namespace Kkc {
         }
 
         uint get_page_start_cursor_pos (uint pos) {
-            var pages = (pos - page_start) / page_size;
-            return pages * page_size + page_start;
+            return (pos / page_size) * page_size;
         }
 
         /**

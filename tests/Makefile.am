@@ -21,7 +21,17 @@ TESTS_ENVIRONMENT =							    \
 	G_SLICE=${G_SLICE},always-malloc				    \
 	LIBKKC_DATA_PATH=$(builddir)/data:${srcdir}/data:$(top_srcdir)/data \
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
-TESTS = basic context user-dictionary user-rule rom-kana expression
+TESTS =						\
+	basic					\
+	context					\
+	candidate-list				\
+	user-dictionary				\
+	keymap					\
+	user-rule				\
+	rom-kana				\
+	expression				\
+	$(NULL)
+
 noinst_PROGRAMS = $(TESTS)
 noinst_HEADERS =
 
@@ -58,7 +68,11 @@ basic_SOURCES = basic.vala
 
 context_SOURCES = context.vala
 
+candidate_list_SOURCES = candidate-list.vala
+
 user_dictionary_SOURCES = user-dictionary.vala
+
+keymap_SOURCES = keymap.vala
 
 user_rule_SOURCES = user-rule.vala
 
