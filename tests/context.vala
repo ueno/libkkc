@@ -73,8 +73,13 @@ class ContextTests : Kkc.TestCase {
           "kyuuka",
           1,
           0,
-          ""
-        }
+          "" },
+        { "1 a n SPC C-Right C-Right SPC",
+          "１あん",
+          "一案",
+          1,
+          0,
+          "" },
     };
 
     public void test_conversion_simple () {
