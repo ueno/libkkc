@@ -143,7 +143,7 @@ namespace Kkc {
                     }
                     node.cumulative_cost = max_cost;
                     node.previous = max_pnode;
-#if false
+#if DEBUG
                     stdout.printf ("%s -> %s: %lf %lf %d %d\n",
                                    max_pnode.to_string (),
                                    node.to_string(),

@@ -56,15 +56,6 @@ namespace Kkc {
             return null;
         }
 
-        internal string? get_coding_system () {
-            foreach (var entry in ENCODING_TO_CODING_SYSTEM_RULE) {
-                if (entry.key == encoding) {
-                    return entry.value;
-                }
-            }
-            return null;
-        }
-        
         internal string encoding { get; private set; }
 
         CharsetConverter encoder;

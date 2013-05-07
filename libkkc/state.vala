@@ -470,7 +470,7 @@ namespace Kkc {
             var _segments = decoder.decode (input,
                                             1,
                                             constraint.to_array ());
-#if false
+#if DEBUG
             print ("constraint: ");
             for (var i = 0; i < constraint.size; i++) {
                 print ("%d ", constraint[i]);
@@ -757,6 +757,7 @@ namespace Kkc {
                 state.selection.erase ();
                 state.segments.set_segments (segment);
                 state.segments.first_segment ();
+                state.lookup (state.segments[state.segments.cursor_pos]);
                 state.candidates.first ();
                 state.handler_type = typeof (ConvertSegmentStateHandler);
                 return true;
@@ -904,25 +905,12 @@ namespace Kkc {
         }
 
         construct {
-            var start_segment_conversion =
-                new CallbackCommandHandler ((command, state, key) => {
-                        state.handler_type = typeof (ConvertSegmentStateHandler);
-                        state.lookup (state.segments[state.segments.cursor_pos]);
-                        state.candidates.first ();
-                        return false;
-                    });
-
-            register_command_handler (
-                "next-candidate",
-                start_segment_conversion);
-
-            register_command_handler (
-                "previous-candidate",
-                start_segment_conversion);
-
-            register_command_handler (
-                "purge-candidate",
-                start_segment_conversion);
+            register_command_callback ("next-candidate",
+                                       do_start_segment_conversion);
+            register_command_callback ("previous-candidate",
+                                       do_start_segment_conversion);
+            register_command_callback ("purge-candidate",
+                                       do_start_segment_conversion);
 
             register_command_callback (
                 "original-candidate",
@@ -962,20 +950,8 @@ namespace Kkc {
                     return true;
                 });
 
-            var abort_and_switch_to_initial =
-                new CallbackCommandHandler ((command, state, key) => {
-                        state.segments.clear ();
-                        state.handler_type = typeof (InitialStateHandler);
-                        return true;
-                    });
-
-            register_command_handler (
-                "abort",
-                abort_and_switch_to_initial);
-
-            register_command_handler (
-                "delete",
-                abort_and_switch_to_initial);
+            register_command_callback ("abort", do_clear_unhandled);
+            register_command_callback ("delete", do_clear_unhandled);
 
             var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
             for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
@@ -1000,6 +976,19 @@ namespace Kkc {
                            key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                           0x20 <= key.unicode && key.unicode < 0x7F);
                 });
+        }
+
+        bool do_start_segment_conversion (string? command, State state, KeyEvent key) {
+            state.lookup (state.segments[state.segments.cursor_pos]);
+            state.candidates.first ();
+            state.handler_type = typeof (ConvertSegmentStateHandler);
+            return false;
+        }
+
+        bool do_clear_unhandled (string? command, State state, KeyEvent key) {
+            state.segments.clear ();
+            state.handler_type = typeof (InitialStateHandler);
+            return true;
         }
 
         public override bool process_key_event (State state, KeyEvent key) {

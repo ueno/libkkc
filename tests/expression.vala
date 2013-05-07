@@ -7,6 +7,10 @@ class ExpressionTests : Kkc.TestCase {
     }
 
     public void test_eval () {
+        assert (Kkc.Expression.eval ("(concat \"DOS\\057V\")") == "DOS/V");
+        assert (Kkc.Expression.eval ("(pwd)") == Environment.get_current_dir ());
+        Kkc.Expression.eval ("(current-time-string)");
+        assert (Kkc.Expression.eval ("(unknown)") == "(unknown)");
         assert (Kkc.Expression.eval ("(kkc-version)") ==
                 "%s/%s".printf (Config.PACKAGE_NAME,
                                 Config.PACKAGE_VERSION));

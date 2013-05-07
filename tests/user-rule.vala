@@ -36,6 +36,16 @@ class UserRuleTests : Kkc.TestCase {
         var event1 = new Kkc.KeyEvent.from_string ("C-a");
         var command = rule.get_keymap (Kkc.InputMode.HIRAGANA).lookup_key (event1);
         assert (command == "abort");
+
+        bool found = false;
+        var rules = Kkc.Rule.list ();
+        foreach (var metadata in rules) {
+            if (metadata.name == "test:kana") {
+                found = true;
+                break;
+            }
+        }
+        assert (!found);
     }
 }
 

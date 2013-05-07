@@ -11,53 +11,9 @@ class ContextTests : Kkc.TestCase {
             stderr.printf ("%s\n", e.message);
         }
 
-        try {
-            var srcdir = Environment.get_variable ("srcdir");
-            assert (srcdir != null);
-            var dictionary = new Kkc.SystemSegmentDictionary (
-                Path.build_filename (srcdir, "file-dict.dat"));
-            context.dictionaries.add (dictionary);
-        } catch (Error e) {
-            stderr.printf ("%s\n", e.message);
-        }
-
-        context.dictionaries.add (new Kkc.EmptySegmentDictionary ());
-
         add_test ("initial", this.test_initial);
-        add_test ("conversion-simple", this.test_conversion_simple);
-        add_test ("conversion", this.test_conversion);
-        add_test ("user-dictionary", this.test_user_dictionary);
-    }
-
-    struct InitialData {
-        string keys;
-        string input;
-        string output;
-    }
-
-    static const InitialData[] initial_data = {
-        { "a TAB", "あい", "" },
-        { "k y o", "きょ", "" },
-        { "k y o DEL", "", "" },
-        { "k y o F7", "キョ", "" },
-        { "k y o F10", "kyo", "" },
-        { "k y o F10 F10", "KYO", "" },
-        { "k y o F9", "ｋｙｏ", "" },
-        { "k y o F10 F9", "ｋｙｏ", "" },
-        { "k y o F9 RET", "", "ｋｙｏ" },
-        { "w a t a s h i F10 n o", "の", "watashi" },
-        { "a C-c", "", "" }
-    };
-
-    public void test_initial () {
-        foreach (var initial in initial_data) {
-            context.process_key_events (initial.keys);
-            var output = context.poll_output ();
-            assert (output == initial.output);
-            assert (context.input == initial.input);
-            context.reset ();
-            context.clear_output ();
-        }
+        add_test ("sentence_conversion", this.test_sentence_conversion);
+        add_test ("segment_conversion", this.test_segment_conversion);
     }
 
     struct ConversionData {
@@ -69,23 +25,8 @@ class ContextTests : Kkc.TestCase {
         string output;
     }
 
-    static const ConversionData[] conversion_simple_data = {
-        { "k y u u k a SPC C-Right F10",
-          "きゅうか",
-          "kyuuka",
-          1,
-          0,
-          "" },
-        { "1 a n SPC C-Right C-Right SPC",
-          "１あん",
-          "一案",
-          1,
-          0,
-          "" },
-    };
-
-    public void test_conversion_simple () {
-        foreach (var conversion in conversion_simple_data) {
+    void do_conversions (ConversionData[] conversions) {
+        foreach (var conversion in conversions) {
             context.process_key_events (conversion.keys);
             var output = context.poll_output ();
             assert (output == conversion.output);
@@ -98,10 +39,50 @@ class ContextTests : Kkc.TestCase {
         }
     }
 
-    static const string CONVERSION_PREFIX_KEYS =
-      "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
+    static const ConversionData INITIAL_DATA[] = {
+        { "a TAB", "あい", "", 0, -1, "" },
+        { "k y o", "きょ", "", 0, -1, "" },
+        { "k y o DEL", "", "", 0, -1, "" },
+        { "k y o F7", "キョ", "", 0, -1, "" },
+        { "k y o F10", "kyo", "", 0, -1, "" },
+        { "k y o F10 F10", "KYO", "", 0, -1, "" },
+        { "k y o F9", "ｋｙｏ", "", 0, -1, "" },
+        { "k y o F10 F9", "ｋｙｏ", "", 0, -1, "" },
+        { "k y o F9 RET", "", "", 0, -1, "ｋｙｏ" },
+        { "w a t a s h i F10 n o", "の", "", 0, -1, "watashi" },
+        { "a C-c", "", "", 0, -1, "" }
+    };
 
-    static const ConversionData[] conversion_data = {
+    public void test_initial () {
+        do_conversions (INITIAL_DATA);
+    }
+
+    static const ConversionData SENTENCE_CONVERSION_DATA[] = {
+        { "k y u u k a SPC C-Right F10",
+          "きゅうか",
+          "kyuuka",
+          1,
+          0,
+          "" },
+        { "1 a n SPC C-Right C-Right SPC",
+          "１あん",
+          "一案",
+          1,
+          0,
+          "" },
+        { "a i SPC",
+          "あい",
+          "愛",
+          1,
+          0,
+          "" }
+    };
+
+    public void test_sentence_conversion () {
+        do_conversions (SENTENCE_CONVERSION_DATA);
+    }
+
+    static const ConversionData SEGMENT_CONVERSION_DATA[] = {
         { "",
           "わたしのなまえはなかのです",
           "",
@@ -182,82 +163,44 @@ class ContextTests : Kkc.TestCase {
           "" }
     };
 
-    public void test_conversion () {
-        foreach (var conversion in conversion_data) {
-            context.process_key_events (CONVERSION_PREFIX_KEYS + conversion.keys);
-            var output = context.poll_output ();
-            assert (output == conversion.output);
-            assert (context.input == conversion.input);
-            assert (context.segments.get_output () == conversion.segments);
-            assert (context.segments.size == conversion.segments_size);
-            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
-            context.reset ();
-            context.clear_output ();
-        }
-    }
+    public void test_segment_conversion () {
+        const string PREFIX_KEYS =
+            "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
 
-    static const ConversionData[] user_dictionary_data = {
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "私の名前は中のです",
-          9,
-          0,
-          "" },
-        { "SPC Right Right Right C-Left RET",
-          "",
-          "",
-          0,
-          -1,
-          "私の名まえは中のです" },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "私の名まえは中のです",
-          10,
-          0,
-          "" },
-        { "SPC SPC RET",
-          "",
-          "",
-          0,
-          -1,
-          "渡しの名まえは中のです" },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "渡しの名まえは中のです",
-          10,
-          0,
-          "" }
-    };
+        ConversionData[] conversions =
+            new ConversionData[SEGMENT_CONVERSION_DATA.length];
+
+        for (var i = 0; i < SEGMENT_CONVERSION_DATA.length; i++) {
+            conversions[i] = SEGMENT_CONVERSION_DATA[i];
+            conversions[i].keys = PREFIX_KEYS + SEGMENT_CONVERSION_DATA[i].keys;
+        }
+
+        do_conversions (conversions);
+    }
 
     public override void set_up () {
-        if (FileUtils.test ("test-user-dictionary", FileTest.EXISTS))
-            Kkc.TestUtils.remove_dir ("test-user-dictionary");
-    }
+        try {
+            new Kkc.SystemSegmentDictionary (
+                "test-system-dictionary-nonexistent");
+            assert_not_reached ();
+        } catch (Error e) {
+        }
 
-    public void test_user_dictionary () {
-        Kkc.UserDictionary dictionary;
         try {
             var srcdir = Environment.get_variable ("srcdir");
             assert (srcdir != null);
-            dictionary = new Kkc.UserDictionary (
-                Path.build_filename (srcdir, "test-user-dictionary"));
+            var dictionary = new Kkc.SystemSegmentDictionary (
+                Path.build_filename (srcdir, "file-dict.dat"));
             context.dictionaries.add (dictionary);
         } catch (Error e) {
-            assert_not_reached ();
+            stderr.printf ("%s\n", e.message);
         }
-        foreach (var conversion in user_dictionary_data) {
-            context.process_key_events (CONVERSION_PREFIX_KEYS + conversion.keys);
-            var output = context.poll_output ();
-            assert (output == conversion.output);
-            assert (context.input == conversion.input);
-            assert (context.segments.get_output () == conversion.segments);
-            assert (context.segments.size == conversion.segments_size);
-            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
-            context.reset ();
-            context.clear_output ();
-        }
-        context.dictionaries.remove (dictionary);
-        dictionary.save ();
+
+        context.dictionaries.add (new Kkc.EmptySegmentDictionary ());
+    }
+
+    public override void tear_down () {
+        context.dictionaries.clear ();
     }
 }
 

@@ -386,25 +386,4 @@ namespace Kkc {
             }
         }
     }
-
-    class UnicodeString : Object {
-        string str;
-        internal int length;
-
-        internal UnicodeString (string str) {
-            this.str = str;
-            this.length = str.char_count ();
-        }
-
-        internal string substring (long offset, long len = -1) {
-            long byte_offset = str.index_of_nth_char (offset);
-            long byte_len;
-            if (len < 0) {
-                byte_len = len;
-            } else {
-                byte_len = str.index_of_nth_char (offset + len) - byte_offset;
-            }
-            return str.substring (byte_offset, byte_len);
-        }
-    }
 }
