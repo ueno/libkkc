@@ -73,7 +73,7 @@ namespace Kkc {
         }
     }
 
-    struct PrefixEntry {
+    internal struct PrefixEntry {
         public int offset;
         public string[] sequence;
         public PrefixEntry (int offset, string[] sequence) {
@@ -82,8 +82,8 @@ namespace Kkc {
         }
     }
 
-    class SequenceUtils : Object {
-        public static Gee.List<PrefixEntry?> enumerate_prefixes (
+    namespace SequenceUtils {
+        internal static Gee.List<PrefixEntry?> enumerate_prefixes (
             string[] sequence, int min, int max)
         {
             var result = new ArrayList<PrefixEntry?> ();
@@ -100,7 +100,7 @@ namespace Kkc {
         }
     }
 
-    class KeyEventUtils : Object {
+    abstract class KeyEventUtils : Object {
         static Gee.Map<uint,string> keyval_to_keyname =
             new HashMap<uint,string> ();
         static Gee.Map<string,uint> keyname_to_keyval =

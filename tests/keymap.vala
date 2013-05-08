@@ -2,10 +2,12 @@ class KeymapTests : Kkc.TestCase {
     public KeymapTests () {
         base ("Keymap");
 
+        add_test ("creation", this.test_creation);
+        add_test ("properties", this.test_properties);
         add_test ("lookup", this.test_lookup);
     }
 
-    void test_lookup () {
+    void test_creation () {
         Kkc.RuleMetadata? metadata;
 
         metadata = Kkc.Rule.find_rule ("nonexistent");
@@ -13,7 +15,19 @@ class KeymapTests : Kkc.TestCase {
 
         metadata = Kkc.Rule.find_rule ("kana");
         assert (metadata != null);
+    }
 
+    void test_properties () {
+        var metadata = Kkc.Rule.find_rule ("kana");
+        var rule = new Kkc.Rule (metadata);
+        var keymap = rule.get_keymap (Kkc.InputMode.HIRAGANA) as Object;
+        Kkc.Keymap parent;
+        keymap.get ("parent", out parent);
+        keymap.set ("parent", parent);
+    }
+
+    void test_lookup () {
+        var metadata = Kkc.Rule.find_rule ("kana");
         var rule = new Kkc.Rule (metadata);
         var keymap = rule.get_keymap (Kkc.InputMode.HIRAGANA);
 
