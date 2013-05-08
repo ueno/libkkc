@@ -194,6 +194,13 @@ namespace Kkc {
             }
         }
 
+        public KeyEvent.from_x_event (uint keyval,
+                                      uint keycode,
+                                      ModifierType modifiers)
+        {
+            this (keyval, keycode, modifiers);
+        }
+
         /**
          * Create a key event from an X event.
          *
@@ -203,9 +210,9 @@ namespace Kkc {
          *
          * @return a new KeyEvent
          */
-        public KeyEvent.from_x_event (uint keyval,
-                                      uint keycode,
-                                      ModifierType modifiers)
+        public KeyEvent (uint keyval,
+                         uint keycode,
+                         ModifierType modifiers)
         {
             name = KeyEventUtils.keyval_name (keyval);
             unicode = KeyEventUtils.keyval_unicode (keyval);

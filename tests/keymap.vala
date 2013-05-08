@@ -5,7 +5,7 @@ class KeymapTests : Kkc.TestCase {
         add_test ("lookup", this.test_lookup);
     }
 
-    public void test_lookup () {
+    void test_lookup () {
         Kkc.RuleMetadata? metadata;
 
         metadata = Kkc.Rule.find_rule ("nonexistent");

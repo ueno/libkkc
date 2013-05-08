@@ -103,7 +103,7 @@ class ContextTests : Kkc.TestCase {
         { "a C-c", "", "", 0, -1, "", 0 }
     };
 
-    public void test_initial () {
+    void test_initial () {
         do_conversions (INITIAL_DATA);
 
         var input_mode = context.input_mode;
@@ -201,7 +201,7 @@ class ContextTests : Kkc.TestCase {
           0 }
     };
 
-    public void test_sentence_conversion () {
+    void test_sentence_conversion () {
         do_conversions (SENTENCE_CONVERSION_DATA);
     }
 
@@ -299,7 +299,7 @@ class ContextTests : Kkc.TestCase {
           0 }
     };
 
-    public void test_segment_conversion () {
+    void test_segment_conversion () {
         const string PREFIX_KEYS =
             "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
 

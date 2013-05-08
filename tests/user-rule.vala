@@ -11,7 +11,7 @@ class UserRuleTests : Kkc.TestCase {
             Kkc.TestUtils.remove_dir ("test-user-rule");
     }
 
-    public void test_creation () {
+    void test_creation () {
         var parent = Kkc.Rule.find_rule ("kana");
         assert (parent != null);
 
@@ -19,7 +19,7 @@ class UserRuleTests : Kkc.TestCase {
         assert (rule != null);
     }
 
-    public void test_write () {
+    void test_write () {
         var parent = Kkc.Rule.find_rule ("kana");
         assert (parent != null);
 

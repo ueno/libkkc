@@ -6,7 +6,7 @@ class ExpressionTests : Kkc.TestCase {
         add_test ("eval", this.test_eval);
     }
 
-    public void test_eval () {
+    void test_eval () {
         assert (Kkc.Expression.eval ("(concat \"DOS\\057V\")") == "DOS/V");
         assert (Kkc.Expression.eval ("(pwd)") == Environment.get_current_dir ());
         Kkc.Expression.eval ("(current-time-string)");

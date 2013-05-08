@@ -25,13 +25,13 @@ namespace Kkc {
         /**
          * Midasi word which generated this candidate.
          */
-        public string midasi { get; private set; }
+        public string midasi { get; construct set; }
 
         /**
          * Flag to indicate whether this candidate is generated as a
          * result of okuri-ari conversion.
          */
-        public bool okuri { get; private set; }
+        public bool okuri { get; construct set; }
 
         /**
          * Base string value of the candidate.

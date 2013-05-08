@@ -2,6 +2,7 @@ class KeyEventTests : Kkc.TestCase {
     public KeyEventTests () {
         base ("KeyEvent");
 
+        add_test ("properties", this.test_properties);
         add_test ("parse", this.test_parse);
         add_test ("keyname", this.test_keyname);
         add_test ("simple-filter", this.test_simple_filter);
@@ -9,7 +10,22 @@ class KeyEventTests : Kkc.TestCase {
         add_test ("nicola-filter", this.test_nicola_filter);
     }
 
-    public void test_parse () {
+    void test_properties () {
+        var key = new Kkc.KeyEvent.from_string ("(control a)");
+        string name;
+        uint unicode;
+        uint keyval;
+        uint keycode;
+        Kkc.ModifierType modifiers;
+        key.get ("name", out name,
+                 "unicode", out unicode,
+                 "keyval", out keyval,
+                 "keycode", out keycode,
+                 "modifiers", out modifiers);
+        assert (name == "a");
+    }
+
+    void test_parse () {
         try {
             var from_str = "(shift control meta hyper super alt lshift rshift release a)";
             var to_str = "(control meta hyper super alt lshift rshift release a)";
@@ -38,16 +54,16 @@ class KeyEventTests : Kkc.TestCase {
         }
     }
 
-    public void test_keyname () {
+    void test_keyname () {
         Kkc.KeynameEntry? entry1 = Kkc.keynames[0];
         assert (entry1.keyval == Kkc.Keysyms.VoidSymbol);
     }
 
-    public void test_simple_filter () {
+    void test_simple_filter () {
         new Kkc.SimpleKeyEventFilter ();
     }
 
-    public void test_kana_filter () {
+    void test_kana_filter () {
         var filter = new Kkc.KanaKeyEventFilter ();
         var from_key = new Kkc.KeyEvent.from_x_event (Kkc.Keysyms.backslash,
                                                       124,
@@ -56,7 +72,7 @@ class KeyEventTests : Kkc.TestCase {
         assert (to_key.keyval == Kkc.Keysyms.yen);
     }
 
-    public void test_nicola_filter () {
+    void test_nicola_filter () {
         var filter = new Kkc.NicolaKeyEventFilter ();
 
         var from_key = new Kkc.KeyEvent.from_x_event (Kkc.Keysyms.a,

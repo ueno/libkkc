@@ -81,7 +81,7 @@ class UserDictionaryTests : Kkc.TestCase {
           "" }
     };
 
-    public void test_conversion () {
+    void test_conversion () {
         const string PREFIX_KEYS =
             "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
 
@@ -137,7 +137,7 @@ class UserDictionaryTests : Kkc.TestCase {
           "" }
     };
 
-    public void test_register () {
+    void test_register () {
         var handler_id = context.request_selection_text.connect (() => {
                 context.set_selection_text ("abc");
             });

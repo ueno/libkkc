@@ -5,7 +5,7 @@ class SystemDictionaryTests : Kkc.TestCase {
         add_test ("load", this.test_load);
     }
 
-    public void test_load () {
+    void test_load () {
         try {
             new Kkc.SystemSegmentDictionary (
                 "nonexistent-file-dict.dat");

@@ -16,7 +16,7 @@ class BasicTests : Kkc.TestCase {
         add_test ("constraints", this.test_constraints);
     }
 
-    public void test_conversion () {
+    void test_conversion () {
         string[] sentences = {
             "けいざいはきゅうこうか",
             "しごとのことをかんがえる",
@@ -29,7 +29,7 @@ class BasicTests : Kkc.TestCase {
         }
     }
 
-    public void test_constraints () {
+    void test_constraints () {
         int[] constraints = { 4, 5 };
         var segments = decoder.decode ("けいざいはきゅうこうか", 1, constraints);
     }

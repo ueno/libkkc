@@ -5,7 +5,7 @@ class RomKanaTests : Kkc.TestCase {
         add_test ("conversion", this.test_conversion);
     }
 
-    public void test_conversion () {
+    void test_conversion () {
         var metadata = Kkc.Rule.find_rule ("kana");
         assert (metadata != null);
         var rule = new Kkc.Rule (metadata);

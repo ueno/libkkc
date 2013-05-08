@@ -18,7 +18,7 @@
 namespace Kkc {
     // XXX: we use Vala string to represent byte array, assuming that
     // it does not contain null element
-    class EncodingConverter : Object {
+    class EncodingConverter : Object, Initable {
         static const int BUFSIZ = 4096;
         static const string INTERNAL_ENCODING = "UTF-8";
 
@@ -56,18 +56,23 @@ namespace Kkc {
             return null;
         }
 
-        internal string encoding { get; private set; }
+        public string encoding { get; construct set; }
 
         CharsetConverter encoder;
         CharsetConverter decoder;
 
-        internal EncodingConverter (string encoding) throws GLib.Error {
-            this.encoding = encoding;
+        public bool init (GLib.Cancellable? cancellable = null) throws Error {
             encoder = new CharsetConverter (encoding, INTERNAL_ENCODING);
             decoder = new CharsetConverter (INTERNAL_ENCODING, encoding);
+            return true;
         }
 
-        internal EncodingConverter.from_coding_system (string coding) throws GLib.Error {
+        internal EncodingConverter (string encoding) throws Error {
+            Object (encoding: encoding);
+            init (null);
+        }
+
+        internal EncodingConverter.from_coding_system (string coding) throws Error {
             foreach (var entry in ENCODING_TO_CODING_SYSTEM_RULE) {
                 if (entry.value == coding) {
                     this (entry.key);

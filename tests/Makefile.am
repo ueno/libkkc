@@ -24,7 +24,9 @@ TESTS_ENVIRONMENT =							    \
 TESTS =						\
 	basic					\
 	context					\
+	candidate				\
 	candidate-list				\
+	encoding				\
 	system-dictionary			\
 	user-dictionary				\
 	key-event				\
@@ -70,7 +72,11 @@ basic_SOURCES = basic.vala
 
 context_SOURCES = context.vala
 
+candidate_SOURCES = candidate.vala
+
 candidate_list_SOURCES = candidate-list.vala
+
+encoding_SOURCES = encoding.vala
 
 system_dictionary_SOURCES = system-dictionary.vala
 
