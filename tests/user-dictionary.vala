@@ -26,7 +26,11 @@ class UserDictionaryTests : Kkc.TestCase {
 
     void do_conversions (ConversionData[] conversions) {
         foreach (var conversion in conversions) {
-            context.process_key_events (conversion.keys);
+            try {
+                context.process_key_events (conversion.keys);
+            } catch (Kkc.KeyEventFormatError e) {
+                assert_not_reached ();
+            }
             var output = context.poll_output ();
             assert (output == conversion.output);
             assert (context.input == conversion.input);
@@ -137,10 +141,19 @@ class UserDictionaryTests : Kkc.TestCase {
         var handler_id = context.request_selection_text.connect (() => {
                 context.set_selection_text ("abc");
             });
-        context.process_key_events ("A-r a i SPC RET");
+        try {
+            context.process_key_events ("A-r a i SPC RET");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
         context.reset ();
         context.clear_output ();
-        context.process_key_events ("a i SPC");
+
+        try {
+            context.process_key_events ("a i SPC");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
         assert (context.segments.size == 1);
         assert (context.segments.get_output () == "abc");
         context.reset ();
@@ -152,7 +165,11 @@ class UserDictionaryTests : Kkc.TestCase {
         context.request_selection_text.connect (() => {
                 context.set_selection_text (null);
             });
-        context.process_key_events ("A-r a i SPC");
+        try {
+            context.process_key_events ("A-r a i SPC");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
         context.reset ();
         context.clear_output ();
         
@@ -162,15 +179,27 @@ class UserDictionaryTests : Kkc.TestCase {
             assert_not_reached ();
         }
 
-        context.process_key_events ("a TAB");
+        try {
+            context.process_key_events ("a TAB");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
         context.reset ();
         context.clear_output ();
 
-        context.process_key_events ("a i SPC C-BackSpace");
+        try {
+            context.process_key_events ("a i SPC C-BackSpace");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
         context.reset ();
         context.clear_output ();
 
-        context.process_key_events ("a i SPC");
+        try {
+            context.process_key_events ("a i SPC");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
         assert (context.segments.size == 1);
         assert (context.segments.get_output () != "abc");
         context.reset ();

@@ -85,7 +85,7 @@ namespace Kkc {
          */
         public KeyEvent.from_string (string key) throws KeyEventFormatError {
             ModifierType _modifiers = 0;
-            string _name = null;
+            uint _keyval = Keysyms.VoidSymbol;
             if (key.has_prefix ("(") && key.has_suffix (")")) {
                 var strv = key[1:-1].split (" ");
                 int index = 0;
@@ -113,10 +113,14 @@ namespace Kkc {
                             "unknown modifier %s", strv[index]);
                     }
                 }
-                _name = strv[index];
+                _keyval = KeyEventUtils.keyval_from_name (strv[index]);
+                if (_keyval == Keysyms.VoidSymbol)
+                    throw new KeyEventFormatError.PARSE_FAILED (
+                        "unknown keyval %s", strv[index]);
             }
             else {
                 int index = key.last_index_of ("-");
+                string? _name = null;
                 if (index > 0) {
                     // support only limited _modifiers in this form
                     string[] mods = key.substring (0, index).split ("-");
@@ -138,10 +142,12 @@ namespace Kkc {
                     _modifiers = ModifierType.NONE;
                     _name = key;
                 }
+                _keyval = KeyEventUtils.keyval_from_name (_name);
+                if (_keyval == Keysyms.VoidSymbol)
+                    throw new KeyEventFormatError.PARSE_FAILED (
+                        "unknown keyval %s", _name);
             }
-            from_x_event (KeyEventUtils.keyval_from_name (_name),
-                          0,
-                          _modifiers);
+            from_x_event (_keyval, 0, _modifiers);
         }
 
         /**

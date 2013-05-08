@@ -192,7 +192,7 @@ namespace Kkc {
          *
          * @return `true` if any of key events are handled, `false` otherwise
          */
-        public bool process_key_events (string keyseq) {
+        public bool process_key_events (string keyseq) throws KeyEventFormatError {
             Gee.List<string> keys = new ArrayList<string> ();
             var builder = new StringBuilder ();
             bool complex = false;
@@ -210,17 +210,16 @@ namespace Kkc {
                     escaped = true;
                     break;
                 case '(':
-                    if (complex) {
-                        warning ("bare '(' is not allowed in complex keyseq");
-                        return false;
-                    }
+                    if (complex)
+                        throw new KeyEventFormatError.PARSE_FAILED (
+                            "bare '(' is not allowed in complex keyseq");
                     complex = true;
                     builder.append_unichar (uc);
                     break;
                 case ')':
                     if (!complex) {
-                        warning ("bare ')' is not allowed in simple keyseq");
-                        return false;
+                        throw new KeyEventFormatError.PARSE_FAILED (
+                            "bare ')' is not allowed in simple keyseq");
                     }
                     complex = false;
                     builder.append_unichar (uc);
@@ -228,9 +227,8 @@ namespace Kkc {
                     builder.erase ();
                     break;
                 case ' ':
-                    if (complex) {
+                    if (complex)
                         builder.append_unichar (uc);
-                    }
                     else if (builder.len > 0) {
                         keys.add (builder.str);
                         builder.erase ();
@@ -241,13 +239,11 @@ namespace Kkc {
                     break;
                 }
             }
-            if (complex) {
-                warning ("premature end of key events");
-                return false;
-            }
-            if (builder.len > 0) {
+            if (complex)
+                throw new KeyEventFormatError.PARSE_FAILED (
+                    "premature end of key events");
+            if (builder.len > 0)
                 keys.add (builder.str);
-            }
 
             bool retval = false;
             foreach (var key in keys) {
@@ -260,14 +256,7 @@ namespace Kkc {
                 else if (key == "DEL")
                     key = "BackSpace";
 
-                KeyEvent ev;
-                try {
-                    ev = new KeyEvent.from_string (key);
-                } catch (KeyEventFormatError e) {
-                    warning ("can't get key event from string %s: %s",
-                             key, e.message);
-                    return false;
-                }
+                KeyEvent ev = new KeyEvent.from_string (key);
                 if (process_key_event (ev) && !retval)
                     retval = true;
             }

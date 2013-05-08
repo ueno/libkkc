@@ -140,7 +140,12 @@ class ContextRepl : Object, Repl {
         var generator = new Json.Generator ();
         generator.set_pretty (true);
         while ((line = stdin.read_line ()) != null) {
-            context.process_key_events (line);
+            try {
+                context.process_key_events (line);
+            } catch (Kkc.KeyEventFormatError e) {
+                stderr.printf ("%s\n", e.message);
+                continue;
+            }
             var builder = new Json.Builder ();
             builder.begin_object ();
             builder.set_member_name ("input");
