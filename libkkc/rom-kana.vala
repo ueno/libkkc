@@ -206,6 +206,10 @@ namespace Kkc {
             _characters.add_all (other._characters);
         }
 
+        public void insert_all (int index, RomKanaCharacterList other) {
+            _characters.insert_all (index, other._characters);
+        }
+
         /**
          * Get a character at the given index.
          *
@@ -360,6 +364,9 @@ namespace Kkc {
 
         /**
          * Finish pending input, if any.
+         *
+         * Note that this does not reset pending input/output and the
+         * current node if there is no partial output.
          */
         public bool flush_partial () {
             if (current_node.entry != null) {

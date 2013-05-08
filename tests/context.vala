@@ -100,7 +100,12 @@ class ContextTests : Kkc.TestCase {
         { "k y o F10 F9", "ｋｙｏ", "", 0, -1, "", 0 },
         { "k y o F9 RET", "", "", 0, -1, "ｋｙｏ", 0 },
         { "w a t a s h i F10 n o", "の", "", 0, -1, "watashi", 0 },
-        { "a C-c", "", "", 0, -1, "", 0 }
+        { "a C-c", "", "", 0, -1, "", 0 },
+        { "a i u e o Left Right BackSpace", "あいうお", "", 0, -1, "", 0 },
+        { "k a k i k u k e k Left Left BackSpace", "かくけ", "", 0, -1, "", 0 },
+        { "a i u e o Left Right BackSpace i", "あいういお", "", 0, -1, "", 0 },
+        { "a i u e o Left Right BackSpace k", "あいうkお", "", 0, -1, "", 0 },
+        { "a i Left Left Left Left BackSpace k", "kあい", "", 0, -1, "", 0 }
     };
 
     void test_initial () {

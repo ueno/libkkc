@@ -41,7 +41,7 @@ namespace Kkc {
         internal void finish_rom_kana_conversion () {
             rom_kana_converter.flush_partial ();
             input_characters.add_all (rom_kana_converter.produced);
-            rom_kana_converter.produced.clear ();
+            rom_kana_converter.reset ();
         }
 
         internal void convert_segment_by_kana_mode (KanaMode mode) {
@@ -95,14 +95,21 @@ namespace Kkc {
 
         internal RomKanaConverter rom_kana_converter;
         internal RomKanaCharacterList input_characters = new RomKanaCharacterList ();
+        internal int input_characters_cursor_pos = -1;
 
         internal string get_input () {
             if (overriding_input != null)
                 return overriding_input;
 
             var builder = new StringBuilder ();
-            builder.append (input_characters.get_output ());
+            var stop = input_characters_cursor_pos >= 0 ?
+                input_characters_cursor_pos :
+                input_characters.size;
+            for (var i = 0; i < stop; i++)
+                builder.append (input_characters[i].output);
             builder.append (rom_kana_converter.pending_output);
+            for (; stop < input_characters.size; stop++)
+                builder.append (input_characters[stop].output);
             return builder.str;
         }
 
@@ -243,6 +250,7 @@ namespace Kkc {
             segments_changed = false;
             candidates.clear ();
             input_characters.clear ();
+            input_characters_cursor_pos = -1;
             overriding_input = null;
             completion_iterator = null;
             completion.clear ();
@@ -683,6 +691,8 @@ namespace Kkc {
             register_command_callback ("complete", do_complete);
             register_command_callback ("delete", do_delete);
             register_command_callback ("next-candidate", do_next_candidate);
+            register_command_callback ("next-segment", do_next_segment);
+            register_command_callback ("previous-segment", do_previous_segment);
             register_command_callback ("quote", do_quote);
             register_command_callback ("register", do_register);
 
@@ -721,6 +731,15 @@ namespace Kkc {
 
             if (state.rom_kana_converter.delete ())
                 return true;
+
+            if (state.input_characters_cursor_pos >= 0) {
+                if (state.input_characters_cursor_pos > 0) {
+                    state.input_characters.remove_at (
+                        --state.input_characters_cursor_pos);
+                    return true;
+                }
+                return false;
+            }
 
             if (state.input_characters.size > 0) {
                 state.input_characters.remove_at (
@@ -782,6 +801,32 @@ namespace Kkc {
             return true;
         }
 
+        bool do_next_segment (string? command, State state, KeyEvent key) {
+            if (state.input_characters_cursor_pos >= 0 &&
+                state.input_characters_cursor_pos < state.input_characters.size - 1) {
+                state.input_characters_cursor_pos++;
+                return true;
+            }
+
+            return false;
+        }
+
+        bool do_previous_segment (string? command, State state, KeyEvent key) {
+            if (state.input_characters_cursor_pos < 0 &&
+                state.input_characters.size > 0) {
+                state.finish_rom_kana_conversion ();
+                state.input_characters_cursor_pos = state.input_characters.size - 1;
+                return true;
+            }
+
+            if (state.input_characters_cursor_pos > 0) {
+                state.input_characters_cursor_pos--;
+                return true;
+            }
+
+            return false;
+        }
+
         bool do_ (string? command, State state, KeyEvent key) {
             bool retval = false;
 
@@ -807,9 +852,18 @@ namespace Kkc {
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                 state.rom_kana_converter.is_valid (key.unicode)) {
                 if (state.rom_kana_converter.append (key.unicode)) {
-                    state.input_characters.add_all (
-                        state.rom_kana_converter.produced);
-                    state.rom_kana_converter.produced.clear ();
+                    if (state.rom_kana_converter.produced.size > 0) {
+                        if (state.input_characters_cursor_pos > 0) {
+                            state.input_characters.insert_all (
+                                state.input_characters_cursor_pos,
+                                state.rom_kana_converter.produced);
+                            state.input_characters_cursor_pos++;
+                        } else {
+                            state.input_characters.add_all (
+                                state.rom_kana_converter.produced);
+                        }
+                        state.rom_kana_converter.produced.clear ();
+                    }
                     return true;
                 } else {
                     state.input_characters.add (RomKanaCharacter () {
