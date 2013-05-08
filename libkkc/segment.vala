@@ -19,7 +19,7 @@ using Gee;
 
 namespace Kkc {
     public class Segment : Object {
-        public string input { get; private set; }
+        public string input { get; construct set; }
         public string output { get; set; }
 
         public Segment? next;

@@ -1,5 +1,6 @@
 class UserDictionaryTests : Kkc.TestCase {
     Kkc.Context context;
+    Kkc.UserDictionary user_dictionary;
 
     public UserDictionaryTests () {
         base ("UserDictionary");
@@ -11,8 +12,15 @@ class UserDictionaryTests : Kkc.TestCase {
             stderr.printf ("%s\n", e.message);
         }
 
+        add_test ("properties", this.test_properties);
         add_test ("conversion", this.test_conversion);
         add_test ("register", this.test_register);
+    }
+
+    void test_properties () {
+        bool read_only;
+        user_dictionary.get ("read-only", out read_only);
+        assert (!read_only);
     }
 
     struct ConversionData {
@@ -102,6 +110,8 @@ class UserDictionaryTests : Kkc.TestCase {
         } catch (Error e) {
             assert_not_reached ();
         }
+
+        user_dictionary.reload ();
     }
 
     static const ConversionData REGISTER_DATA[] = {
@@ -210,7 +220,6 @@ class UserDictionaryTests : Kkc.TestCase {
         if (FileUtils.test ("test-user-dictionary", FileTest.EXISTS))
             Kkc.TestUtils.remove_dir ("test-user-dictionary");
 
-        Kkc.UserDictionary user_dictionary;
         try {
             var srcdir = Environment.get_variable ("srcdir");
             assert (srcdir != null);
@@ -230,6 +239,10 @@ class UserDictionaryTests : Kkc.TestCase {
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
         }
+    }
+
+    public override void tear_down () {
+        context.dictionaries.clear ();
     }
 }
 

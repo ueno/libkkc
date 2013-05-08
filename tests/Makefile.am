@@ -26,6 +26,8 @@ TESTS =						\
 	context					\
 	candidate				\
 	candidate-list				\
+	segment					\
+	segment-list				\
 	encoding				\
 	system-dictionary			\
 	user-dictionary				\
@@ -75,6 +77,10 @@ context_SOURCES = context.vala
 candidate_SOURCES = candidate.vala
 
 candidate_list_SOURCES = candidate-list.vala
+
+segment_SOURCES = segment.vala
+
+segment_list_SOURCES = segment-list.vala
 
 encoding_SOURCES = encoding.vala
 
