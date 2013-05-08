@@ -26,6 +26,7 @@ TESTS =						\
 	context					\
 	candidate-list				\
 	user-dictionary				\
+	key-event				\
 	keymap					\
 	user-rule				\
 	rom-kana				\
@@ -71,6 +72,8 @@ context_SOURCES = context.vala
 candidate_list_SOURCES = candidate-list.vala
 
 user_dictionary_SOURCES = user-dictionary.vala
+
+key_event_SOURCES = key-event.vala
 
 keymap_SOURCES = keymap.vala
 
