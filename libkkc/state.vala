@@ -735,12 +735,10 @@ namespace Kkc {
                 return true;
 
             if (state.input_characters_cursor_pos >= 0) {
-                if (state.input_characters_cursor_pos > 0) {
+                if (state.input_characters_cursor_pos > 0)
                     state.input_characters.remove_at (
                         --state.input_characters_cursor_pos);
-                    return true;
-                }
-                return false;
+                return true;
             }
 
             if (state.input_characters.size > 0) {
@@ -759,6 +757,7 @@ namespace Kkc {
                     state.input_characters_cursor_pos);
                 return true;
             }
+
             return false;
         }
 
