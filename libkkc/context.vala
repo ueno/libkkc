@@ -61,7 +61,16 @@ namespace Kkc {
             }
         }
 
-		State state;
+        /**
+         * Current cursor position in input string.
+         */
+        public int input_cursor_pos {
+            get {
+                return state.input_characters_cursor_pos;
+            }
+        }
+
+        State state;
         Gee.Map<Type, StateHandler> handlers =
             new HashMap<Type, StateHandler> ();
 
