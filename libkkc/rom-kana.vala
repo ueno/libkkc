@@ -232,7 +232,7 @@ namespace Kkc {
          * Return a slice of this character list.
          *
          * @param start_char_pos zero-based index of the begin of the slice
-         * @param end_char_pos zero-based index after the end of the slice
+         * @param stop_char_pos zero-based index after the end of the slice
          *
          * @return a RomKanaCharacterList
          */
