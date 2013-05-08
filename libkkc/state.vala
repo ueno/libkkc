@@ -690,6 +690,7 @@ namespace Kkc {
             register_command_callback ("abort", do_abort);
             register_command_callback ("complete", do_complete);
             register_command_callback ("delete", do_delete);
+            register_command_callback ("delete-forward", do_delete_forward);
             register_command_callback ("next-candidate", do_next_candidate);
             register_command_callback ("next-segment", do_next_segment);
             register_command_callback ("previous-segment", do_previous_segment);
@@ -747,6 +748,16 @@ namespace Kkc {
                 return true;
             }
 
+            return false;
+        }
+
+        bool do_delete_forward (string? command, State state, KeyEvent key) {
+            if (state.input_characters_cursor_pos >= 0 &&
+                state.input_characters_cursor_pos < state.input_characters.size - 1) {
+                state.input_characters.remove_at (
+                    state.input_characters_cursor_pos);
+                return true;
+            }
             return false;
         }
 

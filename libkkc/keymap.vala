@@ -37,6 +37,7 @@ namespace Kkc {
             { "commit", N_("Commit") },
             { "complete", N_("Complete") },
             { "delete", N_("Delete") },
+            { "delete-forward", N_("Delete Next Character") },
             { "quote", N_("Quoted Insert") },
             { "register", N_("Register Word") },
             { "next-candidate", N_("Next Candidate") },

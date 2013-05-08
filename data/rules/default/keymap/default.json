@@ -8,6 +8,8 @@
             "C-m": "commit",
             "C-h": "delete",
             "BackSpace": "delete",
+            "C-d": "delete-forward",
+            "Delete": "delete-forward",
             "C-q": "quote",
             "A-r": "register",
             "Tab": "complete",
