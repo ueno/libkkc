@@ -31,6 +31,7 @@ TESTS =						\
 	encoding				\
 	system-dictionary			\
 	user-dictionary				\
+	dictionary-list				\
 	key-event				\
 	keymap					\
 	user-rule				\
@@ -87,6 +88,8 @@ encoding_SOURCES = encoding.vala
 system_dictionary_SOURCES = system-dictionary.vala
 
 user_dictionary_SOURCES = user-dictionary.vala
+
+dictionary_list_SOURCES = dictionary-list.vala
 
 key_event_SOURCES = key-event.vala
 
@@ -165,7 +168,8 @@ models.stamp:
 clean-local:
 	-rm -rf data/rules
 	-if test -d data/models/text3; then \
-	   rm -rf data/models/sorted3; \
+	   rm -f data/models/sorted2/data.*; \
+	   rm -f data/models/sorted3/data.*; \
 	 else \
 	   rm -rf data/models; \
 	 fi

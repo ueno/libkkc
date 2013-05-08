@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 namespace Kkc {
-    class DictionaryUtils : Object {
+    abstract class DictionaryUtils : Object {
         /**
          * Parse a line consisting of candidates separated by "/".
          *

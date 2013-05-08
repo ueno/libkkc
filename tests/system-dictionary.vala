@@ -27,10 +27,6 @@ int main (string[] args)
   Test.init (ref args);
   Kkc.init ();
 
-  var fatal_mask = Log.set_always_fatal (LogLevelFlags.LEVEL_MASK);
-  fatal_mask &= ~LogLevelFlags.LEVEL_WARNING;
-  Log.set_always_fatal (fatal_mask);
-
   TestSuite root = TestSuite.get_root ();
   root.add_suite (new SystemDictionaryTests ().get_suite ());
 

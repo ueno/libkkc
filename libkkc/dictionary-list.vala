@@ -37,6 +37,15 @@ namespace Kkc {
         Gee.List<Dictionary> dictionaries = new ArrayList<Dictionary> ();
 
         /**
+         * The number of dictionaries registered.
+         */
+        public int size {
+            get {
+                return dictionaries.size;
+            }
+        }
+
+        /**
          * Register dictionary.
          *
          * @param dictionary a dictionary
