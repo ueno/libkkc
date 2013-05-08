@@ -22,7 +22,7 @@ TESTS_ENVIRONMENT =							    \
 	LIBKKC_DATA_PATH=$(builddir)/data:${srcdir}/data:$(top_srcdir)/data \
 	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
 TESTS =						\
-	basic					\
+	decoder					\
 	context					\
 	candidate				\
 	candidate-list				\
@@ -70,7 +70,7 @@ AM_VALAFLAGS =					\
 	-g					\
 	$(NULL)
 
-basic_SOURCES = basic.vala
+decoder_SOURCES = decoder.vala
 
 context_SOURCES = context.vala
 
@@ -100,12 +100,20 @@ expression_SOURCES = expression.vala
 
 EXTRA_DIST =					\
 	file-dict.dat				\
+	data/models/sorted2/metadata.json	\
 	data/models/sorted3/metadata.json	\
+	data/models/text2/metadata.json		\
+	data/models/text2/data.arpa		\
 	data/models/text3/metadata.json		\
 	data/models/text3/data.arpa		\
 	$(NULL)
 
 CLEANFILES =					\
+	data/models/sorted2/data.input		\
+	data/models/sorted2/data.1gram		\
+	data/models/sorted2/data.1gram.index	\
+	data/models/sorted2/data.2gram		\
+	data/models/sorted2/data.2gram.filter	\
 	data/models/sorted3/data.input		\
 	data/models/sorted3/data.1gram		\
 	data/models/sorted3/data.1gram.index	\
@@ -130,6 +138,15 @@ rules.stamp:
 	touch $@
 
 models.stamp:
+	$(MKDIR_P) data/models/sorted2
+	test -f data/models/sorted2/metadata.json || \
+	  cp -f $(srcdir)/data/models/sorted2/metadata.json data/models/sorted2
+	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/sortlm.py \
+	  $(srcdir)/data/models/text2/data.arpa data/models/sorted2/data
+	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/genfilter.py \
+          data/models/sorted2/data.2gram \
+          data/models/sorted2/data.2gram.filter \
+          12
 	$(MKDIR_P) data/models/sorted3
 	test -f data/models/sorted3/metadata.json || \
 	  cp -f $(srcdir)/data/models/sorted3/metadata.json data/models/sorted3
