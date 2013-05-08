@@ -293,13 +293,6 @@ class ContextTests : Kkc.TestCase {
         }
 
         try {
-            new Kkc.SystemSegmentDictionary (
-                "test-system-dictionary-nonexistent");
-            assert_not_reached ();
-        } catch (Error e) {
-        }
-
-        try {
             var srcdir = Environment.get_variable ("srcdir");
             assert (srcdir != null);
             var dictionary = new Kkc.SystemSegmentDictionary (

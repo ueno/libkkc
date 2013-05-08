@@ -25,6 +25,7 @@ TESTS =						\
 	basic					\
 	context					\
 	candidate-list				\
+	system-dictionary			\
 	user-dictionary				\
 	key-event				\
 	keymap					\
@@ -70,6 +71,8 @@ basic_SOURCES = basic.vala
 context_SOURCES = context.vala
 
 candidate_list_SOURCES = candidate-list.vala
+
+system_dictionary_SOURCES = system-dictionary.vala
 
 user_dictionary_SOURCES = user-dictionary.vala
 

@@ -83,13 +83,8 @@ namespace Kkc {
             return false;
         }
 
-        void load () throws DictionaryError {
-            try {
-                mmap.remap ();
-            } catch (IOError e) {
-                throw new DictionaryError.NOT_READABLE (
-                    "can't load: %s", e.message);
-            }
+        void load () throws Error {
+            mmap.remap ();
 
             long offset = 0;
             var line = read_line (ref offset);
@@ -134,13 +129,8 @@ namespace Kkc {
             FileInfo info = file.query_info (attributes,
                                              FileQueryInfoFlags.NONE);
             if (info.get_etag () != etag) {
-                try {
-                    load ();
-                    etag = info.get_etag ();
-                } catch (DictionaryError e) {
-                    warning ("error loading file dictionary %s %s",
-                             file.get_path (), e.message);
-                }
+                load ();
+                etag = info.get_etag ();
             }
         }
 
