@@ -17,7 +17,7 @@
 AC_PREREQ(2.63)
 AC_CONFIG_MACRO_DIR([m4])
 
-AC_INIT([libkkc], [0.2.1], [ueno@gnu.org])
+AC_INIT([libkkc], [0.2.2], [ueno@gnu.org])
 
 KKC_API_VERSION=1.0
 KKC_API_MAJOR_VERSION=1
@@ -60,7 +60,7 @@ LT_INIT
 #  increment current and set revision to 0
 # If public symbols have been added since last release, increment age
 # If public symbols have been removed since last release, set age to 0
-m4_define([libkkc_lt_current], [1])
+m4_define([libkkc_lt_current], [2])
 m4_define([libkkc_lt_revision], [0])
 m4_define([libkkc_lt_age], [0])
 LT_CURRENT=libkkc_lt_current
