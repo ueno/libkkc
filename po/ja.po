@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-27 10:08+0900\n"
-"PO-Revision-Date: 2013-04-27 10:08+0900\n"
+"POT-Creation-Date: 2013-05-08 18:46+0900\n"
+"PO-Revision-Date: 2013-05-08 18:47+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -33,86 +33,90 @@ msgid "Delete"
 msgstr "消去"
 
 #: ../libkkc/keymap.vala:40
+msgid "Delete Next Character"
+msgstr "次の文字を消去"
+
+#: ../libkkc/keymap.vala:41
 msgid "Quoted Insert"
 msgstr "直接入力"
 
-#: ../libkkc/keymap.vala:41
+#: ../libkkc/keymap.vala:42
 msgid "Register Word"
 msgstr "辞書登録"
 
-#: ../libkkc/keymap.vala:42
+#: ../libkkc/keymap.vala:43
 msgid "Next Candidate"
 msgstr "次候補"
 
-#: ../libkkc/keymap.vala:43
+#: ../libkkc/keymap.vala:44
 msgid "Previous Candidate"
 msgstr "前候補"
 
-#: ../libkkc/keymap.vala:44
+#: ../libkkc/keymap.vala:45
 msgid "Purge Candidate"
 msgstr "候補を削除"
 
-#: ../libkkc/keymap.vala:45
+#: ../libkkc/keymap.vala:46
 msgid "Next Segment"
 msgstr "次の文節"
 
-#: ../libkkc/keymap.vala:46
+#: ../libkkc/keymap.vala:47
 msgid "Previous Segment"
 msgstr "前の文節"
 
-#: ../libkkc/keymap.vala:47
+#: ../libkkc/keymap.vala:48
 msgid "Expand Segment"
 msgstr "文節を伸ばす"
 
-#: ../libkkc/keymap.vala:48
+#: ../libkkc/keymap.vala:49
 msgid "Shrink Segment"
 msgstr "文節を縮める"
 
-#: ../libkkc/keymap.vala:49
+#: ../libkkc/keymap.vala:50
 msgid "Switch to Hiragana Input Mode"
 msgstr "ひらがな入力モードに変更"
 
-#: ../libkkc/keymap.vala:50
+#: ../libkkc/keymap.vala:51
 msgid "Switch to Katakana Input Mode"
 msgstr "カタカナ入力モードに変更"
 
-#: ../libkkc/keymap.vala:51
+#: ../libkkc/keymap.vala:52
 msgid "Switch to Hankaku Katakana Input Mode"
 msgstr "半角カタカナ入力モードに変更"
 
-#: ../libkkc/keymap.vala:52
+#: ../libkkc/keymap.vala:53
 msgid "Switch to Latin Input Mode"
 msgstr "英数入力モードに変更"
 
-#: ../libkkc/keymap.vala:53
+#: ../libkkc/keymap.vala:54
 msgid "Switch to Wide Latin Input Mode"
 msgstr "全角英数入力モードに変更"
 
-#: ../libkkc/keymap.vala:54
+#: ../libkkc/keymap.vala:55
 msgid "Switch to Direct Input Mode"
 msgstr "直接入力モードに変更"
 
-#: ../libkkc/keymap.vala:55
+#: ../libkkc/keymap.vala:56
 msgid "Convert to Hiragana"
 msgstr "ひらがなに変換"
 
-#: ../libkkc/keymap.vala:56
+#: ../libkkc/keymap.vala:57
 msgid "Convert to Katakana"
 msgstr "カタカナに変換"
 
-#: ../libkkc/keymap.vala:57
+#: ../libkkc/keymap.vala:58
 msgid "Convert to Hankaku Katakana"
 msgstr "半角カタカナに変換"
 
-#: ../libkkc/keymap.vala:58
+#: ../libkkc/keymap.vala:59
 msgid "Convert to Latin"
 msgstr "英数に変換"
 
-#: ../libkkc/keymap.vala:59
+#: ../libkkc/keymap.vala:60
 msgid "Convert to Wide Latin"
 msgstr "全角英数に変換"
 
-#: ../libkkc/keymap.vala:60
+#: ../libkkc/keymap.vala:61
 msgid "Original Candidate"
 msgstr "元の候補"
 
@@ -243,6 +247,3 @@ msgid ""
 "Extended romaji input method based on AZIK, developed by OHASHI Hideya "
 "<http://ohac.sytes.net/pukiwiki.php?kzik>"
 msgstr "AZIK にもとづいた拡張ローマ字入力メソッド"
-
-#~ msgid "Abort conversion"
-#~ msgstr "変換を中止"
