@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
+    public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel, Initable {
         MemoryMappedFile trigram_mmap;
         BloomFilter trigram_filter = null;
 
@@ -84,15 +84,13 @@ namespace Kkc {
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 
-        construct {
+        public new bool init (GLib.Cancellable? cancellable = null) throws Error {
+            if (!base.init (cancellable))
+                return false;
+
             var prefix = Path.build_filename (metadata.base_dir, "data");
             var trigram_file = File.new_for_path (prefix + ".3gram");
-			try {
-				trigram_mmap = new MemoryMappedFile (trigram_file);
-			} catch (IOError e) {
-				error ("can't load %s: %s",
-					   trigram_file.get_path (), e.message);
-			}
+            trigram_mmap = new MemoryMappedFile (trigram_file);
 
             var trigram_filter_file = File.new_for_path (
                 prefix + ".3gram.filter");
@@ -103,6 +101,7 @@ namespace Kkc {
                          trigram_filter_file.get_path (),
                          e.message);
             }
+            return true;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Kkc {
         string type;
     }
 
-    public abstract class LanguageModel : Object {
+    public abstract class LanguageModel : Object, Initable {
         static string[] model_path;
 
         public LanguageModelMetadata metadata { get; construct; }
@@ -60,6 +60,10 @@ namespace Kkc {
         public abstract new LanguageModelEntry? @get (string input,
 													  string output);
 
+        public bool init (GLib.Cancellable? cancellable = null) throws Error {
+            return true;
+        }
+
         public static LanguageModel? load (string name) throws LanguageModelError
 		{
             foreach (var dir in model_path) {
@@ -70,10 +74,12 @@ namespace Kkc {
                     try {
                         var metadata = load_metadata (metadata_filename);
                         var type = model_types.get (metadata.type);
-                        return (LanguageModel) Object.new (type,
-														   "metadata", metadata,
-														   null);
-                    } catch (LanguageModelError e) {
+                        return (LanguageModel) Initable.new (
+                            type,
+                            null,
+                            "metadata", metadata,
+                            null);
+                    } catch (Error e) {
                         warning ("can't load metadata file %s: %s",
                                  metadata_filename,
                                  e.message);

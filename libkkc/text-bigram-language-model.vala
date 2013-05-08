@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    public class TextBigramLanguageModel : LanguageModel, UnigramLanguageModel, BigramLanguageModel {
+    public class TextBigramLanguageModel : LanguageModel, UnigramLanguageModel, BigramLanguageModel, Initable {
         LanguageModelEntry _bos;
         public override LanguageModelEntry bos {
             get {
@@ -176,13 +176,13 @@ namespace Kkc {
             parse_lm (prefix + ".arpa");
         }
 
-        construct {
+        public new bool init (GLib.Cancellable? cancellable = null) throws Error {
+            if (!base.init (cancellable))
+                return false;
+
 			var prefix = Path.build_filename (metadata.base_dir, "data");
-			try {
-				parse (prefix);
-			} catch (GLib.Error e) {
-				error ("can't parse %s: %s", prefix, e.message);
-			}
+            parse (prefix);
+            return true;
         }
     }
 }
