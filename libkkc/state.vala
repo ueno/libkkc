@@ -693,8 +693,8 @@ namespace Kkc {
             register_command_callback ("delete", do_delete);
             register_command_callback ("delete-forward", do_delete_forward);
             register_command_callback ("next-candidate", do_next_candidate);
-            register_command_callback ("next-segment", do_next_segment);
-            register_command_callback ("previous-segment", do_previous_segment);
+            register_command_callback ("next-segment", do_next_character);
+            register_command_callback ("previous-segment", do_previous_character);
             register_command_callback ("quote", do_quote);
             register_command_callback ("register", do_register);
 
@@ -813,17 +813,14 @@ namespace Kkc {
             return true;
         }
 
-        bool do_next_segment (string? command, State state, KeyEvent key) {
+        bool do_next_character (string? command, State state, KeyEvent key) {
             if (state.input_characters_cursor_pos >= 0 &&
-                state.input_characters_cursor_pos < state.input_characters.size - 1) {
+                state.input_characters_cursor_pos < state.input_characters.size - 1)
                 state.input_characters_cursor_pos++;
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
-        bool do_previous_segment (string? command, State state, KeyEvent key) {
+        bool do_previous_character (string? command, State state, KeyEvent key) {
             if (state.input_characters_cursor_pos < 0 &&
                 state.input_characters.size > 0) {
                 state.finish_input_editing ();
@@ -831,12 +828,9 @@ namespace Kkc {
                 return true;
             }
 
-            if (state.input_characters_cursor_pos > 0) {
+            if (state.input_characters_cursor_pos > 0)
                 state.input_characters_cursor_pos--;
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         bool do_ (string? command, State state, KeyEvent key) {
