@@ -130,8 +130,11 @@ rules.stamp:
 	touch $@
 
 models.stamp:
+	$(MKDIR_P) data/models/sorted3
+	test -f data/models/sorted3/metadata.json || \
+	  cp -f $(srcdir)/data/models/sorted3/metadata.json data/models/sorted3
 	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/sortlm.py \
-	  data/models/text3/data.arpa data/models/sorted3/data
+	  $(srcdir)/data/models/text3/data.arpa data/models/sorted3/data
 	$(PYTHON) -B $(top_srcdir)/data/templates/libkkc-data/tools/genfilter.py \
           data/models/sorted3/data.2gram \
           data/models/sorted3/data.2gram.filter \
@@ -144,6 +147,11 @@ models.stamp:
 
 clean-local:
 	-rm -rf data/rules
+	-if test -d data/models/text3; then \
+	   rm -rf data/models/sorted3; \
+	 else \
+	   rm -rf data/models; \
+	 fi
 	-rm -rf test-user-rule
 	-rm -rf test-user-dictionary
 

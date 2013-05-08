@@ -221,10 +221,8 @@ class UserDictionaryTests : Kkc.TestCase {
             Kkc.TestUtils.remove_dir ("test-user-dictionary");
 
         try {
-            var srcdir = Environment.get_variable ("srcdir");
-            assert (srcdir != null);
             user_dictionary = new Kkc.UserDictionary (
-                Path.build_filename (srcdir, "test-user-dictionary"));
+                "test-user-dictionary");
             context.dictionaries.add (user_dictionary);
         } catch (Error e) {
             assert_not_reached ();
