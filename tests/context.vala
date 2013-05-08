@@ -4,9 +4,60 @@ class ContextTests : Kkc.TestCase {
     public ContextTests () {
         base ("Context");
 
+        add_test ("properties", this.test_properties);
         add_test ("initial", this.test_initial);
         add_test ("sentence_conversion", this.test_sentence_conversion);
         add_test ("segment_conversion", this.test_segment_conversion);
+    }
+
+    void test_properties () {
+
+        var input_mode = context.input_mode;
+        context.input_mode = input_mode;
+
+        var dictionaries = context.dictionaries;
+        context.dictionaries = dictionaries;
+
+        var style = context.punctuation_style;
+        assert (style == Kkc.PunctuationStyle.JA_JA);
+        context.punctuation_style = Kkc.PunctuationStyle.EN_EN;
+        try {
+            context.process_key_events (". RET");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
+        assert (context.poll_output () == "．");
+        assert (context.punctuation_style == Kkc.PunctuationStyle.EN_EN);
+        context.punctuation_style = style;
+        context.reset ();
+        context.clear_output ();
+
+        var rule = context.typing_rule;
+        assert (rule != null);
+        assert (rule.metadata.name == "default");
+
+        var metadata = Kkc.Rule.find_rule ("kana");
+        context.typing_rule = new Kkc.Rule (metadata);
+        context.process_key_event (new Kkc.KeyEvent.from_x_event (132, 0x5c, 0));
+        context.typing_rule = rule;
+
+        Kkc.CandidateList candidates;
+        Kkc.SegmentList segments;
+        string input;
+        Kkc.KeyEventFilter filter;
+
+        context.get ("dictionaries", out dictionaries,
+                     "candidates", out candidates,
+                     "segments", out segments,
+                     "input", out input,
+                     "input-mode", out input_mode,
+                     "punctuation-style", out style,
+                     "typing-rule", out rule,
+                     "key-event-filter", out filter);
+        context.set ("dictionaries", dictionaries,
+                     "input-mode", input_mode,
+                     "punctuation-style", style,
+                     "typing-rule", rule);
     }
 
     struct ConversionData {
@@ -124,27 +175,6 @@ class ContextTests : Kkc.TestCase {
         assert (context.has_output ());
         context.reset ();
         context.clear_output ();
-
-        assert (context.punctuation_style == Kkc.PunctuationStyle.JA_JA);
-        context.punctuation_style = Kkc.PunctuationStyle.EN_EN;
-        try {
-            context.process_key_events (". RET");
-        } catch (Kkc.KeyEventFormatError e) {
-            assert_not_reached ();
-        }
-        assert (context.poll_output () == "．");
-        assert (context.punctuation_style == Kkc.PunctuationStyle.EN_EN);
-        context.reset ();
-        context.clear_output ();
-
-        var rule = context.typing_rule;
-        assert (rule != null);
-        assert (rule.metadata.name == "default");
-
-        var metadata = Kkc.Rule.find_rule ("kana");
-        context.typing_rule = new Kkc.Rule (metadata);
-        context.process_key_event (new Kkc.KeyEvent.from_x_event (132, 0x5c, 0));
-        context.typing_rule = rule;
     }
 
     static const ConversionData SENTENCE_CONVERSION_DATA[] = {
@@ -303,8 +333,6 @@ class ContextTests : Kkc.TestCase {
         }
 
         context.dictionaries.add (new Kkc.EmptySegmentDictionary ());
-        var dictionaries = context.dictionaries;
-        context.dictionaries = dictionaries;
     }
 
     public override void tear_down () {

@@ -2,10 +2,34 @@ class CandidateListTests : Kkc.TestCase {
     public CandidateListTests () {
         base ("CandidateList");
 
+        add_test ("properties", this.test_properties);
         add_test ("cursor_move", this.test_cursor_move);
     }
 
-    public void test_cursor_move () {
+    void test_properties () {
+        var candidates = new Kkc.CandidateList () as Object;
+
+        int cursor_pos;
+        int size;
+        uint page_start;
+        uint page_size;
+        bool round;
+        bool page_visible;
+
+        candidates.get ("cursor-pos", out cursor_pos,
+                        "size", out size,
+                        "page-start", out page_start,
+                        "page-size", out page_size,
+                        "round", out round,
+                        "page-visible", out page_visible);
+
+        candidates.set ("cursor-pos", cursor_pos,
+                        "page-start", page_start,
+                        "page-size", page_size,
+                        "round", round);
+    }
+
+    void test_cursor_move () {
         var candidates = new Kkc.CandidateList ();
 
         candidates.page_start = 2;
