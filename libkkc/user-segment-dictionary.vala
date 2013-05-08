@@ -22,13 +22,10 @@ namespace Kkc {
      * File based implementation of SegmentDictionary with write access.
      */
     public class UserSegmentDictionary : Object, Dictionary, SegmentDictionary {
-        void load () throws DictionaryError, GLib.IOError {
+        void load () throws Error {
             uint8[] contents;
-            try {
-                file.load_contents (null, out contents, out etag);
-            } catch (GLib.Error e) {
-                throw new DictionaryError.NOT_READABLE ("can't load contents");
-            }
+            file.load_contents (null, out contents, out etag);
+
             var memory = new MemoryInputStream.from_data (contents, g_free);
             var data = new DataInputStream (memory);
 
@@ -105,15 +102,7 @@ namespace Kkc {
             if (info.get_etag () != etag) {
                 this.okuri_ari_entries.clear ();
                 this.okuri_nasi_entries.clear ();
-                try {
-                    load ();
-                } catch (DictionaryError e) {
-                    warning ("error parsing user dictionary %s: %s",
-                             file.get_path (), e.message);
-                } catch (GLib.IOError e) {
-                    warning ("error reading user dictionary %s: %s",
-                             file.get_path (), e.message);
-                }
+                load ();
             }
             is_dirty = false;
         }
