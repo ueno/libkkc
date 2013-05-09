@@ -79,7 +79,8 @@ namespace Kkc {
                 return true;
             }
 
-            if (state.has_input ()) {
+            if (state.input_characters.size > 0 ||
+                state.rom_kana_converter.pending_output.length > 0) {
                 state.reset ();
                 return true;
             }

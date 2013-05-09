@@ -114,12 +114,6 @@ namespace Kkc {
             return builder.str;
         }
 
-        internal bool has_input () {
-            return overriding_input != null ||
-                input_characters.size > 0 ||
-                rom_kana_converter.pending_output.length > 0;
-        }
-
         internal StringBuilder selection = new StringBuilder ();
         internal StringBuilder output = new StringBuilder ();
         internal bool quoted = false;

@@ -94,6 +94,7 @@ class ContextTests : Kkc.TestCase {
 
     static const ConversionData INITIAL_DATA[] = {
         { "a TAB", "あい", "", 0, -1, "", 0, -1 },
+        { "a p u TAB", "あぷ", "", 0, -1, "", 0, -1 },
         { "(shift a) TAB", "あい", "", 0, -1, "", 0, -1 },
         { "a TAB RET", "", "", 0, -1, "あい", 0, -1 },
         { "a TAB C-g", "", "", 0, -1, "", 0, -1 },
