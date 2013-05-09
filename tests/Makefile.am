@@ -167,12 +167,7 @@ models.stamp:
 
 clean-local:
 	-rm -rf data/rules
-	-if test -d data/models/text3; then \
-	   rm -f data/models/sorted2/data.*; \
-	   rm -f data/models/sorted3/data.*; \
-	 else \
-	   rm -rf data/models; \
-	 fi
+	-test -d data/models/text3 || rm -rf data/models
 	-rm -rf test-user-rule
 	-rm -rf test-user-dictionary
 
