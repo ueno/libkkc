@@ -32,6 +32,7 @@
             "C-i": "shrink-segment",
             "A-@": "set-input-mode-direct",
             "A-`": "set-input-mode-direct",
+            "Zenkaku_Hankaku": "set-input-mode-direct",
             "F6": "convert-hiragana",
             "F7": "convert-katakana",
             "F8": "convert-hankaku-katakana",

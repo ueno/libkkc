@@ -4,6 +4,7 @@
             "Hiragana_Katakana": "set-input-mode-hiragana",
             "A-@": "set-input-mode-hiragana",
             "A-`": "set-input-mode-hiragana",
+            "Zenkaku_Hankaku": "set-input-mode-hiragana",
             "Eisu_toggle": "set-input-mode-latin"
         }
     }
