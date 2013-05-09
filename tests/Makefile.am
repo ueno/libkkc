@@ -37,6 +37,7 @@ TESTS =						\
 	user-rule				\
 	rom-kana				\
 	expression				\
+	rule					\
 	$(NULL)
 
 noinst_PROGRAMS = $(TESTS)
@@ -101,14 +102,40 @@ rom_kana_SOURCES = rom-kana.vala
 
 expression_SOURCES = expression.vala
 
-EXTRA_DIST =					\
-	file-dict.dat				\
-	data/models/sorted2/metadata.json	\
-	data/models/sorted3/metadata.json	\
-	data/models/text2/metadata.json		\
-	data/models/text2/data.arpa		\
-	data/models/text3/metadata.json		\
-	data/models/text3/data.arpa		\
+rule_SOURCES = rule.vala
+
+EXTRA_DIST =						\
+	file-dict.dat					\
+	data/rules/test-empty/metadata.json		\
+	data/rules/test-empty/keymap/.gitkeep		\
+	data/rules/test-empty/rom-kana/.gitkeep		\
+	data/rules/test-bad1/metadata.json		\
+	data/rules/test-bad1/keymap/hiragana.json	\
+	data/rules/test-bad1/rom-kana/.gitkeep		\
+	data/rules/test-bad2/metadata.json		\
+	data/rules/test-bad2/keymap/hiragana.json	\
+	data/rules/test-bad2/rom-kana/.gitkeep		\
+	data/rules/test-bad3/metadata.json		\
+	data/rules/test-bad3/keymap/hiragana.json	\
+	data/rules/test-bad3/rom-kana/.gitkeep		\
+	data/rules/test-bad4/metadata.json		\
+	data/rules/test-bad4/keymap/hiragana.json	\
+	data/rules/test-bad4/rom-kana/.gitkeep		\
+	data/rules/test-bad5/metadata.json		\
+	data/rules/test-bad5/keymap/hiragana.json	\
+	data/rules/test-bad5/rom-kana/.gitkeep		\
+	data/rules/test-bad6/metadata.json		\
+	data/rules/test-bad6/keymap/hiragana.json	\
+	data/rules/test-bad6/rom-kana/.gitkeep		\
+	data/rules/test-bad7/metadata.json		\
+	data/rules/test-bad7/keymap/hiragana.json	\
+	data/rules/test-bad7/rom-kana/.gitkeep		\
+	data/models/sorted2/metadata.json		\
+	data/models/sorted3/metadata.json		\
+	data/models/text2/metadata.json			\
+	data/models/text2/data.arpa			\
+	data/models/text3/metadata.json			\
+	data/models/text3/data.arpa			\
 	$(NULL)
 
 CLEANFILES =					\
@@ -130,11 +157,16 @@ CLEANFILES =					\
 
 $(TESTS): rules.stamp models.stamp
 rules.stamp:
-	for i in default kana; do \
-	  $(mkdir_p) data/rules/$$i; \
+	$(MKDIR_P) data/rules
+	for i in test-empty test-bad1 test-bad2 test-bad3 test-bad4 test-bad5 test-bad6 test-bad7; do \
+	  test -d data/rules/$$i || \
+	    cp -r $(srcdir)/data/rules/$$i data/rules; \
+	done
+	for i in default kana nicola; do \
+	  $(MKDIR_P) data/rules/$$i; \
 	  cp $(top_builddir)/data/rules/$$i/metadata.json data/rules/$$i; \
 	  for j in keymap rom-kana; do \
-	    $(mkdir_p) data/rules/$$i/$$j; \
+	    $(MKDIR_P) data/rules/$$i/$$j; \
 	    cp $(top_srcdir)/data/rules/$$i/$$j/*.json data/rules/$$i/$$j; \
 	  done; \
 	done
@@ -166,8 +198,8 @@ models.stamp:
 	touch $@
 
 clean-local:
-	-rm -rf data/rules
-	-test -d data/models/text3 || rm -rf data/models
+	-test -d data/rules/test-empty || rm -rf data/rules
+	-test -d data/models/text2 || rm -rf data/models
 	-rm -rf test-user-rule
 	-rm -rf test-user-dictionary
 

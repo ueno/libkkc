@@ -93,13 +93,13 @@ namespace Kkc {
                         throw new RuleParseError.FAILED ("can't find rule %s",
                                                          parent_rule);
                     }
+                    parents.add (parent);
                     load (parent_metadata,
                           type,
                           parent_name,
                           parents,
                           parent_maps,
                           parent_maps);
-                    parents.add (parent);
                 }
             }
 
