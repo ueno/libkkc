@@ -188,11 +188,12 @@ namespace Kkc {
     /**
      * Object representing a typing rule.
      */
-    public class Rule : Object {
+    public class Rule : Object, Initable {
         /**
          * Metadata associated with the rule.
          */
-        public RuleMetadata metadata { get; private set; }
+        public RuleMetadata metadata { get; construct set; }
+
         KeymapMapFile[] keymaps;
         internal RomKanaMapFile rom_kana;
 
@@ -301,8 +302,19 @@ namespace Kkc {
          *
          * @return a new Rule
          */
-        public Rule (RuleMetadata metadata) throws RuleParseError {
-            this.metadata = metadata;
+        public Rule (RuleMetadata metadata) throws Error {
+            Object (metadata: metadata);
+            init (null);
+        }
+
+        ~Rule () {
+            if (filter != null) {
+                filter.reset ();
+                filter = null;
+            }
+        }
+
+        public bool init (GLib.Cancellable? cancellable = null) throws Error {
             var default_metadata = find_rule ("default");
             var enum_class = (EnumClass) typeof (InputMode).class_ref ();
             this.keymaps = new KeymapMapFile[enum_class.maximum + 1];
@@ -324,13 +336,7 @@ namespace Kkc {
                 _metadata = default_metadata;
             }
             rom_kana = new RomKanaMapFile (_metadata);
-        }
-
-        ~Rule () {
-            if (filter != null) {
-                filter.reset ();
-                filter = null;
-            }
+            return true;
         }
 
         static Map<string,RuleMetadata?> rule_cache = new HashMap<string,RuleMetadata?> ();
