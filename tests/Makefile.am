@@ -38,6 +38,7 @@ TESTS =						\
 	rom-kana				\
 	expression				\
 	rule					\
+	template				\
 	$(NULL)
 
 noinst_PROGRAMS = $(TESTS)
@@ -103,6 +104,8 @@ rom_kana_SOURCES = rom-kana.vala
 expression_SOURCES = expression.vala
 
 rule_SOURCES = rule.vala
+
+template_SOURCES = template.vala
 
 EXTRA_DIST =						\
 	file-dict.dat					\
