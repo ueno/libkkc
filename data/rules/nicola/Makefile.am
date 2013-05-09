@@ -2,6 +2,7 @@ rulesdir = $(pkgdatadir)/rules/nicola
 
 files =						\
 	keymap/default.json			\
+	keymap/kana.json			\
 	keymap/hankaku-katakana.json		\
 	keymap/hiragana.json			\
 	keymap/katakana.json			\

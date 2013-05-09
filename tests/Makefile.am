@@ -166,11 +166,6 @@ CLEANFILES =					\
 
 $(TESTS): rules.stamp models.stamp
 rules.stamp:
-	$(MKDIR_P) data/rules
-	for i in test-empty test-bad1 test-bad2 test-bad3 test-bad4 test-bad5 test-bad6 test-bad7 test-bad8 test-bad9; do \
-	  test -d data/rules/$$i || \
-	    cp -r $(srcdir)/data/rules/$$i data/rules; \
-	done
 	for i in default kana nicola; do \
 	  $(MKDIR_P) data/rules/$$i; \
 	  cp $(top_builddir)/data/rules/$$i/metadata.json data/rules/$$i; \
