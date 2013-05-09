@@ -6,6 +6,7 @@ class ContextTests : Kkc.TestCase {
 
         add_test ("properties", this.test_properties);
         add_test ("initial", this.test_initial);
+        add_test ("nicola", this.test_nicola);
         add_test ("sentence_conversion", this.test_sentence_conversion);
         add_test ("segment_conversion", this.test_segment_conversion);
     }
@@ -93,17 +94,22 @@ class ContextTests : Kkc.TestCase {
 
     static const ConversionData INITIAL_DATA[] = {
         { "a TAB", "あい", "", 0, -1, "", 0, -1 },
+        { "(shift a) TAB", "あい", "", 0, -1, "", 0, -1 },
+        { "a TAB RET", "", "", 0, -1, "あい", 0, -1 },
+        { "a TAB C-g", "", "", 0, -1, "", 0, -1 },
+        { "C-q a", "a", "", 0, -1, "", 0, -1 },
         { "k y o", "きょ", "", 0, -1, "", 0, -1 },
         { "k y o DEL", "", "", 0, -1, "", 0, -1 },
         { "k y o F7", "キョ", "", 0, -1, "", 0, -1 },
         { "k y o F10", "kyo", "", 0, -1, "", 0, -1 },
         { "k y o F10 F10", "KYO", "", 0, -1, "", 0, -1 },
+        { "A-l k y o F10 A-k", "", "", 0, -1, "kyo", 0, -1 },
         { "k y o F9", "ｋｙｏ", "", 0, -1, "", 0, -1 },
         { "k y o F10 F9", "ｋｙｏ", "", 0, -1, "", 0, -1 },
         { "k y o F9 RET", "", "", 0, -1, "ｋｙｏ", 0, -1 },
         { "w a t a s h i F10 n o", "の", "", 0, -1, "watashi", 0, -1 },
         { "a C-c", "", "", 0, -1, "", 0, -1 },
-        { "a i u e o Left Right BackSpace", "あいうお", "", 0, -1, "", 0, 3 },
+        { "a i u e o Left Left Right Right BackSpace", "あいうお", "", 0, -1, "", 0, 3 },
         { "a i u e o Left Left Delete", "あいうお", "", 0, -1, "", 0, 3 },
         { "k a k i k u k e k Left Left BackSpace", "かくけ", "", 0, -1, "", 0, 1 },
         { "a i u e o Left Right BackSpace i", "あいういお", "", 0, -1, "", 0, 4 },
@@ -183,6 +189,39 @@ class ContextTests : Kkc.TestCase {
         assert (context.has_output ());
         context.reset ();
         context.clear_output ();
+
+        try {
+            context.process_key_events ("k C-g");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
+        context.reset ();
+        context.clear_output ();
+    }
+
+    void test_nicola () {
+        var metadata = Kkc.Rule.find_rule ("nicola");
+        context.typing_rule = new Kkc.Rule (metadata);
+
+        // single key - timeout
+        context.process_key_events ("a");
+        Thread.usleep (200000);
+        context.clear_output ();
+        context.reset ();
+
+        // single key - release
+        context.process_key_events ("a (release a)");
+        assert (context.input == "う");
+        context.clear_output ();
+        context.reset ();
+
+        // single key - overlap
+        context.process_key_events ("a");
+        Thread.usleep (50000);
+        context.process_key_events ("b");
+        Thread.usleep (200000);
+        context.clear_output ();
+        context.reset ();
     }
 
     static const ConversionData SENTENCE_CONVERSION_DATA[] = {
@@ -205,6 +244,14 @@ class ContextTests : Kkc.TestCase {
         { "a i SPC",
           "あい",
           "愛",
+          1,
+          0,
+          "",
+          0,
+          -1 },
+        { "u r u SPC",
+          "うる",
+          "売る",
           1,
           0,
           "",
@@ -272,6 +319,22 @@ class ContextTests : Kkc.TestCase {
           0,
           "",
           13,
+          -1 },
+        { "SPC SPC Up",
+          "わたしのなまえはなかのです",
+          "私の名前は中野です",
+          6,
+          0,
+          "",
+          13,
+          -1 },
+        { "SPC SPC C-g",
+          "わたしのなまえはなかのです",
+          "",
+          0,
+          -1,
+          "",
+          0,
           -1 },
         { "SPC SPC Right",
           "わたしのなまえはなかのです",

@@ -130,6 +130,12 @@ EXTRA_DIST =						\
 	data/rules/test-bad7/metadata.json		\
 	data/rules/test-bad7/keymap/hiragana.json	\
 	data/rules/test-bad7/rom-kana/.gitkeep		\
+	data/rules/test-bad8/metadata.json		\
+	data/rules/test-bad8/keymap/.gitkeep		\
+	data/rules/test-bad8/rom-kana/default.json	\
+	data/rules/test-bad9/metadata.json		\
+	data/rules/test-bad9/keymap/.gitkeep		\
+	data/rules/test-bad9/rom-kana/default.json	\
 	data/models/sorted2/metadata.json		\
 	data/models/sorted3/metadata.json		\
 	data/models/text2/metadata.json			\
@@ -158,7 +164,7 @@ CLEANFILES =					\
 $(TESTS): rules.stamp models.stamp
 rules.stamp:
 	$(MKDIR_P) data/rules
-	for i in test-empty test-bad1 test-bad2 test-bad3 test-bad4 test-bad5 test-bad6 test-bad7; do \
+	for i in test-empty test-bad1 test-bad2 test-bad3 test-bad4 test-bad5 test-bad6 test-bad7 test-bad8 test-bad9; do \
 	  test -d data/rules/$$i || \
 	    cp -r $(srcdir)/data/rules/$$i data/rules; \
 	done

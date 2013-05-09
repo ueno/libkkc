@@ -6,7 +6,6 @@
             "C-m": "commit-unhandled",
             "BackSpace": "delete",
             "C-h": "delete",
-            "[gh]": "abbrev",
             "C": "kuten",
             "space": "next-candidate",
             "Tab": "complete",

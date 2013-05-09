@@ -174,7 +174,7 @@ namespace Kkc {
                 var metadata = Rule.find_rule ("default");
                 assert (metadata != null);
                 _typing_rule = new Rule (metadata);
-            } catch (RuleParseError e) {
+            } catch (Error e) {
                 warning ("cannot load default rule: %s",
                          e.message);
                 assert_not_reached ();
@@ -934,8 +934,7 @@ namespace Kkc {
             // Quoted insert.
             if (state.quoted &&
                 (key.modifiers == 0 ||
-                 key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                0x20 <= key.unicode && key.unicode < 0x7F) {
+                 key.modifiers == Kkc.ModifierType.SHIFT_MASK)) {
                 state.finish_input_editing ();
                 state.input_characters.add (RomKanaCharacter () {
                         output = key.unicode.to_string (),
@@ -1022,19 +1021,7 @@ namespace Kkc {
                             (KanaMode) enum_value.value));
             }
 
-            register_command_callback (
-                null,
-                (command, state, key) => {
-                    state.output.append (state.segments.get_output ());
-                    state.select_sentence ();
-                    state.reset ();
-                    // If the key is not bound or won't be further
-                    // processed by InitialStateHandler, update preedit.
-                    return command != null || command == "commit" ||
-                        !((key.modifiers == 0 ||
-                           key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                          0x20 <= key.unicode && key.unicode < 0x7F);
-                });
+            register_command_callback (null, do_);
         }
 
         bool do_start_segment_conversion (string? command, State state, KeyEvent key) {
@@ -1048,6 +1035,18 @@ namespace Kkc {
             state.segments.clear ();
             state.handler_type = typeof (InitialStateHandler);
             return true;
+        }
+
+        bool do_ (string? command, State state, KeyEvent key) {
+            state.output.append (state.segments.get_output ());
+            state.select_sentence ();
+            state.reset ();
+            // If the key is not bound or won't be further
+            // processed by InitialStateHandler, update preedit.
+            return command != null || command == "commit" ||
+                !((key.modifiers == 0 ||
+                   key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
+                  0x20 <= key.unicode && key.unicode < 0x7F);
         }
 
         public override bool process_key_event (State state, KeyEvent key) {
