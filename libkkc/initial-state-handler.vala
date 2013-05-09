@@ -17,7 +17,6 @@
  */
 
 namespace Kkc {
-
     class InitialStateHandler : StateHandler {
         class ConvertCommandHandler : CommandHandler, Object {
             KanaMode mode;
