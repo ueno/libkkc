@@ -94,6 +94,9 @@ libkkc_shell_sources =				\
 	user-rule.vala				\
 	context.vala				\
 	state.vala				\
+	initial-state-handler.vala		\
+	convert-sentence-state-handler.vala	\
+	convert-segment-state-handler.vala	\
 	dictionary.vala				\
 	segment-dictionary.vala			\
 	system-segment-dictionary.vala		\

@@ -14,6 +14,7 @@ class UserDictionaryTests : Kkc.TestCase {
 
         add_test ("properties", this.test_properties);
         add_test ("conversion", this.test_conversion);
+        add_test ("phrase-conversion", this.test_phrase_conversion);
         add_test ("register", this.test_register);
     }
 
@@ -114,38 +115,31 @@ class UserDictionaryTests : Kkc.TestCase {
         user_dictionary.reload ();
     }
 
-    static const ConversionData REGISTER_DATA[] = {
-        { "a i SPC",
-          "わたしのなまえはなかのです",
-          "私の名前は中のです",
-          9,
+    static const ConversionData PHRASE_CONVERSION_DATA[] = {
+        { "s u m a i h a n a k a n o d e s u SPC",
+          "すまいはなかのです",
+          "すまいは中野です",
+          6,
           0,
           "" },
-        { "SPC Right Right Right C-Left RET",
+        { "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right Right Right Right C-Left RET",
           "",
           "",
           0,
           -1,
-          "私の名まえは中のです" },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "私の名まえは中のです",
-          10,
-          0,
-          "" },
-        { "SPC SPC RET",
-          "",
-          "",
-          0,
-          -1,
-          "渡しの名まえは中のです" },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "渡しの名まえは中のです",
-          10,
+          "私の名前は中のです" },
+        { "s u m a i h a n a k a n o d e s u SPC",
+          "すまいはなかのです",
+          "すまいは中のです",
+          7,
           0,
           "" }
     };
+
+    void test_phrase_conversion () {
+        do_conversions (PHRASE_CONVERSION_DATA);
+        context.dictionaries.save ();
+    }
 
     void test_register () {
         var handler_id = context.request_selection_text.connect (() => {
