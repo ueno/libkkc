@@ -137,7 +137,7 @@ EXTRA_DIST =						\
 	metadata-bad4.json				\
 	language-model-metadata-bad1.json		\
 	language-model-metadata-bad2.json		\
-	rule-metadata-bad1.json				\
+	rule-metadata-bad.json				\
 	data/rules/test-empty/metadata.json		\
 	data/rules/test-empty/keymap/.gitkeep		\
 	data/rules/test-empty/rom-kana/.gitkeep		\
@@ -239,5 +239,6 @@ clean-local:
 	-rm -rf test-user-rule
 	-rm -rf test-user-dictionary
 	-rm -rf test-user-segment-dictionary
+	-rm -rf test-user-sentence-dictionary
 
 -include $(top_srcdir)/git.mk

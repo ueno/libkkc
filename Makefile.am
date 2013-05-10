@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 SUBDIRS = marisa-glib libkkc data tools tests po
-DISTCHECK_CONFIGURE_FLAGS = --enable-docs
+#DISTCHECK_CONFIGURE_FLAGS = --enable-docs
 ACLOCAL_AMFLAGS = -I m4
 
 if HAVE_VALADOC
