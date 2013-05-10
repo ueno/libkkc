@@ -117,11 +117,6 @@ namespace Kkc {
      */
     public interface Dictionary : Object {
         /**
-         * Flag to indicate whether the dictionary is read only.
-         */
-        public abstract bool read_only { get; }
-
-        /**
          * Reload the dictionary.
          *
          * @throws GLib.Error when reading the dictionary failed.

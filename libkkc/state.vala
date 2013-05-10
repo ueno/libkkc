@@ -194,7 +194,6 @@ namespace Kkc {
         void candidates_selected (Candidate candidate) {
             dictionaries.call (
                 typeof (SegmentDictionary),
-                true,
                 (dictionary) => {
                     var segment_dict = dictionary as SegmentDictionary;
                     segment_dict.select_candidate (candidate);
@@ -228,7 +227,6 @@ namespace Kkc {
                 int.min (5, segments.size));
 
             dictionaries.call (typeof (SentenceDictionary),
-                               true,
                                (dictionary) => {
                                    select_sentence_for_dictionary (dictionary,
                                                                    prefixes);
@@ -278,7 +276,6 @@ namespace Kkc {
             var normalized_input = RomKanaUtils.normalize (input);
             string? result = null;
             dictionaries.call (typeof (SegmentDictionary),
-                               false,
                                (dictionary) => {
                                    result = lookup_single_for_dictionary (
                                        dictionary,
@@ -373,7 +370,6 @@ namespace Kkc {
 
         void lookup_template (Template template) {
             dictionaries.call (typeof (SegmentDictionary),
-                               false,
                                (dictionary) => {
                                    lookup_template_for_dictionary (dictionary,
                                                                    template);
@@ -486,7 +482,6 @@ namespace Kkc {
 
         void apply_constraint (string input) {
             dictionaries.call (typeof (SentenceDictionary),
-                               false,
                                (dictionary) => {
                                    apply_constraint_for_dictionary (dictionary,
                                                                     input);
@@ -521,7 +516,6 @@ namespace Kkc {
 
         void apply_phrase () {
             dictionaries.call (typeof (SentenceDictionary),
-                               false,
                                (dictionary) => {
                                    apply_phrase_for_dictionary (dictionary);
                                    return DictionaryCallbackReturn.CONTINUE;
@@ -564,7 +558,6 @@ namespace Kkc {
 
         internal void purge_candidate (Candidate candidate) {
             dictionaries.call (typeof (SegmentDictionary),
-                               true,
                                (dictionary) => {
                                    var segment_dict = dictionary as SegmentDictionary;
                                    segment_dict.purge_candidate (candidate);
@@ -575,7 +568,6 @@ namespace Kkc {
         internal void completion_start (string input) {
             completion.clear ();
             dictionaries.call (typeof (SegmentDictionary),
-                               false,
                                (dictionary) => {
                                    var segment_dict = dictionary as SegmentDictionary;
                                    string[] _completion = segment_dict.complete (input);

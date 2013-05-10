@@ -83,8 +83,7 @@ namespace Kkc {
                     midasi,
                     okuri,
                     candidates_str);
-                var list = new ArrayList<Candidate> (
-                    (EqualFunc) candidate_equal);
+                var list = new ArrayList<Candidate> ();
                 foreach (var c in candidates) {
                     list.add (c);
                 }
@@ -117,10 +116,6 @@ namespace Kkc {
                                       Map.Entry<string,Gee.List<Candidate>> b)
         {
             return strcmp (b.key, a.key);
-        }
-
-        static bool candidate_equal (Candidate a, Candidate b) {
-            return a.text == b.text;
         }
 
         void write_entries (StringBuilder builder,
@@ -270,15 +265,6 @@ namespace Kkc {
             if (modified)
                 is_dirty = true;
             return modified;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        public bool read_only {
-            get {
-                return false;
-            }
         }
 
         File file;

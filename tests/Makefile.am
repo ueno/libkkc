@@ -114,7 +114,16 @@ rule_SOURCES = rule.vala
 template_SOURCES = template.vala
 
 EXTRA_DIST =						\
-	file-dict.dat					\
+	system-segment-dictionary			\
+	system-segment-dictionary-bad1			\
+	system-segment-dictionary-bad2			\
+	system-segment-dictionary-bad3			\
+	user-segment-dictionary-good			\
+	user-segment-dictionary-bad1			\
+	user-segment-dictionary-bad2			\
+	user-sentence-dictionary-good			\
+	user-sentence-dictionary-bad1			\
+	user-sentence-dictionary-bad2			\
 	data/rules/test-empty/metadata.json		\
 	data/rules/test-empty/keymap/.gitkeep		\
 	data/rules/test-empty/rom-kana/.gitkeep		\
@@ -212,5 +221,6 @@ clean-local:
 	-test -d data/models/text2 || rm -rf data/models
 	-rm -rf test-user-rule
 	-rm -rf test-user-dictionary
+	-rm -rf test-user-segment-dictionary
 
 -include $(top_srcdir)/git.mk

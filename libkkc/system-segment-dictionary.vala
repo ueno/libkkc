@@ -107,11 +107,11 @@ namespace Kkc {
                 }
             }
 
-            offset = 0;
-            if (!read_until (ref offset, ";; okuri-ari entries.\n")) {
+            if (line == ";; okuri-ari entries.")
+                offset = 0;
+            else if (!read_until (ref offset, ";; okuri-ari entries.\n"))
                 throw new DictionaryError.MALFORMED_INPUT (
                     "no okuri-ari boundary");
-            }
             okuri_ari_offset = offset;
             
             if (!read_until (ref offset, ";; okuri-nasi entries.\n")) {
@@ -317,15 +317,6 @@ namespace Kkc {
                 }
             }
             return completion.to_array ();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        public bool read_only {
-            get {
-                return true;
-            }
         }
 
         File file;

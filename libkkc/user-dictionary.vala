@@ -39,15 +39,6 @@ namespace Kkc {
         /**
          * {@inheritDoc}
          */
-        public bool read_only {
-            get {
-                return false;
-            }
-        }
-
-        /**
-         * {@inheritDoc}
-         */
         public void reload () throws GLib.Error {
             segment_dict.reload ();
             sentence_dict.reload ();

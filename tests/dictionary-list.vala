@@ -26,7 +26,7 @@ class DictionaryListTests : Kkc.TestCase {
             var srcdir = Environment.get_variable ("srcdir");
             assert (srcdir != null);
             system_segment_dictionary = new Kkc.SystemSegmentDictionary (
-                Path.build_filename (srcdir, "file-dict.dat"));
+                Path.build_filename (srcdir, "system-segment-dictionary"));
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
         }

@@ -77,19 +77,15 @@ namespace Kkc {
          * Call function with dictionaries.
          *
          * @param type type of dictionary
-         * @param writable `true` to enumerate only writable dictionaries
          * @param callback callback
          */
         public void call (Type? type,
-                          bool writable,
                           DictionaryCallback callback)
         {
             foreach (var dictionary in dictionaries) {
-                if ((type == null || dictionary.get_type ().is_a (type))
-                    && (!writable || !dictionary.read_only))
-                    if (callback (dictionary)
-                        == DictionaryCallbackReturn.REMOVE)
-                        return;
+                if ((type == null || dictionary.get_type ().is_a (type)) &&
+                    callback (dictionary) == DictionaryCallbackReturn.REMOVE)
+                    return;
             }
         }
  
@@ -98,7 +94,6 @@ namespace Kkc {
          */
         public void save () {
             call (null,
-                  true,
                   (dictionary) => {
                       try {
                           dictionary.save ();

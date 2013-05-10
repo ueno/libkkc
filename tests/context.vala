@@ -474,7 +474,7 @@ class ContextTests : Kkc.TestCase {
             var srcdir = Environment.get_variable ("srcdir");
             assert (srcdir != null);
             var dictionary = new Kkc.SystemSegmentDictionary (
-                Path.build_filename (srcdir, "file-dict.dat"));
+                Path.build_filename (srcdir, "system-segment-dictionary"));
             context.dictionaries.add (dictionary);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);

@@ -96,14 +96,5 @@ namespace Kkc {
         public string[] complete (string midasi) {
             return new string[0];
         }
-
-        /**
-         * {@inheritDoc}
-         */
-        public bool read_only {
-            get {
-                return true;
-            }
-        }
     }
 }

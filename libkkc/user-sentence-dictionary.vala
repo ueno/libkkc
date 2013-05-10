@@ -261,15 +261,6 @@ namespace Kkc {
             is_dirty = true;
             return true;
         }
-
-        /**
-         * {@inheritDoc}
-         */
-        public bool read_only {
-            get {
-                return false;
-            }
-        }
  
         /**
          * Create a new UserSentenceDictionary.

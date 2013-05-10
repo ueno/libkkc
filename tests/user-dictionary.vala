@@ -1,9 +1,144 @@
-class UserDictionaryTests : Kkc.TestCase {
+class UserSegmentDictionaryTests : Kkc.TestCase {
+    public UserSegmentDictionaryTests () {
+        base ("UserSegmentDictionary");
+
+        add_test ("load", this.test_load);
+        add_test ("write", this.test_write);
+    }
+
+    void test_load () {
+        try {
+            new Kkc.UserSegmentDictionary (
+                "test-user-segment-dictionary");
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+
+        try {
+            new Kkc.UserSegmentDictionary (
+                Path.build_filename (srcdir, "user-segment-dictionary-good"));
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        try {
+            new Kkc.UserSegmentDictionary (
+                Path.build_filename (srcdir, "user-segment-dictionary-bad1"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
+
+        try {
+            new Kkc.UserSegmentDictionary (
+                Path.build_filename (srcdir, "user-segment-dictionary-bad2"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
+    }
+
+    void test_write () {
+        Kkc.SegmentDictionary? dictionary = null;
+        try {
+            dictionary = new Kkc.UserSegmentDictionary (
+                "test-user-segment-dictionary");
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        dictionary.select_candidate (
+            new Kkc.Candidate ("あい", false, "愛"));
+        dictionary.select_candidate (
+            new Kkc.Candidate ("あお", false, "青"));
+        dictionary.select_candidate (
+            new Kkc.Candidate ("あu", true, "会u"));
+        dictionary.select_candidate (
+            new Kkc.Candidate ("あe", true, "会e"));
+
+        var candidate = new Kkc.Candidate ("あw", true, "会w");
+        dictionary.select_candidate (candidate);
+        dictionary.purge_candidate (candidate);
+
+        dictionary.save ();
+    }
+
+    public override void set_up () {
+        FileUtils.remove ("test-user-segment-dictionary");
+    }
+}
+
+class UserSentenceDictionaryTests : Kkc.TestCase {
+    public UserSentenceDictionaryTests () {
+        base ("UserSentenceDictionary");
+
+        add_test ("load", this.test_load);
+        add_test ("write", this.test_write);
+    }
+
+    void test_load () {
+        try {
+            new Kkc.UserSentenceDictionary (
+                "user-sentence-dictionary");
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+
+        try {
+            new Kkc.UserSentenceDictionary (
+                Path.build_filename (srcdir, "user-sentence-dictionary-good"));
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        try {
+            new Kkc.UserSentenceDictionary (
+                Path.build_filename (srcdir, "user-sentence-dictionary-bad1"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
+
+        try {
+            new Kkc.UserSentenceDictionary (
+                Path.build_filename (srcdir, "user-sentence-dictionary-bad2"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
+    }
+
+    void test_write () {
+        Kkc.SentenceDictionary? dictionary = null;
+        try {
+            dictionary = new Kkc.UserSentenceDictionary (
+                "test-user-sentence-dictionary");
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        Kkc.Segment[] segments = {};
+
+        segments += new Kkc.Segment ("left", "LEFT");
+        segments += new Kkc.Segment ("right", "RIGHT");
+
+        dictionary.select_segments (segments);
+        dictionary.save ();
+    }
+
+    public override void set_up () {
+        FileUtils.remove ("test-user-sentence-dictionary");
+    }
+}
+
+class UserDictionaryWithContextTests : Kkc.TestCase {
     Kkc.Context context;
     Kkc.UserDictionary user_dictionary;
 
-    public UserDictionaryTests () {
-        base ("UserDictionary");
+    public UserDictionaryWithContextTests () {
+        base ("UserDictionaryWithContext");
 
         try {
             Kkc.LanguageModel model = Kkc.LanguageModel.load ("sorted3");
@@ -12,16 +147,9 @@ class UserDictionaryTests : Kkc.TestCase {
             stderr.printf ("%s\n", e.message);
         }
 
-        add_test ("properties", this.test_properties);
         add_test ("conversion", this.test_conversion);
         add_test ("phrase-conversion", this.test_phrase_conversion);
         add_test ("register", this.test_register);
-    }
-
-    void test_properties () {
-        bool read_only;
-        user_dictionary.get ("read-only", out read_only);
-        assert (!read_only);
     }
 
     struct ConversionData {
@@ -226,7 +354,7 @@ class UserDictionaryTests : Kkc.TestCase {
             var srcdir = Environment.get_variable ("srcdir");
             assert (srcdir != null);
             var dictionary = new Kkc.SystemSegmentDictionary (
-                Path.build_filename (srcdir, "file-dict.dat"));
+                Path.build_filename (srcdir, "system-segment-dictionary"));
             context.dictionaries.add (dictionary);
         } catch (Error e) {
             stderr.printf ("%s\n", e.message);
@@ -244,7 +372,9 @@ int main (string[] args)
   Kkc.init ();
 
   TestSuite root = TestSuite.get_root ();
-  root.add_suite (new UserDictionaryTests ().get_suite ());
+  root.add_suite (new UserSegmentDictionaryTests ().get_suite ());
+  root.add_suite (new UserSentenceDictionaryTests ().get_suite ());
+  root.add_suite (new UserDictionaryWithContextTests ().get_suite ());
 
   Test.run ();
 
