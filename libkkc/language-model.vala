@@ -33,9 +33,10 @@ namespace Kkc {
 
         // Make the value type boxed to avoid unwanted ulong -> uint cast:
         // https://bugzilla.gnome.org/show_bug.cgi?id=660621
-        static Map<string,Type?> model_types = new HashMap<string,Type?> ();
+        static Map<string,Type?> model_types;
 
         static construct {
+            model_types = new HashMap<string,Type?> ();
             model_types.set ("text2", typeof (TextBigramLanguageModel));
             model_types.set ("text3", typeof (TextTrigramLanguageModel));
             model_types.set ("sorted2", typeof (SortedBigramLanguageModel));
@@ -61,23 +62,8 @@ namespace Kkc {
 
             return true;
         }
-    }
 
-    public abstract class LanguageModel : Object, Initable {
-        public LanguageModelMetadata metadata { get; construct; }
-
-        public abstract LanguageModelEntry bos { get; }
-        public abstract LanguageModelEntry eos { get; }
-        public abstract Collection<LanguageModelEntry?> entries (string input);
-        public abstract new LanguageModelEntry? @get (string input,
-													  string output);
-
-        public bool init (GLib.Cancellable? cancellable = null) throws Error {
-            return true;
-        }
-
-        public static LanguageModel? load (string name) throws LanguageModelError
-		{
+        public static LanguageModelMetadata? find (string name)	{
             var dirs = Utils.build_data_path ("models");
             foreach (var dir in dirs) {
                 var metadata_filename = Path.build_filename (
@@ -85,24 +71,54 @@ namespace Kkc {
                     "metadata.json");
                 if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
                     try {
-                        var metadata = new LanguageModelMetadata (
+                        return new LanguageModelMetadata (
                             name,
                             metadata_filename);
-                        return (LanguageModel) Initable.new (
-                            metadata.model_type,
-                            null,
-                            "metadata", metadata,
-                            null);
                     } catch (Error e) {
-                        warning ("can't load metadata file %s: %s",
-                                 metadata_filename,
-                                 e.message);
                         continue;
                     }
                 }
             }
-			throw new LanguageModelError.NOT_FOUND (
-                "can't find suitable model");
+            return null;
+        }
+
+        public LanguageModel? create_language_model () throws Error {
+            return (LanguageModel) Initable.new (
+                model_type,
+                null,
+                "metadata", this,
+                null);
+        }
+    }
+
+    public abstract class LanguageModel : Object, Initable {
+        public LanguageModelMetadata metadata { get; construct set; }
+
+        public abstract LanguageModelEntry bos { get; }
+        public abstract LanguageModelEntry eos { get; }
+        public abstract Collection<LanguageModelEntry?> entries (string input);
+        public abstract new LanguageModelEntry? @get (string input,
+													  string output);
+
+        public LanguageModel (LanguageModelMetadata metadata) throws Error {
+            Object (metadata: metadata);
+            init (null);
+        }
+
+        public abstract bool parse () throws Error;
+
+        public bool init (GLib.Cancellable? cancellable = null) throws Error {
+            parse ();
+            return true;
+        }
+
+        public static LanguageModel? load (string name) throws Error {
+            var metadata = LanguageModelMetadata.find (name);
+            if (metadata == null)
+                throw new LanguageModelError.NOT_FOUND (
+                    "can't find language model %s",
+                    name);
+            return metadata.create_language_model ();
         }
     }
 

@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    public class SortedBigramLanguageModel : LanguageModel, UnigramLanguageModel, BigramLanguageModel, Initable {
+    public class SortedBigramLanguageModel : LanguageModel, UnigramLanguageModel, BigramLanguageModel {
         LanguageModelEntry _bos;
         public override LanguageModelEntry bos {
             get {
@@ -174,10 +174,7 @@ namespace Kkc {
             }
         }
 
-        public new bool init (GLib.Cancellable? cancellable = null) throws Error {
-            if (!base.init (cancellable))
-                return false;
-
+        public override bool parse () throws Error {
             var prefix = Path.build_filename (
                 Path.get_dirname (metadata.filename),
                 "data");
@@ -208,6 +205,10 @@ namespace Kkc {
             _eos = get (" ", "</s>");
 
             return true;
+        }
+
+        public SortedBigramLanguageModel (LanguageModelMetadata metadata) throws Error {
+            base (metadata);
         }
     }
 }

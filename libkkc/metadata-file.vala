@@ -45,7 +45,7 @@ namespace Kkc {
 
         public MetadataFile (string name, string filename) throws Error {
             Object (name: name, filename: filename);
-            init ();
+            init (null);
         }
 
         public abstract bool parse (Json.Object object) throws Error;

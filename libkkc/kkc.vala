@@ -28,10 +28,9 @@ namespace Kkc {
         typeof (DictionaryUtils).class_ref ();
         typeof (Keymap).class_ref ();
         typeof (KeyEventUtils).class_ref ();
-        typeof (LanguageModel).class_ref ();
-		typeof (RuleMetadata).class_ref ();
-		typeof (Rule).class_ref ();
-		typeof (RomKanaUtils).class_ref ();
+        typeof (LanguageModelMetadata).class_ref ();
+        typeof (RuleMetadata).class_ref ();
+        typeof (RomKanaUtils).class_ref ();
 
         Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
     }

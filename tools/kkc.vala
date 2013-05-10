@@ -71,9 +71,8 @@ static int main (string[] args) {
 
 	Kkc.LanguageModel model;
 	try {
-		model = Kkc.LanguageModel.load (opt_model == null
-                                        ? "sorted3"
-                                        : opt_model);
+        var name = opt_model == null ? "sorted3" : opt_model;
+        model = Kkc.LanguageModel.load (name);
 	} catch (Kkc.LanguageModelError e) {
 		stderr.printf ("%s\n", e.message);
 		return 1;

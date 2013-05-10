@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel, Initable {
+    public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
         MemoryMappedFile trigram_mmap;
         BloomFilter trigram_filter = null;
 
@@ -84,9 +84,8 @@ namespace Kkc {
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 
-        public new bool init (GLib.Cancellable? cancellable = null) throws Error {
-            if (!base.init (cancellable))
-                return false;
+        public override bool parse () throws Error {
+            base.parse ();
 
             var prefix = Path.build_filename (
                 Path.get_dirname (metadata.filename),
@@ -104,6 +103,10 @@ namespace Kkc {
                          e.message);
             }
             return true;
+        }
+
+        public SortedTrigramLanguageModel (LanguageModelMetadata metadata) throws Error {
+            base (metadata);
         }
     }
 }

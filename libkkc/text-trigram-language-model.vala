@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    public class TextTrigramLanguageModel : TextBigramLanguageModel, TrigramLanguageModel, Initable {
+    public class TextTrigramLanguageModel : TextBigramLanguageModel, TrigramLanguageModel {
         public bool has_trigram (LanguageModelEntry ppentry,
                                  LanguageModelEntry pentry,
                                  LanguageModelEntry entry)
@@ -41,8 +41,8 @@ namespace Kkc {
             return 0;
         }
 
-        public new bool init (GLib.Cancellable? cancellable = null) throws Error {
-            return base.init (cancellable);
+        public TextTrigramLanguageModel (LanguageModelMetadata metadata) throws Error {
+            base (metadata);
         }
     }
 }
