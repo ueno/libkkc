@@ -70,9 +70,13 @@ namespace Kkc {
                 case '\\':
                     if (expr.get_next_char (ref index, out uc)) {
                         switch (uc) {
-                        case '0':
-                            int num = 0;
+                        case '0': case '1': case '2': case '3':
+                        case '4': case '5': case '6': case '7':
+                            int start = index;
+                            int num = (int) uc - '0';
                             while (expr.get_next_char (ref index, out uc)) {
+                                if (index - start == 3)
+                                    break;
                                 if (uc < '0' || uc > '7')
                                     break;
                                 num <<= 3;
@@ -85,19 +89,14 @@ namespace Kkc {
                             int num = 0;
                             while (expr.get_next_char (ref index, out uc)) {
                                 uc = uc.tolower ();
-                                if (('0' <= uc && uc <= '9') ||
-                                    ('a' <= uc && uc <= 'f')) {
+                                if ('0' <= uc && uc <= '9') {
                                     num <<= 4;
-                                    if ('0' <= uc && uc <= '9') {
-                                        num += (int) uc - '0';
-                                    }
-                                    else if ('a' <= uc && uc <= 'f') {
-                                        num += (int) uc - 'a' + 10;
-                                    }
-                                }
-                                else {
+                                    num += (int) uc - '0';
+                                } else if ('a' <= uc && uc <= 'f') {
+                                    num <<= 4;
+                                    num += (int) uc - 'a' + 10;
+                                } else
                                     break;
-                                }
                             }
                             index--;
                             uc = (unichar) num;

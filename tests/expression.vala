@@ -17,6 +17,14 @@ class ExpressionTests : Kkc.TestCase {
         assert (Kkc.Expression.eval ("(kkc-version)") ==
                 "%s/%s".printf (Config.PACKAGE_NAME,
                                 Config.PACKAGE_VERSION));
+        assert (Kkc.Expression.eval ("(concat \"\\141\")") == "a");
+        assert (Kkc.Expression.eval ("(concat \"\\1411\")") == "a1");
+        assert (Kkc.Expression.eval ("(concat \"\\090\")") == "\090");
+        assert (Kkc.Expression.eval ("(concat \"\\0/\")") == "\0/");
+
+        assert (Kkc.Expression.eval ("(concat \"\\x61g\")") == "ag");
+        assert (Kkc.Expression.eval ("(concat \"\\x61/\")") == "a/");
+        assert (Kkc.Expression.eval ("(concat \"\\x61`\")") == "a`");
     }
 }
 
