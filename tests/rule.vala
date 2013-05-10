@@ -47,6 +47,18 @@ class RuleTests : Kkc.TestCase {
             } catch (Error e) {
             }
         }
+
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+
+        try {
+            new Kkc.RuleMetadata (
+                "bad",
+                Path.build_filename (srcdir,
+                                     "rule-metadata-bad.json"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
     }
 }
 

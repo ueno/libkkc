@@ -31,6 +31,8 @@ TESTS =						\
 	segment-list				\
 	trellis-node				\
 	encoding				\
+	metadata-file				\
+	language-model				\
 	system-dictionary			\
 	user-dictionary				\
 	dictionary-list				\
@@ -93,6 +95,10 @@ segment_list_SOURCES = segment-list.vala
 
 encoding_SOURCES = encoding.vala
 
+metadata_file_SOURCES = metadata-file.vala
+
+language_model_SOURCES = language-model.vala
+
 system_dictionary_SOURCES = system-dictionary.vala
 
 user_dictionary_SOURCES = user-dictionary.vala
@@ -124,6 +130,14 @@ EXTRA_DIST =						\
 	user-sentence-dictionary-good			\
 	user-sentence-dictionary-bad1			\
 	user-sentence-dictionary-bad2			\
+	metadata.json					\
+	metadata-bad1.json				\
+	metadata-bad2.json				\
+	metadata-bad3.json				\
+	metadata-bad4.json				\
+	language-model-metadata-bad1.json		\
+	language-model-metadata-bad2.json		\
+	rule-metadata-bad1.json				\
 	data/rules/test-empty/metadata.json		\
 	data/rules/test-empty/keymap/.gitkeep		\
 	data/rules/test-empty/rom-kana/.gitkeep		\

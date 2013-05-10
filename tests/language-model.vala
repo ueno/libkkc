@@ -11,6 +11,33 @@ class LanguageModelTests : Kkc.TestCase {
             assert_not_reached ();
         } catch (Kkc.LanguageModelError e) {
         }
+
+        try {
+            Kkc.LanguageModel.load ("text3");
+        } catch (Kkc.LanguageModelError e) {
+            assert_not_reached ();
+        }
+
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+
+        try {
+            new Kkc.LanguageModelMetadata (
+                "bad1",
+                Path.build_filename (srcdir,
+                                     "language-model-metadata-bad1.json"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
+
+        try {
+            new Kkc.LanguageModelMetadata (
+                "bad2",
+                Path.build_filename (srcdir,
+                                     "language-model-metadata-bad2.json"));
+            assert_not_reached ();
+        } catch (Error e) {
+        }
     }
 }
 
