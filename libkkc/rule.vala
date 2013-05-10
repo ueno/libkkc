@@ -150,9 +150,13 @@ namespace Kkc {
 
         // Make the value type boxed to avoid unwanted ulong -> uint cast:
         // https://bugzilla.gnome.org/show_bug.cgi?id=660621
-        static Map<string,Type?> filter_types = new HashMap<string,Type?> ();
+        static Map<string,Type?> filter_types;
+        static Map<string,RuleMetadata> instance_cache;
 
         static construct {
+            filter_types = new HashMap<string,Type?> ();
+            instance_cache = new HashMap<string,RuleMetadata> ();
+
             filter_types.set ("simple", typeof (SimpleKeyEventFilter));
             filter_types.set ("nicola", typeof (NicolaKeyEventFilter));
             filter_types.set ("kana", typeof (KanaKeyEventFilter));
@@ -203,6 +207,36 @@ namespace Kkc {
 
             return null;
         }
+
+        /**
+         * Locate a rule metadata by name.
+         *
+         * @param name name of the rule
+         *
+         * @return a RuleMetadata or `null`
+         */
+        public static RuleMetadata? find (string name) {
+            if (instance_cache.has_key (name))
+                return instance_cache.get (name);
+
+            var dirs = Utils.build_data_path ("rules");
+            foreach (var dir in dirs) {
+                var base_dir_filename = Path.build_filename (dir, name);
+                var metadata_filename = Path.build_filename (base_dir_filename,
+                                                             "metadata.json");
+                if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
+                    try {
+                        var metadata = new RuleMetadata (name,
+                                                         metadata_filename);
+                        instance_cache.set (name, metadata);
+                        return metadata;
+                    } catch (Error e) {
+                        continue;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     /**
@@ -243,7 +277,7 @@ namespace Kkc {
         }
 
         public bool init (GLib.Cancellable? cancellable = null) throws Error {
-            var default_metadata = find_rule ("default");
+            var default_metadata = RuleMetadata.find ("default");
             var enum_class = (EnumClass) typeof (InputMode).class_ref ();
             this.keymaps = new KeymapMapFile[enum_class.maximum + 1];
             for (var i = enum_class.minimum; i <= enum_class.maximum; i++) {
@@ -267,38 +301,6 @@ namespace Kkc {
             filter = _metadata.create_key_event_filter ();
 
             return true;
-        }
-
-        static Map<string,RuleMetadata?> rule_cache = new HashMap<string,RuleMetadata?> ();
-
-        /**
-         * Locate a rule by name.
-         *
-         * @param name name of the rule
-         *
-         * @return a RuleMetadata or `null`
-         */
-        public static RuleMetadata? find_rule (string name) {
-            if (rule_cache.has_key (name))
-                return rule_cache.get (name);
-
-            var dirs = Utils.build_data_path ("rules");
-            foreach (var dir in dirs) {
-                var base_dir_filename = Path.build_filename (dir, name);
-                var metadata_filename = Path.build_filename (base_dir_filename,
-                                                             "metadata.json");
-                if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
-                    try {
-                        var metadata = new RuleMetadata (name,
-                                                         metadata_filename);
-                        rule_cache.set (name, metadata);
-                        return metadata;
-                    } catch (Error e) {
-                        continue;
-                    }
-                }
-            }
-            return null;
         }
 
         /**

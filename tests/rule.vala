@@ -7,7 +7,7 @@ class RuleTests : Kkc.TestCase {
     }
 
     void test_properties () {
-        var rule = new Kkc.Rule (Kkc.Rule.find_rule ("default"));
+        var rule = new Kkc.Rule (Kkc.RuleMetadata.find ("default"));
         Kkc.RuleMetadata metadata;
         rule.get ("metadata", out metadata);
     }
@@ -31,7 +31,7 @@ class RuleTests : Kkc.TestCase {
         };
 
         foreach (var name in good) {
-            var metadata = Kkc.Rule.find_rule (name);
+            var metadata = Kkc.RuleMetadata.find (name);
             try {
                 var rule = new Kkc.Rule (metadata);
             } catch (Error e) {
@@ -40,7 +40,7 @@ class RuleTests : Kkc.TestCase {
         }
 
         foreach (var name in bad) {
-            var metadata = Kkc.Rule.find_rule (name);
+            var metadata = Kkc.RuleMetadata.find (name);
             try {
                 var rule = new Kkc.Rule (metadata);
                 assert_not_reached ();

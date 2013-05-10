@@ -12,7 +12,7 @@ class UserRuleTests : Kkc.TestCase {
     }
 
     void test_creation () {
-        var parent = Kkc.Rule.find_rule ("kana");
+        var parent = Kkc.RuleMetadata.find ("kana");
         assert (parent != null);
 
         var rule = new Kkc.UserRule (parent, "test-user-rule", "test");
@@ -20,7 +20,7 @@ class UserRuleTests : Kkc.TestCase {
     }
 
     void test_write () {
-        var parent = Kkc.Rule.find_rule ("kana");
+        var parent = Kkc.RuleMetadata.find ("kana");
         assert (parent != null);
 
         Kkc.UserRule rule = new Kkc.UserRule (parent, "test-user-rule", "test");

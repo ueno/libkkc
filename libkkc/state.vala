@@ -165,7 +165,7 @@ namespace Kkc {
             rom_kana_converter = new RomKanaConverter ();
 
             try {
-                var metadata = Rule.find_rule ("default");
+                var metadata = RuleMetadata.find ("default");
                 assert (metadata != null);
                 _typing_rule = new Rule (metadata);
             } catch (Error e) {

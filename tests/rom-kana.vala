@@ -8,7 +8,7 @@ class RomKanaTests : Kkc.TestCase {
     }
 
     void test_properties () {
-        var metadata = Kkc.Rule.find_rule ("default");
+        var metadata = Kkc.RuleMetadata.find ("default");
         assert (metadata != null);
         var rule = new Kkc.Rule (metadata);
         var converter = new Kkc.RomKanaConverter ();
@@ -34,7 +34,7 @@ class RomKanaTests : Kkc.TestCase {
     }
 
     void test_default () {
-        var metadata = Kkc.Rule.find_rule ("default");
+        var metadata = Kkc.RuleMetadata.find ("default");
         assert (metadata != null);
         var rule = new Kkc.Rule (metadata);
         var converter = new Kkc.RomKanaConverter ();
@@ -64,7 +64,7 @@ class RomKanaTests : Kkc.TestCase {
     }
 
     void test_kana () {
-        var metadata = Kkc.Rule.find_rule ("kana");
+        var metadata = Kkc.RuleMetadata.find ("kana");
         assert (metadata != null);
         var rule = new Kkc.Rule (metadata);
         var converter = new Kkc.RomKanaConverter ();

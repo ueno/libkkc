@@ -10,15 +10,15 @@ class KeymapTests : Kkc.TestCase {
     void test_creation () {
         Kkc.RuleMetadata? metadata;
 
-        metadata = Kkc.Rule.find_rule ("nonexistent");
+        metadata = Kkc.RuleMetadata.find ("nonexistent");
         assert (metadata == null);
 
-        metadata = Kkc.Rule.find_rule ("kana");
+        metadata = Kkc.RuleMetadata.find ("kana");
         assert (metadata != null);
     }
 
     void test_properties () {
-        var metadata = Kkc.Rule.find_rule ("kana");
+        var metadata = Kkc.RuleMetadata.find ("kana");
         var rule = new Kkc.Rule (metadata);
         var keymap = rule.get_keymap (Kkc.InputMode.HIRAGANA) as Object;
         Kkc.Keymap parent;
@@ -27,7 +27,7 @@ class KeymapTests : Kkc.TestCase {
     }
 
     void test_lookup () {
-        var metadata = Kkc.Rule.find_rule ("kana");
+        var metadata = Kkc.RuleMetadata.find ("kana");
         var rule = new Kkc.Rule (metadata);
         var keymap = rule.get_keymap (Kkc.InputMode.HIRAGANA);
 

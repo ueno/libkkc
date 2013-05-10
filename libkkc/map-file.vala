@@ -89,7 +89,7 @@ namespace Kkc {
                         parent_rule = parent[0:index];
                         parent_name = parent[index + 1:parent.length];
                     }
-                    var parent_metadata = Rule.find_rule (parent_rule);
+                    var parent_metadata = RuleMetadata.find (parent_rule);
                     if (parent_metadata == null) {
                         throw new RuleParseError.FAILED ("can't find rule %s",
                                                          parent_rule);

@@ -29,6 +29,7 @@ namespace Kkc {
         typeof (Keymap).class_ref ();
         typeof (KeyEventUtils).class_ref ();
         typeof (LanguageModel).class_ref ();
+		typeof (RuleMetadata).class_ref ();
 		typeof (Rule).class_ref ();
 		typeof (RomKanaUtils).class_ref ();
 

@@ -37,7 +37,7 @@ class ContextTests : Kkc.TestCase {
         assert (rule != null);
         assert (rule.metadata.name == "default");
 
-        var metadata = Kkc.Rule.find_rule ("kana");
+        var metadata = Kkc.RuleMetadata.find ("kana");
         context.typing_rule = new Kkc.Rule (metadata);
         context.process_key_event (new Kkc.KeyEvent.from_x_event (132, 0x5c, 0));
         context.typing_rule = rule;
@@ -213,7 +213,7 @@ class ContextTests : Kkc.TestCase {
     }
 
     void test_nicola () {
-        var metadata = Kkc.Rule.find_rule ("nicola");
+        var metadata = Kkc.RuleMetadata.find ("nicola");
         context.typing_rule = new Kkc.Rule (metadata);
 
         // single key - timeout
