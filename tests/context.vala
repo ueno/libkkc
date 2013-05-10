@@ -219,6 +219,8 @@ class ContextTests : Kkc.TestCase {
         // single key - timeout
         context.process_key_events ("a");
         Thread.usleep (200000);
+        MainContext.default ().iteration (false);
+        assert (context.input == "う");
         context.clear_output ();
         context.reset ();
 
@@ -231,8 +233,103 @@ class ContextTests : Kkc.TestCase {
         // single key - overlap
         context.process_key_events ("a");
         Thread.usleep (50000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("b");
+        assert (context.input == "う");
+        context.clear_output ();
+        context.reset ();
+
+        context.process_key_events ("a");
+        Thread.usleep (50000);
+        MainContext.default ().iteration (false);
         context.process_key_events ("b");
         Thread.usleep (200000);
+        MainContext.default ().iteration (false);
+        assert (context.input == "うへ");
+        context.clear_output ();
+        context.reset ();
+
+        // double key - shifted
+        context.process_key_events ("a");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Muhenkan");
+        Thread.usleep (200000);
+        MainContext.default ().iteration (false);
+        assert (context.input == "を");
+        context.clear_output ();
+        context.reset ();
+
+        // double key - shifted reverse
+        context.process_key_events ("Muhenkan");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("a");
+        Thread.usleep (200000);
+        MainContext.default ().iteration (false);
+        assert (context.input == "を");
+        context.clear_output ();
+        context.reset ();
+
+        // double key - shifted expired
+        context.process_key_events ("a");
+        Thread.usleep (60000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Muhenkan");
+        assert (context.input == "う");
+        context.clear_output ();
+        context.reset ();
+
+        // triple key t1 <= t2
+        context.process_key_events ("a");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Muhenkan");
+        Thread.usleep (20000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("b");
+        assert (context.input == "を");
+        context.clear_output ();
+        context.reset ();
+
+        context.process_key_events ("a");
+        Thread.usleep (20000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Muhenkan");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("b");
+        assert (context.input == "うぃ");
+        context.clear_output ();
+        context.reset ();
+
+        context.process_key_events ("a");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Henkan");
+        Thread.usleep (20000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("b");
+        context.clear_output ();
+        context.reset ();
+
+        context.process_key_events ("a");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Henkan");
+        Thread.usleep (20000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("C-b");
+        context.clear_output ();
+        context.reset ();
+
+        context.process_key_events ("a");
+        Thread.usleep (10000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("Henkan");
+        Thread.usleep (20000);
+        MainContext.default ().iteration (false);
+        context.process_key_events ("(control release b)");
         context.clear_output ();
         context.reset ();
     }

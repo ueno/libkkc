@@ -34,7 +34,7 @@ namespace Kkc {
     public class NicolaKeyEventFilter : KeyEventFilter {
         static int64 get_time () {
             var tv = TimeVal ();
-            return (((int64) tv.tv_sec) * 1000000) + tv.tv_usec;
+            return (((int64) tv.tv_sec) * 1000) + tv.tv_usec / 1000;
         }
 
         public GetTime get_time_func = get_time;
@@ -43,18 +43,18 @@ namespace Kkc {
          * Duration where a single key press event is committed
          * without a corresponding key release event.
          */
-        public int64 timeout = 100000;
+        public int64 timeout = 100;
 
         /**
          * Duration between two overlapping key press events, so they
          * are considered as a doule key press/release event.
          */
-        public int64 overlap = 50000;
+        public int64 overlap = 50;
 
         /**
          * Maximum duration to wait for the next key event.
          */
-        public int64 maxwait = 10000000;
+        public int64 maxwait = 10000;
 
         class TimedEntry<T> {
             public T data;
@@ -94,27 +94,24 @@ namespace Kkc {
                     pending.clear ();
                     return entry.data;
                 }
-            }
-            // ignore key repeat
-            else {
-                if (pending.size > 0 &&
-                    pending.get (0).data.keyval == key.keyval) {
+            } else if (pending.size > 0) {
+                // ignore key repeat
+                if (pending.get (0).data.keyval == key.keyval) {
                     pending.get (0).time = time;
                     wait = get_next_wait (key, time);
                     return key;
                 }
-                else {
-                    if (pending.size > 2) {
-                        var iter = pending.list_iterator ();
-                        iter.last ();
-                        do {
-                            iter.remove ();
-                        } while (pending.size > 2 && iter.previous ());
-                    }
-                    pending.insert (0, new TimedEntry<KeyEvent> (key, time));
+
+                if (pending.size > 2) {
+                    var iter = pending.list_iterator ();
+                    iter.last ();
+                    do {
+                        iter.remove ();
+                    } while (pending.size > 2 && iter.previous ());
                 }
             }
-            wait = maxwait;
+            pending.insert (0, new TimedEntry<KeyEvent> (key, time));
+            wait = timeout;
             return null;
         }
 
