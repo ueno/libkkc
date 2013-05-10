@@ -48,7 +48,7 @@ MAINTAINERCLEANFILES =				\
 	$(srcdir)/ChangeLog			\
 	$(NULL)
 
-EXTRA_DIST = lcov.mk
+EXTRA_DIST = autogen.sh lcov.mk
 
 maintainer-clean-local: maintainer-clean-local-lcov
 maintainer-clean-local-lcov:
