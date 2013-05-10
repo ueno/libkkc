@@ -24,10 +24,12 @@ TESTS_ENVIRONMENT =							    \
 TESTS =						\
 	decoder					\
 	context					\
+	state					\
 	candidate				\
 	candidate-list				\
 	segment					\
 	segment-list				\
+	trellis-node				\
 	encoding				\
 	system-dictionary			\
 	user-dictionary				\
@@ -77,11 +79,15 @@ decoder_SOURCES = decoder.vala
 
 context_SOURCES = context.vala
 
+state_SOURCES = state.vala
+
 candidate_SOURCES = candidate.vala
 
 candidate_list_SOURCES = candidate-list.vala
 
 segment_SOURCES = segment.vala
+
+trellis_node_SOURCES = trellis-node.vala
 
 segment_list_SOURCES = segment-list.vala
 
