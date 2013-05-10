@@ -154,6 +154,9 @@ EXTRA_DIST =						\
 	data/rules/test-bad9/metadata.json		\
 	data/rules/test-bad9/keymap/.gitkeep		\
 	data/rules/test-bad9/rom-kana/default.json	\
+	data/rules/test-bad10/metadata.json		\
+	data/rules/test-bad10/keymap/.gitkeep		\
+	data/rules/test-bad10/rom-kana/default.json	\
 	data/models/sorted2/metadata.json		\
 	data/models/sorted3/metadata.json		\
 	data/models/text2/metadata.json			\

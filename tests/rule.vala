@@ -26,7 +26,8 @@ class RuleTests : Kkc.TestCase {
             "test-bad6",
             "test-bad7",
             "test-bad8",
-            "test-bad9"
+            "test-bad9",
+            "test-bad10"
         };
 
         foreach (var name in good) {

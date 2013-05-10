@@ -46,7 +46,8 @@ namespace Kkc {
         {
             var filename = metadata.locate_map_file (type, name);
             if (filename == null) {
-                throw new RuleParseError.FAILED ("no such file %s", filename);
+                throw new RuleParseError.FAILED (
+                    "can't locate map file for %s/%s", type, name);
             }
 
             Json.Parser parser = new Json.Parser ();

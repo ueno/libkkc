@@ -53,6 +53,8 @@ class UserSegmentDictionaryTests : Kkc.TestCase {
         dictionary.select_candidate (
             new Kkc.Candidate ("あお", false, "青"));
         dictionary.select_candidate (
+            new Kkc.Candidate ("あ お", false, "青"));
+        dictionary.select_candidate (
             new Kkc.Candidate ("あu", true, "会u"));
         dictionary.select_candidate (
             new Kkc.Candidate ("あe", true, "会e"));
@@ -123,6 +125,7 @@ class UserSentenceDictionaryTests : Kkc.TestCase {
 
         segments += new Kkc.Segment ("left", "LEFT");
         segments += new Kkc.Segment ("right", "RIGHT");
+        segments += new Kkc.Segment ("\n", "\\");
 
         dictionary.select_segments (segments);
         dictionary.save ();
