@@ -165,8 +165,7 @@ namespace Kkc {
         public override bool parse (Json.Object object) throws Error {
             string filter = "simple";
             if (object.has_member ("filter")) {
-                var member = object.get_member ("filter");
-                filter = member.get_string ();
+                filter = object.get_string_member ("filter");
                 if (!filter_types.has_key (filter))
                     throw new MetadataFormatError.INVALID_FIELD (
                         "unknown filter type %s",
@@ -174,10 +173,9 @@ namespace Kkc {
             }
             this.filter = filter;
 
-            if (object.has_member ("priority")) {
-                var member = object.get_member ("priority");
-                this.priority = (int) member.get_int ();
-            }
+            if (object.has_member ("priority"))
+                this.priority = (int) object.get_int_member ("priority");
+
             return true;
         }
 
