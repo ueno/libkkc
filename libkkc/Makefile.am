@@ -112,6 +112,7 @@ libkkc_shell_sources =				\
 	$(NULL)
 
 libkkc_la_SOURCES =				\
+	metadata-file.vala			\
 	trellis-node.vala			\
 	language-model.vala			\
 	text-bigram-language-model.vala		\

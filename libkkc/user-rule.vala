@@ -38,10 +38,12 @@ namespace Kkc {
         {
             var path = Path.build_filename (base_dir, parent.name);
 
+            var name = prefix + ":" + parent.name;
             if (!FileUtils.test (path, FileTest.IS_DIR))
-                write_files (parent, path, prefix + ":" + parent.name);
+                write_files (parent, path, name);
 
-            var metadata = Rule.load_metadata (
+            var metadata = new RuleMetadata (
+                name,
                 Path.build_filename (path, "metadata.json"));
             base (metadata);
 
@@ -92,7 +94,7 @@ namespace Kkc {
         }
 
         static Json.Builder create_metadata (RuleMetadata parent,
-                                          string name)
+                                             string name)
         {
             var builder = new Json.Builder ();
             builder.begin_object ();
@@ -102,6 +104,8 @@ namespace Kkc {
             builder.add_string_value (parent.description);
             builder.set_member_name ("filter");
             builder.add_string_value (parent.filter);
+            builder.set_member_name ("priority");
+            builder.add_int_value (parent.priority);
             builder.end_object ();
             return builder;
         }

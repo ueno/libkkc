@@ -137,36 +137,54 @@ namespace Kkc {
     /**
      * Object describing a rule.
      */
-    public struct RuleMetadata {
-        /**
-         * Base directory.
-         */
-        string base_dir;
-
-        /**
-         * Name of the rule.
-         */
-        string name;
-
-        /**
-         * Label string of the rule.
-         */
-        string label;
-
-        /**
-         * Description of the rule.
-         */
-        string description;
-
+    public class RuleMetadata : MetadataFile {
         /**
          * Name of key event filter.
          */
-        string filter;
+        public string filter { get; construct set; }
 
         /**
          * Priority of the rule.
          */
-        int priority;
+        public int priority { get; construct set; default = 0; }
+
+        // Make the value type boxed to avoid unwanted ulong -> uint cast:
+        // https://bugzilla.gnome.org/show_bug.cgi?id=660621
+        static Map<string,Type?> filter_types = new HashMap<string,Type?> ();
+
+        static construct {
+            filter_types.set ("simple", typeof (SimpleKeyEventFilter));
+            filter_types.set ("nicola", typeof (NicolaKeyEventFilter));
+            filter_types.set ("kana", typeof (KanaKeyEventFilter));
+        }
+
+        public RuleMetadata (string name, string filename) throws Error {
+            base (name, filename);
+        }
+
+        public override bool parse (Json.Object object) throws Error {
+            string filter = "simple";
+            if (object.has_member ("filter")) {
+                var member = object.get_member ("filter");
+                filter = member.get_string ();
+                if (!filter_types.has_key (filter))
+                    throw new MetadataFormatError.INVALID_FIELD (
+                        "unknown filter type %s",
+                        filter);
+            }
+            this.filter = filter;
+
+            if (object.has_member ("priority")) {
+                var member = object.get_member ("priority");
+                this.priority = (int) member.get_int ();
+            }
+            return true;
+        }
+
+        public KeyEventFilter create_key_event_filter () {
+            var type = filter_types.get (filter);
+            return (KeyEventFilter) Object.new (type);
+        }
 
         /**
          * Return the path of the map file.
@@ -177,10 +195,14 @@ namespace Kkc {
          * @return the absolute path of the map file
          */
         public string? locate_map_file (string type, string name) {
-            var filename = Path.build_filename (base_dir, type, name + ".json");
-            if (FileUtils.test (filename, FileTest.EXISTS)) {
-                return filename;
-            }
+            var map_filename = Path.build_filename (
+                Path.get_dirname (filename),
+                type,
+                name + ".json");
+
+            if (FileUtils.test (map_filename, FileTest.EXISTS))
+                return map_filename;
+
             return null;
         }
     }
@@ -194,105 +216,13 @@ namespace Kkc {
          */
         public RuleMetadata metadata { get; construct set; }
 
+        public KeyEventFilter filter { get; construct set; }
+
         KeymapMapFile[] keymaps;
         internal RomKanaMapFile rom_kana;
 
         public Keymap get_keymap (InputMode mode) {
             return keymaps[mode].keymap;
-        }
-
-        static string[] rules_path;
-
-        KeyEventFilter? filter;
-
-        // Make the value type boxed to avoid unwanted ulong -> uint cast:
-        // https://bugzilla.gnome.org/show_bug.cgi?id=660621
-        static Map<string,Type?> filter_types = 
-            new HashMap<string,Type?> ();
-
-        static construct {
-            rules_path = Utils.build_data_path ("rules");
-            filter_types.set ("simple", typeof (SimpleKeyEventFilter));
-            filter_types.set ("nicola", typeof (NicolaKeyEventFilter));
-            filter_types.set ("kana", typeof (KanaKeyEventFilter));
-        }
-
-        public static RuleMetadata load_metadata (string filename) throws RuleParseError
-        {
-            Json.Parser parser = new Json.Parser ();
-            try {
-                if (!parser.load_from_file (filename)) {
-                    throw new RuleParseError.FAILED ("can't load %s",
-                                                     filename);
-                }
-                var root = parser.get_root ();
-                if (root.get_node_type () != Json.NodeType.OBJECT) {
-                    throw new RuleParseError.FAILED (
-                        "metadata must be a JSON object");
-                }
-
-                var object = root.get_object ();
-                Json.Node member;
-
-                if (!object.has_member ("name")) {
-                    throw new RuleParseError.FAILED (
-                        "name is not defined in metadata");
-                }
-
-                member = object.get_member ("name");
-                var name = member.get_string ();
-
-                if (!object.has_member ("description")) {
-                    throw new RuleParseError.FAILED (
-                        "description is not defined in metadata");
-                }
-
-                member = object.get_member ("description");
-                var description = member.get_string ();
-
-                string? filter;
-                if (object.has_member ("filter")) {
-                    member = object.get_member ("filter");
-                    filter = member.get_string ();
-                    if (!filter_types.has_key (filter)) {
-                        throw new RuleParseError.FAILED (
-                            "unknown filter type %s",
-                            filter);
-                    }
-                } else {
-                    filter = "simple";
-                }
-
-                int priority = 0;
-                if (object.has_member ("priority")) {
-                    member = object.get_member ("priority");
-                    priority = (int) member.get_int ();
-                }
-
-                var label = name;
-                if (label != "")
-                    label = dgettext (Config.GETTEXT_PACKAGE, label);
-                if (description != "")
-                    description = dgettext (Config.GETTEXT_PACKAGE,
-                                            description);
-                return RuleMetadata () { label = label,
-                        description = description,
-                        filter = filter,
-                        base_dir = Path.get_dirname (filename),
-                        priority = priority };
-
-            } catch (GLib.Error e) {
-                throw new RuleParseError.FAILED ("can't load rule: %s",
-                                                 e.message);
-            }
-        }
-
-        internal KeyEventFilter get_filter () {
-            if (filter == null) {
-                var type = filter_types.get (metadata.filter);
-                filter = (KeyEventFilter) Object.new (type);
-            }
-            return filter;
         }
 
         /**
@@ -332,10 +262,12 @@ namespace Kkc {
             }
 
             var _metadata = metadata;
-            if (_metadata.locate_map_file ("rom-kana", "default") == null) {
+            if (_metadata.locate_map_file ("rom-kana", "default") == null)
                 _metadata = default_metadata;
-            }
+
             rom_kana = new RomKanaMapFile (_metadata);
+            filter = _metadata.create_key_event_filter ();
+
             return true;
         }
 
@@ -349,20 +281,21 @@ namespace Kkc {
          * @return a RuleMetadata or `null`
          */
         public static RuleMetadata? find_rule (string name) {
-            if (rule_cache.has_key (name)) {
+            if (rule_cache.has_key (name))
                 return rule_cache.get (name);
-            }
-            foreach (var dir in rules_path) {
+
+            var dirs = Utils.build_data_path ("rules");
+            foreach (var dir in dirs) {
                 var base_dir_filename = Path.build_filename (dir, name);
                 var metadata_filename = Path.build_filename (base_dir_filename,
                                                              "metadata.json");
                 if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
                     try {
-                        var metadata = load_metadata (metadata_filename);
-                        metadata.name = name;
+                        var metadata = new RuleMetadata (name,
+                                                         metadata_filename);
                         rule_cache.set (name, metadata);
                         return metadata;
-                    } catch (RuleParseError e) {
+                    } catch (Error e) {
                         continue;
                     }
                 }
@@ -378,7 +311,8 @@ namespace Kkc {
         public static RuleMetadata[] list () {
             Set<string> names = new HashSet<string> ();
             RuleMetadata[] rules = {};
-            foreach (var dir in rules_path) {
+            var dirs = Utils.build_data_path ("rules");
+            foreach (var dir in dirs) {
                 Dir handle;
                 try {
                     handle = Dir.open (dir);
@@ -394,11 +328,12 @@ namespace Kkc {
                         Path.build_filename (dir, name, "metadata.json");
                     if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
                         try {
-                            var metadata = load_metadata (metadata_filename);
+                            var metadata = new RuleMetadata (name,
+                                                             metadata_filename);
                             names.add (name);
                             metadata.name = name;
                             rules += metadata;
-                        } catch (RuleParseError e) {
+                        } catch (Error e) {
                             warning ("can't load metadata %s: %s",
                                      metadata_filename,
                                      e.message);

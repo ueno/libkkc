@@ -110,10 +110,10 @@ namespace Kkc {
                 return state.typing_rule;
             }
             set {
-                state.typing_rule.get_filter ().forwarded.disconnect (
+                state.typing_rule.filter.forwarded.disconnect (
                     filter_forwarded_cb);
                 state.typing_rule = value;
-                state.typing_rule.get_filter ().forwarded.connect (
+                state.typing_rule.filter.forwarded.connect (
                     filter_forwarded_cb);
             }
         }
@@ -126,7 +126,7 @@ namespace Kkc {
          */
         public KeyEventFilter key_event_filter {
             owned get {
-                return state.typing_rule.get_filter ();
+                return state.typing_rule.filter;
             }
         }
 

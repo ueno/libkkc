@@ -19,8 +19,7 @@ using Gee;
 
 namespace Kkc {
     public errordomain LanguageModelError {
-        NOT_READABLE,
-        MALFORMED_INPUT
+        NOT_FOUND
     }
 
     public struct LanguageModelEntry {
@@ -29,30 +28,43 @@ namespace Kkc {
         uint id;
     }
 
-    public struct LanguageModelMetadata {
-        string base_dir;
-        string name;
-        string description;
-        string type;
-    }
-
-    public abstract class LanguageModel : Object, Initable {
-        static string[] model_path;
-
-        public LanguageModelMetadata metadata { get; construct; }
+    public class LanguageModelMetadata : MetadataFile {
+        public Type model_type { get; construct set; }
 
         // Make the value type boxed to avoid unwanted ulong -> uint cast:
         // https://bugzilla.gnome.org/show_bug.cgi?id=660621
-        static Map<string,Type?> model_types = 
-		new HashMap<string,Type?> ();
+        static Map<string,Type?> model_types = new HashMap<string,Type?> ();
 
         static construct {
-            model_path = Utils.build_data_path ("models");
             model_types.set ("text2", typeof (TextBigramLanguageModel));
             model_types.set ("text3", typeof (TextTrigramLanguageModel));
             model_types.set ("sorted2", typeof (SortedBigramLanguageModel));
             model_types.set ("sorted3", typeof (SortedTrigramLanguageModel));
         }
+
+        public LanguageModelMetadata (string name, string filename) throws Error {
+            base (name, filename);
+        }
+
+        public override bool parse (Json.Object object) throws Error {
+            if (!object.has_member ("type"))
+                throw new MetadataFormatError.MISSING_FIELD (
+                    "type is not defined in metadata");
+                    
+            var member = object.get_member ("type");
+            var type = member.get_string ();
+            if (!model_types.has_key (type))
+                throw new MetadataFormatError.INVALID_FIELD (
+                    "unknown language model type %s",
+                    type);
+            this.model_type = model_types.get (type);
+
+            return true;
+        }
+    }
+
+    public abstract class LanguageModel : Object, Initable {
+        public LanguageModelMetadata metadata { get; construct; }
 
         public abstract LanguageModelEntry bos { get; }
         public abstract LanguageModelEntry eos { get; }
@@ -66,16 +78,18 @@ namespace Kkc {
 
         public static LanguageModel? load (string name) throws LanguageModelError
 		{
-            foreach (var dir in model_path) {
+            var dirs = Utils.build_data_path ("models");
+            foreach (var dir in dirs) {
                 var metadata_filename = Path.build_filename (
                     dir, name,
                     "metadata.json");
                 if (FileUtils.test (metadata_filename, FileTest.EXISTS)) {
                     try {
-                        var metadata = load_metadata (metadata_filename);
-                        var type = model_types.get (metadata.type);
+                        var metadata = new LanguageModelMetadata (
+                            name,
+                            metadata_filename);
                         return (LanguageModel) Initable.new (
-                            type,
+                            metadata.model_type,
                             null,
                             "metadata", metadata,
                             null);
@@ -87,64 +101,8 @@ namespace Kkc {
                     }
                 }
             }
-			throw new LanguageModelError.NOT_READABLE ("can't find suitable model");
-        }
-
-        static LanguageModelMetadata load_metadata (string filename) throws LanguageModelError
-        {
-            Json.Parser parser = new Json.Parser ();
-            try {
-                if (!parser.load_from_file (filename)) {
-                    throw new LanguageModelError.MALFORMED_INPUT ("can't load %s",
-																  filename);
-                }
-                var root = parser.get_root ();
-                if (root.get_node_type () != Json.NodeType.OBJECT) {
-                    throw new LanguageModelError.MALFORMED_INPUT (
-                        "metadata must be a JSON object");
-                }
-
-                var object = root.get_object ();
-                Json.Node member;
-
-                if (!object.has_member ("name")) {
-                    throw new LanguageModelError.MALFORMED_INPUT (
-                        "name is not defined in metadata");
-                }
-
-                member = object.get_member ("name");
-                var name = member.get_string ();
-
-                if (!object.has_member ("description")) {
-                    throw new LanguageModelError.MALFORMED_INPUT (
-                        "description is not defined in metadata");
-                }
-
-                member = object.get_member ("description");
-                var description = member.get_string ();
-
-                if (!object.has_member ("type")) {
-                    throw new LanguageModelError.MALFORMED_INPUT (
-                        "type is not defined in metadata");
-                }
-                    
-                member = object.get_member ("type");
-                var type = member.get_string ();
-                if (!model_types.has_key (type)) {
-                    throw new LanguageModelError.MALFORMED_INPUT (
-                        "unknown language model type %s",
-                        type);
-                }
-
-                return LanguageModelMetadata () { name = name,
-                        description = description,
-                        type = type,
-                        base_dir = Path.get_dirname (filename) };
-
-            } catch (GLib.Error e) {
-                throw new LanguageModelError.MALFORMED_INPUT ("can't load rule: %s",
-															  e.message);
-            }
+			throw new LanguageModelError.NOT_FOUND (
+                "can't find suitable model");
         }
     }
 

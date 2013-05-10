@@ -180,8 +180,12 @@ namespace Kkc {
             if (!base.init (cancellable))
                 return false;
 
-			var prefix = Path.build_filename (metadata.base_dir, "data");
+			var prefix = Path.build_filename (
+                Path.get_dirname (metadata.filename),
+                "data");
+
             parse (prefix);
+
             return true;
         }
     }

@@ -238,7 +238,7 @@ namespace Kkc {
             // output and input_mode won't change
             handler_type = typeof (InitialStateHandler);
             rom_kana_converter.reset ();
-            _typing_rule.get_filter ().reset ();
+            _typing_rule.filter.reset ();
             segments.clear ();
             segments_changed = false;
             candidates.clear ();
