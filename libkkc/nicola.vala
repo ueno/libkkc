@@ -19,7 +19,7 @@ using Gee;
 
 namespace Kkc {
     /**
-     * Get the current timer count.
+     * Get the current time in microseconds.
      */
     public delegate int64 GetTime ();
 
@@ -34,7 +34,7 @@ namespace Kkc {
     public class NicolaKeyEventFilter : KeyEventFilter {
         static int64 get_time () {
             var tv = TimeVal ();
-            return (((int64) tv.tv_sec) * 1000) + tv.tv_usec / 1000;
+            return (((int64) tv.tv_sec) * 1000000) + tv.tv_usec;
         }
 
         public GetTime get_time_func = get_time;
@@ -43,18 +43,18 @@ namespace Kkc {
          * Duration where a single key press event is committed
          * without a corresponding key release event.
          */
-        public int64 timeout = 100;
+        public int64 timeout = 100000;
 
         /**
          * Duration between two overlapping key press events, so they
          * are considered as a doule key press/release event.
          */
-        public int64 overlap = 50;
+        public int64 overlap = 50000;
 
         /**
          * Maximum duration to wait for the next key event.
          */
-        public int64 maxwait = 10000;
+        public int64 maxwait = 10000000;
 
         class TimedEntry<T> {
             public T data;
@@ -251,7 +251,7 @@ namespace Kkc {
             if (wait > 0) {
                 if (timeout_id > 0)
                     Source.remove (timeout_id);
-                timeout_id = Timeout.add ((uint) wait, timeout_func);
+                timeout_id = Timeout.add ((uint) (wait / 1000), timeout_func);
             }
 
             if (output == null)
