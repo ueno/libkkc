@@ -85,30 +85,31 @@ namespace Kkc {
         }
 
         KeyEvent? queue (KeyEvent key, int64 time, out int64 wait) {
-            // press/release a same key
-            if ((key.modifiers & ModifierType.RELEASE_MASK) != 0) {
-                if (pending.size > 0 &&
-                    pending.get (0).data.keyval == key.keyval) {
-                    var entry = pending.get (0);
-                    wait = get_next_wait (key, time);
-                    pending.clear ();
-                    return entry.data;
-                }
-            } else if (pending.size > 0) {
-                // ignore key repeat
-                if (pending.get (0).data.keyval == key.keyval) {
-                    pending.get (0).time = time;
-                    wait = get_next_wait (key, time);
-                    return key;
-                }
+            // Output a single key event for a matching press/release.
+            if ((key.modifiers & ModifierType.RELEASE_MASK) != 0 &&
+                pending.size > 0 &&
+                pending.get (0).data.keyval == key.keyval) {
+                var entry = pending.get (0);
+                wait = get_next_wait (key, time);
+                pending.clear ();
+                return entry.data;
+            }
 
-                if (pending.size > 2) {
-                    var iter = pending.list_iterator ();
-                    iter.last ();
-                    do {
-                        iter.remove ();
-                    } while (pending.size > 2 && iter.previous ());
-                }
+            // Ignore repeated key press.
+            if (pending.size > 0 &&
+                pending.get (0).data.keyval == key.keyval) {
+                pending.get (0).time = time;
+                wait = get_next_wait (key, time);
+                return key;
+            }
+
+            // Queue at most three key events.
+            if (pending.size > 2) {
+                var iter = pending.list_iterator ();
+                iter.last ();
+                do {
+                    iter.remove ();
+                } while (pending.size > 2 && iter.previous ());
             }
             pending.insert (0, new TimedEntry<KeyEvent> (key, time));
             wait = timeout;
