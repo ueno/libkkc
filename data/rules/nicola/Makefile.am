@@ -2,12 +2,12 @@ rulesdir = $(pkgdatadir)/rules/nicola
 
 files =						\
 	keymap/default.json			\
-	keymap/kana.json			\
 	keymap/hankaku-katakana.json		\
 	keymap/hiragana.json			\
 	keymap/katakana.json			\
 	keymap/latin.json			\
 	keymap/wide-latin.json			\
+	keymap/direct.json			\
 	rom-kana/default.json			\
 	$(NULL)
 metadata_in =					\

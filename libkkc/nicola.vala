@@ -162,12 +162,14 @@ namespace Kkc {
                     pending.offer_head (b);
                     var r = dispatch_single (time);
                     apply_shift (s.data, a.data);
-                    forwarded (a.data);
+                    var output = decompose_shifted (a.data);
+                    forwarded (output);
                     return r;
                 } else {
                     pending.clear ();
                     apply_shift (s.data, b.data);
-                    forwarded (a.data);
+                    var output = decompose_shifted (a.data);
+                    forwarded (output);
                     return b.data;
                 }
             } else if (pending.size == 2) {
@@ -177,14 +179,16 @@ namespace Kkc {
                     pending.clear ();
                     pending.offer_head (b);
                     var r = dispatch_single (time);
-                    forwarded (a.data);
+                    var output = decompose_shifted (a.data);
+                    forwarded (output);
                     return r;
                 } else if ((is_char (a.data) && is_char (b.data)) ||
                            (is_shift (a.data) && is_shift (b.data))) {
                     pending.clear ();
                     pending.offer_head (b);
                     var r = dispatch_single (time);
-                    forwarded (a.data);
+                    var output = decompose_shifted (a.data);
+                    forwarded (output);
                     return r;
                 } else if (time - a.time > timeout) {
                     pending.clear ();
@@ -207,41 +211,56 @@ namespace Kkc {
             int64 time = get_time_func ();
             var r = dispatch (time);
             if (r != null) {
-                forwarded (r);
+                var output = decompose_shifted (r);
+                forwarded (output);
             }
             return false;
         }
 
         uint timeout_id = 0;
 
+        // Translate left/right shift modifiers to a normal key
+        // press events, so that they can be mapped in rom-kana
+        // rule.  For example, (lshift a) key event will be two
+        // key events "L" and "a".
+        KeyEvent? decompose_shifted (KeyEvent key) {
+            if ((key.modifiers & ModifierType.LSHIFT_MASK) != 0) {
+                forwarded (new KeyEvent.from_x_event (0x4c, 0, 0));
+                key.modifiers &= ~ModifierType.LSHIFT_MASK;
+                return key;
+            }
+
+            if ((key.modifiers & ModifierType.RSHIFT_MASK) != 0) {
+                forwarded (new KeyEvent.from_x_event (0x52, 0, 0));
+                key.modifiers &= ~ModifierType.RSHIFT_MASK;
+                return key;
+            }
+
+            return key;
+        }
+
+
         /**
          * {@inheritDoc}
          */
         public override KeyEvent? filter_key_event (KeyEvent key) {
-            KeyEvent? output = null;
-            int64 time;
-            if ((key.modifiers & ~ModifierType.RELEASE_MASK) == 0 &&
-                (is_shift (key) ||
-                 (0x20 <= key.unicode && key.unicode <= 0x7E))) {
-                time = get_time_func ();
-                int64 wait;
-                output = queue (key, time, out wait);
-                if (wait > 0) {
-                    if (timeout_id > 0) {
-                        Source.remove (timeout_id);
-                    }
-                    timeout_id = Timeout.add ((uint) wait, timeout_func);
-                }
-            } else {
-                if ((key.modifiers & ModifierType.RELEASE_MASK) == 0) {
-                    return key;
-                }
-                return null;
+            int64 time = get_time_func ();
+            int64 wait;
+
+            var output = queue (key, time, out wait);
+            if (wait > 0) {
+                if (timeout_id > 0)
+                    Source.remove (timeout_id);
+                timeout_id = Timeout.add ((uint) wait, timeout_func);
             }
-            if (output == null) {
+
+            if (output == null)
                 output = dispatch (time);
-            }
-            return output;
+
+            if (output == null)
+                return null;
+
+            return decompose_shifted (output);
         }
 
         /**

@@ -1,18 +1,5 @@
 {
-    "define": {
-        "keymap": {
-            "C-g": "abort",
-            "Return": "commit-unhandled",
-            "C-m": "commit-unhandled",
-            "BackSpace": "delete",
-            "C-h": "delete",
-            "C": "kuten",
-            "space": "next-candidate",
-            "Tab": "complete",
-            "C-i": "complete",
-            ">": "special-midasi",
-            "C-p": "previous-candidate",
-            "X": "purge-candidate"
-        }
-    }
+    "include": [
+        "default/default"
+    ]
 }
