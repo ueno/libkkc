@@ -205,17 +205,6 @@ namespace Kkc {
                 retval = true;
             }
 
-            if (command != null && command.has_prefix ("insert-kana-")) {
-                var kana = RomKanaUtils.convert_by_kana_mode (
-                    command["insert-kana-".length:command.length],
-                    (KanaMode) state.input_mode);
-                state.input_characters.add (RomKanaCharacter () {
-                        output = kana,
-                        input = key.unicode.to_string ()
-                    });
-                return true;
-            }
-
             if ((key.modifiers == 0 ||
                  key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
                 state.rom_kana_converter.is_valid (key.unicode)) {
