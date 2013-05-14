@@ -18,27 +18,53 @@
 using Gee;
 
 static string opt_model = null;
-static bool opt_im = false;
 static string opt_system_dictionary;
 static string opt_user_dictionary;
 static string opt_typing_rule;
-static bool opt_list_typing_rules;
 
-static const OptionEntry[] options = {
+static const OptionEntry[] model_entries = {
     { "model", 'm', 0, OptionArg.STRING, ref opt_model,
       N_("Language model"), null },
-    { "im", '\0', 0, OptionArg.NONE, ref opt_im,
-      N_("Run in input method testing mode"), null },
+    { null }
+};
+
+static OptionGroup model_group;
+
+static const OptionEntry[] decoder_entries = {
+    { null }
+};
+
+static const OptionEntry[] context_entries = {
     { "system-dictionary", 's', 0, OptionArg.STRING, ref opt_system_dictionary,
       N_("Path to a system dictionary"), null },
     { "user-dictionary", 'u', 0, OptionArg.STRING, ref opt_user_dictionary,
       N_("Path to a user dictionary"), null },
     { "rule", 'r', 0, OptionArg.STRING, ref opt_typing_rule,
-      N_("Typing rule (default: \"default\")"), null },
-    { "list-rules", 'l', 0, OptionArg.NONE, ref opt_list_typing_rules,
-      N_("List typing rules"), null },
+      N_("Typing rule (use \"?\" to list available rules)"), null },
     { null }
 };
+
+static void usage (string[] args, FileStream output) {
+    var o = new OptionContext (_("COMMAND"));
+    o.set_help_enabled (false);
+
+    try {
+        o.parse (ref args);
+    } catch (Error e) {
+    }
+
+    o.set_description (
+        _("""Commands:
+  help         Shows this information
+  decoder      Run decoder
+  context      Run context
+
+  Use "%s COMMAND --help" to get help on each command.
+""").printf (
+              Path.get_basename (args[0])));
+    var s = o.get_help (false, null);
+    output.printf ("%s", s);
+}
 
 static int main (string[] args) {
     Intl.setlocale (LocaleCategory.ALL, "");
@@ -46,40 +72,139 @@ static int main (string[] args) {
     Intl.bind_textdomain_codeset (Config.GETTEXT_PACKAGE, "UTF-8");
     Intl.textdomain (Config.GETTEXT_PACKAGE);
 
-    var option_context = new OptionContext (
-        _("- perform kana-kanji conversion on the command line"));
-    option_context.add_main_entries (options, "libkkc");
-    try {
-        option_context.parse (ref args);
-    } catch (OptionError e) {
-        stderr.printf ("%s\n", e.message);
-        return 1;
-    }
+    model_group = new OptionGroup ("model",
+                                   N_("Model options:"),
+                                   N_("Options specifying the language model"));
+    model_group.add_entries (model_entries);
 
     Kkc.init ();
 
-    if (opt_list_typing_rules) {
-        var rules = Kkc.Rule.list ();
-        foreach (var rule in rules) {
-            stdout.printf ("%s - %s: %s\n",
-                           rule.name,
-                           rule.label,
-                           rule.description);
-        }
+    var new_args = args[1:args.length];
+    if (new_args.length < 1)
+        new_args += "decoder";
+
+    Repl repl;
+    if (new_args[0] == "decoder")
+        repl = new DecoderRepl ();
+    else if (new_args[0] == "context")
+        repl = new ContextRepl ();
+    else if (new_args[0] == "help") {
+        usage (args, stdout);
         return 0;
+    } else {
+        stderr.printf ("Unknown command: %s\n", new_args[0]);
+        usage (args, stderr);
+        return 1;
     }
 
-	Kkc.LanguageModel model;
-	try {
-        var name = opt_model == null ? "sorted3" : opt_model;
-        model = Kkc.LanguageModel.load (name);
-	} catch (Kkc.LanguageModelError e) {
-		stderr.printf ("%s\n", e.message);
-		return 1;
-	}
+    try {
+        repl.parse_arguments (new_args);
+    } catch (Error e) {
+        usage (args, stderr);
+        return 1;
+    }
 
-	Repl repl;
-	if (opt_im) {
+    try {
+        repl.run ();
+    } catch (Error e) {
+        return 1;
+    }
+
+    return 0;
+}
+
+interface Repl : Object {
+    public abstract bool parse_arguments (string[] args) throws Error;
+    public abstract bool run () throws Error;
+}
+
+class DecoderRepl : Object, Repl {
+    public bool parse_arguments (string[] args) throws Error {
+        var o = new OptionContext (
+            _("- run decoder on the command line"));
+        o.add_main_entries (decoder_entries, "libkkc");
+        o.add_group ((owned) model_group);
+
+        return o.parse (ref args);
+    }
+
+    public bool run () throws Error {
+        Kkc.LanguageModel model;
+        try {
+            var name = opt_model == null ? "sorted3" : opt_model;
+            model = Kkc.LanguageModel.load (name);
+        } catch (Kkc.LanguageModelError e) {
+            stderr.printf ("%s\n", e.message);
+            return false;
+        }
+
+		var decoder = Kkc.Decoder.create (model);
+
+        string? line;
+        stdout.printf ("Type kana sentence in the following form:\n" +
+                       "SENTENCE [N-BEST [SEGMENT-BOUNDARY...]]\n");
+        while (true) {
+            stdout.printf (">> ");
+            stdout.flush ();
+            line = stdin.read_line ();
+            if (line == null)
+                break;
+            var nbest = 1;
+            var strv = line.strip ().split (" ");
+            if (strv.length == 0)
+                continue;
+            if (strv.length >= 2)
+                nbest = int.parse (strv[1]);
+            int[] constraints = new int[strv.length > 2 ? strv.length - 2 : 0];
+            for (var i = 0; i < constraints.length; i++) {
+                constraints[i] = int.parse (strv[2 + i]);
+            }
+            var segments = decoder.decode (strv[0], nbest, constraints);
+            for (var index = 0; index < segments.length; index++) {
+                stdout.printf ("%d: ", index);
+                var segment = segments[index];
+                while (segment != null) {
+                    stdout.printf ("<%s/%s>", segment.output, segment.input);
+                    segment = segment.next;
+                }
+                stdout.printf ("\n");
+            }
+        }
+        return true;
+    }
+}
+
+class ContextRepl : Object, Repl {
+    public bool parse_arguments (string[] args) throws Error {
+        var o = new OptionContext (
+            _("- run context on the command line"));
+        o.add_main_entries (context_entries, "libkkc");
+        o.add_group ((owned) model_group);
+
+        return o.parse (ref args);
+    }
+
+    public bool run () throws Error {
+        if (opt_typing_rule == "?") {
+            var rules = Kkc.Rule.list ();
+            foreach (var rule in rules) {
+                stdout.printf ("%s - %s: %s\n",
+                               rule.name,
+                               rule.label,
+                               rule.description);
+            }
+            return true;
+        }
+
+        Kkc.LanguageModel model;
+        try {
+            var name = opt_model == null ? "sorted3" : opt_model;
+            model = Kkc.LanguageModel.load (name);
+        } catch (Kkc.LanguageModelError e) {
+            stderr.printf ("%s\n", e.message);
+            return false;
+        }
+
 		var context = new Kkc.Context (model);
 
         if (opt_user_dictionary != null) {
@@ -89,21 +214,21 @@ static int main (string[] args) {
             } catch (GLib.Error e) {
                 stderr.printf ("can't open user dictionary %s: %s",
                                opt_user_dictionary, e.message);
-                return 1;
+                return false;
             }
         }
 
-        if (opt_system_dictionary == null) {
+        if (opt_system_dictionary == null)
             opt_system_dictionary = Path.build_filename (Config.DATADIR,
                                                          "skk", "SKK-JISYO.L");
-        }
+
         try {
             context.dictionaries.add (
                 new Kkc.SystemSegmentDictionary (opt_system_dictionary));
         } catch (GLib.Error e) {
             stderr.printf ("can't open system dictionary %s: %s",
                            opt_system_dictionary, e.message);
-            return 1;
+            return false;
         }
 
         if (opt_typing_rule != null) {
@@ -114,27 +239,10 @@ static int main (string[] args) {
                 stderr.printf ("can't load rule \"%s\": %s\n",
                                opt_typing_rule,
                                e.message);
-                return 1;
+                return false;
             }
         }
 
-		repl = new ContextRepl (context);
-	} else {
-		var decoder = Kkc.Decoder.create (model);
-		repl = new DecoderRepl (decoder);
-	}
-    if (!repl.run ())
-        return 1;
-    return 0;
-}
-
-interface Repl : Object {
-    public abstract bool run ();	
-}
-
-class ContextRepl : Object, Repl {
-    Kkc.Context context;
-    public bool run () {
         string? line;
         var generator = new Json.Generator ();
         generator.set_pretty (true);
@@ -169,50 +277,4 @@ class ContextRepl : Object, Repl {
         }
         return true;
     }
-
-    public ContextRepl (Kkc.Context context) {
-        this.context = context;
-    }
 }
-
-class DecoderRepl : Object, Repl {
-    Kkc.Decoder decoder;
-
-    public bool run () {
-        string? line;
-        stdout.printf ("Type kana sentence in the following form:\n" +
-                       "SENTENCE [N-BEST [SEGMENT-BOUNDARY...]]\n");
-        while (true) {
-            stdout.printf (">> ");
-            stdout.flush ();
-            line = stdin.read_line ();
-            if (line == null)
-                break;
-            var nbest = 1;
-            var strv = line.strip ().split (" ");
-            if (strv.length == 0)
-                continue;
-            if (strv.length >= 2)
-                nbest = int.parse (strv[1]);
-            int[] constraints = new int[strv.length > 2 ? strv.length - 2 : 0];
-            for (var i = 0; i < constraints.length; i++) {
-                constraints[i] = int.parse (strv[2 + i]);
-            }
-            var segments = decoder.decode (strv[0], nbest, constraints);
-            for (var index = 0; index < segments.length; index++) {
-                stdout.printf ("%d: ", index);
-                var segment = segments[index];
-                while (segment != null) {
-                    stdout.printf ("<%s/%s>", segment.output, segment.input);
-                    segment = segment.next;
-                }
-                stdout.printf ("\n");
-            }
-        }
-        return true;
-    }
-    public DecoderRepl (Kkc.Decoder decoder) {
-        this.decoder = decoder;
-    }
-}
-
