@@ -210,6 +210,16 @@ class ContextTests : Kkc.TestCase {
         }
         context.reset ();
         context.clear_output ();
+
+        try {
+            context.process_key_events ("a a a RET");
+            assert (!context.process_key_events ("Left"));
+            assert (!context.process_key_events ("Right"));
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
+        context.reset ();
+        context.clear_output ();
     }
 
     void test_nicola () {
