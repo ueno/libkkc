@@ -176,6 +176,9 @@ namespace Kkc {
         }
 
         bool do_next_character (string? command, State state, KeyEvent key) {
+            if (state.input_characters.size == 0)
+                return false;
+
             if (state.input_characters_cursor_pos >= 0 &&
                 state.input_characters_cursor_pos < state.input_characters.size - 1)
                 state.input_characters_cursor_pos++;
@@ -183,8 +186,10 @@ namespace Kkc {
         }
 
         bool do_previous_character (string? command, State state, KeyEvent key) {
-            if (state.input_characters_cursor_pos < 0 &&
-                state.input_characters.size > 0) {
+            if (state.input_characters.size == 0)
+                return false;
+
+            if (state.input_characters_cursor_pos < 0) {
                 state.finish_input_editing ();
                 state.input_characters_cursor_pos = state.input_characters.size - 1;
                 return true;
