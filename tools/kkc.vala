@@ -140,13 +140,12 @@ class DecoderRepl : Object, Repl {
 
 		var decoder = Kkc.Decoder.create (model);
 
-        string? line;
         stdout.printf ("Type kana sentence in the following form:\n" +
                        "SENTENCE [N-BEST [SEGMENT-BOUNDARY...]]\n");
         while (true) {
             stdout.printf (">> ");
             stdout.flush ();
-            line = stdin.read_line ();
+            var line = stdin.read_line ();
             if (line == null)
                 break;
             var nbest = 1;
@@ -243,37 +242,26 @@ class ContextRepl : Object, Repl {
             }
         }
 
-        string? line;
-        var generator = new Json.Generator ();
-        generator.set_pretty (true);
-        while ((line = stdin.read_line ()) != null) {
+        stdout.printf ("Type key event sequence separated by space\n");
+        while (true) {
+            stdout.printf (">> ");
+            stdout.flush ();
+            var line = stdin.read_line ();
+            if (line == null)
+                break;
             try {
                 context.process_key_events (line);
             } catch (Kkc.KeyEventFormatError e) {
                 stderr.printf ("%s\n", e.message);
                 continue;
             }
-            var builder = new Json.Builder ();
-            builder.begin_object ();
-            builder.set_member_name ("input");
-            builder.add_string_value (context.input);
-            builder.set_member_name ("segments");
-            builder.begin_array ();
-            foreach (var segment in context.segments) {
-                builder.begin_object ();
-                builder.set_member_name ("input");
-                builder.add_string_value (segment.input);
-                builder.set_member_name ("output");
-                builder.add_string_value (segment.output);
-                builder.end_object ();
+            print ("input: %s\n", context.input);
+            print ("segments:\n");
+            for (var i = 0; i < context.segments.size; i++) {
+                print ("  input[%d]: %s\n", i, context.segments[i].input);
+                print ("  output[%d]: %s\n", i, context.segments[i].output);
             }
-            builder.end_array ();
-            builder.set_member_name ("output");
-            builder.add_string_value (context.poll_output ());
-            builder.end_object ();
-            generator.set_root (builder.get_root ());
-            size_t length;
-            stdout.printf ("%s\n", generator.to_data (out length));
+            print ("output: %s\n", context.poll_output ());
         }
         return true;
     }
