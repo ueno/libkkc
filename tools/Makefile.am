@@ -34,7 +34,7 @@ kkc_CFLAGS =					\
 	-DLOCALEDIR=\"$(datadir)/locale\"	\
 	$(NULL)
 kkc_LDADD = $(top_builddir)/libkkc/libkkc.la $(LIBKKC_LIBS)
-kkc_SOURCES = kkc.vala
+kkc_SOURCES = kkc.vala server.vala
 
 DISTCLEANFILES = kkc-package-data
 EXTRA_DIST = kkc-package-data.in

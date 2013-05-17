@@ -58,6 +58,7 @@ static void usage (string[] args, FileStream output) {
   help         Shows this information
   decoder      Run decoder
   context      Run context
+  server       Run JSON-RPC server
 
   Use "%s COMMAND --help" to get help on each command.
 """).printf (
@@ -88,6 +89,8 @@ static int main (string[] args) {
         repl = new DecoderRepl ();
     else if (new_args[0] == "context")
         repl = new ContextRepl ();
+    else if (new_args[0] == "server")
+        repl = new ServerRepl ();
     else if (new_args[0] == "help") {
         usage (args, stdout);
         return 0;
