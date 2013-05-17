@@ -590,9 +590,7 @@ namespace Kkc {
         public abstract bool call (string? command, State state, KeyEvent key);
     }
 
-    delegate bool CommandCallback (string? command,
-                                          State state,
-                                          KeyEvent key);
+    delegate bool CommandCallback (string? command, State state, KeyEvent key);
 
     class CallbackCommandHandler : CommandHandler, Object {
         unowned CommandCallback cb;
@@ -610,7 +608,7 @@ namespace Kkc {
     }
 
     abstract class StateHandler : Object {
-        Gee.Map<string, CommandHandler> command_handlers =
+        Map<string, CommandHandler> command_handlers =
             new HashMap<string, CommandHandler> ();
         CommandHandler? default_command_handler = null;
 
