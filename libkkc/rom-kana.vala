@@ -206,6 +206,13 @@ namespace Kkc {
             _characters.add_all (other._characters);
         }
 
+        /**
+         * Add all characters in other character list to the character
+         * list at the specified position.
+         *
+         * @param index index
+         * @param other RomKanaCharacterList
+         */
         public void insert_all (int index, RomKanaCharacterList other) {
             _characters.insert_all (index, other._characters);
         }
@@ -311,10 +318,20 @@ namespace Kkc {
 
         RomKanaNode current_node;
 
+        /**
+         * The current kana mode.
+         */
         public KanaMode kana_mode { get; set; default = KanaMode.HIRAGANA; }
+
+        /**
+         * The current punctuation style.
+         */
         public PunctuationStyle punctuation_style { get; set; default = PunctuationStyle.JA_JA; }
 
         StringBuilder _pending_output = new StringBuilder ();
+        /**
+         * The output being processed.
+         */
         public string pending_output {
             get {
                 return _pending_output.str;
@@ -322,6 +339,9 @@ namespace Kkc {
         }
 
         StringBuilder _pending_input = new StringBuilder ();
+        /**
+         * The input being processed.
+         */
         public string pending_input {
             get {
                 return _pending_input.str;
@@ -329,12 +349,20 @@ namespace Kkc {
         }
 
         RomKanaCharacterList _produced = new RomKanaCharacterList ();
+        /**
+         * A list of already processed characters.
+         */
         public RomKanaCharacterList produced {
             get {
                 return _produced;
             }
         }
 
+        /**
+         * Return the concatenation of the produced output characters.
+         *
+         * @return a string
+         */
         public string get_produced_output () {
             var builder = new StringBuilder ();
             foreach (var c in _produced) {
@@ -343,6 +371,11 @@ namespace Kkc {
             return builder.str;
         }
 
+        /**
+         * Create a new RomKanaConverter.
+         *
+         * @return a new RomKanaConverter
+         */
         public RomKanaConverter () {
             try {
                 _rule = new RomKanaMapFile (RuleMetadata.find ("default"));
@@ -354,6 +387,12 @@ namespace Kkc {
             }
         }
 
+        /**
+         * Check if a character is a valid conversion input.
+         *
+         * @param uc unichar
+         * @return `true` if uc is in a valid range, `false` otherwise
+         */
         public bool is_valid (unichar uc) {
             if (uc > 256)
                 return false;
