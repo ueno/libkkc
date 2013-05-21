@@ -367,6 +367,8 @@ namespace Kkc {
          *
          * Note that this does not reset pending input/output and the
          * current node if there is no partial output.
+         *
+         * @return `true` if there is partial output, `false` otherwise
          */
         public bool flush_partial () {
             if (current_node.entry != null) {

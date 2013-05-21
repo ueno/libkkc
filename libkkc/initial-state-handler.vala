@@ -211,9 +211,9 @@ namespace Kkc {
             }
 
             if ((key.modifiers == 0 ||
-                 key.modifiers == Kkc.ModifierType.SHIFT_MASK) &&
-                state.rom_kana_converter.is_valid (key.unicode)) {
-                if (state.rom_kana_converter.append (key.unicode)) {
+                 key.modifiers == Kkc.ModifierType.SHIFT_MASK)) {
+                if (state.rom_kana_converter.is_valid (key.unicode)) {
+                    state.rom_kana_converter.append (key.unicode);
                     if (state.rom_kana_converter.produced.size > 0) {
                         if (state.input_characters_cursor_pos > 0) {
                             state.input_characters.insert_all (
@@ -227,7 +227,7 @@ namespace Kkc {
                         state.rom_kana_converter.produced.clear ();
                     }
                     return true;
-                } else {
+                } else if (0x21 <= key.unicode && key.unicode <= 0x7E) {
                     state.input_characters.add (RomKanaCharacter () {
                             output = key.unicode.to_string (),
                             input = key.unicode.to_string ()
