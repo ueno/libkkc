@@ -1,5 +1,6 @@
 libkkc/keymap.vala
 tools/kkc.vala
+tools/server.vala
 data/rules/tutcode/metadata.json.in
 data/rules/azik/metadata.json.in
 data/rules/trycode/metadata.json.in
