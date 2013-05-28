@@ -82,7 +82,7 @@ PKG_CHECK_MODULES([GEE], [gee-1.0], ,
 PKG_CHECK_MODULES([JSON_GLIB], [json-glib-1.0], ,
   [AC_MSG_ERROR([can't find json-glib-1.0])])
 
-# check for marisa
+# check marisa
 PKG_CHECK_MODULES([MARISA], [marisa], ,
   [AC_MSG_ERROR([can't find marisa])])
 
@@ -100,8 +100,13 @@ GOBJECT_INTROSPECTION_CHECK([0.9.0])
 # check vapigen
 VAPIGEN_CHECK
 
+# check valac
 AM_PROG_VALAC([0.16.0])
 AC_SUBST(VALAC)
+
+# check glib
+GLIB_REQUIRED=2.24
+VALAFLAGS="${VALAFLAGS:+$VALAFLAGS }--target-glib=$GLIB_REQUIRED"
 AC_SUBST(VALAFLAGS)
 
 # define GETTEXT_* variables
