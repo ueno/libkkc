@@ -19,8 +19,8 @@ SUBDIRS = lib .
 TESTS_ENVIRONMENT =							    \
 	G_DEBUG=${G_DEBUG:+"${G_DEBUG},"}gc-friendly			    \
 	G_SLICE=${G_SLICE},always-malloc				    \
-	LIBKKC_DATA_PATH=$(builddir)/data:${srcdir}/data:$(top_srcdir)/data \
-	$(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
+	LIBKKC_DATA_PATH=$(builddir)/data:${srcdir}/data:$(top_srcdir)/data
+LOG_COMPILER = $(LIBTOOL) --mode=execute $(VALGRIND) $(VALGRIND_OPTS)
 TESTS =						\
 	decoder					\
 	context					\
