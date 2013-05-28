@@ -75,6 +75,7 @@ class ContextTests : Kkc.TestCase {
     void do_conversions (ConversionData[] conversions) {
         foreach (var conversion in conversions) {
             try {
+                print ("%s\n", conversion.keys);
                 context.process_key_events (conversion.keys);
             } catch (Kkc.KeyEventFormatError e) {
                 assert_not_reached ();
@@ -355,7 +356,7 @@ class ContextTests : Kkc.TestCase {
           0,
           -1 },
         { "1 a n SPC C-Right C-Right SPC",
-          "１あん",
+          "1あん",
           "一案",
           1,
           0,
