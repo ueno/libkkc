@@ -6,13 +6,13 @@ class ContextTests : Kkc.TestCase {
 
         add_test ("properties", this.test_properties);
         add_test ("initial", this.test_initial);
+        add_test ("kana", this.test_kana);
         add_test ("nicola", this.test_nicola);
         add_test ("sentence_conversion", this.test_sentence_conversion);
         add_test ("segment_conversion", this.test_segment_conversion);
     }
 
     void test_properties () {
-
         var input_mode = context.input_mode;
         context.input_mode = input_mode;
 
@@ -75,7 +75,6 @@ class ContextTests : Kkc.TestCase {
     void do_conversions (ConversionData[] conversions) {
         foreach (var conversion in conversions) {
             try {
-                print ("%s\n", conversion.keys);
                 context.process_key_events (conversion.keys);
             } catch (Kkc.KeyEventFormatError e) {
                 assert_not_reached ();
@@ -222,6 +221,18 @@ class ContextTests : Kkc.TestCase {
         }
         context.reset ();
         context.clear_output ();
+    }
+
+    void test_kana () {
+        var metadata = Kkc.RuleMetadata.find ("kana");
+        context.typing_rule = new Kkc.Rule (metadata);
+
+        context.process_key_events ("4");
+        assert (context.input == "う");
+        context.process_key_events ("RET");
+        assert (context.poll_output () == "う");
+        context.clear_output ();
+        context.reset ();
     }
 
     void test_nicola () {
