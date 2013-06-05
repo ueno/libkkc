@@ -237,11 +237,12 @@ namespace Kkc {
                 }
             }
 
+            var last_input = state.get_input ();
             state.finish_input_editing ();
             var input = state.get_input ();
             state.output.append (input);
             state.reset ();
-            return retval || input.length > 0;
+            return retval || input != last_input;
         }
 
         public override bool process_key_event (State state, KeyEvent key) {
