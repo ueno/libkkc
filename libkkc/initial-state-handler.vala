@@ -242,7 +242,7 @@ namespace Kkc {
             var input = state.get_input ();
             state.output.append (input);
             state.reset ();
-            return retval || input != last_input;
+            return retval || input.length > 0 || last_input != input;
         }
 
         public override bool process_key_event (State state, KeyEvent key) {
