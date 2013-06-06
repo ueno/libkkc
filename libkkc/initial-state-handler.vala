@@ -141,6 +141,7 @@ namespace Kkc {
         }
 
         bool do_next_candidate (string? command, State state, KeyEvent key) {
+            state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
 

@@ -233,6 +233,13 @@ class ContextTests : Kkc.TestCase {
         assert (context.poll_output () == "う");
         context.clear_output ();
         context.reset ();
+
+        context.process_key_events ("3");
+        assert (context.input == "あ");
+        context.process_key_events ("SPC");
+        assert (context.segments.get_output () == "阿");
+        context.clear_output ();
+        context.reset ();
     }
 
     void test_nicola () {
