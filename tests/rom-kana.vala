@@ -61,6 +61,19 @@ class RomKanaTests : Kkc.TestCase {
 
         converter.append ('k');
         assert (converter.can_consume ('a'));
+        converter.produced.clear ();
+
+        converter.kana_mode = Kkc.KanaMode.HIRAGANA;
+
+        converter.reset ();
+        converter.auto_correct = true;
+        converter.append_text ("convert");
+        assert (converter.get_produced_output () == "おんう゛ぇ");
+
+        converter.reset ();
+        converter.auto_correct = false;
+        converter.append_text ("convert");
+        assert (converter.get_produced_output () == "cおんう゛ぇr");
     }
 
     void test_kana () {

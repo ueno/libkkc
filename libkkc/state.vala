@@ -134,6 +134,15 @@ namespace Kkc {
             }
         }
 
+        internal bool auto_correct {
+            get {
+                return rom_kana_converter.auto_correct;
+            }
+            set {
+                rom_kana_converter.auto_correct = value;
+            }
+        }
+
         Rule _typing_rule;
         internal Rule typing_rule {
             get {

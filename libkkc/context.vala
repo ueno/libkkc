@@ -98,6 +98,18 @@ namespace Kkc {
             }
         }
 
+        /**
+         * Flag to indicate if romaji-to-kana conversion is auto-corrected.
+         */
+        public bool auto_correct {
+            get {
+                return state.auto_correct;
+            }
+            set {
+                state.auto_correct = value;
+            }
+        }
+
         void filter_forwarded_cb (KeyEvent key) {
             process_key_event_internal (key);
         }

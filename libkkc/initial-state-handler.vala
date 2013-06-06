@@ -26,6 +26,7 @@ namespace Kkc {
             }
 
             public bool call (string? command, State state, KeyEvent key) {
+                state.finish_input_editing ();
                 if (state.input_characters.size > 0) {
                     state.selection.erase ();
                     state.finish_input_editing ();

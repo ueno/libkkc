@@ -328,6 +328,11 @@ namespace Kkc {
          */
         public PunctuationStyle punctuation_style { get; set; default = PunctuationStyle.JA_JA; }
 
+        /**
+         * The current auto correct flag.
+         */
+        public bool auto_correct { get; set; default = true; }
+
         StringBuilder _pending_output = new StringBuilder ();
         /**
          * The output being processed.
@@ -410,18 +415,28 @@ namespace Kkc {
          * @return `true` if there is partial output, `false` otherwise
          */
         public bool flush_partial () {
-            if (current_node.entry != null) {
-                var partial = current_node.entry.get_kana (kana_mode, true);
-                if (partial.length > 0) {
-                    _produced.add (RomKanaCharacter () {
-                            output = partial, input = _pending_input.str
-                        });
-                    _pending_input.erase ();
-                    _pending_output.erase ();
-                    current_node = rule.root_node;
-                    return true;
-                }
+            string output;
+            if (current_node.entry != null &&
+                (output = current_node.entry.get_kana (kana_mode, true)).length > 0) {
+                _produced.add (RomKanaCharacter () {
+                        output = output, input = _pending_input.str
+                    });
+                _pending_input.erase ();
+                _pending_output.erase ();
+                current_node = rule.root_node;
+                return true;
             }
+
+            if (!auto_correct && _pending_output.len > 0) {
+                _produced.add (RomKanaCharacter () {
+                        output = _pending_output.str, input = _pending_input.str
+                        });
+                _pending_input.erase ();
+                _pending_output.erase ();
+                current_node = rule.root_node;
+                return true;
+            }
+
             return false;
         }
 
@@ -506,13 +521,22 @@ namespace Kkc {
                             output = _pending_output.str,
                             input = _pending_input.str
                         });
-                    current_node = rule.root_node;
                     _pending_input.erase ();
                     _pending_output.erase ();
+                    current_node = rule.root_node;
                     return append (uc);
-                } else {
+                } else if (auto_correct) {
                     // Abandon the pending input and restart lookup
                     // from the root with uc.
+                    _pending_input.erase ();
+                    _pending_output.erase ();
+                    current_node = rule.root_node;
+                    return append (uc);
+                } else {
+                    _produced.add (RomKanaCharacter () {
+                            output = _pending_output.str,
+                            input = _pending_input.str
+                        });
                     _pending_input.erase ();
                     _pending_output.erase ();
                     current_node = rule.root_node;
