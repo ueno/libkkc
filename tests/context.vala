@@ -240,6 +240,12 @@ class ContextTests : Kkc.TestCase {
         assert (context.segments.get_output () == "阿");
         context.clear_output ();
         context.reset ();
+
+        // Check if rom-kana conversion finishes before moving cursor.
+        context.process_key_events ("3 3 3 3 3 Left 4 Right");
+        assert (context.input == "ああああうあ");
+        context.clear_output ();
+        context.reset ();
     }
 
     void test_nicola () {
