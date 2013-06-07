@@ -29,7 +29,6 @@ namespace Kkc {
                 state.finish_input_editing ();
                 if (state.input_characters.size > 0) {
                     state.selection.erase ();
-                    state.finish_input_editing ();
                     state.overriding_input =
                     state.convert_rom_kana_characters_by_kana_mode (
                         state.input_characters,
@@ -178,16 +177,21 @@ namespace Kkc {
         }
 
         bool do_next_character (string? command, State state, KeyEvent key) {
+            state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
 
-            if (state.input_characters_cursor_pos >= 0 &&
-                state.input_characters_cursor_pos < state.input_characters.size - 1)
+            if (state.input_characters_cursor_pos == state.input_characters.size - 1)
+                state.input_characters_cursor_pos = -1;
+            else if (state.input_characters_cursor_pos >= 0 &&
+                     state.input_characters_cursor_pos < state.input_characters.size - 1)
                 state.input_characters_cursor_pos++;
+
             return true;
         }
 
         bool do_previous_character (string? command, State state, KeyEvent key) {
+            state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
 
@@ -217,7 +221,7 @@ namespace Kkc {
                 if (state.rom_kana_converter.is_valid (key.unicode)) {
                     state.rom_kana_converter.append (key.unicode);
                     if (state.rom_kana_converter.produced.size > 0) {
-                        if (state.input_characters_cursor_pos > 0) {
+                        if (state.input_characters_cursor_pos >= 0) {
                             state.input_characters.insert_all (
                                 state.input_characters_cursor_pos,
                                 state.rom_kana_converter.produced);

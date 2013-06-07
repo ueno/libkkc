@@ -40,9 +40,12 @@ namespace Kkc {
 
         internal void finish_input_editing () {
             rom_kana_converter.flush_partial ();
-            input_characters.add_all (rom_kana_converter.produced);
+            if (input_characters_cursor_pos >= 0)
+                input_characters.insert_all (input_characters_cursor_pos,
+                                             rom_kana_converter.produced);
+            else
+                input_characters.add_all (rom_kana_converter.produced);
             rom_kana_converter.reset ();
-            input_characters_cursor_pos = -1;
         }
 
         internal void convert_segment_by_kana_mode (KanaMode mode) {
