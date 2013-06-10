@@ -126,8 +126,8 @@ class ContextTests : Kkc.TestCase {
         { "a i u e o Left Left Delete", "あいうお", "", 0, -1, "", 0, 3 },
         { "k a k i k u k e k Left Left BackSpace", "かくけ", "", 0, -1, "", 0, 1 },
         { "a i u e o Left BackSpace i", "あいういお", "", 0, -1, "", 0, 4 },
-        { "a i u e o Left BackSpace k", "あいうkお", "", 0, -1, "", 0, 3 },
-        { "a i Left Left Left Left BackSpace k", "kあい", "", 0, -1, "", 0, 0 },
+        { "a i u e o Left BackSpace k", "あいうkお", "", 0, -1, "", 0, 4 },
+        { "a i Left Left Left Left BackSpace k", "kあい", "", 0, -1, "", 0, 1 },
         { "a i K", "あいK", "", 0, -1, "", 0, -1 }
     };
 

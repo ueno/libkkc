@@ -66,7 +66,7 @@ namespace Kkc {
          */
         public int input_cursor_pos {
             get {
-                return state.input_characters_cursor_pos;
+                return state.input_cursor_pos;
             }
         }
 

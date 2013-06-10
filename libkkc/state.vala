@@ -101,6 +101,15 @@ namespace Kkc {
         internal RomKanaCharacterList input_characters = new RomKanaCharacterList ();
         internal int input_characters_cursor_pos = -1;
 
+        internal int input_cursor_pos {
+            get {
+                if (input_characters_cursor_pos >= 0)
+                    return input_characters_cursor_pos +
+                        rom_kana_converter.pending_output.char_count ();
+                return input_characters_cursor_pos;
+            }
+        }
+
         internal string get_input () {
             if (overriding_input != null)
                 return overriding_input;
