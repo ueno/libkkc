@@ -246,6 +246,11 @@ class ContextTests : Kkc.TestCase {
         assert (context.input == "ああああうあ");
         context.clear_output ();
         context.reset ();
+
+        context.process_key_events ("a a a !");
+        assert (context.input == "ちちち!");
+        context.clear_output ();
+        context.reset ();
     }
 
     void test_nicola () {

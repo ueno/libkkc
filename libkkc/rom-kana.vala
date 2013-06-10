@@ -207,6 +207,17 @@ namespace Kkc {
         }
 
         /**
+         * Add a character to the character list at the specified
+         * position.
+         *
+         * @param index index
+         * @param character RomKanaCharacter
+         */
+        public void insert (int index, RomKanaCharacter character) {
+            _characters.insert (index, character);
+        }
+
+        /**
          * Add all characters in other character list to the character
          * list at the specified position.
          *

@@ -234,10 +234,19 @@ namespace Kkc {
                     }
                     return true;
                 } else if (0x21 <= key.unicode && key.unicode <= 0x7E) {
-                    state.input_characters.add (RomKanaCharacter () {
-                            output = key.unicode.to_string (),
-                            input = key.unicode.to_string ()
-                        });
+                    state.finish_input_editing ();
+                    var c = RomKanaCharacter () {
+                        output = key.unicode.to_string (),
+                        input = key.unicode.to_string ()
+                    };
+                    if (state.input_characters_cursor_pos >= 0) {
+                        state.input_characters.insert (
+                            state.input_characters_cursor_pos,
+                            c);
+                            state.input_characters_cursor_pos++;
+                    } else {
+                        state.input_characters.add (c);
+                    }
                     state.rom_kana_converter.produced.clear ();
                     return true;
                 }
