@@ -115,9 +115,11 @@ namespace Kkc {
 
         bool do_delete_forward (string? command, State state, KeyEvent key) {
             if (state.input_characters_cursor_pos >= 0 &&
-                state.input_characters_cursor_pos < state.input_characters.size - 1) {
+                state.input_characters_cursor_pos < state.input_characters.size) {
                 state.input_characters.remove_at (
                     state.input_characters_cursor_pos);
+                if (state.input_characters_cursor_pos == state.input_characters.size)
+                    state.input_characters_cursor_pos = -1;
                 return true;
             }
 

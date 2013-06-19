@@ -257,6 +257,12 @@ class ContextTests : Kkc.TestCase {
         assert (context.input_cursor_pos == 6);
         context.clear_output ();
         context.reset ();
+
+        context.process_key_events ("3 3 3 3 3 Left Delete");
+        assert (context.input == "ああああ");
+        assert (context.input_cursor_pos == -1);
+        context.clear_output ();
+        context.reset ();
     }
 
     void test_nicola () {
