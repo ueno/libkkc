@@ -318,7 +318,13 @@ namespace Kkc {
                 segment.output);
             candidates.add (original);
 
-            // Add Kana candidates first to avoid dupes.
+            // Do segment lookup first.
+            lookup_template (new NumericTemplate (normalized_input));
+            lookup_template (new SimpleTemplate (normalized_input));
+            lookup_template (new OkuriganaTemplate (normalized_input));
+
+            // Prepare Kana candidates to check dupes when adding
+            // sentence candidates.
             var kana_candidates = new CandidateList ();
             var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
             for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
@@ -335,14 +341,9 @@ namespace Kkc {
                     }
                 }
             }
-            candidates.add_all (kana_candidates.to_array ());
 
-            // Do segment lookup first.
-            lookup_template (new NumericTemplate (normalized_input));
-            lookup_template (new SimpleTemplate (normalized_input));
-            lookup_template (new OkuriganaTemplate (normalized_input));
-
-            // Then, do sentence lookup.
+            // Second, do sentence lookup which may contain unwanted
+            // Kana candidates.  Exclude them.
             var _segments = decoder.decode (normalized_input,
                                             10,
                                             new int[0]);
@@ -356,14 +357,12 @@ namespace Kkc {
                     normalized_input,
                     false,
                     builder.str);
-                candidates.add (sentence);
+                if (!kana_candidates.contains (sentence))
+                    candidates.add (sentence);
             }
 
-            // Move Kana candidates at the end.
-            for (var i = 0; i < kana_candidates.size; i++) {
-                candidates.remove_at (1);
-                candidates.insert (candidates.size, kana_candidates[i]);
-            }
+            // Add Kana candidates at the end.
+            candidates.add_all (kana_candidates);
 
             candidates.populated ();
         }

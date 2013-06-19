@@ -89,8 +89,8 @@ namespace Kkc {
             }
         }
 
-        internal void insert (int index, Candidate candidate) {
-            _candidates.insert (index, candidate);
+        internal bool contains (Candidate candidate) {
+            return candidate.output in seen;
         }
 
         internal bool add (Candidate candidate) {
@@ -102,19 +102,13 @@ namespace Kkc {
             return false;
         }
 
-        internal bool add_all (Candidate[] array) {
+        internal bool add_all (CandidateList other) {
             bool retval = false;
-            foreach (var c in array) {
+            foreach (var c in other._candidates) {
                 if (add (c))
                     retval = true;
             }
             return retval;
-        }
-
-        internal Candidate remove_at (int index) {
-            var candidate = _candidates.remove_at (index);
-            seen.remove (candidate.output);
-            return candidate;
         }
 
         internal Candidate[] to_array () {
