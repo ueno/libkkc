@@ -225,7 +225,9 @@ namespace Kkc {
                             state.input_characters.insert_all (
                                 state.input_characters_cursor_pos,
                                 state.rom_kana_converter.produced);
-                            state.input_characters_cursor_pos++;
+                            foreach (var c in state.rom_kana_converter.produced) {
+                                state.input_characters_cursor_pos += c.output.char_count ();
+                            }
                         } else {
                             state.input_characters.add_all (
                                 state.rom_kana_converter.produced);
