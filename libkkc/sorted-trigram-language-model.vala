@@ -19,7 +19,7 @@ using Gee;
 
 namespace Kkc {
     public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
-        MemoryMappedFile trigram_mmap;
+        MappedFile trigram_mmap;
         BloomFilter trigram_filter = null;
 
         // Remember the last offset since bsearch_ngram takes time and
@@ -51,9 +51,9 @@ namespace Kkc {
 
             var record_size = 10;
             var offset = LanguageModelUtils.bsearch_ngram (
-                trigram_mmap.memory,
+                trigram_mmap.get_contents (),
                 0,
-                (long) trigram_mmap.length / record_size,
+                (long) trigram_mmap.get_length () / record_size,
                 record_size,
                 buffer);
 
@@ -79,7 +79,7 @@ namespace Kkc {
             if (offset < 0)
                 return 0;
 
-            uint8 *p = (uint8 *) trigram_mmap.memory + offset * 10 + 8;
+            uint8 *p = (uint8 *) trigram_mmap.get_contents () + offset * 10 + 8;
             var cost = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
@@ -90,16 +90,14 @@ namespace Kkc {
             var prefix = Path.build_filename (
                 Path.get_dirname (metadata.filename),
                 "data");
-            var trigram_file = File.new_for_path (prefix + ".3gram");
-            trigram_mmap = new MemoryMappedFile (trigram_file);
+            trigram_mmap = new MappedFile (prefix + ".3gram", false);
 
-            var trigram_filter_file = File.new_for_path (
-                prefix + ".3gram.filter");
+            var trigram_filter_filename = prefix + ".3gram.filter";
             try {
-                trigram_filter = new BloomFilter (trigram_filter_file);
-            } catch (IOError e) {
+                trigram_filter = new BloomFilter (trigram_filter_filename);
+            } catch (Error e) {
                 warning ("can't load %s: %s",
-                         trigram_filter_file.get_path (),
+                         trigram_filter_filename,
                          e.message);
             }
             return true;

@@ -35,8 +35,8 @@ namespace Kkc {
 
         Marisa.Trie input_trie = new Marisa.Trie ();
         Marisa.Trie unigram_trie = new Marisa.Trie ();
-        MemoryMappedFile unigram_mmap;
-        MemoryMappedFile bigram_mmap;
+        MappedFile unigram_mmap;
+        MappedFile bigram_mmap;
         BloomFilter bigram_filter = null;
 
         Collection<LanguageModelEntry?> unigram_entries_with_prefix (string prefix) {
@@ -113,9 +113,9 @@ namespace Kkc {
 
             var record_size = 12;
             var offset = LanguageModelUtils.bsearch_ngram (
-                bigram_mmap.memory,
+                bigram_mmap.get_contents (),
                 0,
-                (long) bigram_mmap.length / record_size,
+                (long) bigram_mmap.get_length () / record_size,
                 record_size,
                 buffer);
 
@@ -127,19 +127,19 @@ namespace Kkc {
         }
 
         public double unigram_cost (LanguageModelEntry entry) {
-            if (entry.id >= unigram_mmap.length)
+            if (entry.id >= unigram_mmap.get_length ())
                 return 0;
 
-            uint8 *p = (uint8 *) unigram_mmap.memory + entry.id * 6;
+            uint8 *p = (uint8 *) unigram_mmap.get_contents () + entry.id * 6;
             var cost = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
 
         public double unigram_backoff (LanguageModelEntry entry) {
-            if (entry.id >= unigram_mmap.length)
+            if (entry.id >= unigram_mmap.get_length ())
                 return 0;
 
-            uint8 *p = (uint8 *) unigram_mmap.memory + entry.id * 6 + 2;
+            uint8 *p = (uint8 *) unigram_mmap.get_contents () + entry.id * 6 + 2;
             var backoff = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (backoff, min_cost);
         }
@@ -153,7 +153,7 @@ namespace Kkc {
             if (offset < 0)
                 return 0;
 
-            uint8 *p = (uint8 *) bigram_mmap.memory + offset * 12 + 8;
+            uint8 *p = (uint8 *) bigram_mmap.get_contents () + offset * 12 + 8;
             var cost = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
@@ -163,7 +163,7 @@ namespace Kkc {
             if (offset < 0)
                 return 0;
 
-            uint8 *p = (uint8 *) bigram_mmap.memory + offset * 12 + 10;
+            uint8 *p = (uint8 *) bigram_mmap.get_contents () + offset * 12 + 10;
             var backoff = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (backoff, min_cost);
         }
@@ -185,19 +185,15 @@ namespace Kkc {
 			var unigram_trie_filename = prefix + ".1gram.index";
             unigram_trie.mmap (unigram_trie_filename);
 
-            var unigram_file = File.new_for_path (prefix + ".1gram");
-            unigram_mmap = new MemoryMappedFile (unigram_file);
+            unigram_mmap = new MappedFile (prefix + ".1gram", false);
+            bigram_mmap = new MappedFile (prefix + ".2gram", false);
 
-            var bigram_file = File.new_for_path (prefix + ".2gram");
-            bigram_mmap = new MemoryMappedFile (bigram_file);
-
-            var bigram_filter_file = File.new_for_path (
-                prefix + ".2gram.filter");
+            var bigram_filter_filename = prefix + ".2gram.filter";
             try {
-                bigram_filter = new BloomFilter (bigram_filter_file);
-            } catch (IOError e) {
+                bigram_filter = new BloomFilter (bigram_filter_filename);
+            } catch (Error e) {
                 warning ("can't load %s: %s",
-                         bigram_filter_file.get_path (),
+                         bigram_filter_filename,
                          e.message);
             }
 

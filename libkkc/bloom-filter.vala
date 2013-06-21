@@ -53,22 +53,22 @@ namespace Kkc {
     }
 
     class BloomFilter : Object {
-        MemoryMappedFile mmap;
+        MappedFile mmap;
 
-        public BloomFilter (File file) throws IOError {
-            this.mmap = new MemoryMappedFile (file);
+        public BloomFilter (string filename) throws Error {
+            this.mmap = new MappedFile (filename, false);
         }
 
         bool is_bit_set (uint32 index) {
-            assert (index / 8 < mmap.length);
-            uint8 *p = (uint8 *) mmap.memory + index / 8;
+            assert (index / 8 < mmap.get_length ());
+            uint8 *p = (uint8 *) mmap.get_contents () + index / 8;
             return (*p & (1 << (index % 8))) != 0;
         }
 
         public bool contains (uint32 b0, uint32 b1) {
             for (var k = 0; k < 4; k++) {
                 var h = murmur_hash3_32 (b0, b1, k);
-                var i = (uint32) (h * (mmap.length * 8 / (double) 0xFFFFFFFF));
+                var i = (uint32) (h * (mmap.get_length () * 8 / (double) 0xFFFFFFFF));
                 if (!is_bit_set (i))
                     return false;
             }

@@ -25,8 +25,8 @@ namespace Kkc {
         // Read a line near offset and move offset to the beginning of
         // the line.
         string read_line (ref long offset) {
-            return_val_if_fail (offset < mmap.length, null);
-            char *p = ((char *)mmap.memory + offset);
+            return_val_if_fail (offset < mmap.get_length (), null);
+            char *p = ((char *)mmap.get_contents () + offset);
             for (; offset > 0; offset--, p--) {
                 if (*p == '\n')
                     break;
@@ -39,7 +39,7 @@ namespace Kkc {
 
             var builder = new StringBuilder ();
             long _offset = offset;
-            for (; _offset < mmap.length; _offset++, p++) {
+            for (; _offset < mmap.get_length (); _offset++, p++) {
                 if (*p == '\n')
                     break;
                 builder.append_c (*p);
@@ -59,7 +59,7 @@ namespace Kkc {
 
         // can only called after read*_line
         string? read_next_line (ref long pos, string line) {
-            if (pos + line.length + 1 >= mmap.length) {
+            if (pos + line.length + 1 >= mmap.get_length ()) {
                 return null;
             }
             // place the cursor at "\n" of the current line
@@ -70,9 +70,9 @@ namespace Kkc {
         // Skip until the first occurrence of line.  This moves offset
         // at the beginning of the next line.
         bool read_until (ref long offset, string line) {
-            return_val_if_fail (offset < mmap.length, null);
-            while (offset + line.length < mmap.length) {
-                char *p = ((char *)mmap.memory + offset);
+            return_val_if_fail (offset < mmap.get_length (), null);
+            while (offset + line.length < mmap.get_length ()) {
+                char *p = ((char *)mmap.get_contents () + offset);
                 if (*p == '\n' &&
                     Memory.cmp (p + 1, (void *)line, line.length) == 0) {
                     offset += line.length;
@@ -84,8 +84,7 @@ namespace Kkc {
         }
 
         void load () throws Error {
-            mmap.remap ();
-
+            this.mmap = new MappedFile (this.file.get_path (), false);
             long offset = 0;
             var line = read_line (ref offset);
             if (line == null) {
@@ -143,7 +142,7 @@ namespace Kkc {
                          int direction) {
             long offset = start_offset + (end_offset - start_offset) / 2;
             while (start_offset <= end_offset) {
-                assert (offset < mmap.length);
+                assert (offset < mmap.get_length ());
 
                 string _line = read_line (ref offset);
                 int index = _line.index_of (" ");
@@ -177,7 +176,7 @@ namespace Kkc {
         public bool lookup_candidates (string midasi,
                                        bool okuri,
                                        out Candidate[] candidates) {
-            if (mmap.memory == null) {
+            if (mmap.get_contents () == null) {
                 candidates = new Candidate[0];
                 return false;
             }
@@ -188,7 +187,7 @@ namespace Kkc {
                 end_offset = okuri_nasi_offset;
             } else {
                 start_offset = okuri_nasi_offset;
-                end_offset = (long) mmap.length - 1;
+                end_offset = (long) mmap.get_length () - 1;
             }
             string _midasi;
             try {
@@ -239,14 +238,14 @@ namespace Kkc {
          * {@inheritDoc}
          */
         public string[] complete (string midasi) {
-            if (mmap.memory == null)
+            if (mmap.get_contents () == null)
                 return new string[0];
 
             var completion = new ArrayList<string> ();
 
             long start_offset, end_offset;
             start_offset = okuri_nasi_offset;
-            end_offset = (long) mmap.length - 1;
+            end_offset = (long) mmap.get_length () - 1;
 
             string _midasi;
             try {
@@ -320,7 +319,7 @@ namespace Kkc {
         }
 
         File file;
-        MemoryMappedFile mmap;
+        MappedFile mmap;
         string etag;
         EncodingConverter converter;
         long okuri_ari_offset;
@@ -339,10 +338,9 @@ namespace Kkc {
                                         string encoding = "EUC-JP") throws GLib.Error
         {
             this.file = File.new_for_path (path);
-            this.mmap = new MemoryMappedFile (file);
             this.etag = "";
             this.converter = new EncodingConverter (encoding);
-            reload ();
+            load ();
         }
     }
 }
