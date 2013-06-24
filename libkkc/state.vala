@@ -300,7 +300,8 @@ namespace Kkc {
 
             var entries = model.unigram_entries (normalized_input);
             foreach (var entry in entries) {
-                return entry.output;
+                if (entry.output != normalized_input)
+                    return entry.output;
             }
 
             string? result = null;
@@ -329,11 +330,13 @@ namespace Kkc {
             // First, search for unigrams in language model.
             var entries = model.unigram_entries (normalized_input);
             foreach (var entry in entries) {
-                var unigram = new Candidate (
-                    normalized_input,
-                    false,
-                    entry.output);
-                candidates.add (unigram);
+                if (entry.output != normalized_input) {
+                    var unigram = new Candidate (
+                        normalized_input,
+                        false,
+                        entry.output);
+                    candidates.add (unigram);
+                }
             }
 
             // Second, look for the segment dictionaries.
