@@ -63,7 +63,7 @@ namespace Kkc {
             return true;
         }
 
-        public static LanguageModelMetadata? find (string name)	{
+        public static LanguageModelMetadata? find (string name) {
             var dirs = Utils.build_data_path ("models");
             foreach (var dir in dirs) {
                 var metadata_filename = Path.build_filename (
@@ -99,7 +99,7 @@ namespace Kkc {
         public abstract Collection<LanguageModelEntry?> unigram_entries (string input);
         public abstract Collection<LanguageModelEntry?> entries (string input);
         public abstract new LanguageModelEntry? @get (string input,
-													  string output);
+                                                      string output);
 
         public LanguageModel (LanguageModelMetadata metadata) throws Error {
             Object (metadata: metadata);
@@ -132,9 +132,9 @@ namespace Kkc {
         public abstract bool has_bigram (LanguageModelEntry pentry,
                                          LanguageModelEntry entry);
         public abstract double bigram_cost (LanguageModelEntry pentry,
-											LanguageModelEntry entry);
+                                            LanguageModelEntry entry);
         public abstract double bigram_backoff (LanguageModelEntry pentry,
-											   LanguageModelEntry entry);
+                                               LanguageModelEntry entry);
 
         public double bigram_backoff_cost (LanguageModelEntry pentry,
                                            LanguageModelEntry entry)
@@ -157,8 +157,8 @@ namespace Kkc {
                                              LanguageModelEntry entry);
 
         public double trigram_backoff_cost (LanguageModelEntry ppentry,
-											LanguageModelEntry pentry,
-											LanguageModelEntry entry)
+                                            LanguageModelEntry pentry,
+                                            LanguageModelEntry entry)
         {
             if (has_trigram (ppentry, pentry, entry))
                 return trigram_cost (ppentry, pentry, entry);

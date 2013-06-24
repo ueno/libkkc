@@ -177,7 +177,7 @@ namespace Kkc {
         }
 
         public override bool parse () throws Error {
-			var prefix = Path.build_filename (
+            var prefix = Path.build_filename (
                 Path.get_dirname (metadata.filename),
                 "data");
 

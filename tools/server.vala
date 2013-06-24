@@ -132,7 +132,7 @@ class ServerRepl : Object, Repl {
             return false;
         }
 
-		context = new Kkc.Context (model);
+        context = new Kkc.Context (model);
 
         if (opt_user_dictionary != null) {
             try {

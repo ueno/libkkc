@@ -141,7 +141,7 @@ class DecoderRepl : Object, Repl {
             return false;
         }
 
-		var decoder = Kkc.Decoder.create (model);
+        var decoder = Kkc.Decoder.create (model);
 
         stdout.printf ("Type kana sentence in the following form:\n" +
                        "SENTENCE [N-BEST [SEGMENT-BOUNDARY...]]\n");
@@ -207,7 +207,7 @@ class ContextRepl : Object, Repl {
             return false;
         }
 
-		var context = new Kkc.Context (model);
+        var context = new Kkc.Context (model);
 
         if (opt_user_dictionary != null) {
             try {

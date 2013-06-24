@@ -29,7 +29,7 @@ namespace Kkc {
             } else if (model is BigramLanguageModel) {
                 return new BigramDecoder (model as BigramLanguageModel);
             } else {
-				assert_not_reached ();
+                assert_not_reached ();
             }
         }
     }

@@ -179,10 +179,10 @@ namespace Kkc {
                 Path.get_dirname (metadata.filename),
                 "data");
 
-			var input_trie_filename = prefix + ".input";
+            var input_trie_filename = prefix + ".input";
             input_trie.mmap (input_trie_filename);
 
-			var unigram_trie_filename = prefix + ".1gram.index";
+            var unigram_trie_filename = prefix + ".1gram.index";
             unigram_trie.mmap (unigram_trie_filename);
 
             if (use_mapped_index_file) {

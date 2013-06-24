@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  *
  * Author:
- * 	Julien Peeters <contact@julienpeeters.fr>
+ *  Julien Peeters <contact@julienpeeters.fr>
  *
  * Copied from libgee/tests/testcase.vala.
  */
@@ -56,7 +56,7 @@ public abstract class Kkc.TestCase : Object
       return this._suite;
     }
 
-	private class Adaptor
+    private class Adaptor
     {
       public string name { get; private set; }
       private unowned TestMethod _test;
