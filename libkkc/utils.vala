@@ -145,4 +145,43 @@ namespace Kkc {
             return '\0';
         }
     }
+
+    interface IndexFile : Object {
+        public abstract char* get_contents ();
+        public abstract size_t get_length ();
+    }
+
+    class MappedIndexFile : IndexFile, Object {
+        MappedFile mmap;
+
+        public MappedIndexFile (string filename) throws Error {
+            mmap = new MappedFile (filename, false);
+        }
+
+        public char* get_contents () {
+            return mmap.get_contents ();
+        }
+
+        public size_t get_length () {
+            return mmap.get_length ();
+        }
+    }
+
+    class LoadedIndexFile : IndexFile, Object {
+        uint8[] contents;
+
+        public LoadedIndexFile (string filename) throws Error {
+            var file = File.new_for_path (filename);
+            string etag;
+            file.load_contents (null, out contents, out etag);
+        }
+
+        public char* get_contents () {
+            return contents;
+        }
+
+        public size_t get_length () {
+            return contents.length;
+        }
+    }
 }

@@ -36,6 +36,14 @@ namespace Kkc {
     }
 
     /**
+     * Flag to indicate whether to use mmap for indices.
+     *
+     * If `false`, all the contents of indices will be loaded while
+     * initialization.
+     */
+    public static bool use_mapped_index_file = false;
+
+    /**
      * Type to specify input modes.
      */
     public enum InputMode {

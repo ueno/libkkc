@@ -19,7 +19,7 @@ using Gee;
 
 namespace Kkc {
     public class SortedTrigramLanguageModel : SortedBigramLanguageModel, TrigramLanguageModel {
-        MappedFile trigram_mmap;
+        IndexFile trigram_index;
         BloomFilter trigram_filter = null;
 
         // Remember the last offset since bsearch_ngram takes time and
@@ -51,9 +51,9 @@ namespace Kkc {
 
             var record_size = 10;
             var offset = LanguageModelUtils.bsearch_ngram (
-                trigram_mmap.get_contents (),
+                trigram_index.get_contents (),
                 0,
-                (long) trigram_mmap.get_length () / record_size,
+                (long) trigram_index.get_length () / record_size,
                 record_size,
                 buffer);
 
@@ -79,7 +79,7 @@ namespace Kkc {
             if (offset < 0)
                 return 0;
 
-            uint8 *p = (uint8 *) trigram_mmap.get_contents () + offset * 10 + 8;
+            uint8 *p = (uint8 *) trigram_index.get_contents () + offset * 10 + 8;
             var cost = *((uint16 *) p);
             return LanguageModelUtils.decode_cost (cost, min_cost);
         }
@@ -90,7 +90,10 @@ namespace Kkc {
             var prefix = Path.build_filename (
                 Path.get_dirname (metadata.filename),
                 "data");
-            trigram_mmap = new MappedFile (prefix + ".3gram", false);
+            if (use_mapped_index_file)
+                trigram_index = new MappedIndexFile (prefix + ".3gram");
+            else
+                trigram_index = new LoadedIndexFile (prefix + ".3gram");
 
             var trigram_filter_filename = prefix + ".3gram.filter";
             try {
