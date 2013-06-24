@@ -96,6 +96,7 @@ namespace Kkc {
 
         public abstract LanguageModelEntry bos { get; }
         public abstract LanguageModelEntry eos { get; }
+        public abstract Collection<LanguageModelEntry?> unigram_entries (string input);
         public abstract Collection<LanguageModelEntry?> entries (string input);
         public abstract new LanguageModelEntry? @get (string input,
 													  string output);

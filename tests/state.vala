@@ -6,15 +6,8 @@ class StateTests : Kkc.TestCase {
     }
 
     void test_properties () {
-        Kkc.Decoder? decoder = null;
-        try {
-            Kkc.LanguageModel model = Kkc.LanguageModel.load ("text3");
-            decoder = Kkc.Decoder.create (model);
-        } catch (Kkc.LanguageModelError e) {
-            stderr.printf ("%s\n", e.message);
-        }
-
-        var state = new Kkc.State (decoder, new Kkc.DictionaryList ());
+        Kkc.LanguageModel model = Kkc.LanguageModel.load ("text3");
+        var state = new Kkc.State (model, new Kkc.DictionaryList ());
         Kkc.InputMode mode;
         Kkc.PunctuationStyle style;
         Kkc.Rule rule;

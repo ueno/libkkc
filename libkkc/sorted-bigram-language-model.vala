@@ -39,7 +39,7 @@ namespace Kkc {
         IndexFile bigram_index;
         BloomFilter bigram_filter = null;
 
-        Collection<LanguageModelEntry?> unigram_entries_with_prefix (string prefix) {
+        public override Collection<LanguageModelEntry?> unigram_entries (string prefix) {
             var entries = new ArrayList<LanguageModelEntry?> ();
             var agent = new Marisa.Agent ();
             var query = prefix + "/";
@@ -64,7 +64,7 @@ namespace Kkc {
             agent.set_query (input.data);
             while (input_trie.common_prefix_search (agent)) {
                 var prefix = agent.get_key ().get_string ();
-                entries.add_all (unigram_entries_with_prefix (prefix));
+                entries.add_all (unigram_entries (prefix));
             }
             return entries;
         }

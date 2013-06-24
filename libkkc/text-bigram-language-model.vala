@@ -42,6 +42,10 @@ namespace Kkc {
         protected Gee.Map<string,uint> id_map =
             new HashMap<string,uint> ();
 
+        public override Collection<LanguageModelEntry?> unigram_entries (string input) {
+            return input_map.get (input);
+        }
+
         public override Collection<LanguageModelEntry?> entries (string input) {
             var entries = new ArrayList<LanguageModelEntry?> ();
             for (var i = 1; i < input.char_count () + 1; i++) {

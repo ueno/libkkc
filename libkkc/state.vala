@@ -91,6 +91,7 @@ namespace Kkc {
             }
         }
 
+        internal LanguageModel model;
         internal Decoder decoder;
         internal SegmentList segments;
         bool segments_changed = false;
@@ -172,8 +173,9 @@ namespace Kkc {
             return keymap.lookup_key (key);
         }
 
-        internal State (Decoder decoder, DictionaryList dictionaries) {
-            this.decoder = decoder;
+        internal State (LanguageModel model, DictionaryList dictionaries) {
+            this.model = model;
+            this.decoder = Decoder.create (model);
             this.dictionaries = dictionaries;
             this.segments = new SegmentList ();
             this.candidates = new CandidateList ();
@@ -295,6 +297,12 @@ namespace Kkc {
 
         internal string? lookup_single (string input) {
             var normalized_input = RomKanaUtils.normalize (input);
+
+            var entries = model.unigram_entries (normalized_input);
+            foreach (var entry in entries) {
+                return entry.output;
+            }
+
             string? result = null;
             dictionaries.call (typeof (SegmentDictionary),
                                (dictionary) => {
@@ -318,7 +326,17 @@ namespace Kkc {
                 segment.output);
             candidates.add (original);
 
-            // Do segment lookup first.
+            // First, search for unigrams in language model.
+            var entries = model.unigram_entries (normalized_input);
+            foreach (var entry in entries) {
+                var unigram = new Candidate (
+                    normalized_input,
+                    false,
+                    entry.output);
+                candidates.add (unigram);
+            }
+
+            // Second, look for the segment dictionaries.
             lookup_template (new NumericTemplate (normalized_input));
             lookup_template (new SimpleTemplate (normalized_input));
             lookup_template (new OkuriganaTemplate (normalized_input));
@@ -342,8 +360,7 @@ namespace Kkc {
                 }
             }
 
-            // Second, do sentence lookup which may contain unwanted
-            // Kana candidates.  Exclude them.
+            // Thirdly, do sentence lookup, excluding unwanted Kana candidates.
             var _segments = decoder.decode (normalized_input,
                                             10,
                                             new int[0]);

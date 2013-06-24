@@ -156,8 +156,7 @@ namespace Kkc {
                           new ConvertSentenceStateHandler ());
             handlers.set (typeof (ConvertSegmentStateHandler),
                           new ConvertSegmentStateHandler ());
-			var decoder = Kkc.Decoder.create (model);
-            state = new State (decoder, new DictionaryList ());
+            state = new State (model, new DictionaryList ());
             connect_state_signals (state);
         }
 
