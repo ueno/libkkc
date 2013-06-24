@@ -215,7 +215,7 @@ class UserDictionaryWithContextTests : Kkc.TestCase {
           "" },
         { "SPC Right SPC Right Right SPC",
           "わたしのなまえはなかのです",
-          "渡し野なま得は中野です",
+          "渡し埜なま回は中野です",
           7,
           3,
           "" }
@@ -371,17 +371,15 @@ class UserDictionaryWithContextTests : Kkc.TestCase {
 
 int main (string[] args)
 {
-    Intl.setlocale (LocaleCategory.ALL, "");
+  Test.init (ref args);
+  Kkc.init ();
 
-    Test.init (ref args);
-    Kkc.init ();
+  TestSuite root = TestSuite.get_root ();
+  root.add_suite (new UserSegmentDictionaryTests ().get_suite ());
+  root.add_suite (new UserSentenceDictionaryTests ().get_suite ());
+  root.add_suite (new UserDictionaryWithContextTests ().get_suite ());
 
-    TestSuite root = TestSuite.get_root ();
-    root.add_suite (new UserSegmentDictionaryTests ().get_suite ());
-    root.add_suite (new UserSentenceDictionaryTests ().get_suite ());
-    root.add_suite (new UserDictionaryWithContextTests ().get_suite ());
+  Test.run ();
 
-    Test.run ();
-
-    return 0;
+  return 0;
 }
