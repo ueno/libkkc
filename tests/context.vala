@@ -237,7 +237,7 @@ class ContextTests : Kkc.TestCase {
         context.process_key_events ("3");
         assert (context.input == "あ");
         context.process_key_events ("SPC");
-        assert (context.segments.get_output () == "阿");
+        assert (context.segments.get_output () == "ア");
         context.clear_output ();
         context.reset ();
 
@@ -565,7 +565,7 @@ class ContextTests : Kkc.TestCase {
           -1 },
         { "SPC SPC Right SPC",
           "わたしのなまえはなかのです",
-          "渡し埜名前は中野です",
+          "渡し野名前は中野です",
           6,
           1,
           "",
@@ -573,7 +573,7 @@ class ContextTests : Kkc.TestCase {
           -1 },
         { "SPC SPC Right SPC SPC",
           "わたしのなまえはなかのです",
-          "渡し之名前は中野です",
+          "渡し埜名前は中野です",
           6,
           1,
           "",
@@ -648,13 +648,15 @@ class ContextTests : Kkc.TestCase {
 
 int main (string[] args)
 {
-  Test.init (ref args);
-  Kkc.init ();
+    Intl.setlocale (LocaleCategory.ALL, "");
 
-  TestSuite root = TestSuite.get_root ();
-  root.add_suite (new ContextTests ().get_suite ());
+    Test.init (ref args);
+    Kkc.init ();
 
-  Test.run ();
+    TestSuite root = TestSuite.get_root ();
+    root.add_suite (new ContextTests ().get_suite ());
 
-  return 0;
+    Test.run ();
+
+    return 0;
 }
