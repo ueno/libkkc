@@ -298,10 +298,12 @@ namespace Kkc {
         internal string? lookup_single (string input) {
             var normalized_input = RomKanaUtils.normalize (input);
 
-            var entries = model.unigram_entries (normalized_input);
-            foreach (var entry in entries) {
-                if (entry.output != normalized_input)
-                    return entry.output;
+            if (normalized_input.char_count () > 1) {
+                var entries = model.unigram_entries (normalized_input);
+                foreach (var entry in entries) {
+                    if (entry.output != normalized_input)
+                        return entry.output;
+                }
             }
 
             string? result = null;
@@ -328,14 +330,16 @@ namespace Kkc {
             candidates.add (original);
 
             // First, search for unigrams in language model.
-            var entries = model.unigram_entries (normalized_input);
-            foreach (var entry in entries) {
-                if (entry.output != normalized_input) {
-                    var unigram = new Candidate (
-                        normalized_input,
-                        false,
-                        entry.output);
-                    candidates.add (unigram);
+            if (normalized_input.char_count () > 1) {
+                var entries = model.unigram_entries (normalized_input);
+                foreach (var entry in entries) {
+                    if (entry.output != normalized_input) {
+                        var unigram = new Candidate (
+                            normalized_input,
+                            false,
+                            entry.output);
+                        candidates.add (unigram);
+                    }
                 }
             }
 
