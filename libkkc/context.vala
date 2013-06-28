@@ -293,7 +293,7 @@ namespace Kkc {
         public bool process_key_event (KeyEvent key) {
             KeyEvent? _key = key_event_filter.filter_key_event (key);
             if (_key == null) {
-                return true;
+                return false;
             }
             return process_key_event_internal (_key);
         }
