@@ -6,6 +6,7 @@ libkkc_test_la_CFLAGS =				\
 	$(AM_CFLAGS)				\
 	$(GIO_CFLAGS)				\
 	$(GEE_CFLAGS)				\
+	$(JSON_GLIB_CFLAGS)			\
 	$(NULL)
 
 libkkc_test_la_CPPFLAGS =			\
@@ -13,11 +14,12 @@ libkkc_test_la_CPPFLAGS =			\
 	-I$(top_srcdir)/kkc			\
 	$(NULL)
 
-libkkc_test_la_LIBADD =				\
-	$(AM_LIBADD)				\
-	$(top_builddir)/libkkc/libkkc.la	\
-	$(GIO_LIBS)				\
-	$(GEE_LIBS)				\
+libkkc_test_la_LIBADD =					\
+	$(AM_LIBADD)					\
+	$(top_builddir)/libkkc/libkkc-internals.la	\
+	$(GIO_LIBS)					\
+	$(GEE_LIBS)					\
+	$(JSON_GLIB_LIBS)				\
 	$(NULL)
 
 libkkc_test_la_VALAFLAGS =			\
@@ -27,7 +29,8 @@ libkkc_test_la_VALAFLAGS =			\
 	--pkg gobject-2.0			\
 	--pkg gio-2.0				\
 	--pkg gee-1.0				\
-	--pkg kkc-1.0				\
+	--pkg json-glib-1.0			\
+	--pkg kkc-internals-1.0			\
 	--library kkc-test			\
 	-H libkkc-test.h			\
 	-g					\

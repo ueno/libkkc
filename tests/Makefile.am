@@ -177,6 +177,9 @@ EXTRA_DIST =						\
 	data/models/text2/data.arpa			\
 	data/models/text3/metadata.json			\
 	data/models/text3/data.arpa			\
+	conversions-initial.json			\
+	conversions-sentence.json			\
+	conversions-segment.json			\
 	$(NULL)
 
 CLEANFILES =					\

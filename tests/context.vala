@@ -61,78 +61,40 @@ class ContextTests : Kkc.TestCase {
                      "typing-rule", rule);
     }
 
-    struct ConversionData {
-        string keys;
-        string input;
-        string segments;
-        int segments_size;
-        int segments_cursor_pos;
-        string output;
-        int candidates_size;
-        int input_cursor_pos;
-    }
+    void do_conversions_json (string filename) {
+        Json.Parser parser = new Json.Parser ();
+        try {
+            if (!parser.load_from_file (filename))
+                assert_not_reached ();
+        } catch (GLib.Error e) {
+            assert_not_reached ();
+        }
+        var root = parser.get_root ();
+        assert (root.get_node_type () == Json.NodeType.ARRAY);
+        var array = root.get_array ();
 
-    void do_conversions (ConversionData[] conversions) {
-        foreach (var conversion in conversions) {
+        for (var i = 0; i < array.get_length (); i++) {
+            var node = array.get_element (i);
+            assert (node.get_node_type () == Json.NodeType.OBJECT);
+            var object = node.get_object ();
+            assert (object.has_member ("keys"));
+            var keys = object.get_string_member ("keys");
             try {
-                context.process_key_events (conversion.keys);
+                context.process_key_events (keys);
             } catch (Kkc.KeyEventFormatError e) {
                 assert_not_reached ();
             }
-            var output = context.poll_output ();
-            assert (output == conversion.output);
-            assert (context.input == conversion.input);
-            assert (context.segments.get_output () == conversion.segments);
-            assert (context.segments.size == conversion.segments_size);
-            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
-            assert (context.candidates.size == conversion.candidates_size);
-            assert (context.input_cursor_pos == conversion.input_cursor_pos);
+            Kkc.TestUtils.check_conversion_result (context, object);
             context.reset ();
             context.clear_output ();
         }
     }
 
-    static const ConversionData INITIAL_DATA[] = {
-        { "a TAB", "あい", "", 0, -1, "", 0, -1 },
-        { "a p u TAB", "あぷ", "", 0, -1, "", 0, -1 },
-        { "(shift a) TAB", "あい", "", 0, -1, "", 0, -1 },
-        { "a TAB RET", "", "", 0, -1, "あい", 0, -1 },
-        { "a TAB C-g", "", "", 0, -1, "", 0, -1 },
-        { "C-q a", "a", "", 0, -1, "", 0, -1 },
-        { "C-q (shift yen)", "¥", "", 0, -1, "", 0, -1 },
-        { "C-g", "", "", 0, -1, "", 0, -1 },
-        { "BackSpace", "", "", 0, -1, "", 0, -1 },
-        { "Delete", "", "", 0, -1, "", 0, -1 },
-        { "TAB", "", "", 0, -1, "", 0, -1 },
-        { "SPC", "", "", 0, -1, "", 0, -1 },
-        { "Left", "", "", 0, -1, "", 0, -1 },
-        { "Right", "", "", 0, -1, "", 0, -1 },
-        { "^", "＾", "", 0, -1, "", 0, -1 },
-        { "k y BackSpace", "k", "", 0, -1, "", 0, -1 },
-        { "F7", "", "", 0, -1, "", 0, -1 },
-        { "k y o", "きょ", "", 0, -1, "", 0, -1 },
-        { "k y o DEL", "", "", 0, -1, "", 0, -1 },
-        { "k y o F7", "キョ", "", 0, -1, "", 0, -1 },
-        { "k y o F10", "kyo", "", 0, -1, "", 0, -1 },
-        { "k y o F10 F10", "KYO", "", 0, -1, "", 0, -1 },
-        { "A-@ k y o A-@", "", "", 0, -1, "", 0, -1 },
-        { "A-l k y o F10 A-k", "", "", 0, -1, "kyo", 0, -1 },
-        { "k y o F9", "ｋｙｏ", "", 0, -1, "", 0, -1 },
-        { "k y o F10 F9", "ｋｙｏ", "", 0, -1, "", 0, -1 },
-        { "k y o F9 RET", "", "", 0, -1, "ｋｙｏ", 0, -1 },
-        { "w a t a s h i F10 n o", "の", "", 0, -1, "watashi", 0, -1 },
-        { "a C-c", "", "", 0, -1, "", 0, -1 },
-        { "a i u e o Left Left Right Right BackSpace", "あいうえ", "", 0, -1, "", 0, -1 },
-        { "a i u e o Left Left Delete", "あいうお", "", 0, -1, "", 0, 3 },
-        { "k a k i k u k e k Left Left BackSpace", "かくけ", "", 0, -1, "", 0, 1 },
-        { "a i u e o Left BackSpace i", "あいういお", "", 0, -1, "", 0, 4 },
-        { "a i u e o Left BackSpace k", "あいうkお", "", 0, -1, "", 0, 4 },
-        { "a i Left Left Left Left BackSpace k", "kあい", "", 0, -1, "", 0, 1 },
-        { "a i K", "あいK", "", 0, -1, "", 0, -1 }
-    };
-
     void test_initial () {
-        do_conversions (INITIAL_DATA);
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+        do_conversions_json (Path.build_filename (srcdir,
+                                                  "conversions-initial.json"));
 
         var input_mode = context.input_mode;
         try {
@@ -387,237 +349,18 @@ class ContextTests : Kkc.TestCase {
         context.reset ();
     }
 
-    static const ConversionData SENTENCE_CONVERSION_DATA[] = {
-        { "k y u u k a SPC C-Right C-Right C-Right F10",
-          "きゅうか",
-          "kyuuka",
-          1,
-          0,
-          "",
-          0,
-          -1 },
-        { "1 a n SPC C-Right C-Right SPC",
-          "1あん",
-          "一案",
-          1,
-          0,
-          "",
-          8,
-          -1 },
-        { "a i SPC",
-          "あい",
-          "愛",
-          1,
-          0,
-          "",
-          0,
-          -1 },
-        { "a i SPC K",
-          "K",
-          "",
-          0,
-          -1,
-          "愛",
-          0,
-          -1 },
-        { "u r u SPC",
-          "うる",
-          "売る",
-          1,
-          0,
-          "",
-          0,
-          -1 }
-    };
-
     void test_sentence_conversion () {
-        do_conversions (SENTENCE_CONVERSION_DATA);
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+        do_conversions_json (Path.build_filename (srcdir,
+                                                  "conversions-sentence.json"));
     }
 
-    static const ConversionData SEGMENT_CONVERSION_DATA[] = {
-        { "",
-          "わたしのなまえはなかのです",
-          "",
-          0,
-          -1,
-          "",
-          0,
-          -1 },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "私の名前は中野です",
-          6,
-          0,
-          "",
-          0,
-          -1 },
-        { "SPC Muhenkan",
-          "わたしのなまえはなかのです",
-          "わたしの名前は中野です",
-          6,
-          0,
-          "",
-          0,
-          -1 },
-        { "SPC RET",
-          "",
-          "",
-          0,
-          -1,
-          "私の名前は中野です",
-          0,
-          -1 },
-        { "SPC a",
-          "あ",
-          "",
-          0,
-          -1,
-          "私の名前は中野です",
-          0,
-          -1 },
-        { "SPC (shift a)",
-          "あ",
-          "",
-          0,
-          -1,
-          "私の名前は中野です",
-          0,
-          -1 },
-        { "SPC (control a)",
-          "",
-          "",
-          0,
-          -1,
-          "私の名前は中野です",
-          0,
-          -1 },
-        { "SPC TAB",
-          "",
-          "",
-          0,
-          -1,
-          "私の名前は中野です",
-          0,
-          -1 },
-        { "SPC Left",
-          "わたしのなまえはなかのです",
-          "私の名前は中野です",
-          6,
-          0,
-          "",
-          0,
-          -1 },
-        { "SPC Right",
-          "わたしのなまえはなかのです",
-          "私の名前は中野です",
-          6,
-          1,
-          "",
-          0,
-          -1 },
-        { "SPC Right C-Right",
-          "わたしのなまえはなかのです",
-          "私のな前は中野です",
-          6,
-          1,
-          "",
-          0,
-          -1 },
-        { "SPC Right Right C-Left",
-          "わたしのなまえはなかのです",
-          "私のなまえは中野です",
-          7,
-          2,
-          "",
-          0,
-          -1 },
-        { "SPC SPC",
-          "わたしのなまえはなかのです",
-          "渡しの名前は中野です",
-          6,
-          0,
-          "",
-          13,
-          -1 },
-        { "SPC SPC Up",
-          "わたしのなまえはなかのです",
-          "私の名前は中野です",
-          6,
-          0,
-          "",
-          13,
-          -1 },
-        { "SPC SPC C-g",
-          "わたしのなまえはなかのです",
-          "",
-          0,
-          -1,
-          "",
-          0,
-          -1 },
-        { "SPC SPC Right",
-          "わたしのなまえはなかのです",
-          "渡しの名前は中野です",
-          6,
-          1,
-          "",
-          13,
-          -1 },
-        { "SPC SPC Right SPC",
-          "わたしのなまえはなかのです",
-          "渡し埜名前は中野です",
-          6,
-          1,
-          "",
-          8,
-          -1 },
-        { "SPC SPC Right SPC SPC",
-          "わたしのなまえはなかのです",
-          "渡し之名前は中野です",
-          6,
-          1,
-          "",
-          8,
-          -1 },
-        { "SPC Right Right C-Left SPC RET",
-          "",
-          "",
-          0,
-          -1,
-          "私の生えは中野です",
-          0,
-          -1 },
-        { "SPC Right F10",
-          "わたしのなまえはなかのです",
-          "私no名前は中野です",
-          6,
-          1,
-          "",
-          0,
-          -1 },
-        { "SPC F10 F10",
-          "わたしのなまえはなかのです",
-          "WATASHIの名前は中野です",
-          6,
-          0,
-          "",
-          0,
-          -1 }
-    };
-
     void test_segment_conversion () {
-        const string PREFIX_KEYS =
-            "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
-
-        ConversionData[] conversions =
-            new ConversionData[SEGMENT_CONVERSION_DATA.length];
-
-        for (var i = 0; i < SEGMENT_CONVERSION_DATA.length; i++) {
-            conversions[i] = SEGMENT_CONVERSION_DATA[i];
-            conversions[i].keys = PREFIX_KEYS + SEGMENT_CONVERSION_DATA[i].keys;
-        }
-
-        do_conversions (conversions);
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+        do_conversions_json (Path.build_filename (srcdir,
+                                                  "conversions-segment.json"));
     }
 
     public override void set_up () {
@@ -646,15 +389,16 @@ class ContextTests : Kkc.TestCase {
     }
 }
 
-int main (string[] args)
-{
-  Test.init (ref args);
-  Kkc.init ();
+int main (string[] args) {
+    Intl.setlocale (LocaleCategory.ALL, "");
 
-  TestSuite root = TestSuite.get_root ();
-  root.add_suite (new ContextTests ().get_suite ());
+    Test.init (ref args);
+    Kkc.init ();
 
-  Test.run ();
+    TestSuite root = TestSuite.get_root ();
+    root.add_suite (new ContextTests ().get_suite ());
 
-  return 0;
+    Test.run ();
+
+    return 0;
 }

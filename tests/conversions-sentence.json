@@ -1,0 +1,52 @@
+[
+    {
+        "keys": "k y u u k a SPC C-Right C-Right C-Right F10",
+        "input": "きゅうか",
+        "segments": "kyuuka",
+        "segments_size": 1,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "1 a n SPC C-Right C-Right SPC",
+        "input": "1あん",
+        "segments": "一案",
+        "segments_size": 1,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 8,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "a i SPC",
+        "input": "あい",
+        "segments": "愛",
+        "segments_size": 1,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "a i SPC K",
+        "input": "K",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "愛",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "u r u SPC",
+        "input": "うる",
+        "segments": "売る",
+        "segments_size": 1,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    }
+]

@@ -1,0 +1,212 @@
+[
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u ",
+        "input": "わたしのなまえはなかのです",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私の名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Muhenkan",
+        "input": "わたしのなまえはなかのです",
+        "segments": "わたしの名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC RET",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の名前は中野です",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC a",
+        "input": "あ",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の名前は中野です",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC (shift a)",
+        "input": "あ",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の名前は中野です",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC (control a)",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の名前は中野です",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC TAB",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の名前は中野です",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Left",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私の名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私の名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 1,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right C-Right",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私のな前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 1,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right Right C-Left",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私のなまえは中野です",
+        "segments_size": 7,
+        "segments_cursor_pos": 2,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "渡しの名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 13,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC Up",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私の名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 13,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC C-g",
+        "input": "わたしのなまえはなかのです",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC Right",
+        "input": "わたしのなまえはなかのです",
+        "segments": "渡しの名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 1,
+        "output": "",
+        "candidates_size": 13,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC Right SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "渡し埜名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 1,
+        "output": "",
+        "candidates_size": 8,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC Right SPC SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "渡し之名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 1,
+        "output": "",
+        "candidates_size": 8,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right Right C-Left SPC RET",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の生えは中野です",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right F10",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私no名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 1,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC F10 F10",
+        "input": "わたしのなまえはなかのです",
+        "segments": "WATASHIの名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": "",
+        "candidates_size": 0,
+        "input_cursor_pos": -1
+    }
+]
