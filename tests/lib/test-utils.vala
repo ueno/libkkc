@@ -1,5 +1,5 @@
 namespace Kkc.TestUtils {
-    public static void remove_dir (string name) {
+    public static void remove_dir (string name) throws Error {
         var dir = Dir.open (name);
         string? child_name;
         while ((child_name = dir.read_name ()) != null) {

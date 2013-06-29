@@ -7,8 +7,13 @@ class UserRuleTests : Kkc.TestCase {
     }
 
     public override void set_up () {
-        if (FileUtils.test ("test-user-rule", FileTest.EXISTS))
-            Kkc.TestUtils.remove_dir ("test-user-rule");
+        if (FileUtils.test ("test-user-rule", FileTest.EXISTS)) {
+            try {
+                Kkc.TestUtils.remove_dir ("test-user-rule");
+            } catch (Error e) {
+                assert_not_reached ();
+            }
+        }
     }
 
     void test_creation () {
