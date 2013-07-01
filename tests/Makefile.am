@@ -51,7 +51,9 @@ noinst_HEADERS =
 AM_CPPFLAGS =					\
 	-DDATADIR=\"$(datadir)\"		\
 	-DPKGDATADIR=\"$(pkgdatadir)\"		\
-	-I$(top_srcdir) $(LIBKKC_CFLAGS)	\
+	-I$(top_srcdir)				\
+	-I$(top_builddir)			\
+	$(LIBKKC_CFLAGS)			\
 	-I$(top_srcdir)/tests/lib		\
 	-I$(top_builddir)/tests/lib		\
 	$(NULL)

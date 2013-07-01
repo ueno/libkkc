@@ -11,7 +11,8 @@ libkkc_test_la_CFLAGS =				\
 
 libkkc_test_la_CPPFLAGS =			\
 	$(AM_CPPFLAGS)				\
-	-I$(top_srcdir)/kkc			\
+	-I$(top_srcdir)				\
+	-I$(top_builddir)			\
 	$(NULL)
 
 libkkc_test_la_LIBADD =					\
