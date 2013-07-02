@@ -34,21 +34,24 @@ sorted2_files =					\
 	$(sorted2_data_files)			\
 	$(NULL)
 
-$(sorted2_data_files): $(text2_data_files)
-	@$(mkdir_p) sorted2
+$(sorted2_data_files): sorted2-data.stamp
+
+sorted2-data.stamp: $(text2_data_files)
+	@$(MKDIR_P) sorted2
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/sortlm.py \
 		$(srcdir)/text2/data.arpa sorted2/data
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/genfilter.py \
 		sorted2/data.2gram \
 		sorted2/data.2gram.filter \
 		12
+	@touch sorted2-data.stamp
 
-all: $(sorted2_data_files)
+all-local: sorted2-data.stamp
 
 modelsdir = $(libdir)/libkkc/models
 nobase_models_DATA = $(sorted2_files)
 
-CLEANFILES = $(sorted2_data_files)
+CLEANFILES = $(sorted2_data_files) sorted2-data.stamp
 EXTRA_DIST =					\
 	sorted2/metadata.json			\
 	$(text2_files)				\

@@ -36,9 +36,10 @@ sorted3_files =					\
 	$(sorted3_data_files)			\
 	$(NULL)
 
-$(text3_data_files):
-$(sorted3_data_files): $(text3_data_files)
-	@$(mkdir_p) sorted3
+$(sorted3_data_files): sorted3-data.stamp
+
+sorted3-data.stamp: $(text3_data_files)
+	@$(MKDIR_P) sorted3
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/sortlm.py \
 		$(srcdir)/text3/data.arpa sorted3/data
 	$(AM_V_GEN)$(PYTHON) -B $(top_srcdir)/tools/genfilter.py \
@@ -49,13 +50,14 @@ $(sorted3_data_files): $(text3_data_files)
 		sorted3/data.3gram \
 		sorted3/data.3gram.filter \
 		10
+	@touch sorted3-data.stamp
 
-all: $(sorted3_data_files)
+all-local: sorted3-data.stamp
 
 modelsdir = $(libdir)/libkkc/models
 nobase_models_DATA = $(sorted3_files)
 
-CLEANFILES = $(sorted3_data_files)
+CLEANFILES = $(sorted3_data_files) sorted3-data.stamp
 EXTRA_DIST =					\
 	sorted3/metadata.json			\
 	$(text3_files)				\
