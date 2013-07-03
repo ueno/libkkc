@@ -92,6 +92,11 @@ if test -z "$opt_input"; then
 fi
 $exit_cmd 1
 
+case "$opt_input" in
+  /*) ;;
+  *) opt_input=`pwd`/"$opt_input" ;;
+esac
+
 case "$opt_sorted" in
   sorted2)
     opt_text=text2
