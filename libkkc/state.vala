@@ -298,6 +298,21 @@ namespace Kkc {
         internal string? lookup_single (string input) {
             var normalized_input = RomKanaUtils.normalize (input);
 
+            string? result = null;
+            dictionaries.call (typeof (SegmentDictionary),
+                               (dictionary) => {
+                                   if (!(dictionary is UserDictionary))
+                                       return DictionaryCallbackReturn.CONTINUE;
+                                   result = lookup_single_for_dictionary (
+                                       dictionary,
+                                       normalized_input);
+                                   if (result != null)
+                                       return DictionaryCallbackReturn.REMOVE;
+                                   return DictionaryCallbackReturn.CONTINUE;
+                               });
+            if (result != null)
+                return result;
+
             if (normalized_input.char_count () > 1) {
                 var entries = model.unigram_entries (normalized_input);
                 foreach (var entry in entries) {
@@ -306,7 +321,6 @@ namespace Kkc {
                 }
             }
 
-            string? result = null;
             dictionaries.call (typeof (SegmentDictionary),
                                (dictionary) => {
                                    result = lookup_single_for_dictionary (
@@ -329,24 +343,30 @@ namespace Kkc {
                 segment.output);
             candidates.add (original);
 
-            // First, search for unigrams in language model.
+            // 1. look for user segment dictionaries.
+            lookup_template (new NumericTemplate (normalized_input), true);
+            lookup_template (new SimpleTemplate (normalized_input), true);
+            lookup_template (new OkuriganaTemplate (normalized_input), true);
+
+            // 2. search for Katakana candidate in unigrams in language model.
             if (normalized_input.char_count () > 1) {
                 var entries = model.unigram_entries (normalized_input);
                 foreach (var entry in entries) {
-                    if (entry.output != normalized_input) {
+                    if (RomKanaUtils.is_katakana (entry.output)) {
                         var unigram = new Candidate (
                             normalized_input,
                             false,
                             entry.output);
                         candidates.add (unigram);
+                        break;
                     }
                 }
             }
 
-            // Second, look for the segment dictionaries.
-            lookup_template (new NumericTemplate (normalized_input));
-            lookup_template (new SimpleTemplate (normalized_input));
-            lookup_template (new OkuriganaTemplate (normalized_input));
+            // 3. look for system segment dictionaries.
+            lookup_template (new NumericTemplate (normalized_input), false);
+            lookup_template (new SimpleTemplate (normalized_input), false);
+            lookup_template (new OkuriganaTemplate (normalized_input), false);
 
             // Prepare Kana candidates to check dupes when adding
             // sentence candidates.
@@ -412,9 +432,11 @@ namespace Kkc {
             }
         }
 
-        void lookup_template (Template template) {
+        void lookup_template (Template template, bool user) {
             dictionaries.call (typeof (SegmentDictionary),
                                (dictionary) => {
+                                   if (user && !(dictionary is UserDictionary))
+                                       return DictionaryCallbackReturn.CONTINUE;
                                    lookup_template_for_dictionary (dictionary,
                                                                    template);
                                    return DictionaryCallbackReturn.CONTINUE;
