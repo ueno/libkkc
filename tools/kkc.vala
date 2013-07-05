@@ -84,6 +84,8 @@ static int main (string[] args) {
     if (new_args.length < 1)
         new_args += "decoder";
 
+    Environment.set_prgname ("%s %s".printf (args[0], new_args[0]));
+
     Repl repl;
     if (new_args[0] == "decoder")
         repl = new DecoderRepl ();
