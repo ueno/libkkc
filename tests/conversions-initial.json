@@ -23,6 +23,7 @@
   { "keys": "k y o F10 F10", "input": "KYO", "output": "" },
   { "keys": "A-@ k y o A-@", "input": "", "output": "" },
   { "keys": "A-l k y o F10 A-k", "input": "", "output": "kyo" },
+  { "keys": "A-l A-l A A-k", "input": "", "output": "Ａ" },
   { "keys": "k y o F9", "input": "ｋｙｏ", "output": "" },
   { "keys": "k y o F10 F9", "input": "ｋｙｏ", "output": "" },
   { "keys": "k y o F9 RET", "input": "", "output": "ｋｙｏ" },

@@ -240,7 +240,9 @@ namespace Kkc {
                 } else if (0x21 <= key.unicode && key.unicode <= 0x7E) {
                     state.finish_input_editing ();
                     var c = RomKanaCharacter () {
-                        output = key.unicode.to_string (),
+                        output = RomKanaUtils.convert_by_kana_mode (
+                            key.unicode.to_string (),
+                            (KanaMode) state.input_mode),
                         input = key.unicode.to_string ()
                     };
                     if (state.input_characters_cursor_pos >= 0) {
