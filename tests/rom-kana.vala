@@ -103,15 +103,16 @@ class RomKanaTests : Kkc.TestCase {
     }
 }
 
-int main (string[] args)
-{
-  Test.init (ref args);
-  Kkc.init ();
+int main (string[] args) {
+    Intl.setlocale (LocaleCategory.ALL, "");
 
-  TestSuite root = TestSuite.get_root ();
-  root.add_suite (new RomKanaTests ().get_suite ());
+    Test.init (ref args);
+    Kkc.init ();
 
-  Test.run ();
+    TestSuite root = TestSuite.get_root ();
+    root.add_suite (new RomKanaTests ().get_suite ());
 
-  return 0;
+    Test.run ();
+
+    return 0;
 }

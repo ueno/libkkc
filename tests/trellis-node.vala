@@ -65,15 +65,14 @@ class TrellisNodeTests : Kkc.TestCase {
     }
 }
 
-int main (string[] args)
-{
-  Test.init (ref args);
-  Kkc.init ();
+int main (string[] args) {
+    Test.init (ref args);
+    Kkc.init ();
 
-  TestSuite root = TestSuite.get_root ();
-  root.add_suite (new TrellisNodeTests ().get_suite ());
+    TestSuite root = TestSuite.get_root ();
+    root.add_suite (new TrellisNodeTests ().get_suite ());
 
-  Test.run ();
+    Test.run ();
 
-  return 0;
+    return 0;
 }
