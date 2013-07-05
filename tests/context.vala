@@ -61,40 +61,13 @@ class ContextTests : Kkc.TestCase {
                      "typing-rule", rule);
     }
 
-    void do_conversions_json (string filename) {
-        Json.Parser parser = new Json.Parser ();
-        try {
-            if (!parser.load_from_file (filename))
-                assert_not_reached ();
-        } catch (GLib.Error e) {
-            assert_not_reached ();
-        }
-        var root = parser.get_root ();
-        assert (root.get_node_type () == Json.NodeType.ARRAY);
-        var array = root.get_array ();
-
-        for (var i = 0; i < array.get_length (); i++) {
-            var node = array.get_element (i);
-            assert (node.get_node_type () == Json.NodeType.OBJECT);
-            var object = node.get_object ();
-            assert (object.has_member ("keys"));
-            var keys = object.get_string_member ("keys");
-            try {
-                context.process_key_events (keys);
-            } catch (Kkc.KeyEventFormatError e) {
-                assert_not_reached ();
-            }
-            Kkc.TestUtils.check_conversion_result (context, object);
-            context.reset ();
-            context.clear_output ();
-        }
-    }
-
     void test_initial () {
         var srcdir = Environment.get_variable ("srcdir");
         assert (srcdir != null);
-        do_conversions_json (Path.build_filename (srcdir,
-                                                  "conversions-initial.json"));
+        Kkc.TestUtils.do_conversions (context,
+                                      Path.build_filename (
+                                          srcdir,
+                                          "conversions-initial.json"));
 
         var input_mode = context.input_mode;
         try {
@@ -352,15 +325,19 @@ class ContextTests : Kkc.TestCase {
     void test_sentence_conversion () {
         var srcdir = Environment.get_variable ("srcdir");
         assert (srcdir != null);
-        do_conversions_json (Path.build_filename (srcdir,
-                                                  "conversions-sentence.json"));
+        Kkc.TestUtils.do_conversions (context,
+                                      Path.build_filename (
+                                          srcdir,
+                                          "conversions-sentence.json"));
     }
 
     void test_segment_conversion () {
         var srcdir = Environment.get_variable ("srcdir");
         assert (srcdir != null);
-        do_conversions_json (Path.build_filename (srcdir,
-                                                  "conversions-segment.json"));
+        Kkc.TestUtils.do_conversions (context,
+                                      Path.build_filename (
+                                          srcdir,
+                                          "conversions-segment.json"));
     }
 
     public override void set_up () {

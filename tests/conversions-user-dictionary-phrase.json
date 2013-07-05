@@ -1,0 +1,26 @@
+[
+    {
+        "keys": "s u m a i h a n a k a n o d e s u SPC",
+        "input": "すまいはなかのです",
+        "segments": "すまいは中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": ""
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right Right Right Right C-Left RET",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私の名前は中のです"
+    },
+    {
+        "keys": "s u m a i h a n a k a n o d e s u SPC",
+        "input": "すまいはなかのです",
+        "segments": "すまいは中のです",
+        "segments_size": 7,
+        "segments_cursor_pos": 0,
+        "output": ""
+    }
+]

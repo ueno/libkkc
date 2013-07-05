@@ -155,86 +155,13 @@ class UserDictionaryWithContextTests : Kkc.TestCase {
         add_test ("register", this.test_register);
     }
 
-    struct ConversionData {
-        string keys;
-        string input;
-        string segments;
-        int segments_size;
-        int segments_cursor_pos;
-        string output;
-    }
-
-    void do_conversions (ConversionData[] conversions) {
-        foreach (var conversion in conversions) {
-            try {
-                context.process_key_events (conversion.keys);
-            } catch (Kkc.KeyEventFormatError e) {
-                assert_not_reached ();
-            }
-            var output = context.poll_output ();
-            assert (output == conversion.output);
-            assert (context.input == conversion.input);
-            assert (context.segments.get_output () == conversion.segments);
-            assert (context.segments.size == conversion.segments_size);
-            assert (context.segments.cursor_pos == conversion.segments_cursor_pos);
-            context.reset ();
-            context.clear_output ();
-        }
-    }
-
-    static const ConversionData CONVERSION_DATA[] = {
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "私の名前は中野です",
-          6,
-          0,
-          "" },
-        { "SPC Right Right C-Left RET",
-          "",
-          "",
-          0,
-          -1,
-          "私のなまえは中野です" },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "私のなまえは中野です",
-          7,
-          0,
-          "" },
-        { "SPC SPC RET",
-          "",
-          "",
-          0,
-          -1,
-          "渡しのなまえは中野です" },
-        { "SPC",
-          "わたしのなまえはなかのです",
-          "渡しのなまえは中野です",
-          7,
-          0,
-          "" },
-        { "SPC Right SPC Right Right SPC",
-          "わたしのなまえはなかのです",
-          "渡し埜なま回は中野です",
-          7,
-          3,
-          "" }
-    };
-
     void test_conversion () {
-        const string PREFIX_KEYS =
-            "w a t a s h i n o n a m a e h a n a k a n o d e s u ";
-
-        ConversionData[] conversions =
-            new ConversionData[CONVERSION_DATA.length];
-
-        for (var i = 0; i < CONVERSION_DATA.length; i++) {
-            conversions[i] = CONVERSION_DATA[i];
-            conversions[i].keys = PREFIX_KEYS + CONVERSION_DATA[i].keys;
-        }
-
-        do_conversions (conversions);
-
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+        Kkc.TestUtils.do_conversions (context,
+                                      Path.build_filename (
+                                          srcdir,
+                                          "conversions-user-dictionary.json"));
         context.dictionaries.save ();
 
         try {
@@ -246,29 +173,13 @@ class UserDictionaryWithContextTests : Kkc.TestCase {
         user_dictionary.reload ();
     }
 
-    static const ConversionData PHRASE_CONVERSION_DATA[] = {
-        { "s u m a i h a n a k a n o d e s u SPC",
-          "すまいはなかのです",
-          "すまいは中野です",
-          6,
-          0,
-          "" },
-        { "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right Right Right Right C-Left RET",
-          "",
-          "",
-          0,
-          -1,
-          "私の名前は中のです" },
-        { "s u m a i h a n a k a n o d e s u SPC",
-          "すまいはなかのです",
-          "すまいは中のです",
-          7,
-          0,
-          "" }
-    };
-
     void test_phrase_conversion () {
-        do_conversions (PHRASE_CONVERSION_DATA);
+        var srcdir = Environment.get_variable ("srcdir");
+        assert (srcdir != null);
+        Kkc.TestUtils.do_conversions (context,
+                                      Path.build_filename (
+                                          srcdir,
+                                          "conversions-user-dictionary-phrase.json"));
         context.dictionaries.save ();
     }
 

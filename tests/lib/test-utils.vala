@@ -51,4 +51,33 @@ namespace Kkc.TestUtils {
             assert (context.input_cursor_pos == expected_input_cursor_pos);
         }
     }
+
+    public void do_conversions (Kkc.Context context, string filename) {
+        Json.Parser parser = new Json.Parser ();
+        try {
+            if (!parser.load_from_file (filename))
+                assert_not_reached ();
+        } catch (GLib.Error e) {
+            assert_not_reached ();
+        }
+        var root = parser.get_root ();
+        assert (root.get_node_type () == Json.NodeType.ARRAY);
+        var array = root.get_array ();
+
+        for (var i = 0; i < array.get_length (); i++) {
+            var node = array.get_element (i);
+            assert (node.get_node_type () == Json.NodeType.OBJECT);
+            var object = node.get_object ();
+            assert (object.has_member ("keys"));
+            var keys = object.get_string_member ("keys");
+            try {
+                context.process_key_events (keys);
+            } catch (Kkc.KeyEventFormatError e) {
+                assert_not_reached ();
+            }
+            check_conversion_result (context, object);
+            context.reset ();
+            context.clear_output ();
+        }
+    }
 }

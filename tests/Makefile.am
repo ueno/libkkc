@@ -182,6 +182,8 @@ EXTRA_DIST =						\
 	conversions-initial.json			\
 	conversions-sentence.json			\
 	conversions-segment.json			\
+	conversions-user-dictionary.json		\
+	conversions-user-dictionary-phrase.json		\
 	$(NULL)
 
 CLEANFILES =					\

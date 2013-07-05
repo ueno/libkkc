@@ -1,0 +1,50 @@
+[
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私の名前は中野です",
+        "segments_size": 6,
+        "segments_cursor_pos": 0,
+        "output": ""
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right Right C-Left RET",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "私のなまえは中野です"
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "私のなまえは中野です",
+        "segments_size": 7,
+        "segments_cursor_pos": 0,
+        "output": ""
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC SPC RET",
+        "input": "",
+        "segments": "",
+        "segments_size": 0,
+        "segments_cursor_pos": -1,
+        "output": "渡しのなまえは中野です"
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "渡しのなまえは中野です",
+        "segments_size": 7,
+        "segments_cursor_pos": 0,
+        "output": ""
+    },
+    {
+        "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right SPC Right Right SPC",
+        "input": "わたしのなまえはなかのです",
+        "segments": "渡し埜なま回は中野です",
+        "segments_size": 7,
+        "segments_cursor_pos": 3,
+        "output": ""
+    }
+]
