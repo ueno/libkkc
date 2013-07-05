@@ -298,8 +298,6 @@ namespace Kkc {
                 if (enum_value != null) {
                     state.selection.erase ();
                     state.finish_input_editing ();
-                    state.output.append (state.get_input ());
-                    state.reset ();
                     state.input_mode = (InputMode) enum_value.value;
                     return true;
                 }
