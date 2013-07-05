@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-08 18:46+0900\n"
-"PO-Revision-Date: 2013-05-08 18:47+0900\n"
+"POT-Creation-Date: 2013-07-05 11:29+0900\n"
+"PO-Revision-Date: 2013-07-05 11:32+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -120,33 +120,45 @@ msgstr "全角英数に変換"
 msgid "Original Candidate"
 msgstr "元の候補"
 
-#: ../tools/kkc.vala:29
+#: ../tools/kkc.vala:27
 msgid "Language model"
 msgstr "言語モデル"
 
-#: ../tools/kkc.vala:31
-msgid "Run in input method testing mode"
-msgstr "入力メソッドのテストモードで実行"
-
-#: ../tools/kkc.vala:33
+#: ../tools/kkc.vala:39
 msgid "Path to a system dictionary"
 msgstr "システム辞書のパス"
 
-#: ../tools/kkc.vala:35
+#: ../tools/kkc.vala:41
 msgid "Path to a user dictionary"
 msgstr "ユーザ辞書のパス"
 
-#: ../tools/kkc.vala:37
-msgid "Typing rule (default: \"default\")"
-msgstr "タイピング方式 (既定: \"default\")"
+#: ../tools/kkc.vala:43
+msgid "Typing rule (use \"?\" to list available rules)"
+msgstr "タイピング方式 (\"?\" で利用可能な方式の一覧を表示)"
 
-#: ../tools/kkc.vala:39
-msgid "List typing rules"
-msgstr "タイピング方式を一覧表示"
+#: ../tools/kkc.vala:48
+msgid "COMMAND"
+msgstr "コマンド"
 
-#: ../tools/kkc.vala:50
-msgid "- perform kana-kanji conversion on the command line"
-msgstr "- かな漢字変換をコマンドラインから実行"
+#: ../tools/kkc.vala:57
+msgid "Commands:"
+msgstr "コマンド:"
+
+#: ../tools/kkc.vala:77
+msgid "Model options:"
+msgstr "モデルのオプション:"
+
+#: ../tools/kkc.vala:78
+msgid "Options specifying the language model"
+msgstr "言語モデルを指定するオプション"
+
+#: ../tools/kkc.vala:129
+msgid "- run decoder on the command line"
+msgstr "- デコーダをコマンドラインから実行"
+
+#: ../tools/kkc.vala:184 ../tools/server.vala:107
+msgid "- run context on the command line"
+msgstr "- コンテクストをコマンドラインから実行"
 
 #: ../data/rules/tutcode/metadata.json.in:2
 msgid "TUT-Code"
