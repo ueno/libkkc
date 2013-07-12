@@ -70,6 +70,26 @@ struct ServerResponse {
     }
 }
 
+struct ServerNotification {
+    string method;
+    Json.Node? params;
+
+    public void append (Json.Builder builder) {
+        builder.begin_object ();
+        builder.set_member_name ("jsonrpc");
+        builder.add_string_value ("2.0");
+        if (method != null) {
+            builder.set_member_name ("method");
+            builder.add_string_value (method);
+        }
+        if (params != null) {
+            builder.set_member_name ("params");
+            builder.add_value (params);
+        }
+        builder.end_object ();
+    }
+}
+
 delegate ServerResponse CommandCallback (Json.Node? params);
 
 class CommandHandler : Object {
@@ -133,6 +153,8 @@ class ServerRepl : Object, Repl {
         }
 
         context = new Kkc.Context (model);
+        context.candidates.populated.connect (on_candidates_populated);
+        context.candidates.selected.connect (on_candidates_selected);
 
         if (opt_user_dictionary != null) {
             try {
@@ -364,5 +386,31 @@ class ServerRepl : Object, Repl {
             error = null
         };
         return response;
+    }
+
+    void on_candidates_populated () {
+        var notification = ServerNotification () {
+            method = "candidatesPopulated"
+        };
+        var generator = new Json.Generator ();
+        var builder = new Json.Builder ();
+        notification.append (builder);
+
+        generator.set_root (builder.get_root ());
+        size_t length;
+        stdout.printf ("%s\n", generator.to_data (out length));
+    }
+
+    void on_candidates_selected (Kkc.Candidate candidate) {
+        var notification = ServerNotification () {
+            method = "candidatesSelected"
+        };
+        var generator = new Json.Generator ();
+        var builder = new Json.Builder ();
+        notification.append (builder);
+
+        generator.set_root (builder.get_root ());
+        size_t length;
+        stdout.printf ("%s\n", generator.to_data (out length));
     }
 }
