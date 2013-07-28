@@ -18,6 +18,8 @@
 using Gee;
 
 namespace Kkc {
+    const double MIN_UNIGRAM_COST = -4.5;
+
     class State : Object {
         internal Type handler_type;
         InputMode _input_mode;
@@ -316,7 +318,8 @@ namespace Kkc {
             if (normalized_input.char_count () > 1) {
                 var entries = model.unigram_entries (normalized_input);
                 foreach (var entry in entries) {
-                    if (entry.output != normalized_input)
+                    if (entry.output != normalized_input &&
+                        ((UnigramLanguageModel) model).unigram_cost (entry) > MIN_UNIGRAM_COST)
                         return entry.output;
                 }
             }
@@ -352,7 +355,7 @@ namespace Kkc {
             if (normalized_input.char_count () > 1) {
                 var entries = model.unigram_entries (normalized_input);
                 foreach (var entry in entries) {
-                    if (RomKanaUtils.is_katakana (entry.output)) {
+                    if (((UnigramLanguageModel) model).unigram_cost (entry) > MIN_UNIGRAM_COST) {
                         var unigram = new Candidate (
                             normalized_input,
                             false,
