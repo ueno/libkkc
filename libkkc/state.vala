@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    const double MIN_UNIGRAM_COST = -4.5;
+    const double MIN_UNIGRAM_COST = -5.0;
 
     class State : Object {
         internal Type handler_type;
