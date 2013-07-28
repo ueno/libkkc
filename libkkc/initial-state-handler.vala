@@ -299,6 +299,12 @@ namespace Kkc {
                     state.selection.erase ();
                     state.finish_input_editing ();
                     state.input_mode = (InputMode) enum_value.value;
+                    // Commit preedit if the next input mode is direct.
+                    if (state.input_mode == InputMode.DIRECT) {
+                        var input = state.get_input ();
+                        state.output.append (input);
+                        state.reset ();
+                    }
                     return true;
                 }
             }
