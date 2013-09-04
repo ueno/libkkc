@@ -161,12 +161,20 @@ namespace Kkc {
                                           int nbest,
                                           int[] constraint)
         {
+            return decode_with_distance (input, nbest, constraint, double.MAX);
+        }
+
+        public override Segment[] decode_with_distance (string input,
+                                                        int nbest,
+                                                        int[] constraint,
+                                                        double distance)
+        {
             var trellis = build_trellis (input, constraint);
             add_trigram_nodes (trellis);
             add_unknown_nodes (trellis, input, constraint);
 
             forward_search (trellis, input);
-            return backward_search (trellis, nbest);
+            return backward_search (trellis, nbest, distance);
         }
 
         void add_trigram_nodes (ArrayList<TrellisNode>[] trellis) {

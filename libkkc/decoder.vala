@@ -23,6 +23,11 @@ namespace Kkc {
                                           int nbest,
                                           int[] constraint);
 
+        public abstract Segment[] decode_with_distance (string input,
+                                                        int nbest,
+                                                        int[] constraint,
+                                                        double distance);
+
         public static Decoder? create (LanguageModel model) {
             if (model is TrigramLanguageModel) {
                 return new TrigramDecoder (model as TrigramLanguageModel);

@@ -391,9 +391,10 @@ namespace Kkc {
             }
 
             // Thirdly, do sentence lookup, excluding unwanted Kana candidates.
-            var _segments = decoder.decode (normalized_input,
-                                            10,
-                                            new int[0]);
+            var _segments = decoder.decode_with_distance (normalized_input,
+                                                          10,
+                                                          new int[0],
+                                                          2.0);
             foreach (var _segment in _segments) {
                 var builder = new StringBuilder ();
                 while (_segment != null) {
