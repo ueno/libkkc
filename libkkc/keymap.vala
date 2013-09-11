@@ -66,9 +66,7 @@ namespace Kkc {
 
         static construct {
             for (var i = 0; i < Commands.length; i++) {
-                var label = dgettext (Config.GETTEXT_PACKAGE,
-                                      Commands[i].label);
-                _CommandTable.set (Commands[i].name, label);
+                _CommandTable.set (Commands[i].name, Commands[i].label);
             }
         }
 
@@ -88,7 +86,10 @@ namespace Kkc {
          * @return label
          */
         public static string get_command_label (string command) {
-            return _CommandTable.get (command);
+            var label = _CommandTable.get (command);
+            if (label != null)
+                label = dgettext (Config.GETTEXT_PACKAGE, label);
+            return label;
         }
 
         /**
