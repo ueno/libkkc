@@ -447,6 +447,26 @@ namespace Kkc {
                                });
         }
 
+        void merge_possible_okurigana_segments (Segment segment, int start) {
+            var offset = 0;
+            while (segment != null && offset < start) {
+                offset += segment.output.char_count ();
+                segment = segment.next;
+            }
+
+            Segment? last = null;
+            while (segment != null) {
+                if (last != null && RomKanaUtils.is_hiragana (segment.output)) {
+                    last.input = last.input + segment.input;
+                    last.output = last.output + segment.output;
+                    last.next = segment = segment.next;
+                } else {
+                    last = segment;
+                    segment = segment.next;
+                }
+            }
+        }
+
         internal void convert_sentence (string input,
                                         int[]? constraint = null)
         {
@@ -454,6 +474,11 @@ namespace Kkc {
             var _segments = decoder.decode (normalized_input,
                                             1,
                                             constraint ?? new int[0]);
+
+            merge_possible_okurigana_segments (
+                _segments[0],
+                constraint == null ? 0 : constraint[constraint.length - 1]);
+
             segments.set_segments (_segments[0]);
 
             if (constraint == null) {

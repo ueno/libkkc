@@ -339,6 +339,16 @@ namespace Kkc {
             return true;
         }
 
+        internal static bool is_hiragana (string str) {
+            int index = 0;
+            unichar uc;
+            while (str.get_next_char (ref index, out uc)) {
+                if (uc < 0x3041 || uc > 0x309f)
+                    return false;
+            }
+            return true;
+        }
+
         static construct {
             foreach (var entry in KanaTable) {
                 _HiraganaTable.set (entry.katakana,
