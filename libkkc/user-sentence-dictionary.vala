@@ -249,7 +249,7 @@ namespace Kkc {
             }
 
             // Don't add too short sentences to dictionary.
-            if (offset < 4)
+            if (offset < 3)
                 return false;
 
             // Make sure to null terminate so joinv determine the end of strv.
