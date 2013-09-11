@@ -19,7 +19,7 @@
         "keys": "s u m a i h a n a k a n o d e s u SPC",
         "input": "すまいはなかのです",
         "segments": "すまいは中のです",
-        "segments_size": 7,
+        "segments_size": 4,
         "segments_cursor_pos": 0,
         "output": ""
     }

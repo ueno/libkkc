@@ -286,6 +286,8 @@ class UserDictionaryWithContextTests : Kkc.TestCase {
 }
 
 int main (string[] args) {
+    Intl.setlocale (LocaleCategory.ALL, "");
+
     Test.init (ref args);
     Kkc.init ();
 
