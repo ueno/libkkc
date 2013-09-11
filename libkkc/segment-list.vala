@@ -44,6 +44,18 @@ namespace Kkc {
             cursor_pos = -1;
         }
 
+        public void add (Segment segment) {
+            return_if_fail (offsets.size == segments.size);
+            if (offsets.size > 0) {
+                var last_offset = offsets[offsets.size - 1];
+                var last_segment = segments[segments.size - 1];
+                offsets.add (last_offset + last_segment.input.char_count ());
+            } else {
+                offsets.add (0);
+            }
+            segments.add (segment);
+        }
+
         public new Segment @get (int index) {
             return segments.get (index);
         }
@@ -57,7 +69,7 @@ namespace Kkc {
             segments.clear ();
             offsets.clear ();
             while (segment != null) {
-                segments.add (segment);
+                segments.add (new Segment (segment.input, segment.output));
                 offsets.add (offset);
                 offset += segment.input.char_count ();
                 segment = segment.next;

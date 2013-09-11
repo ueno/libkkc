@@ -447,24 +447,36 @@ namespace Kkc {
                                });
         }
 
-        void merge_possible_okurigana_segments (Segment segment, int start) {
+        void merge_possible_okurigana_segments (int start) {
+            var _segments = new ArrayList<Segment> ();
+            foreach (var segment in segments) {
+                _segments.add (segment);
+            }
+            segments.clear ();
+
+            var index = 0;
             var offset = 0;
-            while (segment != null && offset < start) {
-                offset += segment.output.char_count ();
-                segment = segment.next;
+            for (; index < _segments.size && offset < start; index++) {
+                offset += _segments[index].output.char_count ();
+                segments.add (_segments[index]);
             }
 
-            Segment? last = null;
-            while (segment != null) {
-                if (last != null && RomKanaUtils.is_hiragana (segment.output)) {
-                    last.input = last.input + segment.input;
-                    last.output = last.output + segment.output;
-                    last.next = segment = segment.next;
+            Segment? previous = null;
+            for (; index < _segments.size; index++) {
+                if (previous != null) {
+                    if (RomKanaUtils.is_hiragana (_segments[index].output)) {
+                        previous.input += _segments[index].input;
+                        previous.output += _segments[index].output;
+                    } else {
+                        segments.add (previous);
+                        previous = _segments[index];
+                    }
                 } else {
-                    last = segment;
-                    segment = segment.next;
+                    previous = _segments[index];
                 }
             }
+            if (previous != null)
+                segments.add (previous);
         }
 
         internal void convert_sentence (string input,
@@ -475,10 +487,6 @@ namespace Kkc {
                                             1,
                                             constraint ?? new int[0]);
 
-            merge_possible_okurigana_segments (
-                _segments[0],
-                constraint == null ? 0 : constraint[constraint.length - 1]);
-
             segments.set_segments (_segments[0]);
 
             if (constraint == null) {
@@ -486,6 +494,9 @@ namespace Kkc {
             }
 
             apply_phrase ();
+
+            merge_possible_okurigana_segments (
+                constraint == null ? 0 : constraint[constraint.length - 1]);
         }
 
         void apply_constraint_for_dictionary (Dictionary dictionary,
