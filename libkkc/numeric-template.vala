@@ -99,6 +99,7 @@ namespace Kkc {
                 case '2':
                 case '3':
                 case '5':
+                case '8':
                     builder.append (
                         RomKanaUtils.get_numeric (
                             numerics[index],

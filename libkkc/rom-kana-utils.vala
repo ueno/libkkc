@@ -25,6 +25,9 @@ namespace Kkc {
         KANJI,
         RECONVERT,
         DAIJI,
+        RESERVED6,
+        RESERVED7,
+        GROUPING,
         SHOGI
     }
 
@@ -323,6 +326,23 @@ namespace Kkc {
                 return get_kanji_numeric (numeric,
                                           DaijiNumericTable,
                                           DaijiNumericalPositionTable);
+            case NumericConversionType.GROUPING:
+                var str = numeric.to_string ();
+                string[] strv = {};
+                var length = str.char_count ();
+                var start = length % 3;
+                var offset = 0;
+                if (start > 0) {
+                    offset = str.index_of_nth_char (start);
+                    strv += str.substring (0, offset);
+                }
+                while (start < length) {
+                    var next_offset = str.index_of_nth_char (start + 3);
+                    strv += str.substring (offset, next_offset - offset);
+                    offset = next_offset;
+                    start += 3;
+                }
+                return string.joinv (",", strv);
             default:
                 break;
             }
