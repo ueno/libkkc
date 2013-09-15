@@ -23,10 +23,11 @@ namespace Kkc {
                                           int nbest,
                                           int[] constraint);
 
-        public abstract Segment[] decode_with_distance (string input,
-                                                        int nbest,
-                                                        int[] constraint,
-                                                        double distance);
+        public abstract Segment[] decode_with_costs (string input,
+                                                     int nbest,
+                                                     int[] constraint,
+                                                     double max_distance,
+                                                     double min_path_cost);
 
         public static Decoder? create (LanguageModel model) {
             if (model is TrigramLanguageModel) {

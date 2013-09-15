@@ -20,6 +20,10 @@ using Gee;
 namespace Kkc {
     const double MIN_UNIGRAM_COST = -5.0;
 
+    const double DECODER_MAX_DISTANCE = 2.0;
+    const double DECODER_MIN_PATH_COST = -3.0;
+    const int DECODER_NBEST = 20;
+
     class State : Object {
         internal Type handler_type;
         InputMode _input_mode;
@@ -391,10 +395,11 @@ namespace Kkc {
             }
 
             // Thirdly, do sentence lookup, excluding unwanted Kana candidates.
-            var _segments = decoder.decode_with_distance (normalized_input,
-                                                          10,
-                                                          new int[0],
-                                                          2.0);
+            var _segments = decoder.decode_with_costs (normalized_input,
+                                                       DECODER_NBEST,
+                                                       new int[0],
+                                                       DECODER_MAX_DISTANCE,
+                                                       DECODER_MIN_PATH_COST);
             foreach (var _segment in _segments) {
                 var builder = new StringBuilder ();
                 while (_segment != null) {

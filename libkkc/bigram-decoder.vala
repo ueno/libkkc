@@ -36,18 +36,26 @@ namespace Kkc {
                                           int nbest,
                                           int[] constraint)
         {
-            return decode_with_distance (input, nbest, constraint, double.MAX);
+            return decode_with_costs (input,
+                                      nbest,
+                                      constraint,
+                                      double.MAX,
+                                      double.MIN);
         }
 
-        public override Segment[] decode_with_distance (string input,
-                                                        int nbest,
-                                                        int[] constraint,
-                                                        double distance)
+        public override Segment[] decode_with_costs (string input,
+                                                     int nbest,
+                                                     int[] constraint,
+                                                     double max_distance,
+                                                     double min_path_cost)
         {
             var trellis = build_trellis (input, constraint);
             add_unknown_nodes (trellis, input, constraint);
             forward_search (trellis, input);
-            var segments = backward_search (trellis, nbest, distance);
+            var segments = backward_search (trellis,
+                                            nbest,
+                                            max_distance,
+                                            min_path_cost);
             for (var i = 0; i < trellis.length; i++) {
                 trellis[i].clear ();
             }
@@ -195,7 +203,8 @@ namespace Kkc {
 
         protected Segment[] backward_search (ArrayList<TrellisNode>[] trellis,
                                              int nbest,
-                                             double distance)
+                                             double max_distance,
+                                             double min_path_cost)
         {
             var bos_trellis_node = trellis[0][0];
             var eos_trellis_node = trellis[trellis.length - 1][0];
@@ -240,7 +249,7 @@ namespace Kkc {
                 if (current_nbest_node.node == bos_trellis_node) {
                     var output = concat_nbest_node_outputs (current_nbest_node);
                     if (!duplicates.contains (output)) {
-                        if (eos_trellis_node.cumulative_cost - current_nbest_node.fn > distance)
+                        if (eos_trellis_node.cumulative_cost - current_nbest_node.fn > max_distance)
                             break;
                         close_list.add (current_nbest_node);
                         if (close_list.size == nbest)
@@ -254,7 +263,8 @@ namespace Kkc {
                         var cost = path_cost (nbest_node.node,
                                               current_nbest_node.node,
                                               (int) i);
-
+                        if (trellis_node != bos_trellis_node && cost < min_path_cost)
+                            continue;
                         nbest_node.gn = cost + current_nbest_node.gn;
                         nbest_node.fn = nbest_node.gn + nbest_node.node.cumulative_cost;
                         nbest_node.next = current_nbest_node;
