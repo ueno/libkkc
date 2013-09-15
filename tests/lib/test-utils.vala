@@ -41,6 +41,7 @@ namespace Kkc.TestUtils {
             assert (context.segments.cursor_pos == expected_segments_cursor_pos);
         }
 
+        print ("%s %d\n", context.input, context.candidates.size);
         if (expected.has_member ("candidates_size")) {
             var expected_candidates_size = expected.get_int_member ("candidates_size");
             assert (context.candidates.size == expected_candidates_size);
