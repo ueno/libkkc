@@ -71,6 +71,13 @@ namespace Kkc {
         }
 
         public string expand (string text) {
+            // HACK: Exclude literal "＃" from the result
+            if (source == "#" && text == "＃" && numerics.size > 0) {
+                return RomKanaUtils.get_numeric (
+                    numerics[0],
+                    NumericConversionType.LATIN);
+            }
+
             var builder = new StringBuilder ();
             MatchInfo info = null;
             int start_pos = 0;
@@ -107,7 +114,7 @@ namespace Kkc {
                     break;
                 case '4':
                 case '9':
-                    // not supported yet
+                    // Not supported yet
                     builder.append (
                         RomKanaUtils.get_numeric (
                             numerics[index],
@@ -116,6 +123,10 @@ namespace Kkc {
                 default:
                     warning ("unknown numeric conversion type: %s",
                              type);
+                    builder.append (
+                        RomKanaUtils.get_numeric (
+                            numerics[index],
+                            NumericConversionType.LATIN));
                     break;
                 }
                 start_pos = match_end_pos;
