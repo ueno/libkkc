@@ -208,6 +208,8 @@ namespace Kkc {
             return null;
         }
 
+        uint timeout_id = 0;
+
         bool timeout_func () {
             int64 time = get_time_func ();
             var r = dispatch (time);
@@ -215,10 +217,9 @@ namespace Kkc {
                 var output = decompose_shifted (r);
                 forwarded (output);
             }
+            timeout_id = 0;
             return false;
         }
-
-        uint timeout_id = 0;
 
         // Translate left/right shift modifiers to a normal key
         // press events, so that they can be mapped in rom-kana
