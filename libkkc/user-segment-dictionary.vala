@@ -63,15 +63,15 @@ namespace Kkc {
                     okuri = false;
                     continue;
                 }
-                int index = line.index_of ("/");
-                if (index < 1) {
+                string[] strv = line.strip ().split_set (" \t", 2);
+                if (strv.length < 2) {
                     throw new DictionaryError.MALFORMED_INPUT (
                         "can't extract midasi from line %s",
                         line);
                 }
 
-                string midasi = line[0:index].strip ();
-                string candidates_str = line[index:line.length];
+                string midasi = strv[0];
+                string candidates_str = strv[1];
                 if (!candidates_str.has_prefix ("/") ||
                     !candidates_str.has_suffix ("/")) {
                     throw new DictionaryError.MALFORMED_INPUT (
