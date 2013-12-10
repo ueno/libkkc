@@ -70,6 +70,8 @@ namespace Kkc {
                 switch (uc) {
                 case '\\':
                 case '/':
+                case ' ':
+                case '\t':
                 case '\n':
                     builder.append ("\\x%02x".printf (uc));
                     break;

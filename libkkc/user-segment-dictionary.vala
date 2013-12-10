@@ -70,7 +70,7 @@ namespace Kkc {
                         line);
                 }
 
-                string midasi = strv[0];
+                string midasi = DictionaryUtils.unescape (strv[0]);
                 string candidates_str = strv[1];
                 if (!candidates_str.has_prefix ("/") ||
                     !candidates_str.has_suffix ("/")) {
@@ -125,7 +125,7 @@ namespace Kkc {
             while (iter.next ()) {
                 var entry = iter.get ();
                 var line = "%s %s\n".printf (
-                    entry.key,
+                    DictionaryUtils.escape (entry.key),
                     DictionaryUtils.join_candidates (entry.value.to_array ()));
                 builder.append (line);
             }

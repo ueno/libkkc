@@ -53,7 +53,9 @@ class UserSegmentDictionaryTests : Kkc.TestCase {
         dictionary.select_candidate (
             new Kkc.Candidate ("あお", false, "青"));
         dictionary.select_candidate (
-            new Kkc.Candidate ("あ お", false, "青"));
+            new Kkc.Candidate ("あ お", false, "青 "));
+        dictionary.select_candidate (
+            new Kkc.Candidate ("あ/お", false, "青/"));
         dictionary.select_candidate (
             new Kkc.Candidate ("あu", true, "会u"));
         dictionary.select_candidate (
@@ -64,6 +66,19 @@ class UserSegmentDictionaryTests : Kkc.TestCase {
         dictionary.purge_candidate (candidate);
 
         dictionary.save ();
+
+        try {
+            dictionary = new Kkc.UserSegmentDictionary (
+                "test-user-segment-dictionary");
+        } catch (Error e) {
+            assert_not_reached ();
+        }
+
+        Kkc.Candidate[] candidates;
+        dictionary.lookup_candidates ("あ お", false, out candidates);
+        assert (candidates.length == 1 && candidates[0].output == "青 ");
+        dictionary.lookup_candidates ("あ/お", false, out candidates);
+        assert (candidates.length == 1 && candidates[0].output == "青/");
     }
 
     public override void set_up () {
