@@ -40,7 +40,7 @@ namespace Kkc {
                                       nbest,
                                       constraint,
                                       double.MAX,
-                                      double.MIN);
+                                      -double.MAX);
         }
 
         public override Segment[] decode_with_costs (string input,
