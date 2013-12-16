@@ -113,7 +113,10 @@ namespace Kkc {
             state.select_sentence ();
             state.reset ();
 
-            if (command == "commit")
+            if (command == "commit" ||
+                // Consider non-printable key as commit command
+                // FIXME: Make this check more reliable
+                (command == null && key.unicode == '\0'))
                 return true;
 
             if (command == null &&
