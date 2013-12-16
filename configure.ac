@@ -17,7 +17,7 @@
 AC_PREREQ(2.63)
 AC_CONFIG_MACRO_DIR([m4])
 
-AC_INIT([libkkc], [0.3.1], [ueno@gnu.org])
+AC_INIT([libkkc], [0.3.2], [ueno@gnu.org])
 
 KKC_API_VERSION=1.0
 KKC_API_MAJOR_VERSION=1
