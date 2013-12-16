@@ -70,6 +70,15 @@ namespace Kkc {
             }
         }
 
+        /**
+         * Current cursor width in input string.
+         */
+        public uint input_cursor_width {
+            get {
+                return state.input_cursor_width;
+            }
+        }
+
         State state;
         Gee.Map<Type, StateHandler> handlers =
             new HashMap<Type, StateHandler> ();

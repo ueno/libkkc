@@ -110,9 +110,41 @@ namespace Kkc {
 
         internal int input_cursor_pos {
             get {
+                if (input_characters_cursor_pos >= 0) {
+                    var index = 0;
+                    var offset = 0;
+                    for (; index < input_characters_cursor_pos; index++) {
+                        offset += input_characters[index].output.char_count ();
+                    }
+                    // Hack for Kana typing rule: add the length of
+                    // unfinished Kana input.  Suppose the following
+                    // input when moving cursor in the initial state:
+                    //
+                    //   F|F|FFFFF (F = finished characters, | = cursor)
+                    //
+                    // If user types a finished character (e.g. A, I):
+                    //
+                    //   FX|F|FFFFF
+                    // 
+                    // On the other hand, if user types an unfinished
+                    // character (e.g. KA, CHI, which may be followed
+                    // by sonant marks):
+                    //
+                    //   F|X|FFFFFF
+                    //
+                    // For consistency, move the cursor by the width
+                    // of the unfisnished character.
+                    offset += rom_kana_converter.pending_output.char_count ();
+                    return offset;
+                }
+                return input_characters_cursor_pos;
+            }
+        }
+
+        internal uint input_cursor_width {
+            get {
                 if (input_characters_cursor_pos >= 0)
-                    return input_characters_cursor_pos +
-                        rom_kana_converter.pending_output.char_count ();
+                    return input_characters[input_characters_cursor_pos].output.char_count ();
                 return input_characters_cursor_pos;
             }
         }
