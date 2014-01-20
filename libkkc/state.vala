@@ -382,12 +382,12 @@ namespace Kkc {
                 segment.output);
             candidates.add (original);
 
-            // 1. look for user segment dictionaries.
+            // 1. Look up candidates from user segment dictionaries.
             lookup_template (new NumericTemplate (normalized_input), true);
             lookup_template (new SimpleTemplate (normalized_input), true);
             lookup_template (new OkuriganaTemplate (normalized_input), true);
 
-            // 2. search for Katakana candidate in unigrams in language model.
+            // 2. Look up the most frequently used unigram from language model.
             if (normalized_input.char_count () > 1) {
                 var entries = model.unigram_entries (normalized_input);
                 foreach (var entry in entries) {
@@ -402,13 +402,14 @@ namespace Kkc {
                 }
             }
 
-            // 3. look for system segment dictionaries.
+            // 3. Look up candidates from system segment dictionaries.
             lookup_template (new NumericTemplate (normalized_input), false);
             lookup_template (new SimpleTemplate (normalized_input), false);
             lookup_template (new OkuriganaTemplate (normalized_input), false);
 
-            // Prepare Kana candidates to check dupes when adding
-            // sentence candidates.
+            // 4. Do sentence conversion with N-best search.
+
+            // 4.1. Create Kana candidates to be excluded.
             var kana_candidates = new CandidateList ();
             var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
             for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
@@ -426,7 +427,7 @@ namespace Kkc {
                 }
             }
 
-            // Thirdly, do sentence lookup, excluding unwanted Kana candidates.
+            // 4.2. Do sentence lookup, excluding Kana candidates.
             var _segments = decoder.decode_with_costs (normalized_input,
                                                        DECODER_NBEST,
                                                        new int[0],
@@ -446,7 +447,7 @@ namespace Kkc {
                     candidates.add (sentence);
             }
 
-            // Add Kana candidates at the end.
+            // 4.3. Add Kana candidates at the end.
             candidates.add_all (kana_candidates);
 
             candidates.populated ();
