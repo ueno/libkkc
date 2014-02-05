@@ -50,6 +50,10 @@ namespace Kkc {
                                        do_next_segment);
             register_command_callback ("previous-segment",
                                        do_previous_segment);
+            register_command_callback ("first-segment",
+                                       do_first_segment);
+            register_command_callback ("last-segment",
+                                       do_last_segment);
 
             register_command_callback ("abort", do_clear_unhandled);
             register_command_callback ("delete", do_clear_unhandled);
@@ -92,6 +96,16 @@ namespace Kkc {
 
         bool do_previous_segment (string? command, State state, KeyEvent key) {
             state.segments.previous_segment ();
+            return true;
+        }
+
+        bool do_first_segment (string? command, State state, KeyEvent key) {
+            state.segments.first_segment ();
+            return true;
+        }
+
+        bool do_last_segment (string? command, State state, KeyEvent key) {
+            state.segments.last_segment ();
             return true;
         }
 

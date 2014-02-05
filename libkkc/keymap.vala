@@ -34,6 +34,8 @@ namespace Kkc {
     public class Keymap : Object {
         static const KeymapCommandEntry Commands[] = {
             { "abort", N_("Abort") },
+            { "first-segment", N_("First Segment") },
+            { "last-segment", N_("Last Segment") },
             { "commit", N_("Commit") },
             { "complete", N_("Complete") },
             { "delete", N_("Delete") },

@@ -84,6 +84,14 @@ namespace Kkc {
             return false;
         }
 
+        public bool last_segment () {
+            if (segments.size > 0) {
+                cursor_pos = segments.size - 1;
+                return true;
+            }
+            return false;
+        }
+
         public void next_segment () {
             if (cursor_pos == -1)
                 return;

@@ -32,6 +32,10 @@ namespace Kkc {
                                        do_select_unhandled);
             register_command_callback ("previous-segment",
                                        do_select_unhandled);
+            register_command_callback ("first-segment",
+                                       do_select_unhandled);
+            register_command_callback ("last-segment",
+                                       do_select_unhandled);
             register_command_callback ("delete",
                                        do_clear_unhandled);
             register_command_callback ("original-candidate",

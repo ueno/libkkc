@@ -148,9 +148,27 @@ class ContextTests : Kkc.TestCase {
         context.clear_output ();
 
         try {
+            context.process_key_events ("a a a");
+            assert (context.process_key_events ("Left"));
+            assert (context.input_cursor_pos == 2);
+            assert (context.process_key_events ("Right"));
+            assert (context.input_cursor_pos == -1);
+            assert (context.process_key_events ("Home"));
+            assert (context.input_cursor_pos == 0);
+            assert (context.process_key_events ("End"));
+            assert (context.input_cursor_pos == 2);
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
+        context.reset ();
+        context.clear_output ();
+
+        try {
             context.process_key_events ("a a a RET");
             assert (!context.process_key_events ("Left"));
             assert (!context.process_key_events ("Right"));
+            assert (!context.process_key_events ("Home"));
+            assert (!context.process_key_events ("End"));
         } catch (Kkc.KeyEventFormatError e) {
             assert_not_reached ();
         }

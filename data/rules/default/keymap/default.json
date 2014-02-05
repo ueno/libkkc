@@ -24,6 +24,8 @@
             "Right": "next-segment",
             "Left": "previous-segment",
             "C-f": "next-segment",
+            "Home": "first-segment",
+            "End": "last-segment",
             "C-Right": "expand-segment",
             "C-Left": "shrink-segment",
             "S-Right": "expand-segment",

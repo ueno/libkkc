@@ -57,6 +57,8 @@ namespace Kkc {
             register_command_callback ("next-candidate", do_next_candidate);
             register_command_callback ("next-segment", do_next_character);
             register_command_callback ("previous-segment", do_previous_character);
+            register_command_callback ("first-segment", do_first_character);
+            register_command_callback ("last-segment", do_last_character);
             register_command_callback ("quote", do_quote);
             register_command_callback ("register", do_register);
 
@@ -205,6 +207,24 @@ namespace Kkc {
 
             if (state.input_characters_cursor_pos > 0)
                 state.input_characters_cursor_pos--;
+            return true;
+        }
+
+        bool do_first_character (string? command, State state, KeyEvent key) {
+            state.finish_input_editing ();
+            if (state.input_characters.size == 0)
+                return false;
+
+            state.input_characters_cursor_pos = 0;
+            return true;
+        }
+
+        bool do_last_character (string? command, State state, KeyEvent key) {
+            state.finish_input_editing ();
+            if (state.input_characters.size == 0)
+                return false;
+
+            state.input_characters_cursor_pos = state.input_characters.size - 1;
             return true;
         }
 
