@@ -189,6 +189,9 @@ namespace Kkc {
                 }
                 elements.add (_base);
                 elements.add (null); // make sure that strv ends with null
+                // newer valac thinks null in a fixed length array as
+                // an empty string
+                elements.length = -1;
                 return "(" + string.joinv (" ", elements.to_array ()) + ")";
             } else {
                 return _base;
