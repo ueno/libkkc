@@ -55,8 +55,11 @@ class KeyEventTests : Kkc.TestCase {
     }
 
     void test_keyname () {
-        Kkc.KeynameEntry? entry1 = Kkc.keynames[0];
-        assert (entry1.keyval == Kkc.Keysyms.VoidSymbol);
+        var name = Kkc.KeyEventUtils.keyval_name (Kkc.Keysyms.VoidSymbol);
+        assert (name == "VoidSymbol");
+
+        var keyval = Kkc.KeyEventUtils.keyval_from_name ("VoidSymbol");
+        assert (keyval == Kkc.Keysyms.VoidSymbol);
     }
 
     void test_simple_filter () {

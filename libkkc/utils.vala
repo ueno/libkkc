@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 using Gee;
+using Keysyms;
 
 namespace Kkc {
     namespace Utils {
@@ -101,25 +102,96 @@ namespace Kkc {
     }
 
     abstract class KeyEventUtils : Object {
-        static Gee.Map<uint,string> keyval_to_keyname =
-            new HashMap<uint,string> ();
-        static Gee.Map<string,uint> keyname_to_keyval =
-            new HashMap<string,uint> ();
+        static KeysymEntry *bsearch_keysyms (
+            KeysymEntry *memory,
+            long start_offset,
+            long end_offset,
+            CompareDataFunc<KeysymEntry?> compare,
+            KeysymEntry needle)
+        {
+            var offset = start_offset + (end_offset - start_offset) / 2;
+            while (start_offset <= end_offset) {
+                KeysymEntry *p = memory + offset;
+                var r = compare (*p, needle);
+                if (r == 0)
+                    return p;
+                if (r > 0)
+                    end_offset = offset - 1;
+                else
+                    start_offset = offset + 1;
+                offset = start_offset + (end_offset - start_offset) / 2;
+            }
+            return null;
+        }
 
-        static construct {
-            foreach (var entry in keynames)
-                keyval_to_keyname.set (entry.keyval, entry.name);
-            foreach (var entry in keynames)
-                keyname_to_keyval.set (entry.name, entry.keyval);
+        static string? read_name (long start_offset) {
+            long offset;
+            for (offset = start_offset; keysym_names[offset] != '\0'; offset++)
+                ;
+
+            string *result = malloc0 (offset - start_offset + 1);
+            char *dest = (char *) result;
+
+            Memory.copy (dest,
+                         (char *) keysym_names + start_offset,
+                         (offset - start_offset));
+
+            return (owned) result;
         }
 
         public static string? keyval_name (uint keyval) {
-            return keyval_to_keyname.get (keyval);
+            KeysymEntry needle = KeysymEntry () {
+                keysym = keyval,
+                offset = 0
+            };
+
+            var entry = bsearch_keysyms (keysym_to_name,
+                                         0,
+                                         keysym_to_name.length,
+                                         (a, b) => {
+                                             return a.keysym == b.keysym ? 0 :
+                                                 a.keysym < b.keysym ? -1 : 1;
+                                         },
+                                         needle);
+            if (entry == null)
+                return null;
+
+            return read_name (entry->offset);
+        }
+
+        static KeysymEntry *find_keysym (KeysymEntry *entry, string name) {
+            if (read_name (entry->offset) == name)
+                return entry;
+
+            KeysymEntry *iter;
+            for (iter = entry - 1;
+                 iter >= (KeysymEntry *) name_to_keysym;
+                 iter++)
+                if (read_name (iter->offset) == name)
+                    return iter;
+
+            return null;
         }
 
         public static uint keyval_from_name (string name) {
-            if (keyname_to_keyval.has_key (name))
-                return keyname_to_keyval.get (name);
+            KeysymEntry needle = KeysymEntry () {
+                keysym = 0,
+                offset = 0
+            };
+
+            var entry = bsearch_keysyms (name_to_keysym,
+                                         0,
+                                         name_to_keysym.length,
+                                         (a, b) => {
+                                             var aname = read_name (a.offset);
+                                             return aname.ascii_casecmp (name);
+                                         },
+                                         needle);
+            if (entry != null) {
+                entry = find_keysym (entry, name);
+                if (entry != null)
+                    return entry->keysym;
+            }
 
             // handle ASCII keyvals with differnet name (e.g. at,
             // percent, etc.)

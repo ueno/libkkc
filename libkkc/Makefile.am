@@ -28,6 +28,7 @@ libkkc_la_VALAFLAGS =						\
 	--vapidir=.						\
 	--vapidir=$(top_srcdir)/marisa-glib			\
 	--pkg config						\
+	--pkg keysyms						\
 	--pkg glib-2.0						\
 	--pkg gio-2.0						\
 	--pkg gee-1.0						\
@@ -83,7 +84,6 @@ libkkc_shell_sources =				\
 	key-event-filter.vala			\
 	key-event.vala				\
 	keymap.vala				\
-	keynames.vala				\
 	keysyms.vala				\
 	map-file.vala				\
 	nicola.vala				\
@@ -165,6 +165,13 @@ pkgconfig_DATA = kkc-1.0.pc
 vapi_DATA = kkc-1.0.vapi kkc-1.0.deps
 vapidir = $(datadir)/vala/vapi
 
-EXTRA_DIST = config.vapi kkc-1.0.deps libkkc.symbols
+EXTRA_DIST =					\
+	config.vapi				\
+	kkc-1.0.deps				\
+	libkkc.symbols				\
+	ks_tables.h				\
+	keysyms.h				\
+	keysyms.vapi				\
+	$(NULL)
 
 -include $(top_srcdir)/git.mk
