@@ -38,11 +38,11 @@ valadoc_flags = \
 
 # libkkc documentation
 libkkc_doc_files_blacklist = \
-	$(top_srcdir)/libkkc/kana-kan.vala \
 	$(NULL)
 # this expands the list of files, so we can filter out elements
 libkkc_doc_files_all = \
 	$(wildcard $(top_srcdir)/libkkc/*.vala) \
+	$(top_srcdir)/libkkc/keysyms.vapi \
 	$(NULL)
 # FIXME: sort the files manually to work around the native doclet portion of
 # bgo#662784
