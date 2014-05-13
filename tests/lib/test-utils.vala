@@ -68,6 +68,9 @@ namespace Kkc.TestUtils {
             var node = array.get_element (i);
             assert (node.get_node_type () == Json.NodeType.OBJECT);
             var object = node.get_object ();
+            if (object.has_member ("auto_correct"))
+                context.auto_correct =
+                    object.get_boolean_member ("auto_correct");
             assert (object.has_member ("keys"));
             var keys = object.get_string_member ("keys");
             try {

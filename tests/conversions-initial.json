@@ -35,5 +35,7 @@
   { "keys": "a i u e o Left BackSpace i", "input": "あいういお", "output": "" },
   { "keys": "a i u e o Left BackSpace k", "input": "あいうkお", "output": "" },
   { "keys": "a i Left Left Left Left BackSpace k", "input": "kあい", "output": "" },
-  { "keys": "a i K", "input": "あいK", "output": "" }
+  { "keys": "a i K", "input": "あいK", "output": "" },
+  { "keys": "t e s t F10", "auto_correct": false, "input": "test", "output": "" },
+  { "keys": "t e s t F7", "auto_correct": false, "input": "テst", "output": "" }
 ]

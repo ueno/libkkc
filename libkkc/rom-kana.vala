@@ -438,10 +438,18 @@ namespace Kkc {
                 return true;
             }
 
-            if (!auto_correct && _pending_output.len > 0) {
-                _produced.add (RomKanaCharacter () {
-                        output = _pending_output.str, input = _pending_input.str
+            if (!auto_correct &&
+                (_pending_output.len > 0 || _pending_input.len > 0)) {
+                if (_pending_output.len > 0)
+                    _produced.add (RomKanaCharacter () {
+                            output = _pending_output.str, input = _pending_input.str
                         });
+                else if (_pending_input.len > 0)
+                    for (var i = 0; i < _pending_input.len; i++)
+                        _produced.add (RomKanaCharacter () {
+                                output = _pending_input.str[i].to_string (),
+                                    input = _pending_input.str[i].to_string ()
+                            });
                 _pending_input.erase ();
                 _pending_output.erase ();
                 current_node = rule.root_node;
