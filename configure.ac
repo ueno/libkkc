@@ -75,8 +75,8 @@ PKG_CHECK_MODULES([GIO], [gio-2.0], ,
   [AC_MSG_ERROR([can't find gio-2.0])])
 
 # check gee
-PKG_CHECK_MODULES([GEE], [gee-1.0], ,
-  [AC_MSG_ERROR([can't find gee-1.0])])
+PKG_CHECK_MODULES([GEE], [gee-0.8], ,
+  [AC_MSG_ERROR([can't find gee-0.8])])
 
 # check json-glib
 PKG_CHECK_MODULES([JSON_GLIB], [json-glib-1.0], ,

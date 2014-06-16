@@ -722,7 +722,7 @@ namespace Kkc {
                                });
             completion.sort ();
             completion_iterator = completion.iterator ();
-            if (!completion_iterator.first ()) {
+            if (!completion_iterator.next ()) {
                 completion_iterator = null;
             }
         }

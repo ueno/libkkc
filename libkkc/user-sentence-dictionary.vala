@@ -169,13 +169,13 @@ namespace Kkc {
             builder.append (";; constraint entries.\n");
             var _constraint_entries = new ArrayList<Map.Entry<string,Gee.List<int>>> ();
             _constraint_entries.add_all (constraint_entries.entries);
-            _constraint_entries.sort ((CompareFunc) compare_constraint_entry);
+            _constraint_entries.sort (compare_constraint_entry);
             write_constraint_entries (builder, _constraint_entries);
 
             builder.append (";; phrase entries.\n");
             var _phrase_entries = new ArrayList<Map.Entry<string,Gee.List<string>>> ();
             _phrase_entries.add_all (phrase_entries.entries);
-            _phrase_entries.sort ((CompareFunc) compare_phrase_entry);
+            _phrase_entries.sort (compare_phrase_entry);
             write_phrase_entries (builder, _phrase_entries);
 
             DirUtils.create_with_parents (Path.get_dirname (file.get_path ()),

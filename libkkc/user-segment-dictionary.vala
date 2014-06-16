@@ -143,13 +143,13 @@ namespace Kkc {
             builder.append (";; okuri-ari entries.\n");
             var entries = new ArrayList<Map.Entry<string,Gee.List<Candidate>>> ();
             entries.add_all (okuri_ari_entries.entries);
-            entries.sort ((CompareFunc) compare_entry_dsc);
+            entries.sort (compare_entry_dsc);
             write_entries (builder, entries);
             entries.clear ();
 
             builder.append (";; okuri-nasi entries.\n");
             entries.add_all (okuri_nasi_entries.entries);
-            entries.sort ((CompareFunc) compare_entry_asc);
+            entries.sort (compare_entry_asc);
             write_entries (builder, entries);
             entries.clear ();
 

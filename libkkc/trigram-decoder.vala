@@ -193,8 +193,7 @@ namespace Kkc {
 
             var overlapped_nodes = new HashSet<TrellisNode>[trellis.length];
             for (var i = 0; i < overlapped_nodes.length; i++) {
-                overlapped_nodes[i] = new HashSet<TrellisNode> (direct_hash,
-                                                                direct_equal);
+                overlapped_nodes[i] = new HashSet<TrellisNode> ();
             }
 
             for (var i = 1; i < trellis.length; i++) {

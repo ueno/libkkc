@@ -100,8 +100,7 @@ namespace Kkc {
         public Keymap? parent { get; set; default = null; }
 
         Map<KeyEvent,string> map_entries =
-            new HashMap<KeyEvent,string> ((HashFunc) key_hash,
-                                          (EqualFunc) key_equal);
+            new HashMap<KeyEvent,string> (key_hash, key_equal);
 
         static bool key_equal (KeyEvent a, KeyEvent b) {
             return a.keyval == b.keyval && a.modifiers == b.modifiers;
@@ -119,8 +118,7 @@ namespace Kkc {
          */
         public KeymapEntry[] entries () {
             var _map_entries =
-                new HashMap<KeyEvent,string> ((HashFunc) key_hash,
-                                              (EqualFunc) key_equal);
+                new HashMap<KeyEvent,string> (key_hash, key_equal);
             if (parent != null)
                 _map_entries.set_all (parent.map_entries);
             _map_entries.set_all (map_entries);
@@ -139,16 +137,14 @@ namespace Kkc {
         KeymapEntry[] map_entries_to_array (Map<KeyEvent,string> map_entries) {
             KeymapEntry[] result = {};
             var iter = map_entries.map_iterator ();
-            if (iter.first ()) {
-                do {
-                    var key = iter.get_key ();
-                    var command = iter.get_value ();
-                    KeymapEntry entry = {
-                        key,
-                        command
-                    };
-                    result += entry;
-                } while (iter.next ());
+            while (iter.next ()) {
+                var key = iter.get_key ();
+                var command = iter.get_value ();
+                KeymapEntry entry = {
+                    key,
+                    command
+                };
+                result += entry;
             }
             return result;
         }
@@ -185,11 +181,9 @@ namespace Kkc {
          */
         public KeyEvent? where_is (string command) {
             var iter = map_entries.map_iterator ();
-            if (iter.first ()) {
-                do {
-                    if (iter.get_value () == command)
-                        return iter.get_key ();
-                } while (iter.next ());
+            while (iter.next ()) {
+                if (iter.get_value () == command)
+                    return iter.get_key ();
             }
             if (parent != null)
                 return parent.where_is (command);

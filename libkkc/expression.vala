@@ -159,7 +159,7 @@ namespace Kkc {
         public string? eval (ExpressionNode node) {
             if (node.type == ExpressionNodeType.ARRAY) {
                 var iter = node.nodes.list_iterator ();
-                if (iter.first ()) {
+                if (iter.next ()) {
                     var funcall = iter.get ();
                     if (funcall.type == ExpressionNodeType.SYMBOL) {
                         // FIXME support other functions in more extensible way
