@@ -26,7 +26,7 @@ pkgdatadir=@datadir@/libkkc
 Name: libkkc
 Description: Japanese Kana Kanji conversion library
 Version: @VERSION@
-Requires: gobject-2.0 gio-2.0
-Requires.private: gee-0.8 json-glib-1.0
+Requires: gobject-2.0 gio-2.0 json-glib-1.0
+Requires.private: gee-0.8
 Libs: -L${libdir} -lkkc
 Cflags: -I${includedir}/kkc-@KKC_API_VERSION@
