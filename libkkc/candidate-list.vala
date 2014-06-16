@@ -63,7 +63,7 @@ namespace Kkc {
             }
         }
 
-        Set<string> seen = new HashSet<string> ();
+        Set<string> seen = new Gee.HashSet<string> ();
 
         internal void clear () {
             bool is_populated = false;

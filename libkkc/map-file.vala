@@ -131,7 +131,7 @@ namespace Kkc {
                           string type,
                           string name) throws RuleParseError
         {
-            Set<string> parents = new HashSet<string> ();
+            Set<string> parents = new Gee.HashSet<string> ();
             load (metadata, type, name, parents, maps, parent_maps);
         }
 

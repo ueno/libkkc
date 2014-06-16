@@ -305,7 +305,7 @@ namespace Kkc {
          * @return an array of RuleMetadata
          */
         public static RuleMetadata[] list () {
-            Set<string> names = new HashSet<string> ();
+            Set<string> names = new Gee.HashSet<string> ();
             RuleMetadata[] rules = {};
             var dirs = Utils.build_data_path ("rules");
             foreach (var dir in dirs) {

@@ -234,7 +234,7 @@ namespace Kkc {
 
             var close_list = new PriorityQueue<NbestNode> (compare_nbest_node);
 
-            var duplicates = new HashSet<string> ();
+            var duplicates = new Gee.HashSet<string> ();
 
             var eos_nbest_node = new NbestNode (eos_trellis_node);
             trellis_nbest_map.set (eos_trellis_node, eos_nbest_node);

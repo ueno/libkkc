@@ -191,9 +191,9 @@ namespace Kkc {
                 trigram_trellis[i] = new ArrayList<TrellisNode> ();
             }
 
-            var overlapped_nodes = new HashSet<TrellisNode>[trellis.length];
+            var overlapped_nodes = new Gee.HashSet<TrellisNode>[trellis.length];
             for (var i = 0; i < overlapped_nodes.length; i++) {
-                overlapped_nodes[i] = new HashSet<TrellisNode> ();
+                overlapped_nodes[i] = new Gee.HashSet<TrellisNode> ();
             }
 
             for (var i = 1; i < trellis.length; i++) {
