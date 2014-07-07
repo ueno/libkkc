@@ -161,8 +161,8 @@ This map file includes "default" map file first, defines new mappings
 for "xka" and "b.", and removes a mapping "dha" from the current map
 file.
 
-Copyright (C) 2011-2013 Daiki Ueno <ueno@gnu.org>
-Copyright (C) 2011-2013 Red Hat, Inc.
+Copyright (C) 2011-2014 Daiki Ueno <ueno@gnu.org>
+Copyright (C) 2011-2014 Red Hat, Inc.
 
 This file is free software; as a special exception the author gives
 unlimited permission to copy and/or distribute it, with or without
