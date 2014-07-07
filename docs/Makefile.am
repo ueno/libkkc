@@ -53,7 +53,7 @@ libkkc_doc_deps = \
 	config \
 	glib-2.0 \
 	gio-2.0 \
-	gee-1.0 \
+	gee-0.8 \
 	posix \
 	json-glib-1.0 \
 	marisa-glib \
