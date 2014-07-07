@@ -44,6 +44,7 @@ AM_PROG_CC_C_O
 AC_PROG_CC_STDC
 AC_PROG_CXX
 AC_PROG_INSTALL
+IT_PROG_INTLTOOL
 
 dnl Check python for tests
 AM_PATH_PYTHON
@@ -112,8 +113,6 @@ AC_SUBST(VALAFLAGS)
 GETTEXT_PACKAGE=libkkc
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Define to the read-only architecture-independent data directory.])
-AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.19.1])
 
 AC_ARG_ENABLE([docs],
               AS_HELP_STRING([--enable-docs],[Enable documentation generation]),
