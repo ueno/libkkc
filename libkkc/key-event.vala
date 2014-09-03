@@ -222,10 +222,11 @@ namespace Kkc {
             name = KeyEventUtils.keyval_name (keyval);
             unicode = KeyEventUtils.keyval_unicode (keyval);
 
-            // Clear shift modifier when code is ASCII and not SPC.
-            // FIXME: check the keymap if the key has level 2
+            // Clear shift modifiers when code is ASCII and not SPC.
+            // FIXME: check the keymap if the key has multiple levels
             if (0x21 <= keyval && keyval < 0x7F)
-                modifiers &= ~ModifierType.SHIFT_MASK;
+                modifiers &= ~(ModifierType.SHIFT_MASK |
+                               ModifierType.MOD5_MASK);
             this.keyval = keyval;
             this.keycode = keycode;
             this.modifiers = modifiers; 
