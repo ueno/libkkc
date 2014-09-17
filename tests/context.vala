@@ -140,6 +140,17 @@ class ContextTests : Kkc.TestCase {
         context.clear_output ();
 
         try {
+            context.process_key_events ("a i SPC RET a i SPC SPC");
+        } catch (Kkc.KeyEventFormatError e) {
+            assert_not_reached ();
+        }
+        assert (context.candidates.size > 0);
+        assert (context.candidates.get (0).output == "愛");
+        assert (context.candidates.get (0).annotation == "a");
+        context.reset ();
+        context.clear_output ();
+
+        try {
             context.process_key_events ("k C-g");
         } catch (Kkc.KeyEventFormatError e) {
             assert_not_reached ();

@@ -63,7 +63,7 @@ namespace Kkc {
             }
         }
 
-        Set<string> seen = new Gee.HashSet<string> ();
+        Map<string, Candidate> seen = new Gee.HashMap<string, Candidate> ();
 
         internal void clear () {
             bool is_populated = false;
@@ -94,12 +94,18 @@ namespace Kkc {
         }
 
         internal bool add (Candidate candidate) {
-            if (!(candidate.output in seen)) {
+            if (candidate.output in seen) {
+                var c = seen.get (candidate.output);
+                // If the given candidate has annotation and the
+                // existing one doesn't, copy it.
+                if (c.annotation == null && candidate.annotation != null)
+                    c.annotation = candidate.annotation;
+                return false;
+            } else {
                 _candidates.add (candidate);
-                seen.add (candidate.output);
+                seen.set (candidate.output, candidate);
                 return true;
             }
-            return false;
         }
 
         internal bool add_all (CandidateList other) {
