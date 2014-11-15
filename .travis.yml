@@ -20,7 +20,7 @@ script:
     ./configure --prefix=$PWD/../install &&
     make && make install &&
     cd bindings/python &&
-    CFLAGS=-I$PWD/../../install/include LDFLAGS=-L$PWD/../../install/lib python setup.py build &&
+    CFLAGS=-I$PWD/../../../install/include LDFLAGS=-L$PWD/../../../install/lib python setup.py build &&
     python setup.py install --user
   - export PKG_CONFIG_PATH=$PWD/install/lib/pkgconfig
   - export LD_LIBRARY_PATH=$PWD/install/lib
