@@ -10,10 +10,20 @@ install:
   - if [ "$VALAC" = "valac-0.24" ]; then
       sudo add-apt-repository -y ppa:vala-team &&
       sudo apt-get update -qq &&
-      sudo apt-get install -qq autotools-dev gnome-common gobject-introspection intltool libgee-0.8-dev libgirepository1.0-dev libjson-glib-dev "$VALAC";
+      sudo apt-get install -qq autotools-dev gnome-common gobject-introspection intltool libgee-0.8-dev libgirepository1.0-dev libjson-glib-dev libpython-dev "$VALAC";
     fi
 
 script:
-  ./autogen.sh --enable-code-coverage && make && make check
+  - wget https://marisa-trie.googlecode.com/files/marisa-0.2.4.tar.gz &&
+    tar xf marisa-0.2.4.tar.gz &&
+    cd marisa-0.2.4 &&
+    ./configure --prefix=$PWD/../install &&
+    make && make install &&
+    cd bindings/python &&
+    CFLAGS=-I$PWD/../../install/include LDFLAGS=-L$PWD/../../install/lib python setup.py build &&
+    python setup.py install --user
+  - export PKG_CONFIG_PATH=$PWD/install/lib/pkgconfig
+  - export LD_LIBRARY_PATH=$PWD/install/lib
+  - ./autogen.sh --enable-code-coverage && make && make check
 after_success:
   - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
