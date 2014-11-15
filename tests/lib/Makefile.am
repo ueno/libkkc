@@ -29,7 +29,7 @@ libkkc_test_la_VALAFLAGS =			\
 	--vapidir=$(top_srcdir)/libkkc		\
 	--pkg gobject-2.0			\
 	--pkg gio-2.0				\
-	--pkg gee-1.0				\
+	--pkg gee-0.8				\
 	--pkg json-glib-1.0			\
 	--pkg kkc-internals-1.0			\
 	--library kkc-test			\
