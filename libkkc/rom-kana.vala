@@ -426,16 +426,17 @@ namespace Kkc {
          * @return `true` if there is partial output, `false` otherwise
          */
         public bool flush_partial () {
-            string output;
-            if (current_node.entry != null &&
-                (output = current_node.entry.get_kana (kana_mode, true)).length > 0) {
-                _produced.add (RomKanaCharacter () {
-                        output = output, input = _pending_input.str
-                    });
-                _pending_input.erase ();
-                _pending_output.erase ();
-                current_node = rule.root_node;
-                return true;
+            if (current_node.entry != null) {
+                string output = current_node.entry.get_kana (kana_mode, true);
+                if (output.length > 0) {
+                    _produced.add (RomKanaCharacter () {
+                            output = output, input = _pending_input.str
+                        });
+                    _pending_input.erase ();
+                    _pending_output.erase ();
+                    current_node = rule.root_node;
+                    return true;
+                }
             }
 
             if (!auto_correct &&
