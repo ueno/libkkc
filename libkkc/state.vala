@@ -324,11 +324,14 @@ namespace Kkc {
                                                 out _candidates)) {
                 return template.expand (_candidates[0].text);
             }
-            template = new OkuriganaTemplate (input);
-            if (segment_dict.lookup_candidates (template.source,
-                                                template.okuri,
-                                                out _candidates)) {
-                return template.expand (_candidates[0].text);
+            var count = input.char_count ();
+            if (count > 1) {
+                template = new OkuriganaTemplate (input, count - 1);
+                if (segment_dict.lookup_candidates (template.source,
+                                                    template.okuri,
+                                                    out _candidates)) {
+                    return template.expand (_candidates[0].text);
+                }
             }
             return null;
         }
@@ -385,7 +388,10 @@ namespace Kkc {
             // 1. Look up candidates from user segment dictionaries.
             lookup_template (new NumericTemplate (normalized_input), true);
             lookup_template (new SimpleTemplate (normalized_input), true);
-            lookup_template (new OkuriganaTemplate (normalized_input), true);
+            for (var i = normalized_input.char_count (); i > 1; i--) {
+                lookup_template (
+                    new OkuriganaTemplate (normalized_input, i - 1), true);
+            }
 
             // 2. Look up the most frequently used unigram from language model.
             if (normalized_input.char_count () > 1) {
@@ -405,7 +411,6 @@ namespace Kkc {
             // 3. Look up candidates from system segment dictionaries.
             lookup_template (new NumericTemplate (normalized_input), false);
             lookup_template (new SimpleTemplate (normalized_input), false);
-            lookup_template (new OkuriganaTemplate (normalized_input), false);
 
             // 4. Do sentence conversion with N-best search.
 
@@ -445,9 +450,17 @@ namespace Kkc {
                     builder.str);
                 if (!kana_candidates.contains (sentence))
                     candidates.add (sentence);
+
             }
 
-            // 4.3. Add Kana candidates at the end.
+            // 4.3. Look up okuri-ari candidates from system segment
+            // dictionaries, for each possible okurigana combination.
+            for (var i = normalized_input.char_count (); i > 1; i--) {
+                lookup_template (
+                    new OkuriganaTemplate (normalized_input, i - 1), false);
+            }
+
+            // 4.4. Add Kana candidates at the end.
             candidates.add_all (kana_candidates);
 
             candidates.populated ();

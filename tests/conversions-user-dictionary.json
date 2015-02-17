@@ -29,12 +29,12 @@
         "segments": "",
         "segments_size": 0,
         "segments_cursor_pos": -1,
-        "output": "わたしの名前はなかのです"
+        "output": "渡しの名前はなかのです"
     },
     {
         "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC",
         "input": "わたしのなまえはなかのです",
-        "segments": "わたしの名前はなかのです",
+        "segments": "渡しの名前はなかのです",
         "segments_size": 2,
         "segments_cursor_pos": 0,
         "output": ""
@@ -42,7 +42,7 @@
     {
         "keys": "w a t a s h i n o n a m a e h a n a k a n o d e s u SPC Right SPC Right Right SPC",
         "input": "わたしのなまえはなかのです",
-        "segments": "わたしのなまえはなかのです",
+        "segments": "渡しのなまえはなかのです",
         "segments_size": 2,
         "segments_cursor_pos": 1,
         "output": ""

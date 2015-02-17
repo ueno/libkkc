@@ -42,19 +42,15 @@ namespace Kkc {
 
         string? okurigana = null;
 
-        public OkuriganaTemplate (string source) {
-            var count = source.char_count ();
-            if (count > 1) {
-                var last_char_index = source.index_of_nth_char (count - 1);
-                this.okurigana = source[last_char_index:source.length];
-                string? prefix = RomKanaUtils.get_okurigana_prefix (
-                    this.okurigana);
-                this.source = source[0:last_char_index] + prefix;
-                this.okuri = true;
-            } else {
-                this.source = source;
-                this.okuri = false;
-            }
+        public OkuriganaTemplate (string source, int pos) {
+            assert (source.char_count () > 1);
+            assert (0 < pos && pos < source.char_count ());
+
+            var last_char_index = source.index_of_nth_char (pos);
+            this.okurigana = source[last_char_index:source.length];
+            string? prefix = RomKanaUtils.get_okurigana_prefix (this.okurigana);
+            this.source = source[0:last_char_index] + prefix;
+            this.okuri = true;
         }
 
         public string expand (string text) {

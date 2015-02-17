@@ -16,7 +16,7 @@ class TemplateTests : Kkc.TestCase {
         assert (source == "source");
         assert (!okuri);
 
-        template = new Kkc.OkuriganaTemplate ("かう");
+        template = new Kkc.OkuriganaTemplate ("かう", 1);
         template.get ("source", out source,
                       "okuri", out okuri);
 
