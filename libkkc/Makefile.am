@@ -108,6 +108,7 @@ libkkc_shell_sources =				\
 	template.vala				\
 	numeric-template.vala			\
 	expression.vala				\
+	server.vala				\
 	$(NULL)
 
 libkkc_la_SOURCES =				\

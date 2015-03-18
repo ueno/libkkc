@@ -58,6 +58,7 @@ static void usage (string[] args, FileStream output) {
   help         Shows this information
   decoder      Run decoder
   context      Run context
+  server       Run server
 
   Use "%s COMMAND --help" to get help on each command.
 """).printf (
@@ -90,6 +91,8 @@ static int main (string[] args) {
         repl = new DecoderRepl ();
     else if (new_args[0] == "context")
         repl = new ContextRepl ();
+    else if (new_args[0] == "server")
+        repl = new ServerRepl ();
     else if (new_args[0] == "help") {
         usage (args, stdout);
         return 0;
@@ -265,6 +268,84 @@ class ContextRepl : Object, Repl {
             }
             print ("output: %s\n", context.poll_output ());
         }
+        return true;
+    }
+}
+
+class ServerRepl : Object, Repl {
+    public bool parse_arguments (string[] args) throws Error {
+        var o = new OptionContext (
+            _("- run server on the command line"));
+        o.add_main_entries (context_entries, "libkkc");
+        o.add_group ((owned) model_group);
+
+        return o.parse (ref args);
+    }
+
+    public bool run () throws Error {
+        if (opt_typing_rule == "?") {
+            var rules = Kkc.Rule.list ();
+            foreach (var rule in rules) {
+                stdout.printf ("%s - %s: %s\n",
+                               rule.name,
+                               rule.label,
+                               rule.description);
+            }
+            return true;
+        }
+
+        Kkc.LanguageModel model;
+        try {
+            var name = opt_model == null ? "sorted3" : opt_model;
+            model = Kkc.LanguageModel.load (name);
+        } catch (Kkc.LanguageModelError e) {
+            stderr.printf ("%s\n", e.message);
+            return false;
+        }
+
+        var dictionaries = new Kkc.DictionaryList ();
+        if (opt_user_dictionary != null) {
+            try {
+                dictionaries.add (
+                    new Kkc.UserDictionary (opt_user_dictionary));
+            } catch (GLib.Error e) {
+                stderr.printf ("can't open user dictionary %s: %s",
+                               opt_user_dictionary, e.message);
+                return false;
+            }
+        }
+
+        if (opt_system_dictionary == null)
+            opt_system_dictionary = Path.build_filename (Config.DATADIR,
+                                                         "skk", "SKK-JISYO.L");
+
+        try {
+            dictionaries.add (
+                new Kkc.SystemSegmentDictionary (opt_system_dictionary));
+        } catch (GLib.Error e) {
+            stderr.printf ("can't open system dictionary %s: %s",
+                           opt_system_dictionary, e.message);
+            return false;
+        }
+
+        Kkc.Rule? typing_rule = null;
+        if (opt_typing_rule != null) {
+            try {
+                var metadata = Kkc.RuleMetadata.find (opt_typing_rule);
+                typing_rule = new Kkc.Rule (metadata);
+            } catch (Kkc.RuleParseError e) {
+                stderr.printf ("can't load rule \"%s\": %s\n",
+                               opt_typing_rule,
+                               e.message);
+                return false;
+            }
+        }
+
+        var connection = Bus.get_sync (BusType.SESSION);
+        var server = new Kkc.DBusServer (connection,
+                                         model, dictionaries, typing_rule);
+        var loop = new MainLoop (null, true);
+        loop.run ();
         return true;
     }
 }
