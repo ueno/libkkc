@@ -25,7 +25,7 @@ namespace Kkc {
                 this.mode = mode;
             }
 
-            public bool call (string? command, State state, KeyEvent key) {
+            public bool call (string command, State state, KeyEvent key) {
                 state.finish_input_editing ();
                 if (state.input_characters.size > 0) {
                     state.selection.erase ();
@@ -61,21 +61,19 @@ namespace Kkc {
             register_command_callback ("last-segment", do_last_character);
             register_command_callback ("quote", do_quote);
             register_command_callback ("register", do_register);
-
-            register_command_callback (null, do_);
         }
 
-        bool do_quote (string? command, State state, KeyEvent key) {
+        bool do_quote (string command, State state, KeyEvent key) {
             state.quoted = true;
             return true;
         }
 
-        bool do_register (string? command, State state, KeyEvent key) {
+        bool do_register (string command, State state, KeyEvent key) {
             state.request_selection_text ();
             return true;
         }
 
-        bool do_abort (string? command, State state, KeyEvent key) {
+        bool do_abort (string command, State state, KeyEvent key) {
             if (state.overriding_input != null) {
                 state.overriding_input = null;
                 return true;
@@ -90,7 +88,7 @@ namespace Kkc {
             return false;
         }
 
-        bool do_delete (string? command, State state, KeyEvent key) {
+        bool do_delete (string command, State state, KeyEvent key) {
             if (state.overriding_input != null) {
                 state.overriding_input = null;
                 return true;
@@ -115,7 +113,7 @@ namespace Kkc {
             return false;
         }
 
-        bool do_delete_forward (string? command, State state, KeyEvent key) {
+        bool do_delete_forward (string command, State state, KeyEvent key) {
             if (state.input_characters_cursor_pos >= 0 &&
                 state.input_characters_cursor_pos < state.input_characters.size) {
                 state.input_characters.remove_at (
@@ -128,7 +126,7 @@ namespace Kkc {
             return false;
         }
 
-        bool do_complete (string? command, State state, KeyEvent key) {
+        bool do_complete (string command, State state, KeyEvent key) {
             state.finish_input_editing ();
             if (state.input_characters.size > 0) {
                 if (state.completion_iterator == null)
@@ -144,7 +142,7 @@ namespace Kkc {
             return false;
         }
 
-        bool do_next_candidate (string? command, State state, KeyEvent key) {
+        bool do_next_candidate (string command, State state, KeyEvent key) {
             state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
@@ -180,7 +178,7 @@ namespace Kkc {
             return true;
         }
 
-        bool do_next_character (string? command, State state, KeyEvent key) {
+        bool do_next_character (string command, State state, KeyEvent key) {
             state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
@@ -194,7 +192,7 @@ namespace Kkc {
             return true;
         }
 
-        bool do_previous_character (string? command, State state, KeyEvent key) {
+        bool do_previous_character (string command, State state, KeyEvent key) {
             state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
@@ -210,7 +208,7 @@ namespace Kkc {
             return true;
         }
 
-        bool do_first_character (string? command, State state, KeyEvent key) {
+        bool do_first_character (string command, State state, KeyEvent key) {
             state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
@@ -219,7 +217,7 @@ namespace Kkc {
             return true;
         }
 
-        bool do_last_character (string? command, State state, KeyEvent key) {
+        bool do_last_character (string command, State state, KeyEvent key) {
             state.finish_input_editing ();
             if (state.input_characters.size == 0)
                 return false;
@@ -228,7 +226,10 @@ namespace Kkc {
             return true;
         }
 
-        bool do_ (string? command, State state, KeyEvent key) {
+        public override bool default_command_callback (string? command,
+                                                       State state,
+                                                       KeyEvent key)
+        {
             bool retval = false;
 
             if (state.overriding_input != null) {
@@ -347,7 +348,7 @@ namespace Kkc {
                 return true;
             }
 
-            return dispatch_command (state, key);
+            return dispatch_command (command, state, key);
         }
     }
 }

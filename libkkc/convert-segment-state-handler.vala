@@ -49,21 +49,19 @@ namespace Kkc {
                         "convert-" + enum_value.value_nick,
                         do_clear_unhandled);
             }
-
-            register_command_callback (null, do_select_unhandled);
         }
 
-        bool do_next_candidate (string? command, State state, KeyEvent key) {
+        bool do_next_candidate (string command, State state, KeyEvent key) {
             state.candidates.cursor_down ();
             return true;
         }
 
-        bool do_previous_candidate (string? command, State state, KeyEvent key) {
+        bool do_previous_candidate (string command, State state, KeyEvent key) {
             state.candidates.cursor_up ();
             return true;
         }
 
-        bool do_purge_candidate (string? command, State state, KeyEvent key) {
+        bool do_purge_candidate (string command, State state, KeyEvent key) {
             if (state.candidates.cursor_pos >= 0) {
                 var candidate = state.candidates.get ();
                 state.purge_candidate (candidate);
@@ -72,21 +70,29 @@ namespace Kkc {
             return true;
         }
 
-        bool do_select_unhandled (string? command, State state, KeyEvent key) {
+        bool do_select_unhandled (string command, State state, KeyEvent key) {
             if (state.candidates.cursor_pos >= 0)
                 state.candidates.select ();
             state.handler_type = typeof (ConvertSentenceStateHandler);
             return false;
         }
 
-        bool do_clear_unhandled (string? command, State state, KeyEvent key) {
+        bool do_clear_unhandled (string command, State state, KeyEvent key) {
             state.candidates.clear ();
             state.handler_type = typeof (ConvertSentenceStateHandler);
             return false;
         }
-                    
+
+        public override bool default_command_callback (string? command,
+                                                       State state,
+                                                       KeyEvent key)
+        {
+            return do_select_unhandled (command ?? "", state, key);
+        }
+
         public override bool process_key_event (State state, KeyEvent key) {
-            return dispatch_command (state, key);
+            var command = state.lookup_key (key);
+            return dispatch_command (command, state, key);
         }
     }
 }

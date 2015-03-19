@@ -744,10 +744,10 @@ namespace Kkc {
     }
 
     interface CommandHandler : Object {
-        public abstract bool call (string? command, State state, KeyEvent key);
+        public abstract bool call (string command, State state, KeyEvent key);
     }
 
-    delegate bool CommandCallback (string? command, State state, KeyEvent key);
+    delegate bool CommandCallback (string command, State state, KeyEvent key);
 
     class CallbackCommandHandler : CommandHandler, Object {
         unowned CommandCallback cb;
@@ -756,7 +756,7 @@ namespace Kkc {
             this.cb = cb;
         }
 
-        public bool call (string? command,
+        public bool call (string command,
                           State state,
                           KeyEvent key)
         {
@@ -784,13 +784,19 @@ namespace Kkc {
             register_command_handler (command, new CallbackCommandHandler (cb));
         }
 
-        public bool dispatch_command (State state, KeyEvent key) {
-            var command = state.lookup_key (key);
+        public abstract bool default_command_callback (string? command,
+                                                       State state,
+                                                       KeyEvent key);
+
+        public bool dispatch_command (string? command,
+                                      State state,
+                                      KeyEvent key)
+        {
             if (command != null && command_handlers.has_key (command))
                 return command_handlers.get (command).call (command,
                                                             state,
                                                             key);
-            return default_command_handler.call (command, state, key);
+            return default_command_callback (command, state, key);
         }
 
         public abstract bool process_key_event (State state, KeyEvent key);
