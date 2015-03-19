@@ -329,11 +329,14 @@ namespace Kkc {
         /**
          * Process an explicit command in the context.
          *
+         * This function is rarely used in programs but called from
+         * D-Bus service.
+         *
          * @param command a command
          *
          * @return `true` if the command is handled, `false` otherwise
          */
-        public bool process_command_event (string command) {
+        internal bool process_command_event (string command) {
             var key = new KeyEvent (Keysyms.VoidSymbol, 0, 0);
             while (true) {
                 var handler_type = state.handler_type;
