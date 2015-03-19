@@ -800,5 +800,16 @@ namespace Kkc {
         }
 
         public abstract bool process_key_event (State state, KeyEvent key);
+
+        public bool process_command_event (State state,
+                                           string command,
+                                           KeyEvent key)
+        {
+            if (command_handlers.has_key (command))
+                return command_handlers.get (command).call (command,
+                                                            state,
+                                                            key);
+            return false;
+        }
     }
 }

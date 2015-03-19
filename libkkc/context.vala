@@ -327,6 +327,32 @@ namespace Kkc {
         }
 
         /**
+         * Process an explicit command in the context.
+         *
+         * @param command a command
+         *
+         * @return `true` if the command is handled, `false` otherwise
+         */
+        public bool process_command_event (string command) {
+            var key = new KeyEvent (Keysyms.VoidSymbol, 0, 0);
+            while (true) {
+                var handler_type = state.handler_type;
+                var handler = handlers.get (handler_type);
+                state.this_command_key = key;
+                if (handler.process_command_event (state, command, key)) {
+                    notify_property ("input");
+                    return true;
+                }
+                // state.handler_type may change if handler cannot
+                // handle the event.  In that case retry with the new
+                // handler.  Otherwise exit the loop.
+                if (handler_type == state.handler_type) {
+                    return false;
+                }
+            }
+        }
+
+        /**
          * Reset the context.
          */
         public void reset () {

@@ -256,6 +256,10 @@ namespace Kkc
             return this.context.process_key_event (event);
         }
 
+        public bool process_command_event (string command) {
+            return this.context.process_command_event (command);
+        }
+
         public void reset () {
             this.context.reset ();
         }
