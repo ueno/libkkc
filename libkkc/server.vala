@@ -19,6 +19,34 @@ using Gee;
 
 namespace Kkc
 {
+    namespace DBusUtils {
+        internal static void send_property_change (DBusConnection connection,
+                                                   string object_path,
+                                                   string interface_name,
+                                                   string name,
+                                                   Variant value)
+        {
+            var builder = new VariantBuilder (VariantType.ARRAY);
+            var invalid_builder = new VariantBuilder (new VariantType ("as"));
+
+            builder.add ("{sv}", name, value);
+
+            try {
+                connection.emit_signal (null,
+                                        object_path,
+                                        "org.freedesktop.DBus.Properties",
+                                        "PropertiesChanged",
+                                        new Variant ("(sa{sv}as)",
+                                                     interface_name,
+                                                     builder,
+                                                     invalid_builder)
+                    );
+            } catch (Error e) {
+                stderr.printf ("%s\n", e.message);
+            }
+        }
+    }
+
     [DBus (name = "org.du_a.Kkc.CandidateList")]
     public class DBusCandidateList : Object
     {
@@ -211,8 +239,10 @@ namespace Kkc
             this.segments = new DBusSegmentList (this.context.segments);
         }
 
-        public string get_input () {
-            return this.context.input;
+        public string input {
+            owned get {
+                return this.context.input;
+            }
         }
 
         public int input_cursor_pos {
@@ -292,6 +322,22 @@ namespace Kkc
                                  "%s/CandidateList".printf (object_path));
             segments.register (connection,
                                "%s/SegmentList".printf (object_path));
+            this.notify["input"].connect ((p) => {
+                    DBusUtils.send_property_change (
+                        connection,
+                        object_path,
+                        "org.du_a.Kkc.Context",
+                        "input",
+                        new Variant.string (input));
+                });
+            this.notify["input_cursor_pos"].connect ((p) => {
+                    DBusUtils.send_property_change (
+                        connection,
+                        object_path,
+                        "org.du_a.Kkc.Context",
+                        "input_cursor_pos",
+                        new Variant.int32 ((int32) input_cursor_pos));
+                });
         }
     }
 
