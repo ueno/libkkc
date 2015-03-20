@@ -450,7 +450,6 @@ namespace Kkc
         void on_name_lost (DBusConnection connection, string name) {
         }
 
-        [DBus (signature = "o")]
         public string create_context () {
             var context = new Kkc.Context (this.model);
             context.dictionaries = dictionaries;
@@ -465,7 +464,7 @@ namespace Kkc
         }
 
         Map<string,DBusContext> contexts = new HashMap<string,DBusContext> ();
-        public void destroy_context ([DBus (signature = "o")] string object_path) {
+        public void destroy_context (string object_path) {
             contexts.unset (object_path);
         }
     }
