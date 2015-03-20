@@ -1,5 +1,5 @@
-# Copyright (C) 2011-2014 Daiki Ueno <ueno@gnu.org>
-# Copyright (C) 2011-2014 Red Hat, Inc.
+# Copyright (C) 2011-2015 Daiki Ueno <ueno@gnu.org>
+# Copyright (C) 2011-2015 Red Hat, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = dbus rules templates
+EXTRA_DIST =					\
+	org.du_a.Kkc.CandidateList.xml		\
+	org.du_a.Kkc.Context.xml		\
+	org.du_a.Kkc.SegmentList.xml		\
+	org.du_a.Kkc.Server.xml			\
+	$(NULL)
 
 -include $(top_srcdir)/git.mk

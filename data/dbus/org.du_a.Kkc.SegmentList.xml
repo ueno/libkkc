@@ -1,0 +1,29 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+                      "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.du_a.Kkc.SegmentList">
+    <method name="Get">
+      <arg type="i" name="index" direction="in"/>
+      <arg type="s" name="input" direction="out"/>
+      <arg type="s" name="output" direction="out"/>
+    </method>
+    <method name="FirstSegment">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="LastSegment">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="NextSegment">
+    </method>
+    <method name="PreviousSegment">
+    </method>
+    <method name="GetOutput">
+      <arg type="s" name="result" direction="out"/>
+    </method>
+    <method name="GetInput">
+      <arg type="s" name="result" direction="out"/>
+    </method>
+    <property type="i" name="CursorPos" access="read"/>
+    <property type="i" name="Size" access="read"/>
+  </interface>
+</node>

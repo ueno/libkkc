@@ -185,6 +185,7 @@ tools/Makefile
 tests/Makefile
 tests/lib/Makefile
 data/Makefile
+data/dbus/Makefile
 data/rules/Makefile
 data/rules/default/Makefile
 data/rules/act/Makefile

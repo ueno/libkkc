@@ -1,0 +1,54 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+                      "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.du_a.Kkc.CandidateList">
+    <method name="SelectAt">
+      <arg type="u" name="index_in_page" direction="in"/>
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="Select">
+    </method>
+    <method name="First">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="Next">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="Previous">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="CursorUp">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="CursorDown">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="PageUp">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="PageDown">
+      <arg type="b" name="result" direction="out"/>
+    </method>
+    <method name="Get">
+      <arg type="i" name="index" direction="in"/>
+      <arg type="s" name="midasi" direction="out"/>
+      <arg type="b" name="okuri" direction="out"/>
+      <arg type="s" name="text" direction="out"/>
+      <arg type="s" name="annotation" direction="out"/>
+    </method>
+    <signal name="Populated">
+    </signal>
+    <signal name="Selected">
+      <arg type="s" name="midasi"/>
+      <arg type="b" name="okuri"/>
+      <arg type="s" name="text"/>
+      <arg type="s" name="annotation"/>
+    </signal>
+    <property type="i" name="CursorPos" access="read"/>
+    <property type="i" name="Size" access="read"/>
+    <property type="u" name="PageStart" access="read"/>
+    <property type="u" name="PageSize" access="read"/>
+    <property type="b" name="Round" access="read"/>
+    <property type="b" name="PageVisible" access="read"/>
+  </interface>
+</node>
