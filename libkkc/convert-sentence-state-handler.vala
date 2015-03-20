@@ -57,6 +57,7 @@ namespace Kkc {
 
             register_command_callback ("abort", do_clear_unhandled);
             register_command_callback ("delete", do_clear_unhandled);
+            register_command_callback ("commit", do_commit);
 
             var enum_class = (EnumClass) typeof (KanaMode).class_ref ();
             for (int i = enum_class.minimum; i <= enum_class.maximum; i++) {
@@ -117,6 +118,13 @@ namespace Kkc {
         bool do_clear_unhandled (string command, State state, KeyEvent key) {
             state.segments.clear ();
             state.handler_type = typeof (InitialStateHandler);
+            return true;
+        }
+
+        bool do_commit (string command, State state, KeyEvent key) {
+            state.output.append (state.segments.get_output ());
+            state.select_sentence ();
+            state.reset ();
             return true;
         }
 
