@@ -68,7 +68,7 @@ namespace Kkc
                     this.selected (candidate.midasi,
                                    candidate.okuri,
                                    candidate.text,
-                                   candidate.annotation);
+                                   candidate.annotation ?? "");
                 });
             this.candidates.notify["cursor-pos"].connect ((p) => {
                     DBusUtils.send_property_change (
@@ -160,16 +160,16 @@ namespace Kkc
         public signal void populated ();
 
         public signal void selected (string midasi, bool okuri,
-                                     string text, string? annotation);
+                                     string text, string annotation);
 
         public new void @get (int index, out string midasi, out bool okuri,
-                              out string text, out string? annotation)
+                              out string text, out string annotation)
         {
             var candidate = this.candidates.get (index);
             midasi = candidate.midasi;
             okuri = candidate.okuri;
             text = candidate.text;
-            annotation = candidate.annotation;
+            annotation = candidate.annotation ?? "";
         }
 
         uint register_id = 0;
