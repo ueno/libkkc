@@ -342,7 +342,7 @@ namespace Kkc {
                 var handler_type = state.handler_type;
                 var handler = handlers.get (handler_type);
                 state.this_command_key = key;
-                if (handler.process_command_event (state, command, key)) {
+                if (handler.dispatch_command (command, state, key)) {
                     notify_property ("input");
                     return true;
                 }
