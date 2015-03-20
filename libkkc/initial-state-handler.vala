@@ -61,6 +61,7 @@ namespace Kkc {
             register_command_callback ("last-segment", do_last_character);
             register_command_callback ("quote", do_quote);
             register_command_callback ("register", do_register);
+            register_command_callback ("commit", do_commit);
         }
 
         bool do_quote (string command, State state, KeyEvent key) {
@@ -226,6 +227,24 @@ namespace Kkc {
             return true;
         }
 
+        bool do_commit (string command, State state, KeyEvent key) {
+            bool retval = false;
+
+            if (state.overriding_input != null) {
+                state.output.append (state.get_input ());
+                state.overriding_input = null;
+                state.reset ();
+                retval = true;
+            }
+
+            var last_input = state.get_input ();
+            state.finish_input_editing ();
+            var input = state.get_input ();
+            state.output.append (input);
+            state.reset ();
+            return retval || input.length > 0 || last_input != input;
+        }
+
         public override bool default_command_callback (string? command,
                                                        State state,
                                                        KeyEvent key)
@@ -278,7 +297,6 @@ namespace Kkc {
                     return true;
                 }
             }
-
             var last_input = state.get_input ();
             state.finish_input_editing ();
             var input = state.get_input ();
