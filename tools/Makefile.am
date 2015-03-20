@@ -36,7 +36,9 @@ kkc_CFLAGS =					\
 kkc_LDADD = $(top_builddir)/libkkc/libkkc.la $(LIBKKC_LIBS)
 kkc_SOURCES = kkc.vala
 
+lisp_DATA = libkkc.el
+
 DISTCLEANFILES = kkc-package-data
-EXTRA_DIST = kkc-package-data.in
+EXTRA_DIST = kkc-package-data.in libkkc.el
 
 -include $(top_srcdir)/git.mk
