@@ -50,7 +50,40 @@ namespace Kkc
     [DBus (name = "org.du_a.Kkc.CandidateList")]
     public class DBusCandidateList : Object
     {
+        DBusConnection connection;
+        string object_path;
         Kkc.CandidateList candidates;
+
+        public DBusCandidateList (DBusConnection connection,
+                                  string object_path,
+                                  Kkc.CandidateList candidates)
+        {
+            this.connection = connection;
+            this.object_path = object_path;
+            this.candidates = candidates;
+            this.candidates.populated.connect (() => {
+                    this.populated ();
+                });
+            this.candidates.selected.connect ((candidate) => {
+                    this.selected (candidate.midasi,
+                                   candidate.okuri,
+                                   candidate.text,
+                                   candidate.annotation);
+                });
+            this.notify["cursor_pos"].connect ((p) => {
+                    DBusUtils.send_property_change (
+                        connection,
+                        object_path,
+                        "org.du_a.Kkc.CandidateList",
+                        "cursor_pos",
+                        new Variant.int32 (cursor_pos));
+                });
+            register ();
+        }
+
+        ~DBusCandidateList () {
+            unregister ();
+        }
 
         public int cursor_pos {
             get {
@@ -139,26 +172,21 @@ namespace Kkc
             annotation = candidate.annotation;
         }
 
-        public DBusCandidateList (Kkc.CandidateList candidates) {
-            this.candidates = candidates;
-            this.candidates.populated.connect (() => {
-                    this.populated ();
-                });
-            this.candidates.selected.connect ((candidate) => {
-                    this.selected (candidate.midasi,
-                                   candidate.okuri,
-                                   candidate.text,
-                                   candidate.annotation);
-                });
-        }
+        uint register_id = 0;
 
-        [DBus (visible = false)]
-        public void register (DBusConnection connection, string object_path) {
+        void register () {
             try {
-                connection.register_object (object_path, this);
+                register_id = connection.register_object (object_path, this);
             } catch (IOError e) {
                 error ("Could not register D-Bus object at %s: %s",
                        object_path, e.message);
+            }
+        }
+
+        void unregister () {
+            if (register_id > 0) {
+                connection.unregister_object (register_id);
+                register_id = 0;
             }
         }
     }
@@ -166,7 +194,23 @@ namespace Kkc
     [DBus (name = "org.du_a.Kkc.SegmentList")]
     public class DBusSegmentList : Object
     {
+        DBusConnection connection;
+        string object_path;
         Kkc.SegmentList segments;
+
+        public DBusSegmentList (DBusConnection connection,
+                                string object_path,
+                                Kkc.SegmentList segments)
+        {
+            this.connection = connection;
+            this.object_path = object_path;
+            this.segments = segments;
+            register ();
+        }
+
+        ~DBusSegmentList () {
+            unregister ();
+        }
 
         public int cursor_pos {
             get {
@@ -210,18 +254,21 @@ namespace Kkc
             return this.segments.get_input ();
         }
 
-        public DBusSegmentList (Kkc.SegmentList segments)
-        {
-            this.segments = segments;
-        }
+        uint register_id = 0;
 
-        [DBus (visible = false)]
-        public void register (DBusConnection connection, string object_path) {
+        void register () {
             try {
-                connection.register_object (object_path, this);
+                register_id = connection.register_object (object_path, this);
             } catch (IOError e) {
                 error ("Could not register D-Bus object at %s: %s",
                        object_path, e.message);
+            }
+        }
+
+        void unregister () {
+            if (register_id > 0) {
+                connection.unregister_object (register_id);
+                register_id = 0;
             }
         }
     }
@@ -229,14 +276,48 @@ namespace Kkc
     [DBus (name = "org.du_a.Kkc.Context")]
     public class DBusContext : Object
     {
+        DBusConnection connection;
+        string object_path;
         Kkc.Context context;
         DBusCandidateList candidates;
         DBusSegmentList segments;
 
-        public DBusContext (Kkc.Context context) {
+        public DBusContext (DBusConnection connection,
+                            string object_path,
+                            Kkc.Context context)
+        {
+            this.connection = connection;
+            this.object_path = object_path;
             this.context = context;
-            this.candidates = new DBusCandidateList (this.context.candidates);
-            this.segments = new DBusSegmentList (this.context.segments);
+            this.candidates = new DBusCandidateList (
+                connection,
+                "%s/CandidateList".printf (object_path),
+                context.candidates);
+            this.segments = new DBusSegmentList (
+                connection,
+                "%s/SegmentList".printf (object_path),
+                context.segments);
+            this.notify["input"].connect ((p) => {
+                    DBusUtils.send_property_change (
+                        connection,
+                        object_path,
+                        "org.du_a.Kkc.Context",
+                        "input",
+                        new Variant.string (input));
+                });
+            this.notify["input_cursor_pos"].connect ((p) => {
+                    DBusUtils.send_property_change (
+                        connection,
+                        object_path,
+                        "org.du_a.Kkc.Context",
+                        "input_cursor_pos",
+                        new Variant.int32 ((int32) input_cursor_pos));
+                });
+            register ();
+        }
+
+        ~DBusContext () {
+            unregister ();
         }
 
         public string input {
@@ -310,34 +391,22 @@ namespace Kkc
             this.context.clear_output ();
         }
 
-        [DBus (visible = false)]
-        public void register (DBusConnection connection, string object_path) {
+        uint register_id = 0;
+
+        void register () {
             try {
-                connection.register_object (object_path, this);
+                register_id = connection.register_object (object_path, this);
             } catch (IOError e) {
                 error ("Could not register D-Bus object at %s: %s",
                        object_path, e.message);
             }
-            candidates.register (connection,
-                                 "%s/CandidateList".printf (object_path));
-            segments.register (connection,
-                               "%s/SegmentList".printf (object_path));
-            this.notify["input"].connect ((p) => {
-                    DBusUtils.send_property_change (
-                        connection,
-                        object_path,
-                        "org.du_a.Kkc.Context",
-                        "input",
-                        new Variant.string (input));
-                });
-            this.notify["input_cursor_pos"].connect ((p) => {
-                    DBusUtils.send_property_change (
-                        connection,
-                        object_path,
-                        "org.du_a.Kkc.Context",
-                        "input_cursor_pos",
-                        new Variant.int32 ((int32) input_cursor_pos));
-                });
+        }
+
+        void unregister () {
+            if (register_id > 0) {
+                connection.unregister_object (register_id);
+                register_id = 0;
+            }
         }
     }
 
@@ -387,13 +456,17 @@ namespace Kkc
             context.dictionaries = dictionaries;
             if (typing_rule != null)
                 context.typing_rule = typing_rule;
-            var dbus_context = new DBusContext (context);
             var object_path = "/org/du_a/Kkc/Context_%u".printf (context_id++);
-            dbus_context.register (connection, object_path);
+            var dbus_context = new DBusContext (connection,
+                                                object_path,
+                                                context);
+            contexts.set (object_path, dbus_context);
             return object_path;
         }
 
+        Map<string,DBusContext> contexts = new HashMap<string,DBusContext> ();
         public void destroy_context ([DBus (signature = "o")] string object_path) {
+            contexts.unset (object_path);
         }
     }
 }
