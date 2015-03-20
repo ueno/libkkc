@@ -70,12 +70,12 @@ namespace Kkc
                                    candidate.text,
                                    candidate.annotation);
                 });
-            this.notify["cursor_pos"].connect ((p) => {
+            this.candidates.notify["cursor-pos"].connect ((p) => {
                     DBusUtils.send_property_change (
                         connection,
                         object_path,
                         "org.du_a.Kkc.CandidateList",
-                        "cursor_pos",
+                        "CursorPos",
                         new Variant.int32 (cursor_pos));
                 });
             register ();
@@ -183,7 +183,7 @@ namespace Kkc
             }
         }
 
-        void unregister () {
+        internal void unregister () {
             if (register_id > 0) {
                 connection.unregister_object (register_id);
                 register_id = 0;
@@ -205,6 +205,14 @@ namespace Kkc
             this.connection = connection;
             this.object_path = object_path;
             this.segments = segments;
+            this.segments.notify["cursor-pos"].connect ((p) => {
+                    DBusUtils.send_property_change (
+                        connection,
+                        object_path,
+                        "org.du_a.Kkc.SegmentList",
+                        "CursorPos",
+                        new Variant.int32 (cursor_pos));
+                });
             register ();
         }
 
@@ -265,7 +273,7 @@ namespace Kkc
             }
         }
 
-        void unregister () {
+        internal void unregister () {
             if (register_id > 0) {
                 connection.unregister_object (register_id);
                 register_id = 0;
@@ -297,20 +305,20 @@ namespace Kkc
                 connection,
                 "%s/SegmentList".printf (object_path),
                 context.segments);
-            this.notify["input"].connect ((p) => {
+            context.notify["input"].connect ((p) => {
                     DBusUtils.send_property_change (
                         connection,
                         object_path,
                         "org.du_a.Kkc.Context",
-                        "input",
+                        "Input",
                         new Variant.string (input));
                 });
-            this.notify["input_cursor_pos"].connect ((p) => {
+            context.notify["input_cursor_pos"].connect ((p) => {
                     DBusUtils.send_property_change (
                         connection,
                         object_path,
                         "org.du_a.Kkc.Context",
-                        "input_cursor_pos",
+                        "InputCursorPos",
                         new Variant.int32 ((int32) input_cursor_pos));
                 });
             register ();
@@ -402,9 +410,11 @@ namespace Kkc
             }
         }
 
-        void unregister () {
+        internal void unregister () {
             if (register_id > 0) {
                 connection.unregister_object (register_id);
+                candidates.unregister ();
+                segments.unregister ();
                 register_id = 0;
             }
         }
@@ -450,7 +460,7 @@ namespace Kkc
         void on_name_lost (DBusConnection connection, string name) {
         }
 
-        public string create_context () {
+        public string create_context (BusName sender) {
             var context = new Kkc.Context (this.model);
             context.dictionaries = dictionaries;
             if (typing_rule != null)
@@ -460,12 +470,23 @@ namespace Kkc
                                                 object_path,
                                                 context);
             contexts.set (object_path, dbus_context);
+            Bus.watch_name_on_connection (
+                connection,
+                sender,
+                BusNameWatcherFlags.NONE,
+                null,
+                (c, n) => {
+                    destroy_context (object_path);
+                });
             return object_path;
         }
 
         Map<string,DBusContext> contexts = new HashMap<string,DBusContext> ();
+
         public void destroy_context (string object_path) {
-            contexts.unset (object_path);
+            DBusContext context;
+            if (contexts.unset (object_path, out context))
+                context.unregister ();
         }
     }
 }
