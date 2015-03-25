@@ -86,13 +86,13 @@ static int main (string[] args) {
 
     Environment.set_prgname ("%s %s".printf (args[0], new_args[0]));
 
-    Repl repl;
+    Tool tool;
     if (new_args[0] == "decoder")
-        repl = new DecoderRepl ();
+        tool = new DecoderTool ();
     else if (new_args[0] == "context")
-        repl = new ContextRepl ();
+        tool = new ContextTool ();
     else if (new_args[0] == "server")
-        repl = new ServerRepl ();
+        tool = new ServerTool ();
     else if (new_args[0] == "help") {
         usage (args, stdout);
         return 0;
@@ -103,14 +103,14 @@ static int main (string[] args) {
     }
 
     try {
-        repl.parse_arguments (new_args);
+        tool.parse_arguments (new_args);
     } catch (Error e) {
         usage (args, stderr);
         return 1;
     }
 
     try {
-        repl.run ();
+        tool.run ();
     } catch (Error e) {
         return 1;
     }
@@ -118,12 +118,12 @@ static int main (string[] args) {
     return 0;
 }
 
-interface Repl : Object {
+interface Tool : Object {
     public abstract bool parse_arguments (string[] args) throws Error;
     public abstract bool run () throws Error;
 }
 
-class DecoderRepl : Object, Repl {
+class DecoderTool : Object, Tool {
     public bool parse_arguments (string[] args) throws Error {
         var o = new OptionContext (
             _("- run decoder on the command line"));
@@ -178,7 +178,7 @@ class DecoderRepl : Object, Repl {
     }
 }
 
-class ContextRepl : Object, Repl {
+class ContextTool : Object, Tool {
     public bool parse_arguments (string[] args) throws Error {
         var o = new OptionContext (
             _("- run context on the command line"));
@@ -272,7 +272,7 @@ class ContextRepl : Object, Repl {
     }
 }
 
-class ServerRepl : Object, Repl {
+class ServerTool : Object, Tool {
     public bool parse_arguments (string[] args) throws Error {
         var o = new OptionContext (
             _("- run server on the command line"));
