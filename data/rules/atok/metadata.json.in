@@ -1,0 +1,5 @@
+{
+    "name": _("ATOK"),
+    "description": _("A comercial Input Method ATOK style"),
+    "priority": 90
+}

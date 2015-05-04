@@ -1,0 +1,12 @@
+{
+    "include": [
+        "default"
+    ],
+    "define": {
+        "keymap": {
+            "Hiragana_Katakana": "set-input-mode-katakana",
+            "Henkan_Mode": "set-input-mode-direct",
+            "Muhenkan": "set-input-mode-latin"
+        }
+    }
+}

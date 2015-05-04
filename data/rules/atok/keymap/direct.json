@@ -1,0 +1,9 @@
+{
+    "define": {
+        "keymap": {
+            "Hiragana_Katakana": "set-input-mode-hiragana",
+            "Zenkaku_Hankaku": "set-input-mode-hiragana",
+            "Henkan_Mode": "set-input-mode-hiragana"
+        }
+    }
+}

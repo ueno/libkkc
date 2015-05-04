@@ -191,6 +191,7 @@ data/dbus/Makefile
 data/rules/Makefile
 data/rules/default/Makefile
 data/rules/act/Makefile
+data/rules/atok/Makefile
 data/rules/azik/Makefile
 data/rules/azik-jp106/Makefile
 data/rules/kzik/Makefile
