@@ -24,6 +24,6 @@ script:
     python setup.py install --user)
   - export PKG_CONFIG_PATH=$PWD/install/lib/pkgconfig
   - export LD_LIBRARY_PATH=$PWD/install/lib
-  - ./autogen.sh --enable-code-coverage && make && make check
+  - ./autogen.sh --enable-code-coverage && make && touch po/libkkc.pot && make check
 after_success:
   - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
