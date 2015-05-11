@@ -31,6 +31,8 @@ SUBDIRS =					\
 EXTRA_DIST =					\
 	README.rules				\
 	rule.mk					\
+	keymap-schema.json			\
+	rom-kana-schema.json
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

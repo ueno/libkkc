@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "properties": {
+	"include": {
+	    "type": "array",
+	    "items": {
+		"type": "string"
+	    }
+	},
+	"define" : {
+	    "type": "object",
+	    "properties": {
+		"rom-kana": {
+		    "type": "object",
+		    "patternProperties": {
+			".*": {
+			    "anyOf": [
+				{
+				    "type": "array",
+				    "minItems": 2,
+				    "maxItems": 5,
+				    "items": {
+					"type": "string"
+				    }
+				},
+				{
+				    "type": "null"
+				}
+			    ]
+			}
+		    }
+		}
+	    }
+	}
+    }
+}

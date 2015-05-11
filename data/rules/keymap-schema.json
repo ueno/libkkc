@@ -1,0 +1,54 @@
+{
+    "type": "object",
+    "properties": {
+	"include": {
+	    "type": "array",
+	    "items": {
+		"type": "string"
+	    }
+	},
+	"define" : {
+	    "type": "object",
+	    "properties": {
+		"keymap": {
+		    "type": "object",
+		    "patternProperties": {
+			".*": {
+			    "enum": [
+				null,
+				"abort",
+				"first-segment",
+				"last-segment",
+				"commit",
+				"complete",
+				"delete",
+				"delete-forward",
+				"quote",
+				"register",
+				"next-candidate"
+				"previous-candidate",
+				"purge-candidate",
+				"next-segment",
+				"previous-segment",
+				"expand-segment",
+				"shrink-segment",
+				"set-input-mode-hiragana",
+				"set-input-mode-katakana",
+				"set-input-mode-hankaku-katakana",
+				"set-input-mode-latin",
+				"set-input-mode-wide-latin",
+				"set-input-mode-direct",
+				"convert-hiragana",
+				"convert-katakana",
+				"convert-hankaku-katakana",
+				"convert-latin",
+				"convert-wide-latin",
+				"original-candidate"
+			    ]
+			}
+		    }
+		}
+	    }
+	}
+    }
+}

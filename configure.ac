@@ -176,6 +176,8 @@ if test "x$found_introspection" = "xyes" -a "x$enable_vapigen" != "xno"; then
 fi
 AM_CONDITIONAL(ENABLE_VAPIGEN, [test "x$enable_vapigen" = "xyes"])
 
+AC_CHECK_PROGS(JSON_VALIDATE, json-validate, true)
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
 marisa-glib/Makefile

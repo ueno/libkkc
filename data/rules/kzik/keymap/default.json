@@ -1,10 +1,5 @@
 {
     "include": [
         "default/default"
-    ],
-    "define": {
-        "keymap": {
-            ":": "upper-;"
-        }
-    }
+    ]
 }

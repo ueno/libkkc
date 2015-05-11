@@ -9,6 +9,12 @@ SUFFIXES = .json .pot
 
 # 'make check' in po/ requires metadata.pot
 check-local: metadata.pot
+	$(JSON_VALIDATE) \
+		--schema $(top_srcdir)/data/rules/keymap-schema.json \
+		keymap/*.json
+	$(JSON_VALIDATE) \
+		--schema $(top_srcdir)/data/rules/rom-kana-schema.json \
+		rom-kana/*.json
 
 metadata.pot: metadata.json $(top_srcdir)/tools/gen-metadata-pot.c
 
