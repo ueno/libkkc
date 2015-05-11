@@ -42,6 +42,10 @@ main (int argc, char **argv)
   GError *error;
   gint i;
 
+#if !GLIB_CHECK_VERSION(2, 36, 0)
+  g_type_init ();
+#endif
+
   if (argc < 3)
     {
       g_printerr ("Usage: gen-metadata-pot FILE EXPR...\n");
