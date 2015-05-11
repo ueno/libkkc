@@ -18,6 +18,7 @@ AM_CPPFLAGS = -include $(CONFIG_HEADER)
 
 bin_PROGRAMS = kkc
 bin_SCRIPTS = kkc-package-data
+noinst_PROGRAMS = gen-metadata-pot
 
 kkc_VALAFLAGS =					\
 	--vapidir=$(top_srcdir)/libkkc		\
@@ -35,6 +36,10 @@ kkc_CFLAGS =					\
 	$(NULL)
 kkc_LDADD = $(top_builddir)/libkkc/libkkc.la $(LIBKKC_LIBS)
 kkc_SOURCES = kkc.vala
+
+gen_metadata_pot_SOURCES = gen-metadata-pot.c
+gen_metadata_pot_CFLAGS = $(JSON_GLIB_CFLAGS)
+gen_metadata_pot_LDADD = $(JSON_GLIB_LIBS)
 
 DISTCLEANFILES = kkc-package-data
 EXTRA_DIST = kkc-package-data.in

@@ -9,24 +9,16 @@ files =						\
 	keymap/wide-latin.json			\
 	keymap/direct.json			\
 	rom-kana/default.json			\
-	$(NULL)
-metadata_in =					\
-	metadata.json.in			\
+	metadata.json				\
 	$(NULL)
 
 nobase_rules_DATA =				\
 	$(files)				\
-	$(metadata_in:.in=)			\
 	$(NULL)
 
 EXTRA_DIST =					\
 	$(files)				\
-	$(metadata_in)				\
 	$(NULL)
 
-CLEANFILES =					\
-	metadata.json				\
-	$(NULL)
-
--include $(top_srcdir)/data/rules/rule.mk
+include $(top_srcdir)/data/rules/rule.mk
 -include $(top_srcdir)/git.mk

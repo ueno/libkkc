@@ -1,0 +1,6 @@
+{
+    "name": "Kana",
+    "description": "Direct Kana typing",
+    "filter": "kana",
+    "priority": 99
+}

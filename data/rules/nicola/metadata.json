@@ -1,0 +1,6 @@
+{
+    "name": "NICOLA",
+    "description": "Input method using thumb shift keyboard developed by the NICOLA (NIhongo-nyuuryoku COnsortium LAyout) project <http://nicola.sunicom.co.jp/index.html>",
+    "filter": "nicola",
+    "priority": 10
+}
