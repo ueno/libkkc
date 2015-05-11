@@ -37,7 +37,8 @@ kkc_CFLAGS =					\
 kkc_LDADD = $(top_builddir)/libkkc/libkkc.la $(LIBKKC_LIBS)
 kkc_SOURCES = kkc.vala
 
-gen_metadata_pot_SOURCES = gen-metadata-pot.c
+gen_metadata_pot_VALAFLAGS = --pkg json-glib-1.0 --pkg posix $(VALAFLAGS)
+gen_metadata_pot_SOURCES = gen-metadata-pot.vala
 gen_metadata_pot_CFLAGS = $(JSON_GLIB_CFLAGS)
 gen_metadata_pot_LDADD = $(JSON_GLIB_LIBS)
 
