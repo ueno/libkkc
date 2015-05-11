@@ -11,10 +11,13 @@ SUFFIXES = .json .pot
 all-local: metadata.pot
 
 check-local:
-	$(JSON_VALIDATE) \
+	$(AM_V_at)$(JSON_VALIDATE) \
+		--schema $(top_srcdir)/data/rules/metadata-schema.json \
+		metadata.json
+	$(AM_V_at)$(JSON_VALIDATE) \
 		--schema $(top_srcdir)/data/rules/keymap-schema.json \
 		keymap/*.json
-	$(JSON_VALIDATE) \
+	$(AM_V_at)$(JSON_VALIDATE) \
 		--schema $(top_srcdir)/data/rules/rom-kana-schema.json \
 		rom-kana/*.json
 

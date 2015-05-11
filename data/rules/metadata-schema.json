@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "properties": {
+	"name": {
+	    "type": "string"
+	},
+	"description": {
+	    "type": "string"
+	},
+	"priority": {
+	    "type": "integer",
+	    "minimum": 0,
+	    "maximum": 100
+	}
+    }
+}
