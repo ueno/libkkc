@@ -8,7 +8,9 @@ SUFFIXES = .json .pot
             '$$.name' '$$.description' >$@.tmp && mv $@.tmp $@
 
 # 'make check' in po/ requires metadata.pot
-check-local: metadata.pot
+all-local: metadata.pot
+
+check-local:
 	$(JSON_VALIDATE) \
 		--schema $(top_srcdir)/data/rules/keymap-schema.json \
 		keymap/*.json
