@@ -17,6 +17,7 @@
 SUBDIRS =					\
 	default					\
 	act					\
+	atok					\
 	azik					\
 	azik-jp106				\
 	kzik					\

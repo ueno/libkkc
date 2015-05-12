@@ -1,0 +1,31 @@
+{
+    "include": [
+	"default/default"
+    ],
+    "define": {
+        "keymap": {
+            "C-[": "abort",
+            "C-g": "delete-forward",
+            "C-q": null,
+            "C-F7": "register",
+            "C-Down": "next-candidate",
+            "S-space": "next-candidate",
+            "S-Henkan_Mode": "next-candidate",
+            "C-Up": "previous-candidate",
+            "Muhenkan": null,
+            "C-l": "expand-segment",
+            "C-k": "shrink-segment",
+            "Right": "expand-segment",
+            "Left": "shrink-segment",
+            "S-Left": "previous-segment",
+            "S-Right": "next-segment",
+            "C-Left": "first-segment",
+            "C-Right": "last-segment",
+            "C-u": "convert-hiragana",
+            "C-i": "convert-katakana",
+            "C-o": "convert-hankaku-katakana",
+            "C-p": "convert-wide-latin",
+            "C-@": "convert-latin"
+        }
+    }
+}
