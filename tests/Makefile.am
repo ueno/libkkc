@@ -248,4 +248,11 @@ clean-local:
 	-rm -rf test-user-segment-dictionary
 	-rm -rf test-user-sentence-dictionary
 
+GITIGNOREFILES =				\
+	test-driver				\
+	data/rules				\
+	data/models				\
+	$(TESTS:=.c)				\
+	$(NULL)
+
 -include $(top_srcdir)/git.mk

@@ -44,5 +44,10 @@ gen_metadata_pot_LDADD = $(JSON_GLIB_LIBS)
 
 DISTCLEANFILES = kkc-package-data
 EXTRA_DIST = kkc-package-data.in
+GITIGNOREFILES =				\
+	kkc.c					\
+	gen-metadata-pot.c			\
+	*_vala.stamp				\
+	$(NULL)
 
 -include $(top_srcdir)/git.mk

@@ -22,20 +22,22 @@ if HAVE_VALADOC
 SUBDIRS += docs
 endif
 
-GITIGNOREFILES =				\
-	INSTALL					\
-	aclocal.m4				\
-	compile					\
-	config.guess				\
-	config.h.in				\
-	config.sub				\
-	depcomp					\
-	install-sh				\
-	ltmain.sh				\
-	missing					\
-	mkinstalldirs				\
-	`find "m4" -type f -name "*.m4" ! -name "vala.m4" -print` \
-	$(top_builddir)/lcov.html/*		\
+GITIGNOREFILES =							\
+	INSTALL								\
+	aclocal.m4							\
+	compile								\
+	config.guess							\
+	config.h.in							\
+	config.sub							\
+	depcomp								\
+	install-sh							\
+	ltmain.sh							\
+	missing								\
+	mkinstalldirs							\
+	`find "m4" -type f -name "*.m4" ! -name "vala.m4" -print`	\
+	$(top_builddir)/lcov.html/*					\
+	data/rules/*/*.pot						\
+	test-driver							\
 	$(NULL)
 
 distclean-local:
