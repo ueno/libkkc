@@ -98,7 +98,7 @@ namespace Kkc {
                     }
                     else {
                         throw new RuleParseError.FAILED (
-                            "\"rom-kana\" must have two to four elements");
+                            "\"rom-kana\" must have two to five elements");
                     }
                 } else {
                     throw new RuleParseError.FAILED (
@@ -122,6 +122,18 @@ namespace Kkc {
                 else
                     parent_map.set (key, value);
             }
+
+            // Remove null entries added to parent_map, while
+            // traversing 'include'.  We don't need to do that
+            // recursively, since those entries override the
+            // corresponding entries in ancestor maps.
+            var parent_iter = parent_map.map_iterator ();
+            while (parent_iter.next ()) {
+                var value = parent_iter.get_value ();
+                if (value.get_node_type () == Json.NodeType.NULL)
+                    parent_iter.unset ();
+            }
+
             load_rom_kana (root_node, parent_map);
         }
     }
