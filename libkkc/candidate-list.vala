@@ -210,6 +210,15 @@ namespace Kkc {
             }
         }
 
+        bool update_cursor_pos (uint pos) {
+            if (pos != _cursor_pos) {
+                _cursor_pos = (int) pos;
+                notify_property ("cursor-pos");
+                return true;
+            }
+            return false;
+        }
+
         bool cursor_move (int step) {
             if (_candidates.is_empty || step == 0)
                 return false;
@@ -218,15 +227,13 @@ namespace Kkc {
                 var pos = (_cursor_pos + step) % _candidates.size;
                 if (pos < 0)
                     pos += _candidates.size;
-                _cursor_pos = pos;
-                notify_property ("cursor-pos");
-                return true;
+                if (update_cursor_pos (pos))
+                    return true;
             } else {
                 var pos = _cursor_pos + step;
                 if (0 <= pos && pos < _candidates.size) {
-                    _cursor_pos = pos;
-                    notify_property ("cursor-pos");
-                    return true;
+                    if (update_cursor_pos (pos))
+                        return true;
                 }
             }
 
@@ -260,20 +267,14 @@ namespace Kkc {
                 if (pos < 0)
                     pos += _candidates.size;
                 pos = get_page_start_cursor_pos (pos);
-                if (pos != _cursor_pos) {
-                    _cursor_pos = (int) pos;
-                    notify_property ("cursor-pos");
+                if (update_cursor_pos (pos))
                     return true;
-                }
             } else {
                 var pos = _cursor_pos + page_size * step;
                 if (0 <= pos && pos < _candidates.size) {
                     pos = get_page_start_cursor_pos (pos);
-                    if (pos != _cursor_pos) {
-                        _cursor_pos = (int) pos;
-                        notify_property ("cursor-pos");
+                    if (update_cursor_pos (pos))
                         return true;
-                    }
                 }
             }
             return false;
