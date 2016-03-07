@@ -35,9 +35,9 @@ class CandidateListTests : Kkc.TestCase {
         candidates.page_start = 2;
         candidates.page_size = 3;
 
+        candidates.add (new Kkc.Candidate ("a", false, "0"));
         candidates.add (new Kkc.Candidate ("a", false, "1"));
         candidates.add (new Kkc.Candidate ("a", false, "2"));
-        candidates.add (new Kkc.Candidate ("a", false, "3"));
 
         assert (!candidates.page_visible);
         candidates.cursor_down ();
@@ -45,21 +45,25 @@ class CandidateListTests : Kkc.TestCase {
         candidates.cursor_down ();
         assert (candidates.page_visible);
 
+        candidates.add (new Kkc.Candidate ("a", false, "3"));
         candidates.add (new Kkc.Candidate ("a", false, "4"));
-        candidates.add (new Kkc.Candidate ("a", false, "5"));
 
         candidates.round = false;
         assert (!candidates.page_down ());
         assert (!candidates.page_up ());
 
+        candidates.add (new Kkc.Candidate ("a", false, "5"));
+        candidates.add (new Kkc.Candidate ("a", false, "6"));
+        candidates.add (new Kkc.Candidate ("a", false, "7"));
+
         candidates.round = true;
         assert (candidates.page_down ());
-        assert (candidates.cursor_pos == 0);
+        assert (candidates.cursor_pos == 5);
         assert (candidates.page_up ());
-        assert (candidates.cursor_pos == 3);
+        assert (candidates.cursor_pos == 2);
 
         assert (candidates.select_at (1));
-        assert (candidates.cursor_pos == 4);
+        assert (candidates.cursor_pos == 3);
 
         candidates.first ();
         assert (candidates.next ());
@@ -68,8 +72,9 @@ class CandidateListTests : Kkc.TestCase {
         assert (candidates.cursor_pos == 0);
         assert (candidates.next ());
         assert (candidates.next ());
+        assert (candidates.cursor_pos == 2);
         assert (candidates.next ());
-        assert (candidates.cursor_pos == 0);
+        assert (candidates.cursor_pos == 5);
     }
 }
 
