@@ -410,7 +410,7 @@ namespace Kkc {
          * @return `true` if uc is in a valid range, `false` otherwise
          */
         public bool is_valid (unichar uc) {
-            if (uc > 256)
+            if (uc >= 256)
                 return false;
             uint8 mask = (uint8) (1 << (uc % 8));
             return (current_node.valid[uc / 8] & mask) != 0 ||
