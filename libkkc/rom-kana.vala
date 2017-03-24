@@ -41,7 +41,7 @@ namespace Kkc {
         }
     }
 
-    static const string[] PUNCTUATION_RULE = {"。、", "．，", "。，", "．、"};
+    const string[] PUNCTUATION_RULE = {"。、", "．，", "。，", "．、"};
 
     class RomKanaNode : Object {
         internal RomKanaEntry? entry;

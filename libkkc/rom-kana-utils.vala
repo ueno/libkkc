@@ -38,7 +38,7 @@ namespace Kkc {
             string? hankaku_katakana;
         }
 
-        static const KanaTableEntry[] KanaTable = {
+        const KanaTableEntry[] KanaTable = {
             {'ア', "あ", "ｱ"}, {'イ', "い", "ｲ"}, {'ウ', "う", "ｳ"},
             {'エ', "え", "ｴ"}, {'オ', "お", "ｵ"}, {'カ', "か", "ｶ"},
             {'キ', "き", "ｷ"}, {'ク', "く", "ｸ"}, {'ケ', "け", "ｹ"},
@@ -73,13 +73,13 @@ namespace Kkc {
             {'、', "、", "､"}, {'・', "・", "･"}, {'ー', "ー", "ｰ"}
         };
 
-        static const KanaTableEntry[] HankakuKatakanaSubstitute = {
+        const KanaTableEntry[] HankakuKatakanaSubstitute = {
             {'ヮ', null, "ﾜ"},
             {'ヵ', null, "ｶ"},
             {'ヶ', null, "ｹ"}
         };
 
-        static const string[] WideLatinTable = {
+        const string[] WideLatinTable = {
             "　", "！", "”", "＃", "＄", "％", "＆", "’", 
             "（", "）", "＊", "＋", "，", "−", "．", "／", 
             "０", "１", "２", "３", "４", "５", "６", "７", 
@@ -94,7 +94,7 @@ namespace Kkc {
             "ｘ", "ｙ", "ｚ", "｛", "｜", "｝", "〜"
         };
 
-        static const string[] KanaRomTable = {
+        const string[] KanaRomTable = {
             "x", "a", "x", "i", "x", "u", "x", "e", "x", "o", "k",
             "g", "k", "g", "k", "g", "k", "g", "k", "g", "s", "z",
             "s", "z", "s", "z", "s", "z", "s", "z", "t", "d", "t",
@@ -126,20 +126,20 @@ namespace Kkc {
             return get_okurigana_prefix_for_char (head);
         }
 
-        static const string[] KanjiNumericTable = {
+        const string[] KanjiNumericTable = {
             "〇", "一", "二", "三", "四", "五", "六", "七", "八", "九"
         };
 
-        static const string[] DaijiNumericTable = {
+        const string[] DaijiNumericTable = {
             "零", "壱", "弐", "参", "四", "伍", "六", "七", "八", "九"
         };
 
-        static const string?[] KanjiNumericalPositionTable = {
+        const string?[] KanjiNumericalPositionTable = {
             null, "十", "百", "千", "万", null, null, null, "億",
             null, null, null, "兆", null, null, null, null, "京"
         };
 
-        static const string?[] DaijiNumericalPositionTable = {
+        const string?[] DaijiNumericalPositionTable = {
             null, "拾", "百", "阡", "萬", null, null, null, "億",
             null, null, null, "兆", null, null, null, null, "京"
         };
