@@ -148,7 +148,7 @@ namespace Kkc {
                     throw new KeyEventFormatError.PARSE_FAILED (
                         "unknown keyval %s", _name);
             }
-            from_x_event (_keyval, 0, _modifiers);
+            new from_x_event (_keyval, 0, _modifiers);
         }
 
         /**
