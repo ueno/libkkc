@@ -32,7 +32,7 @@ namespace Kkc {
      * Object representing a keymap.
      */
     public class Keymap : Object {
-        static const KeymapCommandEntry Commands[] = {
+        const KeymapCommandEntry Commands[] = {
             { "abort", N_("Abort") },
             { "first-segment", N_("First Segment") },
             { "last-segment", N_("Last Segment") },

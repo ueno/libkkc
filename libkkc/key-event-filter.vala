@@ -53,7 +53,7 @@ namespace Kkc {
      * @see Rule
      */
     class SimpleKeyEventFilter : KeyEventFilter {
-        static const uint[] modifier_keyvals = {
+        const uint[] modifier_keyvals = {
             Keysyms.Shift_L,
             Keysyms.Shift_R,
             Keysyms.Control_L,
