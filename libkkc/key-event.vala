@@ -192,8 +192,13 @@ namespace Kkc {
                 // newer valac thinks null in a fixed length array as
                 // an empty string
                 var array = elements.to_array ();
+                // Change length of strv may make vala no able to free it
+                // correctly. Save the length and restore it later.
+                var old_length = array.length;
                 array.length = -1;
-                return "(" + string.joinv (" ", array) + ")";
+                var key_string = "(" + string.joinv (" ", array) + ")";
+                array.length = old_length;
+                return key_string;
             } else {
                 return _base;
             }
