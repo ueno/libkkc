@@ -23,6 +23,8 @@ SUBDIRS += docs
 endif
 
 GITIGNOREFILES =							\
+	ABOUT-NLS							\
+	config.rpath							\
 	INSTALL								\
 	aclocal.m4							\
 	compile								\
@@ -37,6 +39,16 @@ GITIGNOREFILES =							\
 	`find "m4" -type f -name "*.m4" ! -name "vala.m4" -print`	\
 	$(top_builddir)/lcov.html/*					\
 	data/rules/*/*.pot						\
+	po/Makevars.template						\
+	po/Rules-quot							\
+	po/boldquot.sed							\
+	po/en@boldquot.header						\
+	po/en@quot.header						\
+	po/insert-header.sin						\
+	po/quot.sed							\
+	po/remove-potcdate.sed						\
+	po/remove-potcdate.sin						\
+	po/stamp-po							\
 	test-driver							\
 	$(NULL)
 
