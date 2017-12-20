@@ -22,6 +22,8 @@ if HAVE_VALADOC
 SUBDIRS += docs
 endif
 
+DIST_SUBDIRS = marisa-glib libkkc tools data tests po docs
+
 GITIGNOREFILES =							\
 	ABOUT-NLS							\
 	config.rpath							\
