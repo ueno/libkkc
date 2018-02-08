@@ -52,7 +52,7 @@ namespace Kkc {
      *
      * @see Rule
      */
-    class SimpleKeyEventFilter : KeyEventFilter {
+    public class SimpleKeyEventFilter : KeyEventFilter {
         const uint[] modifier_keyvals = {
             Keysyms.Shift_L,
             Keysyms.Shift_R,
@@ -90,7 +90,7 @@ namespace Kkc {
      *
      * @see Rule
      */
-    class KanaKeyEventFilter : SimpleKeyEventFilter {
+     public class KanaKeyEventFilter : SimpleKeyEventFilter {
         /**
          * {@inheritDoc}
          */

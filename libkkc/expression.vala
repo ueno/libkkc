@@ -191,7 +191,7 @@ namespace Kkc {
         }
     }
 
-    abstract class Expression : Object {
+    public abstract class Expression : Object {
         public static string eval (string text) {
             if (text.has_prefix ("(")) {
                 var reader = new ExpressionReader ();

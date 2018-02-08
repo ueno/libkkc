@@ -24,7 +24,7 @@ namespace Kkc {
     const double DECODER_MIN_PATH_COST = -3.0;
     const int DECODER_NBEST = 20;
 
-    class State : Object {
+    public class State : Object {
         internal Type handler_type;
         InputMode _input_mode;
         [CCode(notify = false)]
@@ -211,7 +211,7 @@ namespace Kkc {
             return keymap.lookup_key (key);
         }
 
-        internal State (LanguageModel model, DictionaryList dictionaries) {
+        public State (LanguageModel model, DictionaryList dictionaries) {
             this.model = model;
             this.decoder = Decoder.create (model);
             this.dictionaries = dictionaries;
