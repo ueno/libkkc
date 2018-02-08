@@ -18,7 +18,7 @@
 namespace Kkc {
     // XXX: we use Vala string to represent byte array, assuming that
     // it does not contain null element
-    class EncodingConverter : Object, Initable {
+    public class EncodingConverter : Object, Initable {
         const int BUFSIZ = 4096;
         const string INTERNAL_ENCODING = "UTF-8";
 
@@ -67,7 +67,7 @@ namespace Kkc {
             return true;
         }
 
-        internal EncodingConverter (string encoding) throws Error {
+        public EncodingConverter (string encoding) throws Error {
             Object (encoding: encoding);
             init (null);
         }

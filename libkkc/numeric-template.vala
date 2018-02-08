@@ -18,7 +18,7 @@
 using Gee;
 
 namespace Kkc {
-    class NumericTemplate : Object, Template {
+    public class NumericTemplate : Object, Template {
         ArrayList<int> numerics = new ArrayList<int> ();
 
         public string source { get; construct set; }

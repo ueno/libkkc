@@ -101,7 +101,7 @@ namespace Kkc {
         }
     }
 
-    abstract class KeyEventUtils : Object {
+    public abstract class KeyEventUtils : Object {
         static KeysymEntry *bsearch_keysyms (
             KeysymEntry *memory,
             long start_offset,

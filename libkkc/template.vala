@@ -16,13 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 namespace Kkc {
-    internal interface Template : Object {
+    public interface Template : Object {
         public abstract string source { get; construct set; }
         public abstract bool okuri { get; construct set; }
         public abstract string expand (string text);
     }
 
-    class SimpleTemplate : Object, Template {
+    public class SimpleTemplate : Object, Template {
         public string source { get; construct set; }
         public bool okuri { get; construct set; }
 
@@ -36,7 +36,7 @@ namespace Kkc {
         }
     }
 
-    class OkuriganaTemplate : Object, Template {
+    public class OkuriganaTemplate : Object, Template {
         public string source { get; construct set; }
         public bool okuri { get; construct set; }
 
