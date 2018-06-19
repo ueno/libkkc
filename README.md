@@ -23,8 +23,14 @@ $ make
 $ make install
 ```
 
-3. run kkc program
+Documentation
+------
 
+* [Vala binding reference](https://ueno.github.io/libkkc/vala/)
+* [C binding reference](https://ueno.github.io/libkkc/c/)
+
+Test
+------
 ```
 $ kkc
 Type kana sentence in the following form:
