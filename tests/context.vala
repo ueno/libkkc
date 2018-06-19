@@ -47,6 +47,12 @@ class ContextTests : Kkc.TestCase {
         string input;
         Kkc.KeyEventFilter filter;
 
+        dictionaries = null;
+        candidates = null;
+        segments = null;
+        input = null;
+        rule = null;
+        filter = null;
         context.get ("dictionaries", out dictionaries,
                      "candidates", out candidates,
                      "segments", out segments,
