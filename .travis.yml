@@ -4,13 +4,10 @@ language: c
 
 env:
   - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64"
-  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 --enable-code-coverage" COVERAGE=yes
-  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'"
-  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'"
-
-matrix:
-  allow_failures:
-    - env: BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'"
+  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 --enable-docs" DOCS=yes EXTRA_PKGS="gtk-doc valadoc valadoc-devel"
+  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 --enable-code-coverage" COVERAGE=yes EXTRA_PKGS="python-pip"
+  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'" EXTRA_PKGS="libasan"
+  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'" EXTRA_PKGS="libubsan"
 
 services:
   - docker
@@ -20,13 +17,7 @@ before_install:
   - export CONTAINER=$(docker run -d fedora sleep 1800)
   - docker exec $CONTAINER dnf -y install 'dnf-command(builddep)'
   - docker exec $CONTAINER dnf -y builddep libkkc
-  - docker exec $CONTAINER dnf -y install gettext-devel libtool make which
-  - docker exec $CONTAINER dnf -y install gcc-c++ redhat-rpm-config
-  - docker exec $CONTAINER dnf -y install libasan libubsan
-  - docker exec $CONTAINER dnf -y install vala vala-devel
-  - docker exec $CONTAINER dnf -y install gnome-common
-  - docker exec $CONTAINER dnf -y install python-pip
-  - docker exec $CONTAINER dnf -y install git
+  - docker exec $CONTAINER dnf -y install libtool make which gcc-c++ vala vala-devel git $EXTRA_PKGS
   - docker exec $CONTAINER useradd user
 
 install:
@@ -35,11 +26,30 @@ install:
 
 script:
   - docker exec $CONTAINER su - user sh -c "cd /srcdir && NOCONFIGURE=1 ./autogen.sh"
-  - docker exec $CONTAINER su - user sh -c "cd /srcdir && ./configure --enable-code-coverage $BUILD_OPTS"
+  - docker exec $CONTAINER su - user sh -c "cd /srcdir && ./configure $BUILD_OPTS"
   - docker exec $CONTAINER su - user sh -c "cd /srcdir && make V=1 && touch po/libkkc.pot && make check V=1"
 
 after_failure:
   - docker exec $CONTAINER su - user sh -c "cd /srcdir && cat tests/test-suite.log"
 
 after_success:
-  - if test x"$COVERAGE" = xyes; then docker exec $CONTAINER pip install cpp-coveralls; docker exec -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" -e TRAVIS_BRANCH="$TRAVIS_BRANCH" $CONTAINER sh -c "cd /srcdir && coveralls --exclude tools --exclude tests --gcov-options '\-lp'"; fi
+  - |
+      if test x"$COVERAGE" = xyes; then
+          docker exec $CONTAINER pip install cpp-coveralls
+          docker exec -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" -e TRAVIS_BRANCH="$TRAVIS_BRANCH" $CONTAINER sh -c "cd /srcdir && coveralls --exclude tools --exclude tests --gcov-options '\-lp'"
+      fi
+  - |
+      if test x"$DOCS" = xyes; then
+          mkdir dist
+          docker cp $CONTAINER:/srcdir/docs/libkkc/libkkc dist/vala
+          docker cp $CONTAINER:/srcdir/docs/gtk-doc/libkkc/html dist/c
+      fi
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist
+  on:
+    branch: master
+    condition: $DOCS = yes
