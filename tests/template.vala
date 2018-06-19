@@ -7,7 +7,7 @@ class TemplateTests : Kkc.TestCase {
 
     void test_properties () {
         Kkc.Template template;
-        string source;
+        string? source = null;
         bool okuri;
 
         template = new Kkc.SimpleTemplate ("source");
@@ -17,6 +17,7 @@ class TemplateTests : Kkc.TestCase {
         assert (!okuri);
 
         template = new Kkc.OkuriganaTemplate ("かう", 1);
+        source = null;
         template.get ("source", out source,
                       "okuri", out okuri);
 
@@ -24,6 +25,7 @@ class TemplateTests : Kkc.TestCase {
         assert (okuri);
 
         template = new Kkc.NumericTemplate ("だい11かい");
+        source = null;
         template.get ("source", out source,
                       "okuri", out okuri);
 

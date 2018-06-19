@@ -18,6 +18,7 @@ class RomKanaTests : Kkc.TestCase {
         string pending_output;
         string pending_input;
         Kkc.RomKanaCharacterList produced;
+        rule = null;
         converter.get ("rule", out rule,
                        "kana-mode", out mode,
                        "punctuation-style", out style,
