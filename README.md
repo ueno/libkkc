@@ -10,12 +10,17 @@ Kana-Kanji-mixed-string.  It was named after kkc.el in GNU Emacs, a
 simple Kana Kanji converter, while libkkc tries to convert sentences
 in a bit more complex way using N-gram language models.
 
-Install
+Dependencies
 ------
 
-1. compile and install [marisa-trie](https://code.google.com/p/marisa-trie/)
+- glib
+- json-glib
+- libgee
+- libxkbcommon
+- [marisa-trie](https://code.google.com/p/marisa-trie/)
 
-2. compile and install
+Install
+------
 
 ```
 $ ./autogen.sh

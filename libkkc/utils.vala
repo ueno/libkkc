@@ -102,118 +102,57 @@ namespace Kkc {
     }
 
     abstract class KeyEventUtils : Object {
-        static KeysymEntry *bsearch_keysyms (
-            KeysymEntry *memory,
-            long start_offset,
-            long end_offset,
-            CompareDataFunc<KeysymEntry?> compare,
-            KeysymEntry needle)
-        {
-            var offset = start_offset + (end_offset - start_offset) / 2;
-            while (start_offset <= end_offset) {
-                KeysymEntry *p = memory + offset;
-                var r = compare (*p, needle);
-                if (r == 0)
-                    return p;
-                if (r > 0)
-                    end_offset = offset - 1;
-                else
-                    start_offset = offset + 1;
-                offset = start_offset + (end_offset - start_offset) / 2;
-            }
-            return null;
-        }
-
-        static string? read_name (long start_offset) {
-            long offset;
-            for (offset = start_offset; keysym_names[offset] != '\0'; offset++)
-                ;
-
-            string *result = malloc0 (offset - start_offset + 1);
-            char *dest = (char *) result;
-
-            Memory.copy (dest,
-                         (char *) keysym_names + start_offset,
-                         (offset - start_offset));
-
-            return (owned) result;
-        }
-
         public static string? keyval_name (uint keyval) {
-            KeysymEntry needle = KeysymEntry () {
-                keysym = keyval,
-                offset = 0
-            };
+            uint8[] buffer = new uint8[64];
+            int ret = -1;
 
-            var entry = bsearch_keysyms (keysym_to_name,
-                                         0,
-                                         keysym_to_name.length,
-                                         (a, b) => {
-                                             return a.keysym == b.keysym ? 0 :
-                                                 a.keysym < b.keysym ? -1 : 1;
-                                         },
-                                         needle);
-            if (entry == null)
-                return null;
-
-            return read_name (entry->offset);
-        }
-
-        static KeysymEntry *find_keysym (KeysymEntry *entry, string name) {
-            if (read_name (entry->offset) == name)
-                return entry;
-
-            KeysymEntry *iter;
-            for (iter = entry - 1;
-                 iter >= (KeysymEntry *) name_to_keysym;
-                 iter++)
-                if (read_name (iter->offset) == name)
-                    return iter;
+            do {
+                ret = Xkb.keysym_get_name ((uint32) keyval, buffer);
+                if (ret == -1)
+                    return null;
+                if (ret < buffer.length)
+                    return (string) buffer;
+                buffer = new uint8[buffer.length * 2];
+            } while (ret >= buffer.length);
 
             return null;
         }
 
         public static uint keyval_from_name (string name) {
-            KeysymEntry needle = KeysymEntry () {
-                keysym = 0,
-                offset = 0
-            };
-
-            var entry = bsearch_keysyms (name_to_keysym,
-                                         0,
-                                         name_to_keysym.length,
-                                         (a, b) => {
-                                             var aname = read_name (a.offset);
-                                             return aname.ascii_casecmp (name);
-                                         },
-                                         needle);
-            if (entry != null) {
-                entry = find_keysym (entry, name);
-                if (entry != null)
-                    return entry->keysym;
+            var keysym = Xkb.keysym_from_name (name, Xkb.KeysymFlags.NO_FLAGS);
+            if (keysym == Xkb.Keysym.NoSymbol) {
+                // handle ASCII keyvals with differnet name (e.g. at,
+                // percent, etc.)
+                if (name.char_count () == 1) {
+                    unichar code = name.get_char ();
+                    if (0x20 <= code && code < 0x7F)
+                        return code;
+                }
+                return Keysyms.VoidSymbol;
             }
-
-            // handle ASCII keyvals with differnet name (e.g. at,
-            // percent, etc.)
-            if (name.char_count () == 1) {
-                unichar code = name.get_char ();
-                if (0x20 <= code && code < 0x7F)
-                    return code;
-            }
-
-            return Keysyms.VoidSymbol;
+            return (uint) keysym;
         }
 
         public static unichar keyval_unicode (uint keyval) {
+            // handle ASCII keyvals with differnet name (e.g. at,
+            // percent, etc.)
             if (0x20 <= keyval && keyval < 0x7F)
                 return keyval;
-            // FIXME: handle other unicode keyvals
-            switch (keyval) {
-            case Keysyms.yen:
+
+            // special case
+            if (keyval == Keysyms.yen)
                 return "\xc2\xa5".get_char ();
-            default:
-                break;
-            }
+
+            uint8[] buffer = new uint8[8];
+            int ret = -1;
+
+            do {
+                ret = Xkb.keysym_to_utf8 ((uint32) keyval, buffer);
+                if (ret == 0)
+                    return '\0';
+                buffer = new uint8[buffer.length * 2];
+            } while (ret == -1);
+
             return '\0';
         }
     }
