@@ -1,0 +1,1255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcContext:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcTrellisNode.html" title="KkcTrellisNode">
+<link rel="next" href="KkcMetadataFile.html" title="KkcMetadataFile">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcContext.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcContext.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcContext.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#KkcContext.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcTrellisNode.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcMetadataFile.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcContext"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcContext.top_of_page"></a>KkcContext</span></h2>
+<p>KkcContext — Main entry point of libkkc.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcContext.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-set-selection-text" title="kkc_context_set_selection_text ()">kkc_context_set_selection_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-process-key-events" title="kkc_context_process_key_events ()">kkc_context_process_key_events</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-process-key-event" title="kkc_context_process_key_event ()">kkc_context_process_key_event</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-reset" title="kkc_context_reset ()">kkc_context_reset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-has-output" title="kkc_context_has_output ()">kkc_context_has_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-peek-output" title="kkc_context_peek_output ()">kkc_context_peek_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-poll-output" title="kkc_context_poll_output ()">kkc_context_poll_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-clear-output" title="kkc_context_clear_output ()">kkc_context_clear_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcContext.html" title="KkcContext"><span class="returnvalue">KkcContext</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-new" title="kkc_context_new ()">kkc_context_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcDictionaryList.html" title="KkcDictionaryList"><span class="returnvalue">KkcDictionaryList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-dictionaries" title="kkc_context_get_dictionaries ()">kkc_context_get_dictionaries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-set-dictionaries" title="kkc_context_set_dictionaries ()">kkc_context_set_dictionaries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="returnvalue">KkcCandidateList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-candidates" title="kkc_context_get_candidates ()">kkc_context_get_candidates</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcSegmentList.html" title="KkcSegmentList"><span class="returnvalue">KkcSegmentList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-segments" title="kkc_context_get_segments ()">kkc_context_get_segments</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-input" title="kkc_context_get_input ()">kkc_context_get_input</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-input-cursor-pos" title="kkc_context_get_input_cursor_pos ()">kkc_context_get_input_cursor_pos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-input-cursor-width" title="kkc_context_get_input_cursor_width ()">kkc_context_get_input_cursor_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="returnvalue">KkcInputMode</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-input-mode" title="kkc_context_get_input_mode ()">kkc_context_get_input_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-set-input-mode" title="kkc_context_set_input_mode ()">kkc_context_set_input_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRomKanaCharacterList.html#KkcPunctuationStyle" title="enum KkcPunctuationStyle"><span class="returnvalue">KkcPunctuationStyle</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-punctuation-style" title="kkc_context_get_punctuation_style ()">kkc_context_get_punctuation_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-set-punctuation-style" title="kkc_context_set_punctuation_style ()">kkc_context_set_punctuation_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-auto-correct" title="kkc_context_get_auto_correct ()">kkc_context_get_auto_correct</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-set-auto-correct" title="kkc_context_set_auto_correct ()">kkc_context_set_auto_correct</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="returnvalue">KkcRule</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-typing-rule" title="kkc_context_get_typing_rule ()">kkc_context_get_typing_rule</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-set-typing-rule" title="kkc_context_set_typing_rule ()">kkc_context_set_typing_rule</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="returnvalue">KkcKeyEventFilter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcContext.html#kkc-context-get-key-event-filter" title="kkc_context_get_key_event_filter ()">kkc_context_get_key_event_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--auto-correct" title="The “auto-correct” property">auto-correct</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--candidates" title="The “candidates” property">candidates</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcDictionaryList.html" title="KkcDictionaryList"><span class="type">KkcDictionaryList</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--dictionaries" title="The “dictionaries” property">dictionaries</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--input" title="The “input” property">input</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--input-cursor-pos" title="The “input-cursor-pos” property">input-cursor-pos</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--input-cursor-width" title="The “input-cursor-width” property">input-cursor-width</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="type">KkcInputMode</span></a></td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--input-mode" title="The “input-mode” property">input-mode</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--key-event-filter" title="The “key-event-filter” property">key-event-filter</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="KkcRomKanaCharacterList.html#KkcPunctuationStyle" title="enum KkcPunctuationStyle"><span class="type">KkcPunctuationStyle</span></a></td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--punctuation-style" title="The “punctuation-style” property">punctuation-style</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcSegmentList.html" title="KkcSegmentList"><span class="type">KkcSegmentList</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--segments" title="The “segments” property">segments</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcContext.html#KkcContext--typing-rule" title="The “typing-rule” property">typing-rule</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="KkcContext.html#KkcContext-request-selection-text" title="The “request-selection-text” signal">request-selection-text</a></td>
+<td class="signal_flags">Run Last</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcContext.html#KKC-TYPE-CONTEXT:CAPS" title="KKC_TYPE_CONTEXT">KKC_TYPE_CONTEXT</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcContext.html#KkcContext-struct" title="struct KkcContext">KkcContext</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcContext.html#KkcContextClass" title="struct KkcContextClass">KkcContextClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> KkcContext
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcContext.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcContext.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-context-set-selection-text"></a><h3>kkc_context_set_selection_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_set_selection_text (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>);</pre>
+<p>Set the current selection text.</p>
+<div class="refsect3">
+<a name="kkc-context-set-selection-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>text</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>selection text </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-process-key-events"></a><h3>kkc_context_process_key_events ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_context_process_key_events (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *keyseq</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Pass key events (separated by spaces) to the context.</p>
+<p>This function is rarely used in programs but in unit tests.</p>
+<div class="refsect3">
+<a name="kkc-context-process-key-events.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyseq</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a string representing key events, separated by " " </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Typed errors. Similar to throws in Java."><span class="acronym">error-domains</span></acronym> KkcKeyEventFormatError]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-process-key-events.returns"></a><h4>Returns</h4>
+<p>`true` if any of key events are handled, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-process-key-event"></a><h3>kkc_context_process_key_event ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_context_process_key_event (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                               <em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *key</code></em>);</pre>
+<p>Pass one key event to the context.</p>
+<div class="refsect3">
+<a name="kkc-context-process-key-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a key event </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-process-key-event.returns"></a><h4>Returns</h4>
+<p>`true` if the key event is handled, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-reset"></a><h3>kkc_context_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_reset (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Reset the context.</p>
+<div class="refsect3">
+<a name="kkc-context-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-has-output"></a><h3>kkc_context_has_output ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_context_has_output (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Check if there is pending output</p>
+<div class="refsect3">
+<a name="kkc-context-has-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-has-output.returns"></a><h4>Returns</h4>
+<p>`true` if there is output, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-peek-output"></a><h3>kkc_context_peek_output ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_context_peek_output (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Peek (retrieve, but not remove) the current output string.</p>
+<div class="refsect3">
+<a name="kkc-context-peek-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-peek-output.returns"></a><h4>Returns</h4>
+<p>an output string </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-poll-output"></a><h3>kkc_context_poll_output ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_context_poll_output (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Poll (retrieve and remove) the current output string.</p>
+<div class="refsect3">
+<a name="kkc-context-poll-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-poll-output.returns"></a><h4>Returns</h4>
+<p>an output string </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-clear-output"></a><h3>kkc_context_clear_output ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_clear_output (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Clear the output buffer.</p>
+<div class="refsect3">
+<a name="kkc-context-clear-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-new"></a><h3>kkc_context_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcContext.html" title="KkcContext"><span class="returnvalue">KkcContext</span></a> *
+kkc_context_new (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *model</code></em>);</pre>
+<p>Create a new Context.</p>
+<div class="refsect3">
+<a name="kkc-context-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a language model </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-new.returns"></a><h4>Returns</h4>
+<p>a new Context </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-dictionaries"></a><h3>kkc_context_get_dictionaries ()</h3>
+<pre class="programlisting"><a class="link" href="KkcDictionaryList.html" title="KkcDictionaryList"><span class="returnvalue">KkcDictionaryList</span></a> *
+kkc_context_get_dictionaries (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--dictionaries" title="The “dictionaries” property"><span class="type">"dictionaries"</span></a> property.</p>
+<p>Dictionaries.</p>
+<div class="refsect3">
+<a name="kkc-context-get-dictionaries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-dictionaries.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--dictionaries" title="The “dictionaries” property"><span class="type">"dictionaries"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-set-dictionaries"></a><h3>kkc_context_set_dictionaries ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_set_dictionaries (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                              <em class="parameter"><code><a class="link" href="KkcDictionaryList.html" title="KkcDictionaryList"><span class="type">KkcDictionaryList</span></a> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcContext.html#KkcContext--dictionaries" title="The “dictionaries” property"><span class="type">"dictionaries"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Dictionaries.</p>
+<div class="refsect3">
+<a name="kkc-context-set-dictionaries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcContext.html#KkcContext--dictionaries" title="The “dictionaries” property"><span class="type">"dictionaries"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-candidates"></a><h3>kkc_context_get_candidates ()</h3>
+<pre class="programlisting"><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="returnvalue">KkcCandidateList</span></a> *
+kkc_context_get_candidates (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--candidates" title="The “candidates” property"><span class="type">"candidates"</span></a> property.</p>
+<p>Current candidates.</p>
+<div class="refsect3">
+<a name="kkc-context-get-candidates.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-candidates.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--candidates" title="The “candidates” property"><span class="type">"candidates"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-segments"></a><h3>kkc_context_get_segments ()</h3>
+<pre class="programlisting"><a class="link" href="KkcSegmentList.html" title="KkcSegmentList"><span class="returnvalue">KkcSegmentList</span></a> *
+kkc_context_get_segments (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--segments" title="The “segments” property"><span class="type">"segments"</span></a> property.</p>
+<p>Current segments.</p>
+<div class="refsect3">
+<a name="kkc-context-get-segments.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-segments.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--segments" title="The “segments” property"><span class="type">"segments"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-input"></a><h3>kkc_context_get_input ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_context_get_input (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--input" title="The “input” property"><span class="type">"input"</span></a> property.</p>
+<p>Current input string.</p>
+<div class="refsect3">
+<a name="kkc-context-get-input.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-input.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--input" title="The “input” property"><span class="type">"input"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-input-cursor-pos"></a><h3>kkc_context_get_input_cursor_pos ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+kkc_context_get_input_cursor_pos (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--input-cursor-pos" title="The “input-cursor-pos” property"><span class="type">"input-cursor-pos"</span></a> property.</p>
+<p>Current cursor position in input string.</p>
+<div class="refsect3">
+<a name="kkc-context-get-input-cursor-pos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-input-cursor-pos.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--input-cursor-pos" title="The “input-cursor-pos” property"><span class="type">"input-cursor-pos"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-input-cursor-width"></a><h3>kkc_context_get_input_cursor_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_context_get_input_cursor_width (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--input-cursor-width" title="The “input-cursor-width” property"><span class="type">"input-cursor-width"</span></a> property.</p>
+<p>Current cursor width in input string.</p>
+<div class="refsect3">
+<a name="kkc-context-get-input-cursor-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-input-cursor-width.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--input-cursor-width" title="The “input-cursor-width” property"><span class="type">"input-cursor-width"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-input-mode"></a><h3>kkc_context_get_input_mode ()</h3>
+<pre class="programlisting"><a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="returnvalue">KkcInputMode</span></a>
+kkc_context_get_input_mode (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--input-mode" title="The “input-mode” property"><span class="type">"input-mode"</span></a> property.</p>
+<p>Current input mode.</p>
+<div class="refsect3">
+<a name="kkc-context-get-input-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-input-mode.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--input-mode" title="The “input-mode” property"><span class="type">"input-mode"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-set-input-mode"></a><h3>kkc_context_set_input_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_set_input_mode (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                            <em class="parameter"><code><a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="type">KkcInputMode</span></a> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcContext.html#KkcContext--input-mode" title="The “input-mode” property"><span class="type">"input-mode"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Current input mode.</p>
+<div class="refsect3">
+<a name="kkc-context-set-input-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcContext.html#KkcContext--input-mode" title="The “input-mode” property"><span class="type">"input-mode"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-punctuation-style"></a><h3>kkc_context_get_punctuation_style ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRomKanaCharacterList.html#KkcPunctuationStyle" title="enum KkcPunctuationStyle"><span class="returnvalue">KkcPunctuationStyle</span></a>
+kkc_context_get_punctuation_style (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--punctuation-style" title="The “punctuation-style” property"><span class="type">"punctuation-style"</span></a> property.</p>
+<p>Punctuation style used in romaji-to-kana conversion.</p>
+<div class="refsect3">
+<a name="kkc-context-get-punctuation-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-punctuation-style.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--punctuation-style" title="The “punctuation-style” property"><span class="type">"punctuation-style"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-set-punctuation-style"></a><h3>kkc_context_set_punctuation_style ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_set_punctuation_style (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                                   <em class="parameter"><code><a class="link" href="KkcRomKanaCharacterList.html#KkcPunctuationStyle" title="enum KkcPunctuationStyle"><span class="type">KkcPunctuationStyle</span></a> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcContext.html#KkcContext--punctuation-style" title="The “punctuation-style” property"><span class="type">"punctuation-style"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Punctuation style used in romaji-to-kana conversion.</p>
+<div class="refsect3">
+<a name="kkc-context-set-punctuation-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcContext.html#KkcContext--punctuation-style" title="The “punctuation-style” property"><span class="type">"punctuation-style"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-auto-correct"></a><h3>kkc_context_get_auto_correct ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_context_get_auto_correct (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--auto-correct" title="The “auto-correct” property"><span class="type">"auto-correct"</span></a> property.</p>
+<p>Flag to indicate if romaji-to-kana conversion is auto-corrected.</p>
+<div class="refsect3">
+<a name="kkc-context-get-auto-correct.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-auto-correct.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--auto-correct" title="The “auto-correct” property"><span class="type">"auto-correct"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-set-auto-correct"></a><h3>kkc_context_set_auto_correct ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_set_auto_correct (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                              <em class="parameter"><code><span class="type">gboolean</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcContext.html#KkcContext--auto-correct" title="The “auto-correct” property"><span class="type">"auto-correct"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Flag to indicate if romaji-to-kana conversion is auto-corrected.</p>
+<div class="refsect3">
+<a name="kkc-context-set-auto-correct.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcContext.html#KkcContext--auto-correct" title="The “auto-correct” property"><span class="type">"auto-correct"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-typing-rule"></a><h3>kkc_context_get_typing_rule ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="returnvalue">KkcRule</span></a> *
+kkc_context_get_typing_rule (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--typing-rule" title="The “typing-rule” property"><span class="type">"typing-rule"</span></a> property.</p>
+<p>The name of typing rule.</p>
+<div class="refsect3">
+<a name="kkc-context-get-typing-rule.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-typing-rule.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--typing-rule" title="The “typing-rule” property"><span class="type">"typing-rule"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-set-typing-rule"></a><h3>kkc_context_set_typing_rule ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_context_set_typing_rule (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>,
+                             <em class="parameter"><code><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcContext.html#KkcContext--typing-rule" title="The “typing-rule” property"><span class="type">"typing-rule"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>The name of typing rule.</p>
+<div class="refsect3">
+<a name="kkc-context-set-typing-rule.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcContext.html#KkcContext--typing-rule" title="The “typing-rule” property"><span class="type">"typing-rule"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-context-get-key-event-filter"></a><h3>kkc_context_get_key_event_filter ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="returnvalue">KkcKeyEventFilter</span></a> *
+kkc_context_get_key_event_filter (<em class="parameter"><code><a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcContext.html#KkcContext--key-event-filter" title="The “key-event-filter” property"><span class="type">"key-event-filter"</span></a> property.</p>
+<p>Filter which runs before process_key_event.</p>
+<p>This is particularly useful for NICOLA.</p>
+<div class="refsect3">
+<a name="kkc-context-get-key-event-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-context-get-key-event-filter.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcContext.html#KkcContext--key-event-filter" title="The “key-event-filter” property"><span class="type">"key-event-filter"</span></a> property</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-CONTEXT:CAPS"></a><h3>KKC_TYPE_CONTEXT</h3>
+<pre class="programlisting">#define KKC_TYPE_CONTEXT (kkc_context_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext-struct"></a><h3>struct KkcContext</h3>
+<pre class="programlisting">struct KkcContext;</pre>
+<p>Main entry point of libkkc.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContextClass"></a><h3>struct KkcContextClass</h3>
+<pre class="programlisting">struct KkcContextClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcContext.html#KKC-TYPE-CONTEXT:CAPS" title="KKC_TYPE_CONTEXT"><code class="literal">KKC_TYPE_CONTEXT</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcContextClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcContext--auto-correct"></a><h3>The <code class="literal">“auto-correct”</code> property</h3>
+<pre class="programlisting">  “auto-correct”             <span class="type">gboolean</span></pre>
+<p>Flag to indicate if romaji-to-kana conversion is auto-corrected.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--candidates"></a><h3>The <code class="literal">“candidates”</code> property</h3>
+<pre class="programlisting">  “candidates”               <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *</pre>
+<p>Current candidates.</p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--dictionaries"></a><h3>The <code class="literal">“dictionaries”</code> property</h3>
+<pre class="programlisting">  “dictionaries”             <a class="link" href="KkcDictionaryList.html" title="KkcDictionaryList"><span class="type">KkcDictionaryList</span></a> *</pre>
+<p>Dictionaries.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--input"></a><h3>The <code class="literal">“input”</code> property</h3>
+<pre class="programlisting">  “input”                    <span class="type">gchar</span> *</pre>
+<p>Current input string.</p>
+<p>Flags: Read</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--input-cursor-pos"></a><h3>The <code class="literal">“input-cursor-pos”</code> property</h3>
+<pre class="programlisting">  “input-cursor-pos”         <span class="type">gint</span></pre>
+<p>Current cursor position in input string.</p>
+<p>Flags: Read</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--input-cursor-width"></a><h3>The <code class="literal">“input-cursor-width”</code> property</h3>
+<pre class="programlisting">  “input-cursor-width”       <span class="type">guint</span></pre>
+<p>Current cursor width in input string.</p>
+<p>Flags: Read</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--input-mode"></a><h3>The <code class="literal">“input-mode”</code> property</h3>
+<pre class="programlisting">  “input-mode”               <a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="type">KkcInputMode</span></a></pre>
+<p>Current input mode.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: KKC_INPUT_MODE_HIRAGANA</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--key-event-filter"></a><h3>The <code class="literal">“key-event-filter”</code> property</h3>
+<pre class="programlisting">  “key-event-filter”         <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *</pre>
+<p>Filter which runs before process_key_event.</p>
+<p>This is particularly useful for NICOLA.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter"><span class="type">KkcNicolaKeyEventFilter</span></a></p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--punctuation-style"></a><h3>The <code class="literal">“punctuation-style”</code> property</h3>
+<pre class="programlisting">  “punctuation-style”        <a class="link" href="KkcRomKanaCharacterList.html#KkcPunctuationStyle" title="enum KkcPunctuationStyle"><span class="type">KkcPunctuationStyle</span></a></pre>
+<p>Punctuation style used in romaji-to-kana conversion.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: KKC_PUNCTUATION_STYLE_JA_JA</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--segments"></a><h3>The <code class="literal">“segments”</code> property</h3>
+<pre class="programlisting">  “segments”                 <a class="link" href="KkcSegmentList.html" title="KkcSegmentList"><span class="type">KkcSegmentList</span></a> *</pre>
+<p>Current segments.</p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcContext--typing-rule"></a><h3>The <code class="literal">“typing-rule”</code> property</h3>
+<pre class="programlisting">  “typing-rule”              <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *</pre>
+<p>The name of typing rule.</p>
+<p>Flags: Read / Write</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcContext.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="KkcContext-request-selection-text"></a><h3>The <code class="literal">“request-selection-text”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> *context,
+               <span class="type">gpointer</span>    user_data)</pre>
+<div class="refsect3">
+<a name="KkcContext-request-selection-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcContext.html" title="KkcContext"><span class="type">KkcContext</span></a> instance that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcSystemSegmentDictionary:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter">
+<link rel="next" href="libkkc-keysyms.html" title="keysyms">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcSystemSegmentDictionary.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcSystemSegmentDictionary.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#KkcSystemSegmentDictionary.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcNicolaKeyEventFilter.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libkkc-keysyms.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcSystemSegmentDictionary"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcSystemSegmentDictionary.top_of_page"></a>KkcSystemSegmentDictionary</span></h2>
+<p>KkcSystemSegmentDictionary — Read-only file based implementation of Dictionary.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<a class="link" href="KkcSystemSegmentDictionary.html" title="KkcSystemSegmentDictionary"><span class="returnvalue">KkcSystemSegmentDictionary</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcSystemSegmentDictionary.html#kkc-system-segment-dictionary-new" title="kkc_system_segment_dictionary_new ()">kkc_system_segment_dictionary_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcSystemSegmentDictionary.html#KKC-TYPE-SYSTEM-SEGMENT-DICTIONARY:CAPS" title="KKC_TYPE_SYSTEM_SEGMENT_DICTIONARY">KKC_TYPE_SYSTEM_SEGMENT_DICTIONARY</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcSystemSegmentDictionary.html#KkcSystemSegmentDictionary-struct" title="struct KkcSystemSegmentDictionary">KkcSystemSegmentDictionary</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcSystemSegmentDictionary.html#KkcSystemSegmentDictionaryClass" title="struct KkcSystemSegmentDictionaryClass">KkcSystemSegmentDictionaryClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> KkcSystemSegmentDictionary
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+KkcSystemSegmentDictionary implements
+ <a class="link" href="KkcDictionary.html" title="KkcDictionary">KkcDictionary</a> and  <a class="link" href="KkcEmptySegmentDictionary.html#KkcSegmentDictionary">KkcSegmentDictionary</a>.</p>
+</div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-system-segment-dictionary-new"></a><h3>kkc_system_segment_dictionary_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcSystemSegmentDictionary.html" title="KkcSystemSegmentDictionary"><span class="returnvalue">KkcSystemSegmentDictionary</span></a> *
+kkc_system_segment_dictionary_new (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *encoding</code></em>,
+                                   <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Create a new SystemSegmentDictionary.</p>
+<p><span class="type">GError</span> will be returned in <em class="parameter"><code>error</code></em> </p>
+<p>if opening the file is failed </p>
+<div class="refsect3">
+<a name="kkc-system-segment-dictionary-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a path to the file </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>encoding</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>encoding of the file (default EUC-JP) </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-system-segment-dictionary-new.returns"></a><h4>Returns</h4>
+<p>a new FileDictionary </p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcSystemSegmentDictionary.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-SYSTEM-SEGMENT-DICTIONARY:CAPS"></a><h3>KKC_TYPE_SYSTEM_SEGMENT_DICTIONARY</h3>
+<pre class="programlisting">#define KKC_TYPE_SYSTEM_SEGMENT_DICTIONARY (kkc_system_segment_dictionary_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcSystemSegmentDictionary.html" title="KkcSystemSegmentDictionary"><span class="type">KkcSystemSegmentDictionary</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcSystemSegmentDictionary-struct"></a><h3>struct KkcSystemSegmentDictionary</h3>
+<pre class="programlisting">struct KkcSystemSegmentDictionary;</pre>
+<p>Read-only file based implementation of Dictionary.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcSystemSegmentDictionaryClass"></a><h3>struct KkcSystemSegmentDictionaryClass</h3>
+<pre class="programlisting">struct KkcSystemSegmentDictionaryClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcSystemSegmentDictionary.html#KKC-TYPE-SYSTEM-SEGMENT-DICTIONARY:CAPS" title="KKC_TYPE_SYSTEM_SEGMENT_DICTIONARY"><code class="literal">KKC_TYPE_SYSTEM_SEGMENT_DICTIONARY</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcSystemSegmentDictionaryClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

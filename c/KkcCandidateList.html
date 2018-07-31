@@ -1,0 +1,1112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcCandidateList:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcSortedBigramLanguageModel.html" title="KkcSortedBigramLanguageModel">
+<link rel="next" href="KkcTrellisNode.html" title="KkcTrellisNode">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcCandidateList.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcCandidateList.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcCandidateList.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#KkcCandidateList.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcSortedBigramLanguageModel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcTrellisNode.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcCandidateList"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcCandidateList.top_of_page"></a>KkcCandidateList</span></h2>
+<p>KkcCandidateList — Object representing a candidate list.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcCandidateList.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="returnvalue">KkcCandidate</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get" title="kkc_candidate_list_get ()">kkc_candidate_list_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-select-at" title="kkc_candidate_list_select_at ()">kkc_candidate_list_select_at</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-select" title="kkc_candidate_list_select ()">kkc_candidate_list_select</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-first" title="kkc_candidate_list_first ()">kkc_candidate_list_first</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-next" title="kkc_candidate_list_next ()">kkc_candidate_list_next</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-previous" title="kkc_candidate_list_previous ()">kkc_candidate_list_previous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-cursor-up" title="kkc_candidate_list_cursor_up ()">kkc_candidate_list_cursor_up</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-cursor-down" title="kkc_candidate_list_cursor_down ()">kkc_candidate_list_cursor_down</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-page-up" title="kkc_candidate_list_page_up ()">kkc_candidate_list_page_up</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-page-down" title="kkc_candidate_list_page_down ()">kkc_candidate_list_page_down</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="returnvalue">KkcCandidateList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-new" title="kkc_candidate_list_new ()">kkc_candidate_list_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get-cursor-pos" title="kkc_candidate_list_get_cursor_pos ()">kkc_candidate_list_get_cursor_pos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-set-cursor-pos" title="kkc_candidate_list_set_cursor_pos ()">kkc_candidate_list_set_cursor_pos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get-size" title="kkc_candidate_list_get_size ()">kkc_candidate_list_get_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get-page-start" title="kkc_candidate_list_get_page_start ()">kkc_candidate_list_get_page_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-set-page-start" title="kkc_candidate_list_set_page_start ()">kkc_candidate_list_set_page_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get-page-size" title="kkc_candidate_list_get_page_size ()">kkc_candidate_list_get_page_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-set-page-size" title="kkc_candidate_list_set_page_size ()">kkc_candidate_list_set_page_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get-round" title="kkc_candidate_list_get_round ()">kkc_candidate_list_get_round</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-set-round" title="kkc_candidate_list_set_round ()">kkc_candidate_list_set_round</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidateList.html#kkc-candidate-list-get-page-visible" title="kkc_candidate_list_get_page_visible ()">kkc_candidate_list_get_page_visible</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList--cursor-pos" title="The “cursor-pos” property">cursor-pos</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList--page-size" title="The “page-size” property">page-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList--page-start" title="The “page-start” property">page-start</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList--page-visible" title="The “page-visible” property">page-visible</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList--round" title="The “round” property">round</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList--size" title="The “size” property">size</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList-populated" title="The “populated” signal">populated</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList-selected" title="The “selected” signal">selected</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcCandidateList.html#KKC-TYPE-CANDIDATE-LIST:CAPS" title="KKC_TYPE_CANDIDATE_LIST">KKC_TYPE_CANDIDATE_LIST</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcCandidateList.html#KkcCandidateList-struct" title="struct KkcCandidateList">KkcCandidateList</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcCandidateList.html#KkcCandidateListClass" title="struct KkcCandidateListClass">KkcCandidateListClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> KkcCandidateList
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-candidate-list-get"></a><h3>kkc_candidate_list_get ()</h3>
+<pre class="programlisting"><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="returnvalue">KkcCandidate</span></a> *
+kkc_candidate_list_get (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>,
+                        <em class="parameter"><code><span class="type">gint</span> index</code></em>);</pre>
+<p>Get the current candidate at the given index.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>candidate position (-1 for the current cursor position) </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get.returns"></a><h4>Returns</h4>
+<p>a Candidate </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-select-at"></a><h3>kkc_candidate_list_select_at ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_select_at (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>,
+                              <em class="parameter"><code><span class="type">guint</span> index_in_page</code></em>);</pre>
+<p>Select a candidate in the current page.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-select-at.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index_in_page</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>cursor position in the page to select </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-select-at.returns"></a><h4>Returns</h4>
+<p>`true` if a candidate is selected, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-select"></a><h3>kkc_candidate_list_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_list_select (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Select the current candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-select.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-first"></a><h3>kkc_candidate_list_first ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_first (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Select the first candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-first.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-first.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-next"></a><h3>kkc_candidate_list_next ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_next (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Move cursor forward.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-next.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-next.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-previous"></a><h3>kkc_candidate_list_previous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_previous (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Move cursor backward.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-previous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-previous.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-cursor-up"></a><h3>kkc_candidate_list_cursor_up ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_cursor_up (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Move cursor to the previous candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-cursor-up.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-cursor-up.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise. </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-cursor-down"></a><h3>kkc_candidate_list_cursor_down ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_cursor_down (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Move cursor to the next candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-cursor-down.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-cursor-down.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-page-up"></a><h3>kkc_candidate_list_page_up ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_page_up (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Move cursor to the previous page.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-page-up.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-page-up.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-page-down"></a><h3>kkc_candidate_list_page_down ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_page_down (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Move cursor to the next page.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-page-down.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-page-down.returns"></a><h4>Returns</h4>
+<p>`true` if cursor position has changed, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-new"></a><h3>kkc_candidate_list_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="returnvalue">KkcCandidateList</span></a> *
+kkc_candidate_list_new (<em class="parameter"><code><span class="type">guint</span> page_start</code></em>,
+                        <em class="parameter"><code><span class="type">guint</span> page_size</code></em>,
+                        <em class="parameter"><code><span class="type">gboolean</span> round</code></em>);</pre>
+<p>Create a new CandidateList.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>page_start</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>starting index of pagination </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page_size</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>page size </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>round</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>whether to loop over the candidate list </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-new.returns"></a><h4>Returns</h4>
+<p>a new CandidateList </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-get-cursor-pos"></a><h3>kkc_candidate_list_get_cursor_pos ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+kkc_candidate_list_get_cursor_pos (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--cursor-pos" title="The “cursor-pos” property"><span class="type">"cursor-pos"</span></a> property.</p>
+<p>Current cursor position.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-cursor-pos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-cursor-pos.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--cursor-pos" title="The “cursor-pos” property"><span class="type">"cursor-pos"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-set-cursor-pos"></a><h3>kkc_candidate_list_set_cursor_pos ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_list_set_cursor_pos (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--cursor-pos" title="The “cursor-pos” property"><span class="type">"cursor-pos"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Current cursor position.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-set-cursor-pos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--cursor-pos" title="The “cursor-pos” property"><span class="type">"cursor-pos"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-get-size"></a><h3>kkc_candidate_list_get_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+kkc_candidate_list_get_size (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--size" title="The “size” property"><span class="type">"size"</span></a> property.</p>
+<p>The number of candidate in the candidate list.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-size.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--size" title="The “size” property"><span class="type">"size"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-get-page-start"></a><h3>kkc_candidate_list_get_page_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_candidate_list_get_page_start (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-start" title="The “page-start” property"><span class="type">"page-start"</span></a> property.</p>
+<p>Starting index of paging.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-page-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-page-start.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-start" title="The “page-start” property"><span class="type">"page-start"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-set-page-start"></a><h3>kkc_candidate_list_set_page_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_list_set_page_start (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>,
+                                   <em class="parameter"><code><span class="type">guint</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-start" title="The “page-start” property"><span class="type">"page-start"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Starting index of paging.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-set-page-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-start" title="The “page-start” property"><span class="type">"page-start"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-get-page-size"></a><h3>kkc_candidate_list_get_page_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_candidate_list_get_page_size (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-size" title="The “page-size” property"><span class="type">"page-size"</span></a> property.</p>
+<p>Page size.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-page-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-page-size.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-size" title="The “page-size” property"><span class="type">"page-size"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-set-page-size"></a><h3>kkc_candidate_list_set_page_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_list_set_page_size (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>,
+                                  <em class="parameter"><code><span class="type">guint</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-size" title="The “page-size” property"><span class="type">"page-size"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Page size.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-set-page-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-size" title="The “page-size” property"><span class="type">"page-size"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-get-round"></a><h3>kkc_candidate_list_get_round ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_get_round (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--round" title="The “round” property"><span class="type">"round"</span></a> property.</p>
+<p>Flag to indicate whether to loop over the candidates.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-round.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-round.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--round" title="The “round” property"><span class="type">"round"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-set-round"></a><h3>kkc_candidate_list_set_round ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_list_set_round (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>,
+                              <em class="parameter"><code><span class="type">gboolean</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--round" title="The “round” property"><span class="type">"round"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Flag to indicate whether to loop over the candidates.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-set-round.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--round" title="The “round” property"><span class="type">"round"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-list-get-page-visible"></a><h3>kkc_candidate_list_get_page_visible ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_list_get_page_visible (<em class="parameter"><code><a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-visible" title="The “page-visible” property"><span class="type">"page-visible"</span></a> property.</p>
+<p>Flag to indicate whether page (lookup table) is visible.</p>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-page-visible.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-list-get-page-visible.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidateList.html#KkcCandidateList--page-visible" title="The “page-visible” property"><span class="type">"page-visible"</span></a> property</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-CANDIDATE-LIST:CAPS"></a><h3>KKC_TYPE_CANDIDATE_LIST</h3>
+<pre class="programlisting">#define KKC_TYPE_CANDIDATE_LIST (kkc_candidate_list_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList-struct"></a><h3>struct KkcCandidateList</h3>
+<pre class="programlisting">struct KkcCandidateList;</pre>
+<p>Object representing a candidate list.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateListClass"></a><h3>struct KkcCandidateListClass</h3>
+<pre class="programlisting">struct KkcCandidateListClass {
+	GObjectClass parent_class;
+	gboolean (*next) (KkcCandidateList* self);
+	gboolean (*previous) (KkcCandidateList* self);
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcCandidateList.html#KKC-TYPE-CANDIDATE-LIST:CAPS" title="KKC_TYPE_CANDIDATE_LIST"><code class="literal">KKC_TYPE_CANDIDATE_LIST</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcCandidateListClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcCandidateListClass.next"></a>next</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcCandidateList.html#kkc-candidate-list-next" title="kkc_candidate_list_next ()"><code class="function">kkc_candidate_list_next()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcCandidateListClass.previous"></a>previous</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcCandidateList.html#kkc-candidate-list-previous" title="kkc_candidate_list_previous ()"><code class="function">kkc_candidate_list_previous()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcCandidateList--cursor-pos"></a><h3>The <code class="literal">“cursor-pos”</code> property</h3>
+<pre class="programlisting">  “cursor-pos”               <span class="type">gint</span></pre>
+<p>Current cursor position.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList--page-size"></a><h3>The <code class="literal">“page-size”</code> property</h3>
+<pre class="programlisting">  “page-size”                <span class="type">guint</span></pre>
+<p>Page size.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList--page-start"></a><h3>The <code class="literal">“page-start”</code> property</h3>
+<pre class="programlisting">  “page-start”               <span class="type">guint</span></pre>
+<p>Starting index of paging.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList--page-visible"></a><h3>The <code class="literal">“page-visible”</code> property</h3>
+<pre class="programlisting">  “page-visible”             <span class="type">gboolean</span></pre>
+<p>Flag to indicate whether page (lookup table) is visible.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList--round"></a><h3>The <code class="literal">“round”</code> property</h3>
+<pre class="programlisting">  “round”                    <span class="type">gboolean</span></pre>
+<p>Flag to indicate whether to loop over the candidates.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList--size"></a><h3>The <code class="literal">“size”</code> property</h3>
+<pre class="programlisting">  “size”                     <span class="type">gint</span></pre>
+<p>The number of candidate in the candidate list.</p>
+<p>Flags: Read</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidateList.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="KkcCandidateList-populated"></a><h3>The <code class="literal">“populated”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *candidate_list,
+               <span class="type">gpointer</span>          user_data)</pre>
+<p>Signal emitted when candidates are filled and ready for traversal.</p>
+<div class="refsect3">
+<a name="KkcCandidateList-populated.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>candidate_list</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateList-selected"></a><h3>The <code class="literal">“selected”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> *candidate_list,
+               <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a>     *candidate,
+               <span class="type">gpointer</span>          user_data)</pre>
+<p>Signal emitted when a candidate is selected.</p>
+<div class="refsect3">
+<a name="KkcCandidateList-selected.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>candidate_list</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidateList.html" title="KkcCandidateList"><span class="type">KkcCandidateList</span></a> instance that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>candidate</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>selected candidate </p>
+<p></p>
+</td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

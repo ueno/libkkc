@@ -1,0 +1,884 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcKeyEvent:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="ch01.html" title="libkkc API Reference">
+<link rel="next" href="KkcSortedTrigramLanguageModel.html" title="KkcSortedTrigramLanguageModel">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcKeyEvent.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcKeyEvent.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcKeyEvent.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcSortedTrigramLanguageModel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcKeyEvent"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcKeyEvent.top_of_page"></a>KkcKeyEvent</span></h2>
+<p>KkcKeyEvent — Object representing a key event.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcKeyEvent.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-to-string" title="kkc_key_event_to_string ()">kkc_key_event_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-new-from-string" title="kkc_key_event_new_from_string ()">kkc_key_event_new_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-new-from-x-event" title="kkc_key_event_new_from_x_event ()">kkc_key_event_new_from_x_event</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-new" title="kkc_key_event_new ()">kkc_key_event_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-get-name" title="kkc_key_event_get_name ()">kkc_key_event_get_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-set-name" title="kkc_key_event_set_name ()">kkc_key_event_set_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gunichar</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-get-unicode" title="kkc_key_event_get_unicode ()">kkc_key_event_get_unicode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-set-unicode" title="kkc_key_event_set_unicode ()">kkc_key_event_set_unicode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-get-keyval" title="kkc_key_event_get_keyval ()">kkc_key_event_get_keyval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-set-keyval" title="kkc_key_event_set_keyval ()">kkc_key_event_set_keyval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-get-keycode" title="kkc_key_event_get_keycode ()">kkc_key_event_get_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-set-keycode" title="kkc_key_event_set_keycode ()">kkc_key_event_set_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="returnvalue">KkcModifierType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-get-modifiers" title="kkc_key_event_get_modifiers ()">kkc_key_event_get_modifiers</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEvent.html#kkc-key-event-set-modifiers" title="kkc_key_event_set_modifiers ()">kkc_key_event_set_modifiers</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keycode" title="The “keycode” property">keycode</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keyval" title="The “keyval” property">keyval</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="type">KkcModifierType</span></a></td>
+<td class="property_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEvent--modifiers" title="The “modifiers” property">modifiers</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEvent--name" title="The “name” property">name</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEvent--unicode" title="The “unicode” property">unicode</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcKeyEvent.html#KKC-TYPE-KEY-EVENT:CAPS" title="KKC_TYPE_KEY_EVENT">KKC_TYPE_KEY_EVENT</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEvent-struct" title="struct KkcKeyEvent">KkcKeyEvent</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEventClass" title="struct KkcKeyEventClass">KkcKeyEventClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType">KkcModifierType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="KkcKeyEvent.html#KkcKeyEventFormatError" title="enum KkcKeyEventFormatError">KkcKeyEventFormatError</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GFlags
+    <span class="lineart">╰──</span> KkcModifierType
+    GObject
+    <span class="lineart">╰──</span> KkcKeyEvent
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-key-event-to-string"></a><h3>kkc_key_event_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_key_event_to_string (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>);</pre>
+<p>Convert the KeyEvent to string.</p>
+<div class="refsect3">
+<a name="kkc-key-event-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-to-string.returns"></a><h4>Returns</h4>
+<p>a string representing the KeyEvent </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-new-from-string"></a><h3>kkc_key_event_new_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+kkc_key_event_new_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>,
+                               <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Create a key event from string.</p>
+<div class="refsect3">
+<a name="kkc-key-event-new-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a string representation of a key event </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Typed errors. Similar to throws in Java."><span class="acronym">error-domains</span></acronym> KkcKeyEventFormatError]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-new-from-string.returns"></a><h4>Returns</h4>
+<p>a new KeyEvent </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-new-from-x-event"></a><h3>kkc_key_event_new_from_x_event ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+kkc_key_event_new_from_x_event (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> keycode</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="type">KkcModifierType</span></a> modifiers</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-key-event-new-from-x-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keycode</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>modifiers</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-new"></a><h3>kkc_key_event_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+kkc_key_event_new (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>,
+                   <em class="parameter"><code><span class="type">guint</span> keycode</code></em>,
+                   <em class="parameter"><code><a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="type">KkcModifierType</span></a> modifiers</code></em>);</pre>
+<p>Create a key event from an X event.</p>
+<div class="refsect3">
+<a name="kkc-key-event-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>an X keysym </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keycode</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>an X keycode </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>modifiers</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>modifier mask </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-new.returns"></a><h4>Returns</h4>
+<p>a new KeyEvent </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-get-name"></a><h3>kkc_key_event_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_key_event_get_name (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--name" title="The “name” property"><span class="type">"name"</span></a> property.</p>
+<p>The base name of the KeyEvent.</p>
+<div class="refsect3">
+<a name="kkc-key-event-get-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-get-name.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--name" title="The “name” property"><span class="type">"name"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-set-name"></a><h3>kkc_key_event_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_key_event_set_name (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--name" title="The “name” property"><span class="type">"name"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>The base name of the KeyEvent.</p>
+<div class="refsect3">
+<a name="kkc-key-event-set-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--name" title="The “name” property"><span class="type">"name"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-get-unicode"></a><h3>kkc_key_event_get_unicode ()</h3>
+<pre class="programlisting"><span class="returnvalue">gunichar</span>
+kkc_key_event_get_unicode (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--unicode" title="The “unicode” property"><span class="type">"unicode"</span></a> property.</p>
+<p>The base unicode output of the KeyEvent.</p>
+<div class="refsect3">
+<a name="kkc-key-event-get-unicode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-get-unicode.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--unicode" title="The “unicode” property"><span class="type">"unicode"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-set-unicode"></a><h3>kkc_key_event_set_unicode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_key_event_set_unicode (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>,
+                           <em class="parameter"><code><span class="type">gunichar</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--unicode" title="The “unicode” property"><span class="type">"unicode"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>The base unicode output of the KeyEvent.</p>
+<div class="refsect3">
+<a name="kkc-key-event-set-unicode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--unicode" title="The “unicode” property"><span class="type">"unicode"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-get-keyval"></a><h3>kkc_key_event_get_keyval ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_key_event_get_keyval (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keyval" title="The “keyval” property"><span class="type">"keyval"</span></a> property.</p>
+<p>X keyval.</p>
+<div class="refsect3">
+<a name="kkc-key-event-get-keyval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-get-keyval.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keyval" title="The “keyval” property"><span class="type">"keyval"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-set-keyval"></a><h3>kkc_key_event_set_keyval ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_key_event_set_keyval (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>,
+                          <em class="parameter"><code><span class="type">guint</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keyval" title="The “keyval” property"><span class="type">"keyval"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>X keyval.</p>
+<div class="refsect3">
+<a name="kkc-key-event-set-keyval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keyval" title="The “keyval” property"><span class="type">"keyval"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-get-keycode"></a><h3>kkc_key_event_get_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_key_event_get_keycode (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keycode" title="The “keycode” property"><span class="type">"keycode"</span></a> property.</p>
+<p>X keycode.</p>
+<div class="refsect3">
+<a name="kkc-key-event-get-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-get-keycode.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keycode" title="The “keycode” property"><span class="type">"keycode"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-set-keycode"></a><h3>kkc_key_event_set_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_key_event_set_keycode (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keycode" title="The “keycode” property"><span class="type">"keycode"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>X keycode.</p>
+<div class="refsect3">
+<a name="kkc-key-event-set-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--keycode" title="The “keycode” property"><span class="type">"keycode"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-get-modifiers"></a><h3>kkc_key_event_get_modifiers ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="returnvalue">KkcModifierType</span></a>
+kkc_key_event_get_modifiers (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--modifiers" title="The “modifiers” property"><span class="type">"modifiers"</span></a> property.</p>
+<p>Modifier mask.</p>
+<div class="refsect3">
+<a name="kkc-key-event-get-modifiers.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-get-modifiers.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--modifiers" title="The “modifiers” property"><span class="type">"modifiers"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-set-modifiers"></a><h3>kkc_key_event_set_modifiers ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_key_event_set_modifiers (<em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *self</code></em>,
+                             <em class="parameter"><code><a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="type">KkcModifierType</span></a> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--modifiers" title="The “modifiers” property"><span class="type">"modifiers"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Modifier mask.</p>
+<div class="refsect3">
+<a name="kkc-key-event-set-modifiers.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcKeyEvent.html#KkcKeyEvent--modifiers" title="The “modifiers” property"><span class="type">"modifiers"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-KEY-EVENT:CAPS"></a><h3>KKC_TYPE_KEY_EVENT</h3>
+<pre class="programlisting">#define KKC_TYPE_KEY_EVENT (kkc_key_event_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEvent-struct"></a><h3>struct KkcKeyEvent</h3>
+<pre class="programlisting">struct KkcKeyEvent;</pre>
+<p>Object representing a key event.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEventClass"></a><h3>struct KkcKeyEventClass</h3>
+<pre class="programlisting">struct KkcKeyEventClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcKeyEvent.html#KKC-TYPE-KEY-EVENT:CAPS" title="KKC_TYPE_KEY_EVENT"><code class="literal">KKC_TYPE_KEY_EVENT</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcKeyEventClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcModifierType"></a><h3>enum KkcModifierType</h3>
+<p>A set of bit-flags to indicate the state of modifier keys.</p>
+<div class="refsect3">
+<a name="KkcModifierType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-NONE:CAPS"></a>KKC_MODIFIER_TYPE_NONE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-SHIFT-MASK:CAPS"></a>KKC_MODIFIER_TYPE_SHIFT_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-LOCK-MASK:CAPS"></a>KKC_MODIFIER_TYPE_LOCK_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-CONTROL-MASK:CAPS"></a>KKC_MODIFIER_TYPE_CONTROL_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-MOD1-MASK:CAPS"></a>KKC_MODIFIER_TYPE_MOD1_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-MOD2-MASK:CAPS"></a>KKC_MODIFIER_TYPE_MOD2_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-MOD3-MASK:CAPS"></a>KKC_MODIFIER_TYPE_MOD3_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-MOD4-MASK:CAPS"></a>KKC_MODIFIER_TYPE_MOD4_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-MOD5-MASK:CAPS"></a>KKC_MODIFIER_TYPE_MOD5_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-LSHIFT-MASK:CAPS"></a>KKC_MODIFIER_TYPE_LSHIFT_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-RSHIFT-MASK:CAPS"></a>KKC_MODIFIER_TYPE_RSHIFT_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-SUPER-MASK:CAPS"></a>KKC_MODIFIER_TYPE_SUPER_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-HYPER-MASK:CAPS"></a>KKC_MODIFIER_TYPE_HYPER_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-META-MASK:CAPS"></a>KKC_MODIFIER_TYPE_META_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-MODIFIER-TYPE-RELEASE-MASK:CAPS"></a>KKC_MODIFIER_TYPE_RELEASE_MASK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEventFormatError"></a><h3>enum KkcKeyEventFormatError</h3>
+<div class="refsect3">
+<a name="KkcKeyEventFormatError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-KEY-EVENT-FORMAT-ERROR-PARSE-FAILED:CAPS"></a>KKC_KEY_EVENT_FORMAT_ERROR_PARSE_FAILED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-KEY-EVENT-FORMAT-ERROR-KEYSYM-NOT-FOUND:CAPS"></a>KKC_KEY_EVENT_FORMAT_ERROR_KEYSYM_NOT_FOUND</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEvent.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcKeyEvent--keycode"></a><h3>The <code class="literal">“keycode”</code> property</h3>
+<pre class="programlisting">  “keycode”                  <span class="type">guint</span></pre>
+<p>X keycode.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEvent--keyval"></a><h3>The <code class="literal">“keyval”</code> property</h3>
+<pre class="programlisting">  “keyval”                   <span class="type">guint</span></pre>
+<p>X keyval.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEvent--modifiers"></a><h3>The <code class="literal">“modifiers”</code> property</h3>
+<pre class="programlisting">  “modifiers”                <a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType"><span class="type">KkcModifierType</span></a></pre>
+<p>Modifier mask.</p>
+<p>Flags: Read / Write / Construct</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEvent--name"></a><h3>The <code class="literal">“name”</code> property</h3>
+<pre class="programlisting">  “name”                     <span class="type">gchar</span> *</pre>
+<p>The base name of the KeyEvent.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEvent--unicode"></a><h3>The <code class="literal">“unicode”</code> property</h3>
+<pre class="programlisting">  “unicode”                  <span class="type">guint</span></pre>
+<p>The base unicode output of the KeyEvent.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: 0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

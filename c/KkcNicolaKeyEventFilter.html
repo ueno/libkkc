@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcNicolaKeyEventFilter:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcUserSentenceDictionary.html" title="KkcUserSentenceDictionary">
+<link rel="next" href="KkcSystemSegmentDictionary.html" title="KkcSystemSegmentDictionary">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcNicolaKeyEventFilter.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcNicolaKeyEventFilter.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcUserSentenceDictionary.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcSystemSegmentDictionary.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcNicolaKeyEventFilter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcNicolaKeyEventFilter.top_of_page"></a>KkcNicolaKeyEventFilter</span></h2>
+<p>KkcNicolaKeyEventFilter — Key event filter implementing NICOLA (thumb shift) input</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcNicolaKeyEventFilter.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter"><span class="returnvalue">KkcNicolaKeyEventFilter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcNicolaKeyEventFilter.html#kkc-nicola-key-event-filter-new" title="kkc_nicola_key_event_filter_new ()">kkc_nicola_key_event_filter_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint64</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="KkcNicolaKeyEventFilter.html#KkcGetTime" title="KkcGetTime ()">*KkcGetTime</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcNicolaKeyEventFilter.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcNicolaKeyEventFilter.html#KKC-TYPE-NICOLA-KEY-EVENT-FILTER:CAPS" title="KKC_TYPE_NICOLA_KEY_EVENT_FILTER">KKC_TYPE_NICOLA_KEY_EVENT_FILTER</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcNicolaKeyEventFilter.html#KkcNicolaKeyEventFilter-struct" title="struct KkcNicolaKeyEventFilter">KkcNicolaKeyEventFilter</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcNicolaKeyEventFilter.html#KkcNicolaKeyEventFilterClass" title="struct KkcNicolaKeyEventFilterClass">KkcNicolaKeyEventFilterClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcNicolaKeyEventFilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter">KkcKeyEventFilter</a>
+        <span class="lineart">╰──</span> KkcNicolaKeyEventFilter
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcNicolaKeyEventFilter.description"></a><h2>Description</h2>
+<p>This class is rarely used in programs but specified as "filter" property in rule metadata.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a></p>
+</div>
+<div class="refsect1">
+<a name="KkcNicolaKeyEventFilter.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-nicola-key-event-filter-new"></a><h3>kkc_nicola_key_event_filter_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter"><span class="returnvalue">KkcNicolaKeyEventFilter</span></a> *
+kkc_nicola_key_event_filter_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcGetTime"></a><h3>KkcGetTime ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>
+<span class="c_punctuation">(</span>*KkcGetTime<span class="c_punctuation">)</span> (<em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Get the current time in microseconds.</p>
+<div class="refsect3">
+<a name="KkcGetTime.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>data to pass to the delegate function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcNicolaKeyEventFilter.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-NICOLA-KEY-EVENT-FILTER:CAPS"></a><h3>KKC_TYPE_NICOLA_KEY_EVENT_FILTER</h3>
+<pre class="programlisting">#define KKC_TYPE_NICOLA_KEY_EVENT_FILTER (kkc_nicola_key_event_filter_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter"><span class="type">KkcNicolaKeyEventFilter</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcNicolaKeyEventFilter-struct"></a><h3>struct KkcNicolaKeyEventFilter</h3>
+<pre class="programlisting">struct KkcNicolaKeyEventFilter;</pre>
+<p>Key event filter implementing NICOLA (thumb shift) input</p>
+<p>This class is rarely used in programs but specified as "filter" property in rule metadata.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a></p>
+<div class="refsect3">
+<a name="KkcNicolaKeyEventFilter.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcNicolaKeyEventFilterClass"></a><h3>struct KkcNicolaKeyEventFilterClass</h3>
+<pre class="programlisting">struct KkcNicolaKeyEventFilterClass {
+	KkcKeyEventFilterClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcNicolaKeyEventFilter.html#KKC-TYPE-NICOLA-KEY-EVENT-FILTER:CAPS" title="KKC_TYPE_NICOLA_KEY_EVENT_FILTER"><code class="literal">KKC_TYPE_NICOLA_KEY_EVENT_FILTER</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcNicolaKeyEventFilterClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

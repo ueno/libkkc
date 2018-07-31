@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Object Hierarchy:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="index.html" title="Reference Manual">
+<link rel="prev" href="docs-org-du-a-Kkc-Server.html" title="org.du_a.Kkc.Server">
+<link rel="next" href="api-index-full.html" title="API Index">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="docs-org-du-a-Kkc-Server.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="object-tree"></a>Object Hierarchy</h1></div></div></div>
+<pre class="screen">
+    GObject
+    <span class="lineart">├──</span> <a class="link" href="KkcDecoder.html" title="KkcDecoder">KkcDecoder</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder">KkcBigramDecoder</a>
+    <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="KkcTrigramDecoder.html" title="KkcTrigramDecoder">KkcTrigramDecoder</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel">KkcLanguageModel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="KkcSortedBigramLanguageModel.html" title="KkcSortedBigramLanguageModel">KkcSortedBigramLanguageModel</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcSortedTrigramLanguageModel.html" title="KkcSortedTrigramLanguageModel">KkcSortedTrigramLanguageModel</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcTextBigramLanguageModel.html" title="KkcTextBigramLanguageModel">KkcTextBigramLanguageModel</a>
+    <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="KkcTextTrigramLanguageModel.html" title="KkcTextTrigramLanguageModel">KkcTextTrigramLanguageModel</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcCandidate.html" title="KkcCandidate">KkcCandidate</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcCandidateList.html" title="KkcCandidateList">KkcCandidateList</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcContext.html" title="KkcContext">KkcContext</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcDBusCandidateList.html" title="KkcDBusCandidateList">KkcDBusCandidateList</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcDBusCandidateList.html#KkcDBusContext">KkcDBusContext</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcDBusCandidateList.html#KkcDBusSegmentList">KkcDBusSegmentList</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcDBusCandidateList.html#KkcDBusServer">KkcDBusServer</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcDictionaryList.html" title="KkcDictionaryList">KkcDictionaryList</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcEmptySegmentDictionary.html" title="KkcEmptySegmentDictionary">KkcEmptySegmentDictionary</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter">KkcKeyEventFilter</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter">KkcNicolaKeyEventFilter</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent">KkcKeyEvent</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcKeymap.html" title="KkcKeymap">KkcKeymap</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcMetadataFile.html" title="KkcMetadataFile">KkcMetadataFile</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata">KkcLanguageModelMetadata</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata">KkcRuleMetadata</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcRomKanaCharacterList.html" title="KkcRomKanaCharacterList">KkcRomKanaCharacterList</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcRomKanaCharacterList.html#KkcRomKanaConverter">KkcRomKanaConverter</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcRuleMetadata.html#KkcRule">KkcRule</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcUserRule.html" title="KkcUserRule">KkcUserRule</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcSegment.html" title="KkcSegment">KkcSegment</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcSegmentList.html" title="KkcSegmentList">KkcSegmentList</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcSystemSegmentDictionary.html" title="KkcSystemSegmentDictionary">KkcSystemSegmentDictionary</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcUserDictionary.html" title="KkcUserDictionary">KkcUserDictionary</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcUserSegmentDictionary.html" title="KkcUserSegmentDictionary">KkcUserSegmentDictionary</a>
+    <span class="lineart">╰──</span> <a class="link" href="KkcUserSentenceDictionary.html" title="KkcUserSentenceDictionary">KkcUserSentenceDictionary</a>
+    GInterface
+    <span class="lineart">├──</span> <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel">KkcBigramLanguageModel</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel">KkcUnigramLanguageModel</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcDictionary.html" title="KkcDictionary">KkcDictionary</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcEmptySegmentDictionary.html#KkcSegmentDictionary">KkcSegmentDictionary</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary">KkcSentenceDictionary</a>
+    <span class="lineart">╰──</span> <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel">KkcTrigramLanguageModel</a>
+    <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode">KkcTrellisNode</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode">KkcBigramTrellisNode</a>
+    <span class="lineart">╰──</span> <a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode">KkcUnigramTrellisNode</a>
+    GEnum
+    <span class="lineart">├──</span> <a class="link" href="KkcDictionaryList.html#KkcDictionaryCallbackReturn" title="enum KkcDictionaryCallbackReturn">KkcDictionaryCallbackReturn</a>
+    <span class="lineart">├──</span> <a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode">KkcInputMode</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcRomKanaCharacterList.html#KkcKanaMode" title="enum KkcKanaMode">KkcKanaMode</a>
+    <span class="lineart">╰──</span> <a class="link" href="KkcRomKanaCharacterList.html#KkcPunctuationStyle" title="enum KkcPunctuationStyle">KkcPunctuationStyle</a>
+    GBoxed
+    <span class="lineart">├──</span> <a class="link" href="KkcKeymap.html#KkcKeymapEntry">KkcKeymapEntry</a>
+    <span class="lineart">├──</span> <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry">KkcLanguageModelEntry</a>
+    <span class="lineart">╰──</span> <a class="link" href="KkcRomKanaCharacterList.html#KkcRomKanaCharacter">KkcRomKanaCharacter</a>
+    GFlags
+    <span class="lineart">╰──</span> <a class="link" href="KkcKeyEvent.html#KkcModifierType" title="enum KkcModifierType">KkcModifierType</a>
+</pre>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

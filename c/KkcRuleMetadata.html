@@ -1,0 +1,835 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcRuleMetadata:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata">
+<link rel="next" href="KkcUserSegmentDictionary.html" title="KkcUserSegmentDictionary">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcRuleMetadata.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcRuleMetadata.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#KkcRuleMetadata.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcRuleMetadata.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcLanguageModelMetadata.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcUserSegmentDictionary.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcRuleMetadata"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcRuleMetadata.top_of_page"></a>KkcRuleMetadata</span></h2>
+<p>KkcRuleMetadata — Object describing a rule.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="returnvalue">KkcKeyEventFilter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-create-key-event-filter" title="kkc_rule_metadata_create_key_event_filter ()">kkc_rule_metadata_create_key_event_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-locate-map-file" title="kkc_rule_metadata_locate_map_file ()">kkc_rule_metadata_locate_map_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-new" title="kkc_rule_metadata_new ()">kkc_rule_metadata_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-get-filter" title="kkc_rule_metadata_get_filter ()">kkc_rule_metadata_get_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-set-filter" title="kkc_rule_metadata_set_filter ()">kkc_rule_metadata_set_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-get-priority" title="kkc_rule_metadata_get_priority ()">kkc_rule_metadata_get_priority</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-set-priority" title="kkc_rule_metadata_set_priority ()">kkc_rule_metadata_set_priority</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-metadata-find" title="kkc_rule_metadata_find ()">kkc_rule_metadata_find</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="returnvalue">KkcKeymap</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-get-keymap" title="kkc_rule_get_keymap ()">kkc_rule_get_keymap</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="returnvalue">KkcRule</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-new" title="kkc_rule_new ()">kkc_rule_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-get-metadata" title="kkc_rule_get_metadata ()">kkc_rule_get_metadata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-set-metadata" title="kkc_rule_set_metadata ()">kkc_rule_set_metadata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="returnvalue">KkcKeyEventFilter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-get-filter" title="kkc_rule_get_filter ()">kkc_rule_get_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-set-filter" title="kkc_rule_set_filter ()">kkc_rule_set_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="KkcRuleMetadata.html#kkc-rule-list" title="kkc_rule_list ()">kkc_rule_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--filter" title="The “filter” property">filter</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--priority" title="The “priority” property">priority</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcRuleMetadata.html#KkcRule--filter" title="The “filter” property">filter</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcRuleMetadata.html#KkcRule--metadata" title="The “metadata” property">metadata</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="KkcRule"></a><div class="refsect1">
+<a name="KkcRuleMetadata.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KKC-TYPE-RULE-METADATA:CAPS" title="KKC_TYPE_RULE_METADATA">KKC_TYPE_RULE_METADATA</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata-struct" title="struct KkcRuleMetadata">KkcRuleMetadata</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KkcRuleMetadataClass" title="struct KkcRuleMetadataClass">KkcRuleMetadataClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KKC-TYPE-RULE:CAPS" title="KKC_TYPE_RULE">KKC_TYPE_RULE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KkcRule-struct" title="struct KkcRule">KkcRule</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KkcRuleClass" title="struct KkcRuleClass">KkcRuleClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="KkcRuleMetadata.html#KkcRuleParseError" title="enum KkcRuleParseError">KkcRuleParseError</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">├──</span> <a class="link" href="KkcMetadataFile.html" title="KkcMetadataFile">KkcMetadataFile</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> KkcRuleMetadata
+    <span class="lineart">╰──</span> KkcRule
+        <span class="lineart">╰──</span> <a class="link" href="KkcUserRule.html" title="KkcUserRule">KkcUserRule</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+KkcRuleMetadata implements
+ GInitable.</p>
+<p>
+KkcRule implements
+ GInitable.</p>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-rule-metadata-create-key-event-filter"></a><h3>kkc_rule_metadata_create_key_event_filter ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="returnvalue">KkcKeyEventFilter</span></a> *
+kkc_rule_metadata_create_key_event_filter
+                               (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *self</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-rule-metadata-create-key-event-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-locate-map-file"></a><h3>kkc_rule_metadata_locate_map_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_rule_metadata_locate_map_file (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *self</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *type</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Return the path of the map file.</p>
+<div class="refsect3">
+<a name="kkc-rule-metadata-locate-map-file.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>type of the map file </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>name of the map file </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-metadata-locate-map-file.returns"></a><h4>Returns</h4>
+<p>the absolute path of the map file </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-new"></a><h3>kkc_rule_metadata_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> *
+kkc_rule_metadata_new (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                       <em class="parameter"><code>const <span class="type">gchar</span> *filename</code></em>,
+                       <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-rule-metadata-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-get-filter"></a><h3>kkc_rule_metadata_get_filter ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_rule_metadata_get_filter (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--filter" title="The “filter” property"><span class="type">"filter"</span></a> property.</p>
+<p>Name of key event filter.</p>
+<div class="refsect3">
+<a name="kkc-rule-metadata-get-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-metadata-get-filter.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--filter" title="The “filter” property"><span class="type">"filter"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-set-filter"></a><h3>kkc_rule_metadata_set_filter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_rule_metadata_set_filter (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *self</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--filter" title="The “filter” property"><span class="type">"filter"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Name of key event filter.</p>
+<div class="refsect3">
+<a name="kkc-rule-metadata-set-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--filter" title="The “filter” property"><span class="type">"filter"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-get-priority"></a><h3>kkc_rule_metadata_get_priority ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+kkc_rule_metadata_get_priority (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--priority" title="The “priority” property"><span class="type">"priority"</span></a> property.</p>
+<p>Priority of the rule.</p>
+<div class="refsect3">
+<a name="kkc-rule-metadata-get-priority.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-metadata-get-priority.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--priority" title="The “priority” property"><span class="type">"priority"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-set-priority"></a><h3>kkc_rule_metadata_set_priority ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_rule_metadata_set_priority (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--priority" title="The “priority” property"><span class="type">"priority"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Priority of the rule.</p>
+<div class="refsect3">
+<a name="kkc-rule-metadata-set-priority.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcRuleMetadata.html#KkcRuleMetadata--priority" title="The “priority” property"><span class="type">"priority"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-metadata-find"></a><h3>kkc_rule_metadata_find ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> *
+kkc_rule_metadata_find (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Locate a rule metadata by name.</p>
+<div class="refsect3">
+<a name="kkc-rule-metadata-find.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>name of the rule </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-metadata-find.returns"></a><h4>Returns</h4>
+<p>a RuleMetadata or `null` </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-get-keymap"></a><h3>kkc_rule_get_keymap ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="returnvalue">KkcKeymap</span></a> *
+kkc_rule_get_keymap (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *self</code></em>,
+                     <em class="parameter"><code><a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="type">KkcInputMode</span></a> mode</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-rule-get-keymap.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-new"></a><h3>kkc_rule_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="returnvalue">KkcRule</span></a> *
+kkc_rule_new (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *metadata</code></em>,
+              <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Create a rule.</p>
+<div class="refsect3">
+<a name="kkc-rule-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metadata</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>metadata of the rule </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-new.returns"></a><h4>Returns</h4>
+<p>a new Rule </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-get-metadata"></a><h3>kkc_rule_get_metadata ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> *
+kkc_rule_get_metadata (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property.</p>
+<p>Metadata associated with the rule.</p>
+<div class="refsect3">
+<a name="kkc-rule-get-metadata.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-get-metadata.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-set-metadata"></a><h3>kkc_rule_set_metadata ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_rule_set_metadata (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *self</code></em>,
+                       <em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Metadata associated with the rule.</p>
+<div class="refsect3">
+<a name="kkc-rule-set-metadata.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-get-filter"></a><h3>kkc_rule_get_filter ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="returnvalue">KkcKeyEventFilter</span></a> *
+kkc_rule_get_filter (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--filter" title="The “filter” property"><span class="type">"filter"</span></a> property.</p>
+<div class="refsect3">
+<a name="kkc-rule-get-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-rule-get-filter.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--filter" title="The “filter” property"><span class="type">"filter"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-set-filter"></a><h3>kkc_rule_set_filter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_rule_set_filter (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> *self</code></em>,
+                     <em class="parameter"><code><a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--filter" title="The “filter” property"><span class="type">"filter"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="kkc-rule-set-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcRuleMetadata.html#KkcRule--filter" title="The “filter” property"><span class="type">"filter"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-rule-list"></a><h3>kkc_rule_list ()</h3>
+<pre class="programlisting"><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="returnvalue">KkcRuleMetadata</span></a> **
+kkc_rule_list (<em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<p>List rules.</p>
+<div class="refsect3">
+<a name="kkc-rule-list.returns"></a><h4>Returns</h4>
+<p>an array of RuleMetadata </p>.
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=result_length1]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-RULE-METADATA:CAPS"></a><h3>KKC_TYPE_RULE_METADATA</h3>
+<pre class="programlisting">#define KKC_TYPE_RULE_METADATA (kkc_rule_metadata_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRuleMetadata-struct"></a><h3>struct KkcRuleMetadata</h3>
+<pre class="programlisting">struct KkcRuleMetadata;</pre>
+<p>Object describing a rule.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRuleMetadataClass"></a><h3>struct KkcRuleMetadataClass</h3>
+<pre class="programlisting">struct KkcRuleMetadataClass {
+	KkcMetadataFileClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcRuleMetadata.html#KKC-TYPE-RULE-METADATA:CAPS" title="KKC_TYPE_RULE_METADATA"><code class="literal">KKC_TYPE_RULE_METADATA</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcRuleMetadataClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KKC-TYPE-RULE:CAPS"></a><h3>KKC_TYPE_RULE</h3>
+<pre class="programlisting">#define KKC_TYPE_RULE (kkc_rule_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcRuleMetadata.html#KkcRule"><span class="type">KkcRule</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRule-struct"></a><h3>struct KkcRule</h3>
+<pre class="programlisting">struct KkcRule;</pre>
+<p>Object representing a typing rule.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRuleClass"></a><h3>struct KkcRuleClass</h3>
+<pre class="programlisting">struct KkcRuleClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcRuleMetadata.html#KKC-TYPE-RULE:CAPS" title="KKC_TYPE_RULE"><code class="literal">KKC_TYPE_RULE</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcRuleClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRuleParseError"></a><h3>enum KkcRuleParseError</h3>
+<div class="refsect3">
+<a name="KkcRuleParseError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="enum_member_name"><p><a name="KKC-RULE-PARSE-ERROR-FAILED:CAPS"></a>KKC_RULE_PARSE_ERROR_FAILED</p></td>
+<td> </td>
+<td> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcRuleMetadata.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcRuleMetadata--filter"></a><h3>The <code class="literal">“filter”</code> property</h3>
+<pre class="programlisting">  “filter”                   <span class="type">gchar</span> *</pre>
+<p>Name of key event filter.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRuleMetadata--priority"></a><h3>The <code class="literal">“priority”</code> property</h3>
+<pre class="programlisting">  “priority”                 <span class="type">gint</span></pre>
+<p>Priority of the rule.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRule--filter"></a><h3>The <code class="literal">“filter”</code> property</h3>
+<pre class="programlisting">  “filter”                   <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *</pre>
+<p>filter.</p>
+<p>Flags: Read / Write / Construct</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcRule--metadata"></a><h3>The <code class="literal">“metadata”</code> property</h3>
+<pre class="programlisting">  “metadata”                 <a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *</pre>
+<p>Metadata associated with the rule.</p>
+<p>Flags: Read / Write / Construct</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

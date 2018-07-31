@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcSentenceDictionary:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcTextTrigramLanguageModel.html" title="KkcTextTrigramLanguageModel">
+<link rel="next" href="KkcUserSentenceDictionary.html" title="KkcUserSentenceDictionary">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcSentenceDictionary.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcSentenceDictionary.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#KkcSentenceDictionary.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#KkcSentenceDictionary.implementations" class="shortcut">Known Implementations</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcTextTrigramLanguageModel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcUserSentenceDictionary.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcSentenceDictionary"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcSentenceDictionary.top_of_page"></a>KkcSentenceDictionary</span></h2>
+<p>KkcSentenceDictionary — Base interface of sentence dictionaries.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcSentenceDictionary.html#kkc-sentence-dictionary-lookup-constraint" title="kkc_sentence_dictionary_lookup_constraint ()">kkc_sentence_dictionary_lookup_constraint</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcSentenceDictionary.html#kkc-sentence-dictionary-lookup-phrase" title="kkc_sentence_dictionary_lookup_phrase ()">kkc_sentence_dictionary_lookup_phrase</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcSentenceDictionary.html#kkc-sentence-dictionary-select-segments" title="kkc_sentence_dictionary_select_segments ()">kkc_sentence_dictionary_select_segments</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="KkcSentenceDictionary.html#KkcSentenceDictionary-struct" title="KkcSentenceDictionary">KkcSentenceDictionary</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcSentenceDictionary.html#KkcSentenceDictionaryIface" title="struct KkcSentenceDictionaryIface">KkcSentenceDictionaryIface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GInterface
+    <span class="lineart">╰──</span> KkcSentenceDictionary
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+KkcSentenceDictionary requires
+ <a class="link" href="KkcDictionary.html" title="KkcDictionary">KkcDictionary</a> and  GObject.</p>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.implementations"></a><h2>Known Implementations</h2>
+<p>
+KkcSentenceDictionary is implemented by
+ <a class="link" href="KkcUserDictionary.html" title="KkcUserDictionary">KkcUserDictionary</a> and  <a class="link" href="KkcUserSentenceDictionary.html" title="KkcUserSentenceDictionary">KkcUserSentenceDictionary</a>.</p>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-sentence-dictionary-lookup-constraint"></a><h3>kkc_sentence_dictionary_lookup_constraint ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_sentence_dictionary_lookup_constraint
+                               (<em class="parameter"><code><a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> *self</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> **constraint</code></em>,
+                                <em class="parameter"><code><span class="type">int</span> *constraint_length1</code></em>);</pre>
+<p>Lookup constraint.</p>
+<div class="refsect3">
+<a name="kkc-sentence-dictionary-lookup-constraint.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>input string to lookup </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>output location of constraint </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=constraint_length1]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>constraint</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-sentence-dictionary-lookup-constraint.returns"></a><h4>Returns</h4>
+<p>`true` if found, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-sentence-dictionary-lookup-phrase"></a><h3>kkc_sentence_dictionary_lookup_phrase ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_sentence_dictionary_lookup_phrase (<em class="parameter"><code><a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> *self</code></em>,
+                                       <em class="parameter"><code><span class="type">gchar</span> **input</code></em>,
+                                       <em class="parameter"><code><span class="type">int</span> input_length1</code></em>,
+                                       <em class="parameter"><code><span class="type">gchar</span> ***phrase</code></em>,
+                                       <em class="parameter"><code><span class="type">int</span> *phrase_length1</code></em>);</pre>
+<p>Lookup phrase.</p>
+<div class="refsect3">
+<a name="kkc-sentence-dictionary-lookup-phrase.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>input sequence to lookup </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=input_length1]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>input</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>phrase</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>output location of phrase </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=phrase_length1]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>phrase_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>phrase</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-sentence-dictionary-lookup-phrase.returns"></a><h4>Returns</h4>
+<p>`true` if found, `false` otherwise </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-sentence-dictionary-select-segments"></a><h3>kkc_sentence_dictionary_select_segments ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_sentence_dictionary_select_segments
+                               (<em class="parameter"><code><a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcSegment.html" title="KkcSegment"><span class="type">KkcSegment</span></a> **input</code></em>,
+                                <em class="parameter"><code><span class="type">int</span> input_length1</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-sentence-dictionary-select-segments.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>input</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcSentenceDictionary.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KkcSentenceDictionary-struct"></a><h3>KkcSentenceDictionary</h3>
+<pre class="programlisting">typedef struct _KkcSentenceDictionary KkcSentenceDictionary;</pre>
+<p>Base interface of sentence dictionaries.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcSentenceDictionaryIface"></a><h3>struct KkcSentenceDictionaryIface</h3>
+<pre class="programlisting">struct KkcSentenceDictionaryIface {
+	GTypeInterface parent_iface;
+	gboolean (*lookup_constraint) (KkcSentenceDictionary* self, const gchar* input, gint** constraint, int* constraint_length1);
+	gboolean (*lookup_phrase) (KkcSentenceDictionary* self, gchar** input, int input_length1, gchar*** phrase, int* phrase_length1);
+	gboolean (*select_segments) (KkcSentenceDictionary* self, KkcSegment** input, int input_length1);
+};
+</pre>
+<p>Interface for creating <a class="link" href="KkcSentenceDictionary.html" title="KkcSentenceDictionary"><span class="type">KkcSentenceDictionary</span></a> implementations.</p>
+<div class="refsect3">
+<a name="KkcSentenceDictionaryIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GTypeInterface</span> <em class="structfield"><code><a name="KkcSentenceDictionaryIface.parent-iface"></a>parent_iface</code></em>;</p></td>
+<td class="struct_member_description"><p>the parent interface structure</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcSentenceDictionaryIface.lookup-constraint"></a>lookup_constraint</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcSentenceDictionary.html#kkc-sentence-dictionary-lookup-constraint" title="kkc_sentence_dictionary_lookup_constraint ()"><code class="function">kkc_sentence_dictionary_lookup_constraint()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcSentenceDictionaryIface.lookup-phrase"></a>lookup_phrase</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcSentenceDictionary.html#kkc-sentence-dictionary-lookup-phrase" title="kkc_sentence_dictionary_lookup_phrase ()"><code class="function">kkc_sentence_dictionary_lookup_phrase()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcSentenceDictionaryIface.select-segments"></a>select_segments</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcSentenceDictionary.html#kkc-sentence-dictionary-select-segments" title="kkc_sentence_dictionary_select_segments ()"><code class="function">kkc_sentence_dictionary_select_segments()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

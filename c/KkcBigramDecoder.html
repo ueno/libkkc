@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcBigramDecoder:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcSegmentList.html" title="KkcSegmentList">
+<link rel="next" href="KkcEmptySegmentDictionary.html" title="KkcEmptySegmentDictionary">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcBigramDecoder.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcBigramDecoder.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcBigramDecoder.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcSegmentList.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcEmptySegmentDictionary.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcBigramDecoder"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcBigramDecoder.top_of_page"></a>KkcBigramDecoder</span></h2>
+<p>KkcBigramDecoder</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-add-unknown-nodes" title="kkc_bigram_decoder_add_unknown_nodes ()">kkc_bigram_decoder_add_unknown_nodes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GeeArrayList</span> **
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-build-trellis" title="kkc_bigram_decoder_build_trellis ()">kkc_bigram_decoder_build_trellis</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-forward-search" title="kkc_bigram_decoder_forward_search ()">kkc_bigram_decoder_forward_search</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-path-cost" title="kkc_bigram_decoder_path_cost ()">kkc_bigram_decoder_path_cost</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcSegment.html" title="KkcSegment"><span class="returnvalue">KkcSegment</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-backward-search" title="kkc_bigram_decoder_backward_search ()">kkc_bigram_decoder_backward_search</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="returnvalue">KkcBigramDecoder</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-new" title="kkc_bigram_decoder_new ()">kkc_bigram_decoder_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="returnvalue">KkcBigramLanguageModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcBigramDecoder.html#kkc-bigram-decoder-get-model" title="kkc_bigram_decoder_get_model ()">kkc_bigram_decoder_get_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcBigramDecoder.html#KkcBigramDecoder--model" title="The “model” property">model</a></td>
+<td class="property_flags">Read</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcBigramDecoder.html#KKC-TYPE-BIGRAM-DECODER:CAPS" title="KKC_TYPE_BIGRAM_DECODER">KKC_TYPE_BIGRAM_DECODER</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcBigramDecoder.html#KkcBigramDecoder-struct" title="struct KkcBigramDecoder">KkcBigramDecoder</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcBigramDecoder.html#KkcBigramDecoderClass" title="struct KkcBigramDecoderClass">KkcBigramDecoderClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> <a class="link" href="KkcDecoder.html" title="KkcDecoder">KkcDecoder</a>
+        <span class="lineart">╰──</span> KkcBigramDecoder
+            <span class="lineart">╰──</span> <a class="link" href="KkcTrigramDecoder.html" title="KkcTrigramDecoder">KkcTrigramDecoder</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-add-unknown-nodes"></a><h3>kkc_bigram_decoder_add_unknown_nodes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_bigram_decoder_add_unknown_nodes (<em class="parameter"><code><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> *self</code></em>,
+                                      <em class="parameter"><code><span class="type">GeeArrayList</span> **trellis</code></em>,
+                                      <em class="parameter"><code><span class="type">int</span> trellis_length1</code></em>,
+                                      <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> *constraint</code></em>,
+                                      <em class="parameter"><code><span class="type">int</span> constraint_length1</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-add-unknown-nodes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>trellis_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>trellis</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>constraint</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>trellis</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-build-trellis"></a><h3>kkc_bigram_decoder_build_trellis ()</h3>
+<pre class="programlisting"><span class="returnvalue">GeeArrayList</span> **
+kkc_bigram_decoder_build_trellis (<em class="parameter"><code><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> *self</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> *constraint</code></em>,
+                                  <em class="parameter"><code><span class="type">int</span> constraint_length1</code></em>,
+                                  <em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-build-trellis.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>constraint</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-build-trellis.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=result_length1]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-forward-search"></a><h3>kkc_bigram_decoder_forward_search ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_bigram_decoder_forward_search (<em class="parameter"><code><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> *self</code></em>,
+                                   <em class="parameter"><code><span class="type">GeeArrayList</span> **trellis</code></em>,
+                                   <em class="parameter"><code><span class="type">int</span> trellis_length1</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-forward-search.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>trellis_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>trellis</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>trellis</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-path-cost"></a><h3>kkc_bigram_decoder_path_cost ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_bigram_decoder_path_cost (<em class="parameter"><code><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> *self</code></em>,
+                              <em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *pnode</code></em>,
+                              <em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *node</code></em>,
+                              <em class="parameter"><code><span class="type">gint</span> endpos</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-path-cost.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pnode</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>node</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>endpos</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-backward-search"></a><h3>kkc_bigram_decoder_backward_search ()</h3>
+<pre class="programlisting"><a class="link" href="KkcSegment.html" title="KkcSegment"><span class="returnvalue">KkcSegment</span></a> **
+kkc_bigram_decoder_backward_search (<em class="parameter"><code><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> *self</code></em>,
+                                    <em class="parameter"><code><span class="type">GeeArrayList</span> **trellis</code></em>,
+                                    <em class="parameter"><code><span class="type">int</span> trellis_length1</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> nbest</code></em>,
+                                    <em class="parameter"><code><span class="type">gdouble</span> max_distance</code></em>,
+                                    <em class="parameter"><code><span class="type">gdouble</span> min_path_cost</code></em>,
+                                    <em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-backward-search.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>trellis_length1</p></td>
+<td class="parameter_description"><p>length of the <em class="parameter"><code>trellis</code></em>
+array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>trellis</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>nbest</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>max_distance</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>min_path_cost</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-backward-search.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=result_length1]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-new"></a><h3>kkc_bigram_decoder_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="returnvalue">KkcBigramDecoder</span></a> *
+kkc_bigram_decoder_new (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *model</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-decoder-get-model"></a><h3>kkc_bigram_decoder_get_model ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="returnvalue">KkcBigramLanguageModel</span></a> *
+kkc_bigram_decoder_get_model (<em class="parameter"><code><a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcBigramDecoder.html#KkcBigramDecoder--model" title="The “model” property"><span class="type">"model"</span></a> property.</p>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-get-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-bigram-decoder-get-model.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcBigramDecoder.html#KkcBigramDecoder--model" title="The “model” property"><span class="type">"model"</span></a> property</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-BIGRAM-DECODER:CAPS"></a><h3>KKC_TYPE_BIGRAM_DECODER</h3>
+<pre class="programlisting">#define KKC_TYPE_BIGRAM_DECODER (kkc_bigram_decoder_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcBigramDecoder.html" title="KkcBigramDecoder"><span class="type">KkcBigramDecoder</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcBigramDecoder-struct"></a><h3>struct KkcBigramDecoder</h3>
+<pre class="programlisting">struct KkcBigramDecoder;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcBigramDecoderClass"></a><h3>struct KkcBigramDecoderClass</h3>
+<pre class="programlisting">struct KkcBigramDecoderClass {
+	KkcDecoderClass parent_class;
+	gdouble (*path_cost) (KkcBigramDecoder* self, KkcTrellisNode* pnode, KkcTrellisNode* node, gint endpos);
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcBigramDecoder.html#KKC-TYPE-BIGRAM-DECODER:CAPS" title="KKC_TYPE_BIGRAM_DECODER"><code class="literal">KKC_TYPE_BIGRAM_DECODER</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcBigramDecoderClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcBigramDecoderClass.path-cost"></a>path_cost</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method used internally</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcBigramDecoder.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcBigramDecoder--model"></a><h3>The <code class="literal">“model”</code> property</h3>
+<pre class="programlisting">  “model”                    <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *</pre>
+<p>model.</p>
+<p>Flags: Read</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

@@ -1,0 +1,876 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcTrellisNode:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcCandidateList.html" title="KkcCandidateList">
+<link rel="next" href="KkcContext.html" title="KkcContext">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcTrellisNode.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcTrellisNode.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcCandidateList.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcContext.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcTrellisNode"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcTrellisNode.top_of_page"></a>KkcTrellisNode</span></h2>
+<p>KkcTrellisNode</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcTrellisNode.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-to-string" title="kkc_trellis_node_to_string ()">kkc_trellis_node_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-get-endpos" title="kkc_trellis_node_get_endpos ()">kkc_trellis_node_get_endpos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-get-length" title="kkc_trellis_node_get_length ()">kkc_trellis_node_get_length</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-get-input" title="kkc_trellis_node_get_input ()">kkc_trellis_node_get_input</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-get-output" title="kkc_trellis_node_get_output ()">kkc_trellis_node_get_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="returnvalue">KkcLanguageModelEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-get-entries" title="kkc_trellis_node_get_entries ()">kkc_trellis_node_get_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gpointer</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-ref" title="kkc_trellis_node_ref ()">kkc_trellis_node_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-trellis-node-unref" title="kkc_trellis_node_unref ()">kkc_trellis_node_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GParamSpec</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-param-spec-trellis-node" title="kkc_param_spec_trellis_node ()">kkc_param_spec_trellis_node</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-value-set-trellis-node" title="kkc_value_set_trellis_node ()">kkc_value_set_trellis_node</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gpointer</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-value-get-trellis-node" title="kkc_value_get_trellis_node ()">kkc_value_get_trellis_node</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-value-take-trellis-node" title="kkc_value_take_trellis_node ()">kkc_value_take_trellis_node</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="returnvalue">KkcUnigramTrellisNode</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-unigram-trellis-node-new" title="kkc_unigram_trellis_node_new ()">kkc_unigram_trellis_node_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-unigram-trellis-node-get-entry" title="kkc_unigram_trellis_node_get_entry ()">kkc_unigram_trellis_node_get_entry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="returnvalue">KkcBigramTrellisNode</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-bigram-trellis-node-new" title="kkc_bigram_trellis_node_new ()">kkc_bigram_trellis_node_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="returnvalue">KkcUnigramTrellisNode</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-bigram-trellis-node-get-left-node" title="kkc_bigram_trellis_node_get_left_node ()">kkc_bigram_trellis_node_get_left_node</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="returnvalue">KkcUnigramTrellisNode</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcTrellisNode.html#kkc-bigram-trellis-node-get-right-node" title="kkc_bigram_trellis_node_get_right_node ()">kkc_bigram_trellis_node_get_right_node</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="KkcUnigramTrellisNode"></a><a name="KkcBigramTrellisNode"></a><div class="refsect1">
+<a name="KkcTrellisNode.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE">KKC_TYPE_TRELLIS_NODE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KkcTrellisNode-struct" title="struct KkcTrellisNode">KkcTrellisNode</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KkcTrellisNodeClass" title="struct KkcTrellisNodeClass">KkcTrellisNodeClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KKC-TYPE-UNIGRAM-TRELLIS-NODE:CAPS" title="KKC_TYPE_UNIGRAM_TRELLIS_NODE">KKC_TYPE_UNIGRAM_TRELLIS_NODE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode-struct" title="struct KkcUnigramTrellisNode">KkcUnigramTrellisNode</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNodeClass" title="struct KkcUnigramTrellisNodeClass">KkcUnigramTrellisNodeClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KKC-TYPE-BIGRAM-TRELLIS-NODE:CAPS" title="KKC_TYPE_BIGRAM_TRELLIS_NODE">KKC_TYPE_BIGRAM_TRELLIS_NODE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode-struct" title="struct KkcBigramTrellisNode">KkcBigramTrellisNode</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNodeClass" title="struct KkcBigramTrellisNodeClass">KkcBigramTrellisNodeClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcTrellisNode.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    KkcTrellisNode
+    <span class="lineart">├──</span> KkcBigramTrellisNode
+    <span class="lineart">╰──</span> KkcUnigramTrellisNode
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcTrellisNode.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcTrellisNode.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-trellis-node-to-string"></a><h3>kkc_trellis_node_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_trellis_node_to_string (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *self</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-trellis-node-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-get-endpos"></a><h3>kkc_trellis_node_get_endpos ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_trellis_node_get_endpos (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"endpos"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-endpos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-endpos.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"endpos"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-get-length"></a><h3>kkc_trellis_node_get_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+kkc_trellis_node_get_length (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"length"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-length.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-length.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"length"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-get-input"></a><h3>kkc_trellis_node_get_input ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_trellis_node_get_input (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"input"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-input.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-input.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"input"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-get-output"></a><h3>kkc_trellis_node_get_output ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_trellis_node_get_output (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"output"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-output.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"output"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-get-entries"></a><h3>kkc_trellis_node_get_entries ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="returnvalue">KkcLanguageModelEntry</span></a> *
+kkc_trellis_node_get_entries (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> *self</code></em>,
+                              <em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"entries"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-trellis-node-get-entries.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"entries"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-ref"></a><h3>kkc_trellis_node_ref ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>
+kkc_trellis_node_ref (<em class="parameter"><code><span class="type">gpointer</span> instance</code></em>);</pre>
+<p>Increases the reference count of <em class="parameter"><code>object</code></em>
+.</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>instance</p></td>
+<td class="parameter_description"><p>a <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-trellis-node-ref.returns"></a><h4>Returns</h4>
+<p> the same <em class="parameter"><code>object</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trellis-node-unref"></a><h3>kkc_trellis_node_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_trellis_node_unref (<em class="parameter"><code><span class="type">gpointer</span> instance</code></em>);</pre>
+<p>Decreases the reference count of <em class="parameter"><code>object</code></em>
+. When its reference count drops to 0, the object is finalized (i.e. its memory is freed).</p>
+<div class="refsect3">
+<a name="kkc-trellis-node-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>instance</p></td>
+<td class="parameter_description"><p>a <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-param-spec-trellis-node"></a><h3>kkc_param_spec_trellis_node ()</h3>
+<pre class="programlisting"><span class="returnvalue">GParamSpec</span> *
+kkc_param_spec_trellis_node (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *nick</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *blurb</code></em>,
+                             <em class="parameter"><code><span class="type">GType</span> object_type</code></em>,
+                             <em class="parameter"><code><span class="type">GParamFlags</span> flags</code></em>);</pre>
+<p>Creates a new <span class="type">GParamSpecBoxed</span> instance specifying a <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived property.</p>
+<p>See <code class="function"><GTKDOCLINK HREF="g-param-spec-internal"><code class="function">g_param_spec_internal()</code></code></GTKDOCLINK> for details on property names.</p>
+<div class="refsect3">
+<a name="kkc-param-spec-trellis-node.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>canonical name of the property specified</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>nick</p></td>
+<td class="parameter_description"><p>nick name for the property specified</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>blurb</p></td>
+<td class="parameter_description"><p>description of the property specified</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_type</p></td>
+<td class="parameter_description">
+<a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived type of this property</td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags for the property specified</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-value-set-trellis-node"></a><h3>kkc_value_set_trellis_node ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_value_set_trellis_node (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                            <em class="parameter"><code><span class="type">gpointer</span> v_object</code></em>);</pre>
+<p>Set the contents of a <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived <span class="type">GValue</span> to <em class="parameter"><code>v_object</code></em>
+.</p>
+<a class="link" href="KkcTrellisNode.html#kkc-value-set-trellis-node" title="kkc_value_set_trellis_node ()"><code class="function">kkc_value_set_trellis_node()</code></a> increases the reference count of <em class="parameter"><code>v_object</code></em> (the <span class="type">GValue</span> holds a reference to <em class="parameter"><code>v_object</code></em>). If you do not wish to increase the reference count of the object (i.e. you wish to pass your current reference to the <span class="type">GValue</span> because you no longer need it), use <a class="link" href="KkcTrellisNode.html#kkc-value-take-trellis-node" title="kkc_value_take_trellis_node ()"><code class="function">kkc_value_take_trellis_node()</code></a> instead.
+<p>It is important that your <span class="type">GValue</span> holds a reference to <em class="parameter"><code>v_object</code></em>
+ (either its own, or one it has taken) to ensure that the object won't be destroyed while the <span class="type">GValue</span> still exists).</p>
+<div class="refsect3">
+<a name="kkc-value-set-trellis-node.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a valid <span class="type">GValue</span> of <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>v_object</p></td>
+<td class="parameter_description"><p>object value to be set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-value-get-trellis-node"></a><h3>kkc_value_get_trellis_node ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>
+kkc_value_get_trellis_node (<em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);</pre>
+<p>Get the contents of a <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived <span class="type">GValue</span>.</p>
+<div class="refsect3">
+<a name="kkc-value-get-trellis-node.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a valid <span class="type">GValue</span> of <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived type</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-value-get-trellis-node.returns"></a><h4>Returns</h4>
+<p> object contents of <em class="parameter"><code>value</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-value-take-trellis-node"></a><h3>kkc_value_take_trellis_node ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_value_take_trellis_node (<em class="parameter"><code><span class="type">GValue</span> *value</code></em>,
+                             <em class="parameter"><code><span class="type">gpointer</span> v_object</code></em>);</pre>
+<p>Sets the contents of a <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived <span class="type">GValue</span> to <em class="parameter"><code>v_object</code></em>
+ and takes over the ownership of the callers reference to <em class="parameter"><code>v_object</code></em>
+; the caller doesn't have to unref it any more (i.e. the reference count of the object is not increased).</p>
+<p>If you want the GValue to hold its own reference to <em class="parameter"><code>v_object</code></em>
+, use <a class="link" href="KkcTrellisNode.html#kkc-value-set-trellis-node" title="kkc_value_set_trellis_node ()"><code class="function">kkc_value_set_trellis_node()</code></a> instead.</p>
+<div class="refsect3">
+<a name="kkc-value-take-trellis-node.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a valid <span class="type">GValue</span> of <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a> derived type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>v_object</p></td>
+<td class="parameter_description"><p>object value to be set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-unigram-trellis-node-new"></a><h3>kkc_unigram_trellis_node_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="returnvalue">KkcUnigramTrellisNode</span></a> *
+kkc_unigram_trellis_node_new (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>,
+                              <em class="parameter"><code><span class="type">guint</span> endpos</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-unigram-trellis-node-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>endpos</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-unigram-trellis-node-get-entry"></a><h3>kkc_unigram_trellis_node_get_entry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_unigram_trellis_node_get_entry (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="type">KkcUnigramTrellisNode</span></a> *self</code></em>,
+                                    <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *result</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"entry"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-unigram-trellis-node-get-entry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="type">KkcUnigramTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-unigram-trellis-node-get-entry.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"entry"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-trellis-node-new"></a><h3>kkc_bigram_trellis_node_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="returnvalue">KkcBigramTrellisNode</span></a> *
+kkc_bigram_trellis_node_new (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="type">KkcUnigramTrellisNode</span></a> *left_node</code></em>,
+                             <em class="parameter"><code><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="type">KkcUnigramTrellisNode</span></a> *right_node</code></em>,
+                             <em class="parameter"><code><span class="type">guint</span> endpos</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-trellis-node-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>left_node</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>right_node</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>endpos</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-trellis-node-get-left-node"></a><h3>kkc_bigram_trellis_node_get_left_node ()</h3>
+<pre class="programlisting"><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="returnvalue">KkcUnigramTrellisNode</span></a> *
+kkc_bigram_trellis_node_get_left_node (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="type">KkcBigramTrellisNode</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"left-node"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-bigram-trellis-node-get-left-node.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="type">KkcBigramTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-bigram-trellis-node-get-left-node.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"left-node"</span> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-trellis-node-get-right-node"></a><h3>kkc_bigram_trellis_node_get_right_node ()</h3>
+<pre class="programlisting"><a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="returnvalue">KkcUnigramTrellisNode</span></a> *
+kkc_bigram_trellis_node_get_right_node
+                               (<em class="parameter"><code><a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="type">KkcBigramTrellisNode</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <span class="type">"right-node"</span> property.</p>
+<div class="refsect3">
+<a name="kkc-bigram-trellis-node-get-right-node.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="type">KkcBigramTrellisNode</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-bigram-trellis-node-get-right-node.returns"></a><h4>Returns</h4>
+<p> the value of the <span class="type">"right-node"</span> property</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcTrellisNode.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-TRELLIS-NODE:CAPS"></a><h3>KKC_TYPE_TRELLIS_NODE</h3>
+<pre class="programlisting">#define KKC_TYPE_TRELLIS_NODE (kkc_trellis_node_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcTrellisNode.html" title="KkcTrellisNode"><span class="type">KkcTrellisNode</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcTrellisNode-struct"></a><h3>struct KkcTrellisNode</h3>
+<pre class="programlisting">struct KkcTrellisNode;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcTrellisNodeClass"></a><h3>struct KkcTrellisNodeClass</h3>
+<pre class="programlisting">struct KkcTrellisNodeClass {
+	GTypeClass parent_class;
+	void (*finalize) (KkcTrellisNode *self);
+	gchar* (*to_string) (KkcTrellisNode* self);
+	guint (*get_endpos) (KkcTrellisNode* self);
+	guint (*get_length) (KkcTrellisNode* self);
+	const gchar* (*get_input) (KkcTrellisNode* self);
+	const gchar* (*get_output) (KkcTrellisNode* self);
+	KkcLanguageModelEntry* (*get_entries) (KkcTrellisNode* self, int* result_length1);
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcTrellisNode.html#KKC-TYPE-TRELLIS-NODE:CAPS" title="KKC_TYPE_TRELLIS_NODE"><code class="literal">KKC_TYPE_TRELLIS_NODE</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcTrellisNodeClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.finalize"></a>finalize</code></em> ()</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.to-string"></a>to_string</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcTrellisNode.html#kkc-trellis-node-to-string" title="kkc_trellis_node_to_string ()"><code class="function">kkc_trellis_node_to_string()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.get-endpos"></a>get_endpos</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <span class="type">"endpos"</span></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.get-length"></a>get_length</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <span class="type">"length"</span></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.get-input"></a>get_input</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <span class="type">"input"</span></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.get-output"></a>get_output</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <span class="type">"output"</span></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrellisNodeClass.get-entries"></a>get_entries</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <span class="type">"entries"</span></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KKC-TYPE-UNIGRAM-TRELLIS-NODE:CAPS"></a><h3>KKC_TYPE_UNIGRAM_TRELLIS_NODE</h3>
+<pre class="programlisting">#define KKC_TYPE_UNIGRAM_TRELLIS_NODE (kkc_unigram_trellis_node_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcTrellisNode.html#KkcUnigramTrellisNode"><span class="type">KkcUnigramTrellisNode</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcUnigramTrellisNode-struct"></a><h3>struct KkcUnigramTrellisNode</h3>
+<pre class="programlisting">struct KkcUnigramTrellisNode;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcUnigramTrellisNodeClass"></a><h3>struct KkcUnigramTrellisNodeClass</h3>
+<pre class="programlisting">struct KkcUnigramTrellisNodeClass {
+	KkcTrellisNodeClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcTrellisNode.html#KKC-TYPE-UNIGRAM-TRELLIS-NODE:CAPS" title="KKC_TYPE_UNIGRAM_TRELLIS_NODE"><code class="literal">KKC_TYPE_UNIGRAM_TRELLIS_NODE</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcUnigramTrellisNodeClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KKC-TYPE-BIGRAM-TRELLIS-NODE:CAPS"></a><h3>KKC_TYPE_BIGRAM_TRELLIS_NODE</h3>
+<pre class="programlisting">#define KKC_TYPE_BIGRAM_TRELLIS_NODE (kkc_bigram_trellis_node_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcTrellisNode.html#KkcBigramTrellisNode"><span class="type">KkcBigramTrellisNode</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcBigramTrellisNode-struct"></a><h3>struct KkcBigramTrellisNode</h3>
+<pre class="programlisting">struct KkcBigramTrellisNode;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcBigramTrellisNodeClass"></a><h3>struct KkcBigramTrellisNodeClass</h3>
+<pre class="programlisting">struct KkcBigramTrellisNodeClass {
+	KkcTrellisNodeClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcTrellisNode.html#KKC-TYPE-BIGRAM-TRELLIS-NODE:CAPS" title="KKC_TYPE_BIGRAM_TRELLIS_NODE"><code class="literal">KKC_TYPE_BIGRAM_TRELLIS_NODE</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcBigramTrellisNodeClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

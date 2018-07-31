@@ -1,0 +1,1579 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcLanguageModelMetadata:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcCandidate.html" title="KkcCandidate">
+<link rel="next" href="KkcRuleMetadata.html" title="KkcRuleMetadata">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_derived_interfaces">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.derived-interfaces" class="shortcut">Known Derived Interfaces</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.implementations" class="shortcut">Known Implementations</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcLanguageModelMetadata.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcCandidate.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcRuleMetadata.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcLanguageModelMetadata"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcLanguageModelMetadata.top_of_page"></a>KkcLanguageModelMetadata</span></h2>
+<p>KkcLanguageModelMetadata</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="returnvalue">KkcLanguageModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-metadata-create-language-model" title="kkc_language_model_metadata_create_language_model ()">kkc_language_model_metadata_create_language_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="returnvalue">KkcLanguageModelMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-metadata-new" title="kkc_language_model_metadata_new ()">kkc_language_model_metadata_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GType</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-metadata-get-model-type" title="kkc_language_model_metadata_get_model_type ()">kkc_language_model_metadata_get_model_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-metadata-set-model-type" title="kkc_language_model_metadata_set_model_type ()">kkc_language_model_metadata_set_model_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="returnvalue">KkcLanguageModelMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-metadata-find" title="kkc_language_model_metadata_find ()">kkc_language_model_metadata_find</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GeeCollection</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-unigram-entries" title="kkc_language_model_unigram_entries ()">kkc_language_model_unigram_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GeeCollection</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entries" title="kkc_language_model_entries ()">kkc_language_model_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="returnvalue">KkcLanguageModelEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-get" title="kkc_language_model_get ()">kkc_language_model_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-parse" title="kkc_language_model_parse ()">kkc_language_model_parse</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="returnvalue">KkcLanguageModelMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-get-metadata" title="kkc_language_model_get_metadata ()">kkc_language_model_get_metadata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-set-metadata" title="kkc_language_model_set_metadata ()">kkc_language_model_set_metadata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-get-bos" title="kkc_language_model_get_bos ()">kkc_language_model_get_bos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-get-eos" title="kkc_language_model_get_eos ()">kkc_language_model_get_eos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="returnvalue">KkcLanguageModel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-load" title="kkc_language_model_load ()">kkc_language_model_load</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="returnvalue">KkcLanguageModelEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-dup" title="kkc_language_model_entry_dup ()">kkc_language_model_entry_dup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-free" title="kkc_language_model_entry_free ()">kkc_language_model_entry_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-copy" title="kkc_language_model_entry_copy ()">kkc_language_model_entry_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-destroy" title="kkc_language_model_entry_destroy ()">kkc_language_model_entry_destroy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-unigram-language-model-unigram-cost" title="kkc_unigram_language_model_unigram_cost ()">kkc_unigram_language_model_unigram_cost</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-unigram-language-model-unigram-backoff" title="kkc_unigram_language_model_unigram_backoff ()">kkc_unigram_language_model_unigram_backoff</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-has-bigram" title="kkc_bigram_language_model_has_bigram ()">kkc_bigram_language_model_has_bigram</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-bigram-cost" title="kkc_bigram_language_model_bigram_cost ()">kkc_bigram_language_model_bigram_cost</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-bigram-backoff" title="kkc_bigram_language_model_bigram_backoff ()">kkc_bigram_language_model_bigram_backoff</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-bigram-backoff-cost" title="kkc_bigram_language_model_bigram_backoff_cost ()">kkc_bigram_language_model_bigram_backoff_cost</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-trigram-language-model-has-trigram" title="kkc_trigram_language_model_has_trigram ()">kkc_trigram_language_model_has_trigram</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-trigram-language-model-trigram-cost" title="kkc_trigram_language_model_trigram_cost ()">kkc_trigram_language_model_trigram_cost</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcLanguageModelMetadata.html#kkc-trigram-language-model-trigram-backoff-cost" title="kkc_trigram_language_model_trigram_backoff_cost ()">kkc_trigram_language_model_trigram_backoff_cost</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">GType</span> *</td>
+<td class="property_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadata--model-type" title="The “model-type” property">model-type</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--bos" title="The “bos” property">bos</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--eos" title="The “eos” property">eos</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--metadata" title="The “metadata” property">metadata</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="KkcLanguageModel"></a><a name="KkcLanguageModelEntry"></a><a name="KkcUnigramLanguageModel"></a><a name="KkcBigramLanguageModel"></a><a name="KkcTrigramLanguageModel"></a><div class="refsect1">
+<a name="KkcLanguageModelMetadata.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KKC-TYPE-LANGUAGE-MODEL-METADATA:CAPS" title="KKC_TYPE_LANGUAGE_MODEL_METADATA">KKC_TYPE_LANGUAGE_MODEL_METADATA</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadata-struct" title="struct KkcLanguageModelMetadata">KkcLanguageModelMetadata</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadataClass" title="struct KkcLanguageModelMetadataClass">KkcLanguageModelMetadataClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KKC-TYPE-LANGUAGE-MODEL:CAPS" title="KKC_TYPE_LANGUAGE_MODEL">KKC_TYPE_LANGUAGE_MODEL</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel-struct" title="struct KkcLanguageModel">KkcLanguageModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelClass" title="struct KkcLanguageModelClass">KkcLanguageModelClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelError" title="enum KkcLanguageModelError">KkcLanguageModelError</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry-struct" title="struct KkcLanguageModelEntry">KkcLanguageModelEntry</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel-struct" title="KkcUnigramLanguageModel">KkcUnigramLanguageModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModelIface" title="struct KkcUnigramLanguageModelIface">KkcUnigramLanguageModelIface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel-struct" title="KkcBigramLanguageModel">KkcBigramLanguageModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModelIface" title="struct KkcBigramLanguageModelIface">KkcBigramLanguageModelIface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel-struct" title="KkcTrigramLanguageModel">KkcTrigramLanguageModel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModelIface" title="struct KkcTrigramLanguageModelIface">KkcTrigramLanguageModelIface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GBoxed
+    <span class="lineart">╰──</span> KkcLanguageModelEntry
+    GInterface
+    <span class="lineart">├──</span> KkcBigramLanguageModel
+    <span class="lineart">├──</span> KkcTrigramLanguageModel
+    <span class="lineart">╰──</span> KkcUnigramLanguageModel
+    GObject
+    <span class="lineart">├──</span> KkcLanguageModel
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="KkcSortedBigramLanguageModel.html" title="KkcSortedBigramLanguageModel">KkcSortedBigramLanguageModel</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="KkcTextBigramLanguageModel.html" title="KkcTextBigramLanguageModel">KkcTextBigramLanguageModel</a>
+    <span class="lineart">╰──</span> <a class="link" href="KkcMetadataFile.html" title="KkcMetadataFile">KkcMetadataFile</a>
+        <span class="lineart">╰──</span> KkcLanguageModelMetadata
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+KkcUnigramLanguageModel requires
+ <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel">KkcLanguageModel</a>.</p>
+<p>
+KkcBigramLanguageModel requires
+ <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel">KkcUnigramLanguageModel</a> and  <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel">KkcLanguageModel</a>.</p>
+<p>
+KkcTrigramLanguageModel requires
+ <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel">KkcBigramLanguageModel</a>,  <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel">KkcUnigramLanguageModel</a> and  <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel">KkcLanguageModel</a>.</p>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.derived-interfaces"></a><h2>Known Derived Interfaces</h2>
+<p>
+KkcLanguageModel is required by
+ <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel">KkcBigramLanguageModel</a>,  <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel">KkcTrigramLanguageModel</a> and  <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel">KkcUnigramLanguageModel</a>.</p>
+<p>
+KkcUnigramLanguageModel is required by
+ <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel">KkcBigramLanguageModel</a> and  <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel">KkcTrigramLanguageModel</a>.</p>
+<p>
+KkcBigramLanguageModel is required by
+ <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel">KkcTrigramLanguageModel</a>.</p>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+KkcLanguageModelMetadata implements
+ GInitable.</p>
+<p>
+KkcLanguageModel implements
+ GInitable.</p>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.implementations"></a><h2>Known Implementations</h2>
+<p>
+KkcUnigramLanguageModel is implemented by
+ <a class="link" href="KkcSortedBigramLanguageModel.html" title="KkcSortedBigramLanguageModel">KkcSortedBigramLanguageModel</a>,  <a class="link" href="KkcSortedTrigramLanguageModel.html" title="KkcSortedTrigramLanguageModel">KkcSortedTrigramLanguageModel</a>,  <a class="link" href="KkcTextBigramLanguageModel.html" title="KkcTextBigramLanguageModel">KkcTextBigramLanguageModel</a> and  <a class="link" href="KkcTextTrigramLanguageModel.html" title="KkcTextTrigramLanguageModel">KkcTextTrigramLanguageModel</a>.</p>
+<p>
+KkcBigramLanguageModel is implemented by
+ <a class="link" href="KkcSortedBigramLanguageModel.html" title="KkcSortedBigramLanguageModel">KkcSortedBigramLanguageModel</a>,  <a class="link" href="KkcSortedTrigramLanguageModel.html" title="KkcSortedTrigramLanguageModel">KkcSortedTrigramLanguageModel</a>,  <a class="link" href="KkcTextBigramLanguageModel.html" title="KkcTextBigramLanguageModel">KkcTextBigramLanguageModel</a> and  <a class="link" href="KkcTextTrigramLanguageModel.html" title="KkcTextTrigramLanguageModel">KkcTextTrigramLanguageModel</a>.</p>
+<p>
+KkcTrigramLanguageModel is implemented by
+ <a class="link" href="KkcSortedTrigramLanguageModel.html" title="KkcSortedTrigramLanguageModel">KkcSortedTrigramLanguageModel</a> and  <a class="link" href="KkcTextTrigramLanguageModel.html" title="KkcTextTrigramLanguageModel">KkcTextTrigramLanguageModel</a>.</p>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-language-model-metadata-create-language-model"></a><h3>kkc_language_model_metadata_create_language_model ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="returnvalue">KkcLanguageModel</span></a> *
+kkc_language_model_metadata_create_language_model
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-metadata-create-language-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-metadata-new"></a><h3>kkc_language_model_metadata_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="returnvalue">KkcLanguageModelMetadata</span></a> *
+kkc_language_model_metadata_new (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *filename</code></em>,
+                                 <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-metadata-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-metadata-get-model-type"></a><h3>kkc_language_model_metadata_get_model_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>
+kkc_language_model_metadata_get_model_type
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadata--model-type" title="The “model-type” property"><span class="type">"model-type"</span></a> property.</p>
+<div class="refsect3">
+<a name="kkc-language-model-metadata-get-model-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-language-model-metadata-get-model-type.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadata--model-type" title="The “model-type” property"><span class="type">"model-type"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-metadata-set-model-type"></a><h3>kkc_language_model_metadata_set_model_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_metadata_set_model_type
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">GType</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadata--model-type" title="The “model-type” property"><span class="type">"model-type"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="kkc-language-model-metadata-set-model-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelMetadata--model-type" title="The “model-type” property"><span class="type">"model-type"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-metadata-find"></a><h3>kkc_language_model_metadata_find ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="returnvalue">KkcLanguageModelMetadata</span></a> *
+kkc_language_model_metadata_find (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-metadata-find.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-unigram-entries"></a><h3>kkc_language_model_unigram_entries ()</h3>
+<pre class="programlisting"><span class="returnvalue">GeeCollection</span> *
+kkc_language_model_unigram_entries (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                                    <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-unigram-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-entries"></a><h3>kkc_language_model_entries ()</h3>
+<pre class="programlisting"><span class="returnvalue">GeeCollection</span> *
+kkc_language_model_entries (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-get"></a><h3>kkc_language_model_get ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="returnvalue">KkcLanguageModelEntry</span></a> *
+kkc_language_model_get (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *input</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *output</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>output</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-parse"></a><h3>kkc_language_model_parse ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_language_model_parse (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                          <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-parse.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-get-metadata"></a><h3>kkc_language_model_get_metadata ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="returnvalue">KkcLanguageModelMetadata</span></a> *
+kkc_language_model_get_metadata (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property.</p>
+<div class="refsect3">
+<a name="kkc-language-model-get-metadata.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-language-model-get-metadata.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-set-metadata"></a><h3>kkc_language_model_set_metadata ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_set_metadata (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                                 <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="kkc-language-model-set-metadata.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--metadata" title="The “metadata” property"><span class="type">"metadata"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-get-bos"></a><h3>kkc_language_model_get_bos ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_get_bos (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                            <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *result</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--bos" title="The “bos” property"><span class="type">"bos"</span></a> property.</p>
+<div class="refsect3">
+<a name="kkc-language-model-get-bos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-language-model-get-bos.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--bos" title="The “bos” property"><span class="type">"bos"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-get-eos"></a><h3>kkc_language_model_get_eos ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_get_eos (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> *self</code></em>,
+                            <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *result</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--eos" title="The “eos” property"><span class="type">"eos"</span></a> property.</p>
+<div class="refsect3">
+<a name="kkc-language-model-get-eos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-language-model-get-eos.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--eos" title="The “eos” property"><span class="type">"eos"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-load"></a><h3>kkc_language_model_load ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="returnvalue">KkcLanguageModel</span></a> *
+kkc_language_model_load (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-language-model-load.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-entry-dup"></a><h3>kkc_language_model_entry_dup ()</h3>
+<pre class="programlisting"><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="returnvalue">KkcLanguageModelEntry</span></a> *
+kkc_language_model_entry_dup (<em class="parameter"><code>const <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *self</code></em>);</pre>
+<p>Creates a copy of self.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-copy" title="kkc_language_model_entry_copy ()"><code class="function">kkc_language_model_entry_copy()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-destroy" title="kkc_language_model_entry_destroy ()"><code class="function">kkc_language_model_entry_destroy()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-free" title="kkc_language_model_entry_free ()"><code class="function">kkc_language_model_entry_free()</code></a></p>
+<div class="refsect3">
+<a name="kkc-language-model-entry-dup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the instance to duplicate</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-language-model-entry-dup.returns"></a><h4>Returns</h4>
+<p> a copy of <em class="parameter"><code>self</code></em>
+, free with <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-free" title="kkc_language_model_entry_free ()"><code class="function">kkc_language_model_entry_free()</code></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-entry-free"></a><h3>kkc_language_model_entry_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_entry_free (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *self</code></em>);</pre>
+<p>Frees the heap-allocated struct.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-dup" title="kkc_language_model_entry_dup ()"><code class="function">kkc_language_model_entry_dup()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-copy" title="kkc_language_model_entry_copy ()"><code class="function">kkc_language_model_entry_copy()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-destroy" title="kkc_language_model_entry_destroy ()"><code class="function">kkc_language_model_entry_destroy()</code></a></p>
+<div class="refsect3">
+<a name="kkc-language-model-entry-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the struct to free</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-entry-copy"></a><h3>kkc_language_model_entry_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_entry_copy (<em class="parameter"><code>const <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *self</code></em>,
+                               <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *dest</code></em>);</pre>
+<p>Creates a copy of self.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-dup" title="kkc_language_model_entry_dup ()"><code class="function">kkc_language_model_entry_dup()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-destroy" title="kkc_language_model_entry_destroy ()"><code class="function">kkc_language_model_entry_destroy()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-free" title="kkc_language_model_entry_free ()"><code class="function">kkc_language_model_entry_free()</code></a></p>
+<div class="refsect3">
+<a name="kkc-language-model-entry-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the struct to copy</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>a unused struct. Use <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-destroy" title="kkc_language_model_entry_destroy ()"><code class="function">kkc_language_model_entry_destroy()</code></a> to free the content.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-language-model-entry-destroy"></a><h3>kkc_language_model_entry_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_language_model_entry_destroy (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *self</code></em>);</pre>
+<p>Frees the content of the struct pointed by <em class="parameter"><code>self</code></em>
+.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-dup" title="kkc_language_model_entry_dup ()"><code class="function">kkc_language_model_entry_dup()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-copy" title="kkc_language_model_entry_copy ()"><code class="function">kkc_language_model_entry_copy()</code></a>, <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entry-free" title="kkc_language_model_entry_free ()"><code class="function">kkc_language_model_entry_free()</code></a></p>
+<div class="refsect3">
+<a name="kkc-language-model-entry-destroy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the struct to destroy</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-unigram-language-model-unigram-cost"></a><h3>kkc_unigram_language_model_unigram_cost ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_unigram_language_model_unigram_cost
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel"><span class="type">KkcUnigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-unigram-language-model-unigram-cost.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel"><span class="type">KkcUnigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-unigram-language-model-unigram-backoff"></a><h3>kkc_unigram_language_model_unigram_backoff ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_unigram_language_model_unigram_backoff
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel"><span class="type">KkcUnigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-unigram-language-model-unigram-backoff.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel"><span class="type">KkcUnigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-language-model-has-bigram"></a><h3>kkc_bigram_language_model_has_bigram ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_bigram_language_model_has_bigram (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *self</code></em>,
+                                      <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                      <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-language-model-has-bigram.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-language-model-bigram-cost"></a><h3>kkc_bigram_language_model_bigram_cost ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_bigram_language_model_bigram_cost (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *self</code></em>,
+                                       <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                       <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-language-model-bigram-cost.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-language-model-bigram-backoff"></a><h3>kkc_bigram_language_model_bigram_backoff ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_bigram_language_model_bigram_backoff
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-language-model-bigram-backoff.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-bigram-language-model-bigram-backoff-cost"></a><h3>kkc_bigram_language_model_bigram_backoff_cost ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_bigram_language_model_bigram_backoff_cost
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-bigram-language-model-bigram-backoff-cost.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trigram-language-model-has-trigram"></a><h3>kkc_trigram_language_model_has_trigram ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_trigram_language_model_has_trigram
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *ppentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-trigram-language-model-has-trigram.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ppentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trigram-language-model-trigram-cost"></a><h3>kkc_trigram_language_model_trigram_cost ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_trigram_language_model_trigram_cost
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *ppentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-trigram-language-model-trigram-cost.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ppentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-trigram-language-model-trigram-backoff-cost"></a><h3>kkc_trigram_language_model_trigram_backoff_cost ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+kkc_trigram_language_model_trigram_backoff_cost
+                               (<em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> *self</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *ppentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *pentry</code></em>,
+                                <em class="parameter"><code><a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *entry</code></em>);</pre>
+<div class="refsect3">
+<a name="kkc-trigram-language-model-trigram-backoff-cost.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ppentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pentry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>entry</p></td>
+<td class="parameter_description"><p> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-LANGUAGE-MODEL-METADATA:CAPS"></a><h3>KKC_TYPE_LANGUAGE_MODEL_METADATA</h3>
+<pre class="programlisting">#define KKC_TYPE_LANGUAGE_MODEL_METADATA (kkc_language_model_metadata_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModelMetadata-struct"></a><h3>struct KkcLanguageModelMetadata</h3>
+<pre class="programlisting">struct KkcLanguageModelMetadata;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModelMetadataClass"></a><h3>struct KkcLanguageModelMetadataClass</h3>
+<pre class="programlisting">struct KkcLanguageModelMetadataClass {
+	KkcMetadataFileClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcLanguageModelMetadata.html#KKC-TYPE-LANGUAGE-MODEL-METADATA:CAPS" title="KKC_TYPE_LANGUAGE_MODEL_METADATA"><code class="literal">KKC_TYPE_LANGUAGE_MODEL_METADATA</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcLanguageModelMetadataClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KKC-TYPE-LANGUAGE-MODEL:CAPS"></a><h3>KKC_TYPE_LANGUAGE_MODEL</h3>
+<pre class="programlisting">#define KKC_TYPE_LANGUAGE_MODEL (kkc_language_model_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel"><span class="type">KkcLanguageModel</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModel-struct"></a><h3>struct KkcLanguageModel</h3>
+<pre class="programlisting">struct KkcLanguageModel;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModelClass"></a><h3>struct KkcLanguageModelClass</h3>
+<pre class="programlisting">struct KkcLanguageModelClass {
+	GObjectClass parent_class;
+	GeeCollection* (*unigram_entries) (KkcLanguageModel* self, const gchar* input);
+	GeeCollection* (*entries) (KkcLanguageModel* self, const gchar* input);
+	KkcLanguageModelEntry* (*get) (KkcLanguageModel* self, const gchar* input, const gchar* output);
+	gboolean (*parse) (KkcLanguageModel* self, GError** error);
+	void (*get_bos) (KkcLanguageModel* self, KkcLanguageModelEntry * result);
+	void (*get_eos) (KkcLanguageModel* self, KkcLanguageModelEntry * result);
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcLanguageModelMetadata.html#KKC-TYPE-LANGUAGE-MODEL:CAPS" title="KKC_TYPE_LANGUAGE_MODEL"><code class="literal">KKC_TYPE_LANGUAGE_MODEL</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcLanguageModelClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcLanguageModelClass.unigram-entries"></a>unigram_entries</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-unigram-entries" title="kkc_language_model_unigram_entries ()"><code class="function">kkc_language_model_unigram_entries()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcLanguageModelClass.entries"></a>entries</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-entries" title="kkc_language_model_entries ()"><code class="function">kkc_language_model_entries()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcLanguageModelClass.get"></a>get</code></em> ()</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcLanguageModelClass.parse"></a>parse</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-language-model-parse" title="kkc_language_model_parse ()"><code class="function">kkc_language_model_parse()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcLanguageModelClass.get-bos"></a>get_bos</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--bos" title="The “bos” property"><span class="type">"bos"</span></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcLanguageModelClass.get-eos"></a>get_eos</code></em> ()</p></td>
+<td class="struct_member_description"><p>getter method for the abstract property <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModel--eos" title="The “eos” property"><span class="type">"eos"</span></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModelError"></a><h3>enum KkcLanguageModelError</h3>
+<div class="refsect3">
+<a name="KkcLanguageModelError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="enum_member_name"><p><a name="KKC-LANGUAGE-MODEL-ERROR-NOT-FOUND:CAPS"></a>KKC_LANGUAGE_MODEL_ERROR_NOT_FOUND</p></td>
+<td> </td>
+<td> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModelEntry-struct"></a><h3>struct KkcLanguageModelEntry</h3>
+<pre class="programlisting">struct KkcLanguageModelEntry {
+	gchar* input;
+	gchar* output;
+	guint id;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcUnigramLanguageModel-struct"></a><h3>KkcUnigramLanguageModel</h3>
+<pre class="programlisting">typedef struct _KkcUnigramLanguageModel KkcUnigramLanguageModel;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcUnigramLanguageModelIface"></a><h3>struct KkcUnigramLanguageModelIface</h3>
+<pre class="programlisting">struct KkcUnigramLanguageModelIface {
+	GTypeInterface parent_iface;
+	gdouble (*unigram_cost) (KkcUnigramLanguageModel* self, KkcLanguageModelEntry* entry);
+	gdouble (*unigram_backoff) (KkcUnigramLanguageModel* self, KkcLanguageModelEntry* entry);
+};
+</pre>
+<p>Interface for creating <a class="link" href="KkcLanguageModelMetadata.html#KkcUnigramLanguageModel"><span class="type">KkcUnigramLanguageModel</span></a> implementations.</p>
+<div class="refsect3">
+<a name="KkcUnigramLanguageModelIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GTypeInterface</span> <em class="structfield"><code><a name="KkcUnigramLanguageModelIface.parent-iface"></a>parent_iface</code></em>;</p></td>
+<td class="struct_member_description"><p>the parent interface structure</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcUnigramLanguageModelIface.unigram-cost"></a>unigram_cost</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-unigram-language-model-unigram-cost" title="kkc_unigram_language_model_unigram_cost ()"><code class="function">kkc_unigram_language_model_unigram_cost()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcUnigramLanguageModelIface.unigram-backoff"></a>unigram_backoff</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-unigram-language-model-unigram-backoff" title="kkc_unigram_language_model_unigram_backoff ()"><code class="function">kkc_unigram_language_model_unigram_backoff()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcBigramLanguageModel-struct"></a><h3>KkcBigramLanguageModel</h3>
+<pre class="programlisting">typedef struct _KkcBigramLanguageModel KkcBigramLanguageModel;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcBigramLanguageModelIface"></a><h3>struct KkcBigramLanguageModelIface</h3>
+<pre class="programlisting">struct KkcBigramLanguageModelIface {
+	GTypeInterface parent_iface;
+	gboolean (*has_bigram) (KkcBigramLanguageModel* self, KkcLanguageModelEntry* pentry, KkcLanguageModelEntry* entry);
+	gdouble (*bigram_cost) (KkcBigramLanguageModel* self, KkcLanguageModelEntry* pentry, KkcLanguageModelEntry* entry);
+	gdouble (*bigram_backoff) (KkcBigramLanguageModel* self, KkcLanguageModelEntry* pentry, KkcLanguageModelEntry* entry);
+};
+</pre>
+<p>Interface for creating <a class="link" href="KkcLanguageModelMetadata.html#KkcBigramLanguageModel"><span class="type">KkcBigramLanguageModel</span></a> implementations.</p>
+<div class="refsect3">
+<a name="KkcBigramLanguageModelIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GTypeInterface</span> <em class="structfield"><code><a name="KkcBigramLanguageModelIface.parent-iface"></a>parent_iface</code></em>;</p></td>
+<td class="struct_member_description"><p>the parent interface structure</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcBigramLanguageModelIface.has-bigram"></a>has_bigram</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-has-bigram" title="kkc_bigram_language_model_has_bigram ()"><code class="function">kkc_bigram_language_model_has_bigram()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcBigramLanguageModelIface.bigram-cost"></a>bigram_cost</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-bigram-cost" title="kkc_bigram_language_model_bigram_cost ()"><code class="function">kkc_bigram_language_model_bigram_cost()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcBigramLanguageModelIface.bigram-backoff"></a>bigram_backoff</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-bigram-language-model-bigram-backoff" title="kkc_bigram_language_model_bigram_backoff ()"><code class="function">kkc_bigram_language_model_bigram_backoff()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcTrigramLanguageModel-struct"></a><h3>KkcTrigramLanguageModel</h3>
+<pre class="programlisting">typedef struct _KkcTrigramLanguageModel KkcTrigramLanguageModel;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcTrigramLanguageModelIface"></a><h3>struct KkcTrigramLanguageModelIface</h3>
+<pre class="programlisting">struct KkcTrigramLanguageModelIface {
+	GTypeInterface parent_iface;
+	gboolean (*has_trigram) (KkcTrigramLanguageModel* self, KkcLanguageModelEntry* ppentry, KkcLanguageModelEntry* pentry, KkcLanguageModelEntry* entry);
+	gdouble (*trigram_cost) (KkcTrigramLanguageModel* self, KkcLanguageModelEntry* ppentry, KkcLanguageModelEntry* pentry, KkcLanguageModelEntry* entry);
+};
+</pre>
+<p>Interface for creating <a class="link" href="KkcLanguageModelMetadata.html#KkcTrigramLanguageModel"><span class="type">KkcTrigramLanguageModel</span></a> implementations.</p>
+<div class="refsect3">
+<a name="KkcTrigramLanguageModelIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GTypeInterface</span> <em class="structfield"><code><a name="KkcTrigramLanguageModelIface.parent-iface"></a>parent_iface</code></em>;</p></td>
+<td class="struct_member_description"><p>the parent interface structure</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrigramLanguageModelIface.has-trigram"></a>has_trigram</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-trigram-language-model-has-trigram" title="kkc_trigram_language_model_has_trigram ()"><code class="function">kkc_trigram_language_model_has_trigram()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcTrigramLanguageModelIface.trigram-cost"></a>trigram_cost</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcLanguageModelMetadata.html#kkc-trigram-language-model-trigram-cost" title="kkc_trigram_language_model_trigram_cost ()"><code class="function">kkc_trigram_language_model_trigram_cost()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcLanguageModelMetadata.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcLanguageModelMetadata--model-type"></a><h3>The <code class="literal">“model-type”</code> property</h3>
+<pre class="programlisting">  “model-type”               <span class="type">GType</span> *</pre>
+<p>model-type.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Allowed values: void</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModel--bos"></a><h3>The <code class="literal">“bos”</code> property</h3>
+<pre class="programlisting">  “bos”                      <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *</pre>
+<p>bos.</p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModel--eos"></a><h3>The <code class="literal">“eos”</code> property</h3>
+<pre class="programlisting">  “eos”                      <a class="link" href="KkcLanguageModelMetadata.html#KkcLanguageModelEntry"><span class="type">KkcLanguageModelEntry</span></a> *</pre>
+<p>eos.</p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcLanguageModel--metadata"></a><h3>The <code class="literal">“metadata”</code> property</h3>
+<pre class="programlisting">  “metadata”                 <a class="link" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata"><span class="type">KkcLanguageModelMetadata</span></a> *</pre>
+<p>metadata.</p>
+<p>Flags: Read / Write / Construct</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

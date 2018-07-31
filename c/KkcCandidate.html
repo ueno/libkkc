@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcCandidate:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcDictionary.html" title="KkcDictionary">
+<link rel="next" href="KkcLanguageModelMetadata.html" title="KkcLanguageModelMetadata">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcCandidate.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcCandidate.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcCandidate.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcDictionary.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcLanguageModelMetadata.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcCandidate"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcCandidate.top_of_page"></a>KkcCandidate</span></h2>
+<p>KkcCandidate — Object representing a candidate in dictionaries.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcCandidate.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-to-string" title="kkc_candidate_to_string ()">kkc_candidate_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="returnvalue">KkcCandidate</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-new" title="kkc_candidate_new ()">kkc_candidate_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-get-midasi" title="kkc_candidate_get_midasi ()">kkc_candidate_get_midasi</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-set-midasi" title="kkc_candidate_set_midasi ()">kkc_candidate_set_midasi</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-get-okuri" title="kkc_candidate_get_okuri ()">kkc_candidate_get_okuri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-set-okuri" title="kkc_candidate_set_okuri ()">kkc_candidate_set_okuri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-get-text" title="kkc_candidate_get_text ()">kkc_candidate_get_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-set-text" title="kkc_candidate_set_text ()">kkc_candidate_set_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-get-annotation" title="kkc_candidate_get_annotation ()">kkc_candidate_get_annotation</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-set-annotation" title="kkc_candidate_set_annotation ()">kkc_candidate_set_annotation</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-get-output" title="kkc_candidate_get_output ()">kkc_candidate_get_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcCandidate.html#kkc-candidate-set-output" title="kkc_candidate_set_output ()">kkc_candidate_set_output</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcCandidate.html#KkcCandidate--annotation" title="The “annotation” property">annotation</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcCandidate.html#KkcCandidate--midasi" title="The “midasi” property">midasi</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="KkcCandidate.html#KkcCandidate--okuri" title="The “okuri” property">okuri</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcCandidate.html#KkcCandidate--output" title="The “output” property">output</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="KkcCandidate.html#KkcCandidate--text" title="The “text” property">text</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcCandidate.html#KKC-TYPE-CANDIDATE:CAPS" title="KKC_TYPE_CANDIDATE">KKC_TYPE_CANDIDATE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcCandidate.html#KkcCandidate-struct" title="struct KkcCandidate">KkcCandidate</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcCandidate.html#KkcCandidateClass" title="struct KkcCandidateClass">KkcCandidateClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> KkcCandidate
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-candidate-to-string"></a><h3>kkc_candidate_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_candidate_to_string (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>);</pre>
+<p>Convert the candidate to string.</p>
+<div class="refsect3">
+<a name="kkc-candidate-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-to-string.returns"></a><h4>Returns</h4>
+<p>a string representing the candidate </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-new"></a><h3>kkc_candidate_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="returnvalue">KkcCandidate</span></a> *
+kkc_candidate_new (<em class="parameter"><code>const <span class="type">gchar</span> *midasi</code></em>,
+                   <em class="parameter"><code><span class="type">gboolean</span> okuri</code></em>,
+                   <em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>,
+                   <em class="parameter"><code>const <span class="type">gchar</span> *annotation</code></em>,
+                   <em class="parameter"><code>const <span class="type">gchar</span> *output</code></em>);</pre>
+<p>Create a new Candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>midasi</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>midasi (index) word which generate the candidate </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>okuri</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>whether the candidate is a result of okuri-ari conversion </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>text</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>base string value of the candidate </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>annotation</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>optional annotation text to the candidate </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>output</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>optional output text used instead of text </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-new.returns"></a><h4>Returns</h4>
+<p>a new KkcCandidate </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-get-midasi"></a><h3>kkc_candidate_get_midasi ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_candidate_get_midasi (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidate.html#KkcCandidate--midasi" title="The “midasi” property"><span class="type">"midasi"</span></a> property.</p>
+<p>Midasi word which generated this candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-get-midasi.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-get-midasi.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--midasi" title="The “midasi” property"><span class="type">"midasi"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-set-midasi"></a><h3>kkc_candidate_set_midasi ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_set_midasi (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>,
+                          <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--midasi" title="The “midasi” property"><span class="type">"midasi"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Midasi word which generated this candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-set-midasi.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidate.html#KkcCandidate--midasi" title="The “midasi” property"><span class="type">"midasi"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-get-okuri"></a><h3>kkc_candidate_get_okuri ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+kkc_candidate_get_okuri (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidate.html#KkcCandidate--okuri" title="The “okuri” property"><span class="type">"okuri"</span></a> property.</p>
+<p>Flag to indicate whether this candidate is generated as a result of okuri-ari conversion.</p>
+<div class="refsect3">
+<a name="kkc-candidate-get-okuri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-get-okuri.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--okuri" title="The “okuri” property"><span class="type">"okuri"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-set-okuri"></a><h3>kkc_candidate_set_okuri ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_set_okuri (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>,
+                         <em class="parameter"><code><span class="type">gboolean</span> value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--okuri" title="The “okuri” property"><span class="type">"okuri"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Flag to indicate whether this candidate is generated as a result of okuri-ari conversion.</p>
+<div class="refsect3">
+<a name="kkc-candidate-set-okuri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidate.html#KkcCandidate--okuri" title="The “okuri” property"><span class="type">"okuri"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-get-text"></a><h3>kkc_candidate_get_text ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_candidate_get_text (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidate.html#KkcCandidate--text" title="The “text” property"><span class="type">"text"</span></a> property.</p>
+<p>Base string value of the candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-get-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-get-text.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--text" title="The “text” property"><span class="type">"text"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-set-text"></a><h3>kkc_candidate_set_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_set_text (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--text" title="The “text” property"><span class="type">"text"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Base string value of the candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-set-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidate.html#KkcCandidate--text" title="The “text” property"><span class="type">"text"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-get-annotation"></a><h3>kkc_candidate_get_annotation ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_candidate_get_annotation (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidate.html#KkcCandidate--annotation" title="The “annotation” property"><span class="type">"annotation"</span></a> property.</p>
+<p>Optional annotation text associated with the candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-get-annotation.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-get-annotation.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--annotation" title="The “annotation” property"><span class="type">"annotation"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-set-annotation"></a><h3>kkc_candidate_set_annotation ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_set_annotation (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--annotation" title="The “annotation” property"><span class="type">"annotation"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Optional annotation text associated with the candidate.</p>
+<div class="refsect3">
+<a name="kkc-candidate-set-annotation.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidate.html#KkcCandidate--annotation" title="The “annotation” property"><span class="type">"annotation"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-get-output"></a><h3>kkc_candidate_get_output ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+kkc_candidate_get_output (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcCandidate.html#KkcCandidate--output" title="The “output” property"><span class="type">"output"</span></a> property.</p>
+<p>Output string shown instead of text.</p>
+<p>This is particularly useful to display a candidate of numeric conversion.</p>
+<div class="refsect3">
+<a name="kkc-candidate-get-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-candidate-get-output.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--output" title="The “output” property"><span class="type">"output"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-candidate-set-output"></a><h3>kkc_candidate_set_output ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_candidate_set_output (<em class="parameter"><code><a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> *self</code></em>,
+                          <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcCandidate.html#KkcCandidate--output" title="The “output” property"><span class="type">"output"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Output string shown instead of text.</p>
+<p>This is particularly useful to display a candidate of numeric conversion.</p>
+<div class="refsect3">
+<a name="kkc-candidate-set-output.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcCandidate.html#KkcCandidate--output" title="The “output” property"><span class="type">"output"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-CANDIDATE:CAPS"></a><h3>KKC_TYPE_CANDIDATE</h3>
+<pre class="programlisting">#define KKC_TYPE_CANDIDATE (kkc_candidate_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcCandidate.html" title="KkcCandidate"><span class="type">KkcCandidate</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidate-struct"></a><h3>struct KkcCandidate</h3>
+<pre class="programlisting">struct KkcCandidate;</pre>
+<p>Object representing a candidate in dictionaries.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidateClass"></a><h3>struct KkcCandidateClass</h3>
+<pre class="programlisting">struct KkcCandidateClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcCandidate.html#KKC-TYPE-CANDIDATE:CAPS" title="KKC_TYPE_CANDIDATE"><code class="literal">KKC_TYPE_CANDIDATE</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcCandidateClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcCandidate.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcCandidate--annotation"></a><h3>The <code class="literal">“annotation”</code> property</h3>
+<pre class="programlisting">  “annotation”               <span class="type">gchar</span> *</pre>
+<p>Optional annotation text associated with the candidate.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidate--midasi"></a><h3>The <code class="literal">“midasi”</code> property</h3>
+<pre class="programlisting">  “midasi”                   <span class="type">gchar</span> *</pre>
+<p>Midasi word which generated this candidate.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidate--okuri"></a><h3>The <code class="literal">“okuri”</code> property</h3>
+<pre class="programlisting">  “okuri”                    <span class="type">gboolean</span></pre>
+<p>Flag to indicate whether this candidate is generated as a result of okuri-ari conversion.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidate--output"></a><h3>The <code class="literal">“output”</code> property</h3>
+<pre class="programlisting">  “output”                   <span class="type">gchar</span> *</pre>
+<p>Output string shown instead of text.</p>
+<p>This is particularly useful to display a candidate of numeric conversion.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcCandidate--text"></a><h3>The <code class="literal">“text”</code> property</h3>
+<pre class="programlisting">  “text”                     <span class="type">gchar</span> *</pre>
+<p>Base string value of the candidate.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

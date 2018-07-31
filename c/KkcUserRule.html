@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcUserRule:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter">
+<link rel="next" href="KkcDictionary.html" title="KkcDictionary">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcUserRule.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcUserRule.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#KkcUserRule.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcKeyEventFilter.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcDictionary.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcUserRule"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcUserRule.top_of_page"></a>KkcUserRule</span></h2>
+<p>KkcUserRule — Object representing a writable typing rule.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcUserRule.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcUserRule.html#kkc-user-rule-write" title="kkc_user_rule_write ()">kkc_user_rule_write</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcUserRule.html" title="KkcUserRule"><span class="returnvalue">KkcUserRule</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcUserRule.html#kkc-user-rule-new" title="kkc_user_rule_new ()">kkc_user_rule_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcUserRule.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcUserRule.html#KKC-TYPE-USER-RULE:CAPS" title="KKC_TYPE_USER_RULE">KKC_TYPE_USER_RULE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcUserRule.html#KkcUserRule-struct" title="struct KkcUserRule">KkcUserRule</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcUserRule.html#KkcUserRuleClass" title="struct KkcUserRuleClass">KkcUserRuleClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcUserRule.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> <a class="link" href="KkcRuleMetadata.html#KkcRule">KkcRule</a>
+        <span class="lineart">╰──</span> KkcUserRule
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcUserRule.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+KkcUserRule implements
+ GInitable.</p>
+</div>
+<div class="refsect1">
+<a name="KkcUserRule.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcUserRule.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-user-rule-write"></a><h3>kkc_user_rule_write ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_user_rule_write (<em class="parameter"><code><a class="link" href="KkcUserRule.html" title="KkcUserRule"><span class="type">KkcUserRule</span></a> *self</code></em>,
+                     <em class="parameter"><code><a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode"><span class="type">KkcInputMode</span></a> input_mode</code></em>,
+                     <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Save keymap for given input mode.</p>
+<div class="refsect3">
+<a name="kkc-user-rule-write.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcUserRule.html" title="KkcUserRule"><span class="type">KkcUserRule</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>input_mode</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>input mode </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-user-rule-new"></a><h3>kkc_user_rule_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcUserRule.html" title="KkcUserRule"><span class="returnvalue">KkcUserRule</span></a> *
+kkc_user_rule_new (<em class="parameter"><code><a class="link" href="KkcRuleMetadata.html" title="KkcRuleMetadata"><span class="type">KkcRuleMetadata</span></a> *parent</code></em>,
+                   <em class="parameter"><code>const <span class="type">gchar</span> *base_dir</code></em>,
+                   <em class="parameter"><code>const <span class="type">gchar</span> *prefix</code></em>,
+                   <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Create a new UserRule.</p>
+<div class="refsect3">
+<a name="kkc-user-rule-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>parent</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>metadata of the parent rule </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>base_dir</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>base directory where this user rule is saved </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prefix</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a string prepended to the rule name </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store the error occuring, or <code class="literal">NULL</code> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Typed errors. Similar to throws in Java."><span class="acronym">error-domains</span></acronym> KkcRuleParseError]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcUserRule.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-USER-RULE:CAPS"></a><h3>KKC_TYPE_USER_RULE</h3>
+<pre class="programlisting">#define KKC_TYPE_USER_RULE (kkc_user_rule_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcUserRule.html" title="KkcUserRule"><span class="type">KkcUserRule</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcUserRule-struct"></a><h3>struct KkcUserRule</h3>
+<pre class="programlisting">struct KkcUserRule;</pre>
+<p>Object representing a writable typing rule.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcUserRuleClass"></a><h3>struct KkcUserRuleClass</h3>
+<pre class="programlisting">struct KkcUserRuleClass {
+	KkcRuleClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcUserRule.html#KKC-TYPE-USER-RULE:CAPS" title="KKC_TYPE_USER_RULE"><code class="literal">KKC_TYPE_USER_RULE</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcUserRuleClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

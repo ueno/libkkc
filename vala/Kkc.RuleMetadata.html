@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Kkc.RuleMetadata &ndash; libkkc &ndash; Vala Binding Reference</title>
+    <link href="devhelpstyle.css" rel="stylesheet" type="text/css"/><script src="scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Kkc.RuleMetadata &ndash; libkkc Reference Manual</div>
+    <div class="site_body">
+      <div class="site_content">
+        <h1 class="main_title">RuleMetadata</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Kkc.RuleMetadata" alt="Object hierarchy for RuleMetadata" src="img/Kkc.RuleMetadata.png"/>
+
+      <map id="Kkc.RuleMetadata" name="Kkc.RuleMetadata">
+<area shape="rect" id="node1" href="Kkc.RuleMetadata.html" title="Kkc.RuleMetadata" alt="" coords="53,197,212,245"/>
+<area shape="rect" id="node2" href="Kkc.MetadataFile.html" title="Kkc.MetadataFile" alt="" coords="56,101,209,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">RuleMetadata</span></b> : <span class="main_type"><a href="Kkc.MetadataFile.html" class="abstract_class">MetadataFile</a></span>
+        </div>
+        <div class="description">
+          <p>Object describing a rule.</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Kkc.html">Kkc</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">libkkc</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Kkc.RuleMetadata.filter.html" class="property">filter</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Name of key event filter.</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">int</span></span> <b><a href="Kkc.RuleMetadata.priority.html" class="property">priority</a></b> { <span class="main_keyword">construct</span> <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Priority of the rule.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Static methods:</h3>
+        <ul class="navi_inline">
+          <li class="static_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">static</span> <span class="main_type"><span class="class">RuleMetadata</span></span>? <b><a href="Kkc.RuleMetadata.find.html" class="static_method">find</a></b> (<span class="main_basic_type"><span class="class">string</span></span> name)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Locate a rule metadata by name.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Kkc.RuleMetadata.RuleMetadata.html" class="creation_method">RuleMetadata</a></b> (<span class="main_basic_type"><span class="class">string</span></span> name, <span class="main_basic_type"><span class="class">string</span></span> filename) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="virtual_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">override</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RuleMetadata.parse.html" class="virtual_method">parse</a></b> (<span class="main_type"><span class="class">Object</span></span> object) <span class="main_keyword">throws</span> <span class="main_type"><span class="class">Error</span></span>
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Kkc.KeyEventFilter.html" class="abstract_class">KeyEventFilter</a></span> <b><a href="Kkc.RuleMetadata.create_key_event_filter.html" class="method">create_key_event_filter</a></b> ()
+            </span>
+            <div class="leaf_brief_description">
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span>? <b><a href="Kkc.RuleMetadata.locate_map_file.html" class="method">locate_map_file</a></b> (<span class="main_basic_type"><span class="class">string</span></span> type, <span class="main_basic_type"><span class="class">string</span></span> name)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Return the path of the map file.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-27')">All known members inherited from class Kkc.MetadataFile</div>
+          <div class="content" id="box-content-27">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="property"><a href="Kkc.MetadataFile.name.html">name</a></li>
+                <li class="property"><a href="Kkc.MetadataFile.label.html">label</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="property"><a href="Kkc.MetadataFile.description.html">description</a></li>
+                <li class="property"><a href="Kkc.MetadataFile.filename.html">filename</a></li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method"><a href="Kkc.MetadataFile.parse.html">parse</a></li>
+                <li class="method"><a href="Kkc.MetadataFile.init.html">init</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-28')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-28">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-29')">All known members inherited from interface GLib.Initable</div>
+          <div class="content" id="box-content-29">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">newv</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="abstract_method">init</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    </div>
+  </body>
+</html>

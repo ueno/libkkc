@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>kkc:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="libkkc-keysyms.html" title="keysyms">
+<link rel="next" href="KkcDictionaryList.html" title="KkcDictionaryList">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libkkc-kkc.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#libkkc-kkc.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libkkc-keysyms.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcDictionaryList.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libkkc-kkc"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libkkc-kkc.top_of_page"></a>kkc</span></h2>
+<p>kkc</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libkkc-kkc.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="libkkc-kkc.html#kkc-init" title="kkc_init ()">kkc_init</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libkkc-kkc.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="libkkc-kkc.html#KkcInputMode" title="enum KkcInputMode">KkcInputMode</a></td>
+</tr>
+<tr>
+<td class="variable_type">extern gboolean </td>
+<td class="function_name"><a class="link" href="libkkc-kkc.html#kkc-use-mapped-index-file" title="kkc_use_mapped_index_file">kkc_use_mapped_index_file</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libkkc-kkc.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GEnum
+    <span class="lineart">╰──</span> KkcInputMode
+</pre>
+</div>
+<div class="refsect1">
+<a name="libkkc-kkc.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libkkc-kkc.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-init"></a><h3>kkc_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_init (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Initialize libkkc.</p>
+<p>Must be called before using any functions in libkkc.</p>
+<div class="refsect3">
+<a name="kkc-init.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the (null) instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="libkkc-kkc.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KkcInputMode"></a><h3>enum KkcInputMode</h3>
+<p>Type to specify input modes.</p>
+<div class="refsect3">
+<a name="KkcInputMode.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-INPUT-MODE-HIRAGANA:CAPS"></a>KKC_INPUT_MODE_HIRAGANA</p></td>
+<td class="enum_member_description">
+<p>Hiragana like "あいう...".</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-INPUT-MODE-KATAKANA:CAPS"></a>KKC_INPUT_MODE_KATAKANA</p></td>
+<td class="enum_member_description">
+<p>Katakana like "アイウ...".</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-INPUT-MODE-HANKAKU-KATAKANA:CAPS"></a>KKC_INPUT_MODE_HANKAKU_KATAKANA</p></td>
+<td class="enum_member_description">
+<p>Half-width katakana like "ｱｲｳ...".</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-INPUT-MODE-LATIN:CAPS"></a>KKC_INPUT_MODE_LATIN</p></td>
+<td class="enum_member_description">
+<p>Half-width latin like "abc...".</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-INPUT-MODE-WIDE-LATIN:CAPS"></a>KKC_INPUT_MODE_WIDE_LATIN</p></td>
+<td class="enum_member_description">
+<p>Full-width latin like "ａｂｃ...".</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="KKC-INPUT-MODE-DIRECT:CAPS"></a>KKC_INPUT_MODE_DIRECT</p></td>
+<td class="enum_member_description">
+<p>Direct input.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-use-mapped-index-file"></a><h3>kkc_use_mapped_index_file</h3>
+<pre class="programlisting">extern gboolean kkc_use_mapped_index_file;
+</pre>
+<p>Flag to indicate whether to use mmap for indices.</p>
+<p>If `false`, all the contents of indices will be loaded while initialization.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

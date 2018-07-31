@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcKeymap:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcDecoder.html" title="KkcDecoder">
+<link rel="next" href="KkcTextTrigramLanguageModel.html" title="KkcTextTrigramLanguageModel">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcKeymap.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcKeymap.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#KkcKeymap.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcDecoder.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcTextTrigramLanguageModel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcKeymap"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcKeymap.top_of_page"></a>KkcKeymap</span></h2>
+<p>KkcKeymap — Object representing a keymap.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcKeymap.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="returnvalue">KkcKeymapEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-entries" title="kkc_keymap_entries ()">kkc_keymap_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="returnvalue">KkcKeymapEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-local-entries" title="kkc_keymap_local_entries ()">kkc_keymap_local_entries</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-set" title="kkc_keymap_set ()">kkc_keymap_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-lookup-key" title="kkc_keymap_lookup_key ()">kkc_keymap_lookup_key</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-where-is" title="kkc_keymap_where_is ()">kkc_keymap_where_is</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="returnvalue">KkcKeymap</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-new" title="kkc_keymap_new ()">kkc_keymap_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="returnvalue">KkcKeymap</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-get-parent" title="kkc_keymap_get_parent ()">kkc_keymap_get_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-set-parent" title="kkc_keymap_set_parent ()">kkc_keymap_set_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-commands" title="kkc_keymap_commands ()">kkc_keymap_commands</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-get-command-label" title="kkc_keymap_get_command_label ()">kkc_keymap_get_command_label</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="returnvalue">KkcKeymapEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-entry-dup" title="kkc_keymap_entry_dup ()">kkc_keymap_entry_dup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-entry-free" title="kkc_keymap_entry_free ()">kkc_keymap_entry_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-entry-copy" title="kkc_keymap_entry_copy ()">kkc_keymap_entry_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeymap.html#kkc-keymap-entry-destroy" title="kkc_keymap_entry_destroy ()">kkc_keymap_entry_destroy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeymap.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *</td>
+<td class="property_name"><a class="link" href="KkcKeymap.html#KkcKeymap--parent" title="The “parent” property">parent</a></td>
+<td class="property_flags">Read / Write</td>
+</tr></tbody>
+</table></div>
+</div>
+<a name="KkcKeymapEntry"></a><div class="refsect1">
+<a name="KkcKeymap.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcKeymap.html#KKC-TYPE-KEYMAP:CAPS" title="KKC_TYPE_KEYMAP">KKC_TYPE_KEYMAP</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeymap.html#KkcKeymap-struct" title="struct KkcKeymap">KkcKeymap</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeymap.html#KkcKeymapClass" title="struct KkcKeymapClass">KkcKeymapClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeymap.html#KkcKeymapEntry-struct" title="struct KkcKeymapEntry">KkcKeymapEntry</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeymap.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GBoxed
+    <span class="lineart">╰──</span> KkcKeymapEntry
+    GObject
+    <span class="lineart">╰──</span> KkcKeymap
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcKeymap.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcKeymap.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-keymap-entries"></a><h3>kkc_keymap_entries ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="returnvalue">KkcKeymapEntry</span></a> *
+kkc_keymap_entries (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>,
+                    <em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<p>Return all the keymap entries including parent's.</p>
+<div class="refsect3">
+<a name="kkc-keymap-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-entries.returns"></a><h4>Returns</h4>
+<p>array of KeymapEntry </p>.
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=result_length1]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-local-entries"></a><h3>kkc_keymap_local_entries ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="returnvalue">KkcKeymapEntry</span></a> *
+kkc_keymap_local_entries (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>,
+                          <em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<p>Return keymap entries not including parent's.</p>
+<div class="refsect3">
+<a name="kkc-keymap-local-entries.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-local-entries.returns"></a><h4>Returns</h4>
+<p>array of KeymapEntry </p>.
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=result_length1]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-set"></a><h3>kkc_keymap_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_keymap_set (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>,
+                <em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *key</code></em>,
+                <em class="parameter"><code>const <span class="type">gchar</span> *command</code></em>);</pre>
+<p>Bind a key event to a command.</p>
+<div class="refsect3">
+<a name="kkc-keymap-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>key event </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>command</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>command or <code class="literal">null</code> to unset </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-lookup-key"></a><h3>kkc_keymap_lookup_key ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_keymap_lookup_key (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>,
+                       <em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *key</code></em>);</pre>
+<p>Lookup a command bound to a key event.</p>
+<div class="refsect3">
+<a name="kkc-keymap-lookup-key.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>key event </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-lookup-key.returns"></a><h4>Returns</h4>
+<p>command or `null` </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-where-is"></a><h3>kkc_keymap_where_is ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+kkc_keymap_where_is (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>,
+                     <em class="parameter"><code>const <span class="type">gchar</span> *command</code></em>);</pre>
+<p>Lookup a key event to which a command is bound.</p>
+<div class="refsect3">
+<a name="kkc-keymap-where-is.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>command</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>command </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-where-is.returns"></a><h4>Returns</h4>
+<p>a key event or `null` </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-new"></a><h3>kkc_keymap_new ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="returnvalue">KkcKeymap</span></a> *
+kkc_keymap_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-get-parent"></a><h3>kkc_keymap_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="returnvalue">KkcKeymap</span></a> *
+kkc_keymap_get_parent (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>);</pre>
+<p>Get and return the current value of the <a class="link" href="KkcKeymap.html#KkcKeymap--parent" title="The “parent” property"><span class="type">"parent"</span></a> property.</p>
+<p>Parent keymap.</p>
+<div class="refsect3">
+<a name="kkc-keymap-get-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-get-parent.returns"></a><h4>Returns</h4>
+<p> the value of the <a class="link" href="KkcKeymap.html#KkcKeymap--parent" title="The “parent” property"><span class="type">"parent"</span></a> property</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-set-parent"></a><h3>kkc_keymap_set_parent ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_keymap_set_parent (<em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *self</code></em>,
+                       <em class="parameter"><code><a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *value</code></em>);</pre>
+<p>Set the value of the <a class="link" href="KkcKeymap.html#KkcKeymap--parent" title="The “parent” property"><span class="type">"parent"</span></a> property to <em class="parameter"><code>value</code></em>
+.</p>
+<p>Parent keymap.</p>
+<div class="refsect3">
+<a name="kkc-keymap-set-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> instance to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the new value of the <a class="link" href="KkcKeymap.html#KkcKeymap--parent" title="The “parent” property"><span class="type">"parent"</span></a> property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-commands"></a><h3>kkc_keymap_commands ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+kkc_keymap_commands (<em class="parameter"><code><span class="type">int</span> *result_length1</code></em>);</pre>
+<p>List commands usable in keymap.</p>
+<div class="refsect3">
+<a name="kkc-keymap-commands.returns"></a><h4>Returns</h4>
+<p>array of commands </p>.
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=result_length1]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-get-command-label"></a><h3>kkc_keymap_get_command_label ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+kkc_keymap_get_command_label (<em class="parameter"><code>const <span class="type">gchar</span> *command</code></em>);</pre>
+<p>Return a label for a command</p>
+<div class="refsect3">
+<a name="kkc-keymap-get-command-label.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>command</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>command </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-get-command-label.returns"></a><h4>Returns</h4>
+<p>label </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-entry-dup"></a><h3>kkc_keymap_entry_dup ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="returnvalue">KkcKeymapEntry</span></a> *
+kkc_keymap_entry_dup (<em class="parameter"><code>const <a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="type">KkcKeymapEntry</span></a> *self</code></em>);</pre>
+<p>Creates a copy of self.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcKeymap.html#kkc-keymap-entry-copy" title="kkc_keymap_entry_copy ()"><code class="function">kkc_keymap_entry_copy()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-destroy" title="kkc_keymap_entry_destroy ()"><code class="function">kkc_keymap_entry_destroy()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-free" title="kkc_keymap_entry_free ()"><code class="function">kkc_keymap_entry_free()</code></a></p>
+<div class="refsect3">
+<a name="kkc-keymap-entry-dup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the instance to duplicate</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-keymap-entry-dup.returns"></a><h4>Returns</h4>
+<p> a copy of <em class="parameter"><code>self</code></em>
+, free with <a class="link" href="KkcKeymap.html#kkc-keymap-entry-free" title="kkc_keymap_entry_free ()"><code class="function">kkc_keymap_entry_free()</code></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-entry-free"></a><h3>kkc_keymap_entry_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_keymap_entry_free (<em class="parameter"><code><a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="type">KkcKeymapEntry</span></a> *self</code></em>);</pre>
+<p>Frees the heap-allocated struct.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcKeymap.html#kkc-keymap-entry-dup" title="kkc_keymap_entry_dup ()"><code class="function">kkc_keymap_entry_dup()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-copy" title="kkc_keymap_entry_copy ()"><code class="function">kkc_keymap_entry_copy()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-destroy" title="kkc_keymap_entry_destroy ()"><code class="function">kkc_keymap_entry_destroy()</code></a></p>
+<div class="refsect3">
+<a name="kkc-keymap-entry-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the struct to free</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-entry-copy"></a><h3>kkc_keymap_entry_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_keymap_entry_copy (<em class="parameter"><code>const <a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="type">KkcKeymapEntry</span></a> *self</code></em>,
+                       <em class="parameter"><code><a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="type">KkcKeymapEntry</span></a> *dest</code></em>);</pre>
+<p>Creates a copy of self.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcKeymap.html#kkc-keymap-entry-dup" title="kkc_keymap_entry_dup ()"><code class="function">kkc_keymap_entry_dup()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-destroy" title="kkc_keymap_entry_destroy ()"><code class="function">kkc_keymap_entry_destroy()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-free" title="kkc_keymap_entry_free ()"><code class="function">kkc_keymap_entry_free()</code></a></p>
+<div class="refsect3">
+<a name="kkc-keymap-entry-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the struct to copy</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>a unused struct. Use <a class="link" href="KkcKeymap.html#kkc-keymap-entry-destroy" title="kkc_keymap_entry_destroy ()"><code class="function">kkc_keymap_entry_destroy()</code></a> to free the content.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-keymap-entry-destroy"></a><h3>kkc_keymap_entry_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_keymap_entry_destroy (<em class="parameter"><code><a class="link" href="KkcKeymap.html#KkcKeymapEntry"><span class="type">KkcKeymapEntry</span></a> *self</code></em>);</pre>
+<p>Frees the content of the struct pointed by <em class="parameter"><code>self</code></em>
+.</p>
+<p><span class="emphasis"><em>See also</em></span>: <a class="link" href="KkcKeymap.html#kkc-keymap-entry-dup" title="kkc_keymap_entry_dup ()"><code class="function">kkc_keymap_entry_dup()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-copy" title="kkc_keymap_entry_copy ()"><code class="function">kkc_keymap_entry_copy()</code></a>, <a class="link" href="KkcKeymap.html#kkc-keymap-entry-free" title="kkc_keymap_entry_free ()"><code class="function">kkc_keymap_entry_free()</code></a></p>
+<div class="refsect3">
+<a name="kkc-keymap-entry-destroy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the struct to destroy</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcKeymap.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-KEYMAP:CAPS"></a><h3>KKC_TYPE_KEYMAP</h3>
+<pre class="programlisting">#define KKC_TYPE_KEYMAP (kkc_keymap_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeymap-struct"></a><h3>struct KkcKeymap</h3>
+<pre class="programlisting">struct KkcKeymap;</pre>
+<p>Object representing a keymap.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeymapClass"></a><h3>struct KkcKeymapClass</h3>
+<pre class="programlisting">struct KkcKeymapClass {
+	GObjectClass parent_class;
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcKeymap.html#KKC-TYPE-KEYMAP:CAPS" title="KKC_TYPE_KEYMAP"><code class="literal">KKC_TYPE_KEYMAP</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcKeymapClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeymapEntry-struct"></a><h3>struct KkcKeymapEntry</h3>
+<pre class="programlisting">struct KkcKeymapEntry {
+	KkcKeyEvent* key;
+	gchar* command;
+};
+</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcKeymap.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="KkcKeymap--parent"></a><h3>The <code class="literal">“parent”</code> property</h3>
+<pre class="programlisting">  “parent”                   <a class="link" href="KkcKeymap.html" title="KkcKeymap"><span class="type">KkcKeymap</span></a> *</pre>
+<p>Parent keymap.</p>
+<p>Flags: Read / Write</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

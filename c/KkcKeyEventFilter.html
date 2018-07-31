@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>KkcKeyEventFilter:  Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Reference Manual">
+<link rel="up" href="ch01.html" title="libkkc API Reference">
+<link rel="prev" href="KkcDictionaryList.html" title="KkcDictionaryList">
+<link rel="next" href="KkcUserRule.html" title="KkcUserRule">
+<meta name="generator" content="GTK-Doc V1.28 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#KkcKeyEventFilter.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#KkcKeyEventFilter.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#KkcKeyEventFilter.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="KkcDictionaryList.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="KkcUserRule.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="KkcKeyEventFilter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="KkcKeyEventFilter.top_of_page"></a>KkcKeyEventFilter</span></h2>
+<p>KkcKeyEventFilter — Base class of a key event filter.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEventFilter.html#kkc-key-event-filter-filter-key-event" title="kkc_key_event_filter_filter_key_event ()">kkc_key_event_filter_filter_key_event</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="KkcKeyEventFilter.html#kkc-key-event-filter-reset" title="kkc_key_event_filter_reset ()">kkc_key_event_filter_reset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="KkcKeyEventFilter.html#KkcKeyEventFilter-forwarded" title="The “forwarded” signal">forwarded</a></td>
+<td class="signal_flags">Run Last</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="KkcKeyEventFilter.html#KKC-TYPE-KEY-EVENT-FILTER:CAPS" title="KKC_TYPE_KEY_EVENT_FILTER">KKC_TYPE_KEY_EVENT_FILTER</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeyEventFilter.html#KkcKeyEventFilter-struct" title="struct KkcKeyEventFilter">KkcKeyEventFilter</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="KkcKeyEventFilter.html#KkcKeyEventFilterClass" title="struct KkcKeyEventFilterClass">KkcKeyEventFilterClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> KkcKeyEventFilter
+        <span class="lineart">╰──</span> <a class="link" href="KkcNicolaKeyEventFilter.html" title="KkcNicolaKeyEventFilter">KkcNicolaKeyEventFilter</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="kkc-key-event-filter-filter-key-event"></a><h3>kkc_key_event_filter_filter_key_event ()</h3>
+<pre class="programlisting"><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="returnvalue">KkcKeyEvent</span></a> *
+kkc_key_event_filter_filter_key_event (<em class="parameter"><code><a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *self</code></em>,
+                                       <em class="parameter"><code><a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a> *key</code></em>);</pre>
+<p>Convert a key event to another.</p>
+<div class="refsect3">
+<a name="kkc-key-event-filter-filter-key-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a key event </p>
+<p>. </p>
+</td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="kkc-key-event-filter-filter-key-event.returns"></a><h4>Returns</h4>
+<p>a KeyEvent or `null` if the result cannot be fetched immediately </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="kkc-key-event-filter-reset"></a><h3>kkc_key_event_filter_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+kkc_key_event_filter_reset (<em class="parameter"><code><a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *self</code></em>);</pre>
+<p>Reset the filter.</p>
+<div class="refsect3">
+<a name="kkc-key-event-filter-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="KKC-TYPE-KEY-EVENT-FILTER:CAPS"></a><h3>KKC_TYPE_KEY_EVENT_FILTER</h3>
+<pre class="programlisting">#define KKC_TYPE_KEY_EVENT_FILTER (kkc_key_event_filter_get_type ())
+</pre>
+<p>The type for <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEventFilter-struct"></a><h3>struct KkcKeyEventFilter</h3>
+<pre class="programlisting">struct KkcKeyEventFilter;</pre>
+<p>Base class of a key event filter.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="KkcKeyEventFilterClass"></a><h3>struct KkcKeyEventFilterClass</h3>
+<pre class="programlisting">struct KkcKeyEventFilterClass {
+	GObjectClass parent_class;
+	KkcKeyEvent* (*filter_key_event) (KkcKeyEventFilter* self, KkcKeyEvent* key);
+	void (*reset) (KkcKeyEventFilter* self);
+};
+</pre>
+<p>The class structure for <a class="link" href="KkcKeyEventFilter.html#KKC-TYPE-KEY-EVENT-FILTER:CAPS" title="KKC_TYPE_KEY_EVENT_FILTER"><code class="literal">KKC_TYPE_KEY_EVENT_FILTER</code></a>. All the fields in this structure are private and should never be accessed directly.</p>
+<div class="refsect3">
+<a name="KkcKeyEventFilterClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcKeyEventFilterClass.filter-key-event"></a>filter_key_event</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcKeyEventFilter.html#kkc-key-event-filter-filter-key-event" title="kkc_key_event_filter_filter_key_event ()"><code class="function">kkc_key_event_filter_filter_key_event()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="KkcKeyEventFilterClass.reset"></a>reset</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual method called by <a class="link" href="KkcKeyEventFilter.html#kkc-key-event-filter-reset" title="kkc_key_event_filter_reset ()"><code class="function">kkc_key_event_filter_reset()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="KkcKeyEventFilter.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="KkcKeyEventFilter-forwarded"></a><h3>The <code class="literal">“forwarded”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> *key_event_filter,
+               <a class="link" href="KkcKeyEvent.html" title="KkcKeyEvent"><span class="type">KkcKeyEvent</span></a>       *key,
+               <span class="type">gpointer</span>           user_data)</pre>
+<p>Signal emitted when a new key event is generated in the filter.</p>
+<div class="refsect3">
+<a name="KkcKeyEventFilter-forwarded.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>key_event_filter</p></td>
+<td class="parameter_description"><p>the <a class="link" href="KkcKeyEventFilter.html" title="KkcKeyEventFilter"><span class="type">KkcKeyEventFilter</span></a> instance that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description">
+<p> .  </p>
+<p>a key event </p>
+<p></p>
+</td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.28</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Kkc.RomKanaConverter &ndash; libkkc &ndash; Vala Binding Reference</title>
+    <link href="devhelpstyle.css" rel="stylesheet" type="text/css"/><script src="scripts.js" type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div class="site_header">Kkc.RomKanaConverter &ndash; libkkc Reference Manual</div>
+    <div class="site_body">
+      <div class="site_content">
+        <h1 class="main_title">RomKanaConverter</h1>
+        <hr class="main_hr"/>
+        <h2 class="main_title">Object Hierarchy:</h2>
+        <img class="main_diagram" usemap="#Kkc.RomKanaConverter" alt="Object hierarchy for RomKanaConverter" src="img/Kkc.RomKanaConverter.png"/>
+
+      <map id="Kkc.RomKanaConverter" name="Kkc.RomKanaConverter">
+<area shape="rect" id="node1" href="Kkc.RomKanaConverter.html" title="Kkc.RomKanaConverter" alt="" coords="5,101,205,149"/>
+</map>
+
+        <h2 class="main_title">Description:</h2>
+        <div class="main_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">class</span> <b><span class="class">RomKanaConverter</span></b> : <span class="main_type"><span class="class">Object</span></span>
+        </div>
+        <div class="description">
+          <p>Romaji-to-kana converter.</p>
+        </div><br/>
+        <div class="namespace_note"><b>Namespace:</b> <a href="Kkc.html">Kkc</a>
+        </div>
+        <div class="package_note"><b>Package:</b> <a href="index.htm">libkkc</a>
+        </div>
+        <h2 class="main_title">Content:</h2>
+        <h3 class="main_title">Properties:</h3>
+        <ul class="navi_inline">
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Kkc.KanaMode.html" class="enum">KanaMode</a></span> <b><a href="Kkc.RomKanaConverter.kana_mode.html" class="property">kana_mode</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The current kana mode.</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Kkc.PunctuationStyle.html" class="enum">PunctuationStyle</a></span> <b><a href="Kkc.RomKanaConverter.punctuation_style.html" class="property">punctuation_style</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The current punctuation style.</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RomKanaConverter.auto_correct.html" class="property">auto_correct</a></b> { <span class="main_keyword">set</span>; <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The current auto correct flag.</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Kkc.RomKanaConverter.pending_output.html" class="property">pending_output</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The output being processed.</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Kkc.RomKanaConverter.pending_input.html" class="property">pending_input</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">The input being processed.</span>
+            </div></li>
+          <li class="property"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_type"><a href="Kkc.RomKanaCharacterList.html" class="class">RomKanaCharacterList</a></span> <b><a href="Kkc.RomKanaConverter.produced.html" class="property">produced</a></b> { <span class="main_keyword">get</span>; }
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">A list of already processed characters.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Creation methods:</h3>
+        <ul class="navi_inline">
+          <li class="creation_method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <b><a href="Kkc.RomKanaConverter.RomKanaConverter.html" class="creation_method">RomKanaConverter</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Create a new RomKanaConverter.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Methods:</h3>
+        <ul class="navi_inline">
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="class">string</span></span> <b><a href="Kkc.RomKanaConverter.get_produced_output.html" class="method">get_produced_output</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Return the concatenation of the produced output characters.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RomKanaConverter.is_valid.html" class="method">is_valid</a></b> (<span class="main_basic_type"><span class="struct">unichar</span></span> uc)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Check if a character is a valid conversion input.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RomKanaConverter.flush_partial.html" class="method">flush_partial</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Finish pending input, if any.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Kkc.RomKanaConverter.append_text.html" class="method">append_text</a></b> (<span class="main_basic_type"><span class="class">string</span></span> text)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Append text to the internal buffer.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RomKanaConverter.append.html" class="method">append</a></b> (<span class="main_basic_type"><span class="struct">unichar</span></span> uc)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Append a character to the internal buffer.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RomKanaConverter.can_consume.html" class="method">can_consume</a></b> (<span class="main_basic_type"><span class="struct">unichar</span></span> uc, <span class="main_basic_type"><span class="struct">bool</span></span> no_carryover = <span class="main_literal">true</span>)
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Check if a character will be consumed by the current conversion.
+              </span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_keyword">void</span> <b><a href="Kkc.RomKanaConverter.reset.html" class="method">reset</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Reset the internal state of the converter.</span>
+            </div></li>
+          <li class="method"><span class="leaf_code_definition"><span class="main_keyword">public</span> <span class="main_basic_type"><span class="struct">bool</span></span> <b><a href="Kkc.RomKanaConverter.@delete.html" class="method">@delete</a></b> ()
+            </span>
+            <div class="leaf_brief_description"><span class="brief_description">Delete the trailing character from the internal buffer.</span>
+            </div></li>
+        </ul>
+        <h3 class="main_title">Inherited Members:</h3>
+        <div class="box">
+          <div class="headline" onclick="toggle_box (this, 'box-content-26')">All known members inherited from class GLib.Object</div>
+          <div class="content" id="box-content-26">
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="static_method">interface_find_property</li>
+                <li class="static_method">interface_install_property</li>
+                <li class="static_method">interface_list_properties</li>
+                <li class="static_method">@new</li>
+                <li class="static_method">new_valist</li>
+                <li class="static_method">newv</li>
+                <li class="static_method">new_with_properties</li>
+                <li class="method">add_toggle_ref</li>
+                <li class="method">add_weak_pointer</li>
+                <li class="method">bind_property</li>
+                <li class="method">connect</li>
+                <li class="virtual_method">constructed</li>
+                <li class="method">disconnect</li>
+                <li class="virtual_method">dispose</li>
+                <li class="method">dup_data</li>
+                <li class="method">dup_qdata</li>
+                <li class="method">force_floating</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">freeze_notify</li>
+                <li class="method">@get</li>
+                <li class="method">get_class</li>
+                <li class="method">get_data</li>
+                <li class="method">get_property</li>
+                <li class="method">get_qdata</li>
+                <li class="method">get_type</li>
+                <li class="method">getv</li>
+                <li class="method">is_floating</li>
+                <li class="method">notify_property</li>
+                <li class="method">@ref</li>
+                <li class="method">ref_sink</li>
+                <li class="method">replace_data</li>
+                <li class="method">replace_qdata</li>
+                <li class="method">remove_toggle_ref</li>
+                <li class="method">remove_weak_pointer</li>
+                <li class="method">@set</li>
+              </ul>
+            </div>
+            <div class="column">
+              <ul class="navi_inline">
+                <li class="method">set_data</li>
+                <li class="method">set_data_full</li>
+                <li class="method">set_property</li>
+                <li class="method">set_qdata</li>
+                <li class="method">set_qdata_full</li>
+                <li class="method">set_valist</li>
+                <li class="method">setv</li>
+                <li class="method">steal_data</li>
+                <li class="method">steal_qdata</li>
+                <li class="method">thaw_notify</li>
+                <li class="method">unref</li>
+                <li class="method">watch_closure</li>
+                <li class="method">weak_ref</li>
+                <li class="method">weak_unref</li>
+                <li class="signal">notify</li>
+                <li class="field">ref_count</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br/>
+    <div class="site_footer">Generated by <a href="http://www.valadoc.org/">Valadoc</a>
+    </div>
+  </body>
+</html>
