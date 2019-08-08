@@ -209,7 +209,8 @@ namespace Kkc {
         }
 
         public SortedBigramLanguageModel (LanguageModelMetadata metadata) throws Error {
-            base (metadata);
+            Object (metadata: metadata);
+            init (null);
         }
     }
 }

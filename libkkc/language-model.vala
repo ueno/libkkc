@@ -44,7 +44,8 @@ namespace Kkc {
         }
 
         public LanguageModelMetadata (string name, string filename) throws Error {
-            base (name, filename);
+            Object (name: name, filename: filename);
+            init (null);
         }
 
         public override bool parse (Json.Object object) throws Error {
@@ -100,11 +101,6 @@ namespace Kkc {
         public abstract Collection<LanguageModelEntry?> entries (string input);
         public abstract new LanguageModelEntry? @get (string input,
                                                       string output);
-
-        public LanguageModel (LanguageModelMetadata metadata) throws Error {
-            Object (metadata: metadata);
-            init (null);
-        }
 
         public abstract bool parse () throws Error;
 

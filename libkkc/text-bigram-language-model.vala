@@ -187,7 +187,8 @@ namespace Kkc {
         }
 
         public TextBigramLanguageModel (LanguageModelMetadata metadata) throws Error {
-            base (metadata);
+            Object (metadata: metadata);
+            init (null);
         }
     }
 }

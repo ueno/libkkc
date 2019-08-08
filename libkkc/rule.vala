@@ -171,7 +171,8 @@ namespace Kkc {
         }
 
         public RuleMetadata (string name, string filename) throws Error {
-            base (name, filename);
+            Object (name: name, filename: filename);
+            init (null);
         }
 
         public override bool parse (Json.Object object) throws Error {

@@ -43,11 +43,6 @@ namespace Kkc {
          */
         public string filename { get; construct set; }
 
-        public MetadataFile (string name, string filename) throws Error {
-            Object (name: name, filename: filename);
-            init (null);
-        }
-
         public abstract bool parse (Json.Object object) throws Error;
 
         public bool init (GLib.Cancellable? cancellable = null) throws Error {
