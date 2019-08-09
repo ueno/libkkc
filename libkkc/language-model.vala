@@ -101,7 +101,7 @@ namespace Kkc {
         public abstract new LanguageModelEntry? @get (string input,
                                                       string output);
 
-        public LanguageModel (LanguageModelMetadata metadata) throws Error {
+        protected LanguageModel (LanguageModelMetadata metadata) throws Error {
             Object (metadata: metadata);
             init (null);
         }

@@ -43,7 +43,7 @@ namespace Kkc {
          */
         public string filename { get; construct set; }
 
-        public MetadataFile (string name, string filename) throws Error {
+        protected MetadataFile (string name, string filename) throws Error {
             Object (name: name, filename: filename);
             init (null);
         }
