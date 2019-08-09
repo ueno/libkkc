@@ -5,7 +5,7 @@ language: c
 env:
   - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64"
   - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 --enable-docs" DOCS=yes EXTRA_PKGS="gtk-doc valadoc valadoc-devel"
-  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 --enable-code-coverage" COVERAGE=yes EXTRA_PKGS="python-pip"
+  - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 --enable-code-coverage PYTHON=python3" COVERAGE=yes EXTRA_PKGS="python3-marisa python3-pip"
   - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=address -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'" EXTRA_PKGS="libasan"
   - BUILD_OPTS="--prefix=/usr --libdir=/usr/lib64 CFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' CXXFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LDFLAGS='-fsanitize=undefined -g -fno-common -U_FORTIFY_SOURCE' LIBS='-ldl -lpthread'" EXTRA_PKGS="libubsan"
 
