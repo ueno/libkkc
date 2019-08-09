@@ -29,7 +29,7 @@ public abstract class Kkc.TestCase : Object
 
   public delegate void TestMethod ();
 
-  public TestCase (string name)
+  protected TestCase (string name)
     {
       this._suite = new GLib.TestSuite (name);
     }
