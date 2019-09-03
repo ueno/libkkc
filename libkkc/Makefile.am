@@ -34,6 +34,7 @@ libkkc_la_VALAFLAGS =						\
 	--pkg gee-0.8						\
 	--pkg json-glib-1.0					\
 	--pkg marisa-glib					\
+	--pkg xkbcommon						\
 	--internal-vapi kkc-internals-@KKC_API_VERSION@.vapi	\
 	--library kkc-@KKC_API_VERSION@				\
 	--gir Kkc-@KKC_API_VERSION@.gir				\
@@ -170,7 +171,6 @@ EXTRA_DIST =					\
 	config.vapi				\
 	kkc-1.0.deps				\
 	libkkc.symbols				\
-	ks_tables.h				\
 	keysyms.h				\
 	keysyms.vapi				\
 	$(NULL)

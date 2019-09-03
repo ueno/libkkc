@@ -17,7 +17,7 @@ before_install:
   - export CONTAINER=$(docker run -d fedora sleep 1800)
   - docker exec $CONTAINER dnf -y install 'dnf-command(builddep)'
   - docker exec $CONTAINER dnf -y builddep libkkc
-  - docker exec $CONTAINER dnf -y install libtool make which gcc-c++ vala vala-devel git $EXTRA_PKGS
+  - docker exec $CONTAINER dnf -y install libtool make which gcc-c++ vala vala-devel git libxkbcommon-devel $EXTRA_PKGS
   - docker exec $CONTAINER useradd user
 
 install:

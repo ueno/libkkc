@@ -57,6 +57,7 @@ libkkc_doc_deps = \
 	posix \
 	json-glib-1.0 \
 	marisa-glib \
+	xkbcommon \
 	$(NULL)
 valadoc_flags_libkkc = \
 	$(valadoc_flags) \
