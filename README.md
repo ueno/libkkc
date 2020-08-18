@@ -13,7 +13,7 @@ in a bit more complex way using N-gram language models.
 Install
 ------
 
-1. compile and install [marisa-trie](https://code.google.com/p/marisa-trie/)
+1. compile and install [marisa-trie](https://github.com/s-yata/marisa-trie)
 
 2. compile and install
 
