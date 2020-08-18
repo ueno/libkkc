@@ -14,7 +14,7 @@ services:
 
 before_install:
   - docker pull fedora
-  - export CONTAINER=$(docker run -d fedora sleep 1800)
+  - export CONTAINER=$(docker run -d --cap-add=SYS_PTRACE fedora sleep 1800)
   - docker exec $CONTAINER dnf -y install 'dnf-command(builddep)'
   - docker exec $CONTAINER dnf -y builddep libkkc
   - docker exec $CONTAINER dnf -y install libtool make which gcc-c++ vala vala-devel git $EXTRA_PKGS
