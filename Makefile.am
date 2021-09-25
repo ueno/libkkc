@@ -52,6 +52,9 @@ GITIGNOREFILES =							\
 	po/remove-potcdate.sin						\
 	po/stamp-po							\
 	test-driver							\
+	tests/\*.log							\
+	tests/\*.trs							\
+	tests/test-user-\*						\
 	$(NULL)
 
 distclean-local:
