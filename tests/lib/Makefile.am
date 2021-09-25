@@ -4,9 +4,7 @@ libkkc_test_la_SOURCES = test-case.vala test-utils.vala
 
 libkkc_test_la_CFLAGS =				\
 	$(AM_CFLAGS)				\
-	$(GIO_CFLAGS)				\
-	$(GEE_CFLAGS)				\
-	$(JSON_GLIB_CFLAGS)			\
+	$(LIBKKC_CFLAGS)				\
 	$(NULL)
 
 libkkc_test_la_CPPFLAGS =			\
@@ -18,9 +16,7 @@ libkkc_test_la_CPPFLAGS =			\
 libkkc_test_la_LIBADD =					\
 	$(AM_LIBADD)					\
 	$(top_builddir)/libkkc/libkkc-internals.la	\
-	$(GIO_LIBS)					\
-	$(GEE_LIBS)					\
-	$(JSON_GLIB_LIBS)				\
+	$(LIBKKC_LIBS)					\
 	$(NULL)
 
 libkkc_test_la_VALAFLAGS =			\
