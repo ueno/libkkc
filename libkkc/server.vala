@@ -97,39 +97,39 @@ namespace Kkc
             }
         }
 
-        public bool select_at (uint index_in_page) {
+        public bool select_at (uint index_in_page) throws Error {
             return this.candidates.select_at (index_in_page);
         }
 
-        public void select () {
+        public void select () throws Error {
             this.candidates.select ();
         }
 
-        public bool first () {
+        public bool first () throws Error {
             return this.candidates.first ();
         }
 
-        public bool next () {
+        public bool next () throws Error {
             return this.candidates.next ();
         }
 
-        public bool previous () {
+        public bool previous () throws Error {
             return this.candidates.previous ();
         }
 
-        public bool cursor_up () {
+        public bool cursor_up () throws Error {
             return this.candidates.cursor_up ();
         }
 
-        public bool cursor_down () {
+        public bool cursor_down () throws Error {
             return this.candidates.cursor_down ();
         }
 
-        public bool page_up () {
+        public bool page_up () throws Error {
             return this.candidates.page_up ();
         }
 
-        public bool page_down () {
+        public bool page_down () throws Error {
             return this.candidates.page_down ();
         }
 
@@ -164,6 +164,7 @@ namespace Kkc
 
         public new void @get (int index, out string midasi, out bool okuri,
                               out string text, out string annotation)
+                              throws Error
         {
             var candidate = this.candidates.get (index);
             midasi = candidate.midasi;
@@ -232,33 +233,35 @@ namespace Kkc
             }
         }
 
-        public new void @get (int index, out string input, out string output) {
+        public new void @get (int index, out string input, out string output)
+                              throws Error
+        {
             var segment = this.segments.get (index);
             input = segment.input;
             output = segment.output;
         }
 
-        public bool first_segment () {
+        public bool first_segment () throws Error {
             return this.segments.first_segment ();
         }
 
-        public bool last_segment () {
+        public bool last_segment () throws Error {
             return this.segments.last_segment ();
         }
 
-        public void next_segment () {
+        public void next_segment () throws Error {
             this.segments.next_segment ();
         }
 
-        public void previous_segment () {
+        public void previous_segment () throws Error {
             this.segments.previous_segment ();
         }
 
-        public string get_output () {
+        public string get_output () throws Error {
             return this.segments.get_output ();
         }
 
-        public string get_input () {
+        public string get_input () throws Error {
             return this.segments.get_input ();
         }
 
@@ -368,34 +371,34 @@ namespace Kkc
         }
 
         public bool process_key_event (uint keyval, uint keycode,
-                                       uint modifiers)
+                                       uint modifiers) throws Error
         {
             var event = new Kkc.KeyEvent (keyval, keycode,
                                           (ModifierType) modifiers);
             return this.context.process_key_event (event);
         }
 
-        public bool process_command_event (string command) {
+        public bool process_command_event (string command) throws Error {
             return this.context.process_command_event (command);
         }
 
-        public void reset () {
+        public void reset () throws Error {
             this.context.reset ();
         }
 
-        public bool has_output () {
+        public bool has_output () throws Error {
             return this.context.has_output ();
         }
 
-        public string peek_output () {
+        public string peek_output () throws Error {
             return this.context.peek_output ();
         }
 
-        public string poll_output () {
+        public string poll_output () throws Error {
             return this.context.poll_output ();
         }
 
-        public void clear_output () {
+        public void clear_output () throws Error {
             this.context.clear_output ();
         }
 
@@ -460,7 +463,7 @@ namespace Kkc
         void on_name_lost (DBusConnection connection, string name) {
         }
 
-        public string create_context (BusName sender) {
+        public string create_context (BusName sender) throws Error {
             var context = new Kkc.Context (this.model);
             context.dictionaries = dictionaries;
             if (typing_rule != null)
@@ -476,14 +479,18 @@ namespace Kkc
                 BusNameWatcherFlags.NONE,
                 null,
                 (c, n) => {
-                    destroy_context (object_path);
+                    try {
+                        destroy_context (object_path);
+                    } catch (Error e) {
+                        stderr.printf ("%s\n", e.message);
+                    }
                 });
             return object_path;
         }
 
         Map<string,DBusContext> contexts = new HashMap<string,DBusContext> ();
 
-        public void destroy_context (string object_path) {
+        public void destroy_context (string object_path) throws Error {
             DBusContext context;
             if (contexts.unset (object_path, out context))
                 context.unregister ();
