@@ -94,6 +94,8 @@ namespace Kkc {
                 }
 
                 switch (state) {
+                case UserSentenceState.NONE:
+                    break;
                 case UserSentenceState.CONSTRAINT:
                     var numbers = new ArrayList<int> ();
                     var strv = candidates_str.slice (1, -1).split (",");
