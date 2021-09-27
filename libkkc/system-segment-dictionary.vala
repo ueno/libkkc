@@ -70,7 +70,7 @@ namespace Kkc {
         // Skip until the first occurrence of line.  This moves offset
         // at the beginning of the next line.
         bool read_until (ref long offset, string line) {
-            return_val_if_fail (offset < mmap.get_length (), null);
+            return_val_if_fail (offset < mmap.get_length (), false);
             while (offset + line.length < mmap.get_length ()) {
                 char *p = ((char *)mmap.get_contents () + offset);
                 if (*p == '\n' &&
