@@ -90,11 +90,11 @@ namespace Kkc {
         }
 
         internal bool contains (Candidate candidate) {
-            return candidate.output in seen;
+            return candidate.output in seen.keys;
         }
 
         internal bool add (Candidate candidate) {
-            if (candidate.output in seen) {
+            if (candidate.output in seen.keys) {
                 var c = seen.get (candidate.output);
                 // If the given candidate has annotation and the
                 // existing one doesn't, copy it.
