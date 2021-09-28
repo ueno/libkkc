@@ -33,7 +33,7 @@ namespace Kkc {
      */
     public class NicolaKeyEventFilter : KeyEventFilter {
         static int64 get_time () {
-            return get_real_time();
+            return get_monotonic_time();
         }
 
         public GetTime get_time_func = get_time;
