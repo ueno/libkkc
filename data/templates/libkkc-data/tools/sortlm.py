@@ -66,7 +66,7 @@ class SortedGenerator(object):
                 continue
             strv = match.groups()
             self.__vocab_keyset.push_back(strv[1])
-            if not strv[1] in ("<s>", "</s>", "<UNK>"):
+            if not strv[1] in ("<s>", "</s>", "<unk>", "<S>", "</S>", "<UNK>"):
                 if "/" not in strv[1]:
                     continue
                 (input, output) = strv[1].split("/")
@@ -144,7 +144,11 @@ class SortedGenerator(object):
         bigram_offsets = {}
         bigram_file = open("%s.2gram" % self.__output_prefix, "wb")
         keys = self.__ngram_entries[1].keys()
-        items = [(struct.pack("=LL", ids[1], unigram_offsets[ids[0]]), ids) for ids in keys]
+        items = []
+        for ids in keys:
+            if len(ids) < 2:
+                continue
+            items.append([struct.pack("=LL", ids[1], unigram_offsets[ids[0]]), ids])
         offset = 0
         for header, ids in sorted(items, key=lambda x: x[0]):
             value = self.__ngram_entries[1][ids]
@@ -160,7 +164,11 @@ class SortedGenerator(object):
             print("writing 3-gram file")
             trigram_file = open("%s.3gram" % self.__output_prefix, "wb")
             keys = self.__ngram_entries[2].keys()
-            items = [(struct.pack("=LL", ids[2], bigram_offsets[(ids[0], ids[1])]), ids) for ids in keys]
+            items = []
+            for ids in keys:
+                if len(ids) < 3 or not (ids[0], ids[1]) in bigram_offsets:
+                    continue
+                items.append([struct.pack("=LL", ids[2], bigram_offsets[(ids[0], ids[1])]), ids])
             for header, ids in sorted(items, key=lambda x: x[0]):
                 value = self.__ngram_entries[2][ids]
                 s = struct.pack("=H",
