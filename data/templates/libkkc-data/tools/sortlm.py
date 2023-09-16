@@ -53,7 +53,7 @@ class SortedGenerator(object):
             if line.startswith("\\1-grams"):
                 break
 
-        unigram_count = 0
+        add_bos = add_eos = True
         while True:
             line = self.__infile.readline()
             if line == "":
@@ -66,11 +66,21 @@ class SortedGenerator(object):
                 continue
             strv = match.groups()
             self.__vocab_keyset.push_back(strv[1])
+            if strv[1] in ("<s>", "<S>"):
+                add_bos = False
+            if strv[1] in ("</s>", "</S>"):
+                add_eos = False
             if not strv[1] in ("<s>", "</s>", "<unk>", "<S>", "</S>", "<UNK>"):
                 if "/" not in strv[1]:
                     continue
                 (input, output) = strv[1].split("/")
                 self.__input_keyset.push_back(input)
+
+        # add fake BOS/EOS if file has no BOS/EOS
+        if add_bos:
+            self.__vocab_keyset.push_back("<s>")
+        if add_eos:
+            self.__vocab_keyset.push_back("</s>")
 
         self.__vocab_trie.build(self.__vocab_keyset)
         self.__input_trie.build(self.__input_keyset)
@@ -111,6 +121,20 @@ class SortedGenerator(object):
                 if strv[2]:
                     backoff = float(strv[2])
                 self.__ngram_entries[n - 1][tuple(ids)] = (cost, backoff)
+
+            # cost/backoff for fake BOS/EOS
+            if n == 1:
+                for word in ("<s>", "</s>"):
+                    agent = marisa.Agent()
+                    agent.set_query(word)
+                    if not self.__vocab_trie.lookup(agent):
+                        continue
+                    id = tuple([agent.key_id()])
+                    try:
+                        self.__ngram_entries[0][id]
+                    except KeyError:
+                        self.__ngram_entries[0][id] = (-99, 0.0)
+                        pass
 
     def write(self):
         self.__min_cost = -8.0
