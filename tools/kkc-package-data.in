@@ -44,22 +44,27 @@ func_error ()
       --type|-t)
         test $# = 0 && func_error "missing argument for $opt" && break
         opt_sorted="$1"
+        shift
         ;;
       --package-name|-N)
         test $# = 0 && func_error "missing argument for $opt" && break
         opt_package_name="$1"
+        shift
         ;;
       --package-version|-V)
         test $# = 0 && func_error "missing argument for $opt" && break
         opt_package_version="$1"
+        shift
         ;;
       --package-bugreport|-B)
         test $# = 0 && func_error "missing argument for $opt" && break
         opt_package_bugreport="$1"
+        shift
         ;;
       --template|-T)
         test $# = 0 && func_error "missing argument for $opt" && break
         opt_template="$1"
+        shift
         ;;
       --help)
 	cat <<EOF
