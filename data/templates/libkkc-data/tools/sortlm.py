@@ -53,7 +53,7 @@ class SortedGenerator(object):
             if line.startswith("\\1-grams"):
                 break
 
-        unigram_count = 0
+        add_bos = add_eos = True
         while True:
             line = self.__infile.readline()
             if line == "":
@@ -66,11 +66,21 @@ class SortedGenerator(object):
                 continue
             strv = match.groups()
             self.__vocab_keyset.push_back(strv[1])
-            if not strv[1] in ("<s>", "</s>", "<UNK>"):
+            if strv[1] in ("<s>", "<S>"):
+                add_bos = False
+            if strv[1] in ("</s>", "</S>"):
+                add_eos = False
+            if not strv[1] in ("<s>", "</s>", "<unk>", "<S>", "</S>", "<UNK>"):
                 if "/" not in strv[1]:
                     continue
                 (input, output) = strv[1].split("/")
                 self.__input_keyset.push_back(input)
+
+        # add fake BOS/EOS if file has no BOS/EOS
+        if add_bos:
+            self.__vocab_keyset.push_back("<s>")
+        if add_eos:
+            self.__vocab_keyset.push_back("</s>")
 
         self.__vocab_trie.build(self.__vocab_keyset)
         self.__input_trie.build(self.__input_keyset)
@@ -112,6 +122,20 @@ class SortedGenerator(object):
                     backoff = float(strv[2])
                 self.__ngram_entries[n - 1][tuple(ids)] = (cost, backoff)
 
+            # cost/backoff for fake BOS/EOS
+            if n == 1:
+                for word in ("<s>", "</s>"):
+                    agent = marisa.Agent()
+                    agent.set_query(word)
+                    if not self.__vocab_trie.lookup(agent):
+                        continue
+                    id = tuple([agent.key_id()])
+                    try:
+                        self.__ngram_entries[0][id]
+                    except KeyError:
+                        self.__ngram_entries[0][id] = (-99, 0.0)
+                        pass
+
     def write(self):
         self.__min_cost = -8.0
         self.__write_tries()
@@ -144,7 +168,11 @@ class SortedGenerator(object):
         bigram_offsets = {}
         bigram_file = open("%s.2gram" % self.__output_prefix, "wb")
         keys = self.__ngram_entries[1].keys()
-        items = [(struct.pack("=LL", ids[1], unigram_offsets[ids[0]]), ids) for ids in keys]
+        items = []
+        for ids in keys:
+            if len(ids) < 2:
+                continue
+            items.append([struct.pack("=LL", ids[1], unigram_offsets[ids[0]]), ids])
         offset = 0
         for header, ids in sorted(items, key=lambda x: x[0]):
             value = self.__ngram_entries[1][ids]
@@ -160,7 +188,11 @@ class SortedGenerator(object):
             print("writing 3-gram file")
             trigram_file = open("%s.3gram" % self.__output_prefix, "wb")
             keys = self.__ngram_entries[2].keys()
-            items = [(struct.pack("=LL", ids[2], bigram_offsets[(ids[0], ids[1])]), ids) for ids in keys]
+            items = []
+            for ids in keys:
+                if len(ids) < 3 or not (ids[0], ids[1]) in bigram_offsets:
+                    continue
+                items.append([struct.pack("=LL", ids[2], bigram_offsets[(ids[0], ids[1])]), ids])
             for header, ids in sorted(items, key=lambda x: x[0]):
                 value = self.__ngram_entries[2][ids]
                 s = struct.pack("=H",
